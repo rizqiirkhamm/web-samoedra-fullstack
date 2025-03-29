@@ -4,43 +4,52 @@
 <div class="container mx-auto px-4 py-8">
     <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md dark:bg-darkblack-600">
         <div class="p-6">
-            <h2 class="text-2xl font-bold mb-6">Edit Profil</h2>
+            <h2 class="text-2xl font-bold mb-6">Ganti Password</h2>
 
-            <form action="{{ route('profile.update') }}" method="POST">
+            <form action="{{ route('password.update') }}" method="POST">
                 @csrf
                 @method('PUT')
 
-                <!-- Nama -->
+                <!-- Current Password -->
                 <div class="mb-4">
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Nama
+                        Password Saat Ini
                     </label>
-                    <input type="text"
-                           name="name"
-                           value="{{ old('name', Auth::user()->name) }}"
+                    <input type="password"
+                           name="current_password"
                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-success-300">
-                    @error('name')
+                    @error('current_password')
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
 
-                <!-- Email -->
+                <!-- New Password -->
                 <div class="mb-4">
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Email
+                        Password Baru
                     </label>
-                    <input type="email"
-                           name="email"
-                           value="{{ old('email', Auth::user()->email) }}"
+                    <input type="password"
+                           name="password"
                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-success-300">
-                    @error('email')
+                    @error('password')
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
+
+                <!-- Confirm Password -->
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Konfirmasi Password Baru
+                    </label>
+                    <input type="password"
+                           name="password_confirmation"
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-success-300">
+                </div>
+
                 <div class="flex justify-end">
                     <button type="submit"
                             class="px-4 py-2 bg-success-300 text-white rounded-md hover:bg-success-400 focus:outline-none focus:ring-2 focus:ring-success-300">
-                        Simpan Perubahan
+                        Simpan Password
                     </button>
                 </div>
             </form>

@@ -20,6 +20,11 @@ class LayananModel extends Model
                 'id' => 'bimbel',
                 'nama_layanan' => 'Bimbel',
                 'slug' => 'bimbel'
+            ],
+            [
+                'id' => 'event',
+                'nama_layanan' => 'Event',
+                'slug' => 'event'
             ]
         ];
     }
