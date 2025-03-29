@@ -355,6 +355,7 @@
         </div>
     </div>
 </div>
+
 @endsection
 
 @push('scripts')
@@ -536,8 +537,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentPage = 1;
     let perPage = 10;
     let searchQuery = '';
-    let dateStart = '';
-    let dateEnd = '';
 
     // Handler untuk pencarian
     let searchTimeout;
@@ -553,20 +552,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Handler untuk filter tanggal
-    document.getElementById('dateStart').addEventListener('change', function() {
-        dateStart = this.value;
-        fetchData();
-    });
-
-    document.getElementById('dateEnd').addEventListener('change', function() {
-        dateEnd = this.value;
-        fetchData();
-    });
-
     // Fungsi untuk fetch data
     function fetchData() {
-        const url = `/journal?page=${currentPage}&per_page=${perPage}&search=${searchQuery}&date_start=${dateStart}&date_end=${dateEnd}`;
+        const url = `/journal?page=${currentPage}&per_page=${perPage}&search=${searchQuery}`;
 
         fetch(url, {
             headers: {

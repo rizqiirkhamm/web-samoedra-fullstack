@@ -1093,15 +1093,19 @@ function createTableRow(item) {
             </td>
             <td class="px-6 py-5 xl:px-0">
                 <span class="timer text-base font-medium text-bgray-900 dark:text-white"
-                      data-remaining="${item.remaining_time}"
-                      data-duration="${duration}"
-                      data-selected-date-time="${item.start_datetime}">
-                    @if($item->status === 'playing')
-                        {{ gmdate('H:i:s', $item->remaining_time) }}
-                    @elseif($item->status === 'waiting')
-                        Belum Mulai
+                      data-remaining="{{ isset($item) ? $item->remaining_time : 0 }}"
+                      data-duration="{{ isset($item) ? $item->duration : 0 }}"
+                      data-selected-date-time="{{ isset($item) ? $item->start_datetime : '' }}">
+                    @if(isset($item))
+                        @if($item->status === 'playing')
+                            {{ gmdate('H:i:s', $item->remaining_time) }}
+                        @elseif($item->status === 'waiting')
+                            Belum Mulai
+                        @else
+                            Selesai
+                        @endif
                     @else
-                        Selesai
+                        -
                     @endif
                 </span>
             </td>
@@ -1253,11 +1257,12 @@ function calculatePrice(duration, needSocks) {
     let price = 0;
     duration = parseInt(duration) || 0;
 
-    // Hitung harga bermain
+    // Hitung harga bermain dengan harga yang diperbarui
     switch(duration) {
         case 1: price = 15000; break;
-        case 2: price = 25000; break;
-        case 3: price = 50000; break;
+        case 2: price = 30000; break;
+        case 3: price = 35000; break;
+        case 6: price = 45000; break; // Tambahan untuk sepuasnya (6 jam)
     }
 
     // Tambah harga kaos kaki jika diperlukan
@@ -1312,7 +1317,7 @@ function generateInvoicePDF(id, name, age, day, startDateTime, duration, needSoc
     doc.setTextColor(...primaryColor);
     doc.setFontSize(24);
     doc.setFont('helvetica', 'bold');
-    doc.text('INVOICE', 190, 25, { align: 'right' });
+    doc.text('INVOICE BERMAIN', 190, 25, { align: 'right' });
 
     // Informasi Invoice
     doc.setFontSize(10);
@@ -1360,10 +1365,22 @@ function generateInvoicePDF(id, name, age, day, startDateTime, duration, needSoc
     let yPos = 115;
     doc.setFont('helvetica', 'normal');
 
+    // Tentukan harga berdasarkan durasi
+    let durPrice = 0;
+    switch(parseInt(duration)) {
+        case 1: durPrice = 15000; break;
+        case 2: durPrice = 30000; break;
+        case 3: durPrice = 35000; break;
+        case 6: durPrice = 45000; break; // Sepuasnya (6 jam)
+        default: durPrice = 0;
+    }
+
+    // Format harga dengan pemisah ribuan
+    const formattedDurPrice = durPrice.toLocaleString('id-ID');
+
     // Detail bermain
-    const durPrice = duration === 1 ? '15.000' : duration === 2 ? '25.000' : '50.000';
-    doc.text(`Bermain (${duration} jam)`, 25, yPos);
-    doc.text(`Rp ${durPrice}`, 180, yPos, { align: 'right' });
+    doc.text(`Bermain ${duration} Jam${parseInt(duration) == 6 ? ' (Sepuasnya)' : ''}`, 25, yPos);
+    doc.text(`Rp ${formattedDurPrice}`, 180, yPos, { align: 'right' });
 
     yPos += 20;
 
@@ -1385,12 +1402,7 @@ function generateInvoicePDF(id, name, age, day, startDateTime, duration, needSoc
     yPos += 16;
 
     // Total dengan style yang lebih bold
-    let totalPrice = 0;
-    switch(parseInt(duration)) {
-        case 1: totalPrice = 15000; break;
-        case 2: totalPrice = 25000; break;
-        case 3: totalPrice = 50000; break;
-    }
+    let totalPrice = durPrice;
     if (needSocks) totalPrice += 15000;
 
     doc.setFont('helvetica', 'bold');
@@ -1410,9 +1422,9 @@ function generateInvoicePDF(id, name, age, day, startDateTime, duration, needSoc
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(9);
     doc.setTextColor(...textColor);
-    doc.text('Little Star Kids', 105, footerY - 8, { align: 'center' });
-    doc.text('Jl. Contoh No. 123, Kota, Indonesia', 105, footerY - 3, { align: 'center' });
-    doc.text('Telp: (021) 1234567 | Email: info@littlestarkids.com', 105, footerY + 2, { align: 'center' });
+    doc.text('Rumah Bermain & Belajar Samoedra', 105, footerY - 8, { align: 'center' });
+    doc.text('Jl. Mutiara No.C80, Padasuka, Kec. Ciomas, Kabupaten Bogor, Jawa Barat 16610', 105, footerY - 3, { align: 'center' });
+    doc.text('Telp: 0896-1111-1153 | instagram: @maindisamoedra', 105, footerY + 2, { align: 'center' });
 
     // Catatan
     doc.setFontSize(8);

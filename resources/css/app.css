@@ -2,3 +2,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom Pagination Styling */
+.pagination {
+    @apply flex justify-center gap-2 mt-4;
+}
+
+.pagination > * {
+    @apply px-3 py-1 rounded-lg border border-gray-200 dark:border-darkblack-400;
+}
+
+.pagination .active {
+    @apply bg-success-300 text-white border-success-300;
+}
+
+.pagination a:hover {
+    @apply bg-gray-50 dark:bg-darkblack-500;
+}

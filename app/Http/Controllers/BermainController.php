@@ -29,15 +29,20 @@ class BermainController extends Controller
         $query = BermainModel::query();
 
         // Filter berdasarkan status jika ada
-        if ($request->has('status')) {
+        if ($request->has('status') && $request->status !== 'all') {
             $query->where('status', $request->status);
         }
 
         // Filter berdasarkan search jika ada
         if ($request->has('search')) {
-            $query->where('name', 'LIKE', '%' . $request->search . '%');
+            $query->where(function($q) use ($request) {
+                $q->where('name', 'LIKE', '%' . $request->search . '%')
+                  ->orWhere('day', 'LIKE', '%' . $request->search . '%')
+                  ->orWhere('start_datetime', 'LIKE', '%' . $request->search . '%');
+            });
         }
 
+        // Update data untuk tampilan
         $data['total_active'] = BermainModel::where('status', 'playing')->count();
         $data['total_today'] = BermainModel::whereDate('created_at', today())->count();
         $data['total_all'] = BermainModel::count();

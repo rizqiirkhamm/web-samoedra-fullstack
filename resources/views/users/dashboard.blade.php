@@ -2,6 +2,11 @@
 
 @section('title', 'Dashboard')
 
+@push('head')
+<!-- Tambahkan Chart.js dari CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+@endpush
+
 @section('content')
 
 
@@ -10,157 +15,91 @@
         <section class="mb-6 2xl:mb-0 2xl:flex-1">
             <!-- total widget-->
             <div class="mb-[24px] w-full">
-                <div class="grid grid-cols-1 gap-[24px] lg:grid-cols-3">
-                    <div class="rounded-lg bg-white p-5 dark:bg-darkblack-600">
-                        <div class="mb-5 flex items-center justify-between">
-                            <div class="flex items-center space-x-[7px]">
-                                <div class="icon">
-                                    <span class="inline-block h-[38px] w-[38px] rounded-full bg-success-50 p-2">
-                                        <img src="{{asset('/images/icons/total-earn.svg')}}" alt="icon" />
-                                    </span>
+                <div class="grid grid-cols-1 gap-[24px] lg:grid-cols-5">
+                    <!-- Total Daycare Card -->
+                    <div class="rounded-xl bg-white p-6 dark:bg-darkblack-600 shadow-md border border-gray-100 dark:border-darkblack-400 hover:shadow-lg transition-all duration-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center">
+                                <div class="inline-block p-4 rounded-lg bg-success-50">
+                                    <svg class="w-8 h-8 text-success-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                                    </svg>
                                 </div>
-                                <span class="text-lg font-semibold text-bgray-900 dark:text-white">Total
-                                    Daycare</span>
-                            </div>
-                        </div>
-                        <div class="flex items-end justify-between">
-                            <div class="flex-1">
-                                <p class="text-3xl font-bold leading-[48px] text-bgray-900 dark:text-white">
-                                    {{ $totalDaycare }}
-                                </p>
-                                <div class="flex items-center space-x-1">
-                                    <span class="text-sm font-medium text-success-300">
-                                        + {{ number_format($daycareGrowth, 1) }}%
-                                    </span>
-                                    <span class="text-sm font-medium text-bgray-700 dark:text-bgray-50">
-                                        dari minggu lalu
-                                    </span>
+                                <div class="ml-4">
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Total Daycare</p>
+                                    <h3 class="text-2xl font-bold text-bgray-900 dark:text-white mt-1">{{ $totalDaycare }}</h3>
                                 </div>
-                            </div>
-                            <div class="w-[106px]">
-                                <canvas id="totalEarn" height="68"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="rounded-lg bg-white p-5 dark:bg-darkblack-600">
-                        <div class="mb-5 flex items-center justify-between">
-                            <div class="flex items-center space-x-[7px]">
-                                <div class="icon">
-                                    <span class="inline-block h-[38px] w-[38px] rounded-full bg-warning-50 p-2">
-                                        <img src="{{asset('/images/icons/total-earn.svg')}}" alt="icon" />
-                                    </span>
-                                </div>
-                                <span class="text-lg font-semibold text-bgray-900 dark:text-white">Total
-                                    Bimbel</span>
-                            </div>
-                        </div>
-                        <div class="flex items-end justify-between">
-                            <div class="flex-1">
-                                <p class="text-3xl font-bold leading-[48px] text-bgray-900 dark:text-white">
-                                    {{ $totalBimbel }}
-                                </p>
-                                <div class="flex items-center space-x-1">
-                                    @if($bimbelGrowth > 0)
-                                        <span class="text-sm font-medium text-success-300">
-                                            + {{ number_format($bimbelGrowth, 1) }}%
-                                        </span>
-                                    @else
-                                        <span class="text-sm font-medium text-danger-300">
-                                            {{ number_format($bimbelGrowth, 1) }}%
-                                        </span>
-                                    @endif
-                                    <span class="text-sm font-medium text-bgray-700 dark:text-bgray-50">
-                                        dari minggu lalu
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="w-[106px]">
-                                <canvas id="totalSpending" height="68"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="rounded-lg bg-white p-5 dark:bg-darkblack-600">
-                        <div class="mb-5 flex items-center justify-between">
-                            <div class="flex items-center space-x-[7px]">
-                                <div class="icon">
-                                    <span class="inline-block h-[38px] w-[38px] rounded-full bg-primary-50 p-2">
-                                        <img src="{{asset('/images/icons/total-earn.svg')}}" alt="icon" />
-                                    </span>
-                                </div>
-                                <span class="text-lg font-semibold text-bgray-900 dark:text-white">Total
-                                    Bermain</span>
-                            </div>
-                        </div>
-                        <div class="flex items-end justify-between">
-                            <div class="flex-1">
-                                <p class="text-3xl font-bold leading-[48px] text-bgray-900 dark:text-white">
-                                    {{ $totalBermain }}
-                                </p>
-                                <div class="flex items-center space-x-1">
-                                    @if($bermainGrowth > 0)
-                                        <span class="text-sm font-medium text-success-300">
-                                            + {{ number_format($bermainGrowth, 1) }}%
-                                        </span>
-                                    @else
-                                        <span class="text-sm font-medium text-danger-300">
-                                            {{ number_format($bermainGrowth, 1) }}%
-                                        </span>
-                                    @endif
-                                    <span class="text-sm font-medium text-bgray-700 dark:text-bgray-50">
-                                        dari minggu lalu
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="w-[106px]">
-                                <canvas id="totalGoal" height="68"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="rounded-lg bg-white p-5 dark:bg-darkblack-600">
-                        <div class="mb-5 flex items-center justify-between">
-                            <div class="flex items-center space-x-[7px]">
-                                <div class="icon">
-                                    <span class="inline-block h-[38px] w-[38px] rounded-full bg-success-50 p-2">
-                                        <img src="{{asset('/images/icons/total-earn.svg')}}" alt="icon" />
-                                    </span>
-                                </div>
-                                <span class="text-lg font-semibold text-bgray-900 dark:text-white">Total
-                                    Event
-                                </span>
-                            </div>
-                        </div>
-                        <div class="flex items-end justify-between">
-                            <div class="flex-1">
-                                <p class="text-3xl font-bold leading-[48px] text-bgray-900 dark:text-white">
-                                    40
-                                </p>
-                                <div class="flex items-center space-x-1">
-                                    <span>
-                                        <svg width="16" height="14" viewBox="0 0 16 14" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M13.4318 0.522827L12.4446 0.522827L8.55575 0.522827L7.56859 0.522827C6.28227 0.522827 5.48082 1.91818 6.12896 3.02928L9.06056 8.05489C9.7037 9.1574 11.2967 9.1574 11.9398 8.05489L14.8714 3.02928C15.5196 1.91818 14.7181 0.522828 13.4318 0.522827Z"
-                                                fill="#22C55E" />
-                                            <path opacity="0.4"
-                                                d="M2.16878 13.0485L3.15594 13.0485L7.04483 13.0485L8.03199 13.0485C9.31831 13.0485 10.1198 11.6531 9.47163 10.542L6.54002 5.5164C5.89689 4.41389 4.30389 4.41389 3.66076 5.5164L0.729153 10.542C0.0810147 11.6531 0.882466 13.0485 2.16878 13.0485Z"
-                                                fill="#22C55E" />
-                                        </svg>
-                                    </span>
-                                    <span class="text-sm font-medium text-success-300">
-                                        + 3.5%
-                                    </span>
-                                    <span class="text-sm font-medium text-bgray-700 dark:text-bgray-50">
-                                        from last week
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="w-[106px]">
-                                <canvas id="totalGoal" height="68"></canvas>
                             </div>
                         </div>
                     </div>
 
+                    <!-- Total Bimbel Card -->
+                    <div class="rounded-xl bg-white p-6 dark:bg-darkblack-600 shadow-md border border-gray-100 dark:border-darkblack-400 hover:shadow-lg transition-all duration-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center">
+                                <div class="inline-block p-4 rounded-lg bg-warning-50">
+                                    <svg class="w-8 h-8 text-warning-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                                    </svg>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Total Bimbel</p>
+                                    <h3 class="text-2xl font-bold text-bgray-900 dark:text-white mt-1">{{ $totalBimbel }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
+                    <!-- Total Bermain Card -->
+                    <div class="rounded-xl bg-white p-6 dark:bg-darkblack-600 shadow-md border border-gray-100 dark:border-darkblack-400 hover:shadow-lg transition-all duration-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center">
+                                <div class="inline-block p-4 rounded-lg bg-info-50">
+                                    <svg class="w-8 h-8 text-info-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Total Bermain</p>
+                                    <h3 class="text-2xl font-bold text-bgray-900 dark:text-white mt-1">{{ $totalBermain }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Total Stimulasi Card -->
+                    <div class="rounded-xl bg-white p-6 dark:bg-darkblack-600 shadow-md border border-gray-100 dark:border-darkblack-400 hover:shadow-lg transition-all duration-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center">
+                                <div class="inline-block p-4 rounded-lg bg-purple-50">
+                                    <svg class="w-8 h-8 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                    </svg>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Total Stimulasi</p>
+                                    <h3 class="text-2xl font-bold text-bgray-900 dark:text-white mt-1">{{ $totalStimulasi }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Total Event Card -->
+                    <div class="rounded-xl bg-white p-6 dark:bg-darkblack-600 shadow-md border border-gray-100 dark:border-darkblack-400 hover:shadow-lg transition-all duration-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center">
+                                <div class="inline-block p-4 rounded-lg bg-pink-50">
+                                    <svg class="w-8 h-8 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                    </svg>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Total Event</p>
+                                    <h3 class="text-2xl font-bold text-bgray-900 dark:text-white mt-1">{{ $totalEvent }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- revenue, flow -->
@@ -170,184 +109,14 @@
                     <div
                         class="mb-2 flex items-center justify-between border-b border-bgray-300 pb-2 dark:border-darkblack-400">
                         <h3 class="text-xl font-bold text-bgray-900 dark:text-white sm:text-2xl">
-                            Sirkulasi Pendapatan
+                            Tingkat Bergabung Mingguan
                         </h3>
-                        <div class="hidden items-center space-x-[28px] sm:flex">
-                            <div class="flex items-center space-x-2">
-                                <div class="h-3 w-3 rounded-full bg-warning-300"></div>
-                                <span class="text-sm font-medium text-bgray-700 dark:text-bgray-50">Dalam Proses
-                                </span>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <div class="h-3 w-3 rounded-full bg-success-300"></div>
-                                <span class="text-sm font-medium text-bgray-700 dark:text-bgray-50">Pemasukan
-                                </span>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <div class="h-3 w-3 rounded-full bg-orange"></div>
-                                <span class="text-sm font-medium text-bgray-700 dark:text-bgray-50">Pengeluaran
-                                </span>
-                            </div>
-                        </div>
-                        <div class="date-filter relative">
-                            <button onclick="dateFilterAction('#date-filter-body')" type="button"
-                                class="flex items-center space-x-1 overflow-hidden rounded-lg bg-bgray-100 px-3 py-2 dark:bg-darkblack-500 dark:text-white">
-                                <span class="text-sm font-medium text-bgray-900 dark:text-white">Jan 10
-                                    -
-                                    Jan 16</span>
-                                <span>
-                                    <svg class="stroke-bgray-900 dark:stroke-gray-50" width="16" height="17"
-                                        viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M4 6.5L8 10.5L12 6.5" stroke-width="1.5" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                    </svg>
-                                </span>
-                            </button>
-                            <div id="date-filter-body"
-                                class="absolute right-0 top-[44px] z-10 hidden overflow-hidden rounded-lg bg-white shadow-lg dark:bg-darkblack-500">
-                                <ul>
-                                    <li onclick="dateFilterAction('#date-filter-body')"
-                                        class="text-bgray-90 cursor-pointer px-5 py-2 text-sm font-semibold hover:bg-bgray-100 dark:text-white hover:dark:bg-darkblack-600">
-                                        Jan 10 - Jan 16
-                                    </li>
-                                    <li onclick="dateFilterAction('#date-filter-body')"
-                                        class="cursor-pointer px-5 py-2 text-sm font-semibold text-bgray-900 hover:bg-bgray-100 dark:text-white hover:dark:bg-darkblack-600">
-                                        Jan 10 - Jan 16
-                                    </li>
-                                    <li onclick="dateFilterAction('#date-filter-body')"
-                                        class="cursor-pointer px-5 py-2 text-sm font-semibold text-bgray-900 hover:bg-bgray-100 dark:text-white hover:dark:bg-darkblack-600">
-                                        Jan 10 - Jan 16
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
                     <div class="w-full">
-                        <canvas id="revenueFlow" height="255"></canvas>
+                        <canvas id="weeklyJoinRate" height="255"></canvas>
                     </div>
                 </div>
-                <div class="hidden flex-1 xl:block">
-                    <div class="rounded-lg bg-white dark:bg-darkblack-600">
-                        <div
-                            class="flex items-center justify-between border-b border-bgray-300 px-[20px] py-[12px] dark:border-darkblack-400">
-                            <h3 class="text-xl font-bold text-bgray-900 dark:text-white">
-                                Efisiensi
-                            </h3>
-                            <div class="date-filter relative">
-                                <button onclick="dateFilterAction('#month-filter')" type="button"
-                                    class="flex items-center space-x-1">
-                                    <span class="text-base font-semibold text-bgray-900 dark:text-white">Bulanan</span>
-                                    <span>
-                                        <svg class="stroke-bgray-900 dark:stroke-bgray-50" width="16" height="17"
-                                            viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M4 6.5L8 10.5L12 6.5" stroke-width="1.5" stroke-linecap="round"
-                                                stroke-linejoin="round" />
-                                        </svg>
-                                    </span>
-                                </button>
-                                <div id="month-filter"
-                                    class="absolute right-0 top-5 z-10 hidden overflow-hidden rounded-lg bg-white shadow-lg dark:bg-darkblack-500">
-                                    <ul>
-                                        <li onclick="dateFilterAction('#month-filter')"
-                                            class="text-bgray-90 cursor-pointer px-5 py-2 text-sm font-semibold hover:bg-bgray-100 dark:text-white hover:dark:bg-darkblack-600">
-                                            Januari
-                                        </li>
-                                        <li onclick="dateFilterAction('#month-filter')"
-                                            class="cursor-pointer px-5 py-2 text-sm font-semibold text-bgray-900 hover:bg-bgray-100 dark:text-white hover:dark:bg-darkblack-600">
-                                            Febuari
-                                        </li>
 
-                                        <li onclick="dateFilterAction('#month-filter')"
-                                            class="cursor-pointer px-5 py-2 text-sm font-semibold text-bgray-900 hover:bg-bgray-100 dark:text-white hover:dark:bg-darkblack-600">
-                                            Maret
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="px-[20px] py-[12px]">
-                            <div class="mb-4 flex items-center space-x-8">
-                                <div class="relative w-[180px]">
-                                    <canvas id="pie_chart" height="168"></canvas>
-                                    <div class="absolute z-0 h-[34px] w-[34px] rounded-full bg-[#EDF2F7]" style="
-                                left: calc(50% - 17px);
-                                top: calc(50% - 17px);
-                              "></div>
-                                </div>
-                                <div class="counting">
-                                    <div class="mb-6">
-                                        <div class="flex items-center space-x-[2px]">
-                                            <p class="text-lg font-bold text-success-300">
-                                              15.500.000
-                                            </p>
-                                            <span><svg width="14" height="12" viewBox="0 0 14 12" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M10.7749 0.558058C10.5309 0.313981 10.1351 0.313981 9.89107 0.558058L7.39107 3.05806C7.14699 3.30214 7.14699 3.69786 7.39107 3.94194C7.63514 4.18602 8.03087 4.18602 8.27495 3.94194L9.70801 2.50888V11C9.70801 11.3452 9.98783 11.625 10.333 11.625C10.6782 11.625 10.958 11.3452 10.958 11V2.50888L12.3911 3.94194C12.6351 4.18602 13.0309 4.18602 13.2749 3.94194C13.519 3.69786 13.519 3.30214 13.2749 3.05806L10.7749 0.558058Z"
-                                                        fill="#22C55E" />
-                                                    <path opacity="0.4" fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M3.22407 11.4419C3.46815 11.686 3.86388 11.686 4.10796 11.4419L6.60796 8.94194C6.85203 8.69786 6.85203 8.30214 6.60796 8.05806C6.36388 7.81398 5.96815 7.81398 5.72407 8.05806L4.29102 9.49112L4.29101 1C4.29101 0.654823 4.01119 0.375001 3.66602 0.375001C3.32084 0.375001 3.04102 0.654823 3.04102 1L3.04102 9.49112L1.60796 8.05806C1.36388 7.81398 0.968151 7.81398 0.724074 8.05806C0.479996 8.30214 0.479996 8.69786 0.724074 8.94194L3.22407 11.4419Z"
-                                                        fill="#22C55E" />
-                                                </svg>
-                                            </span>
-                                        </div>
-                                        <p class="text-base font-medium text-bgray-600">
-                                            Arrival
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <div class="flex items-center space-x-[2px]">
-                                            <p class="text-lg font-bold text-bgray-900 dark:text-white">
-                                                16.042.124
-                                            </p>
-                                            <span>
-                                                <svg class="fill-bgray-900 dark:fill-bgray-50" width="14" height="12"
-                                                    viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M10.7749 0.558058C10.5309 0.313981 10.1351 0.313981 9.89107 0.558058L7.39107 3.05806C7.14699 3.30214 7.14699 3.69786 7.39107 3.94194C7.63514 4.18602 8.03087 4.18602 8.27495 3.94194L9.70801 2.50888V11C9.70801 11.3452 9.98783 11.625 10.333 11.625C10.6782 11.625 10.958 11.3452 10.958 11V2.50888L12.3911 3.94194C12.6351 4.18602 13.0309 4.18602 13.2749 3.94194C13.519 3.69786 13.519 3.30214 13.2749 3.05806L10.7749 0.558058Z" />
-                                                    <path opacity="0.4" fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M3.22407 11.4419C3.46815 11.686 3.86388 11.686 4.10796 11.4419L6.60796 8.94194C6.85203 8.69786 6.85203 8.30214 6.60796 8.05806C6.36388 7.81398 5.96815 7.81398 5.72407 8.05806L4.29102 9.49112L4.29101 1C4.29101 0.654823 4.01119 0.375001 3.66602 0.375001C3.32084 0.375001 3.04102 0.654823 3.04102 1L3.04102 9.49112L1.60796 8.05806C1.36388 7.81398 0.968151 7.81398 0.724074 8.05806C0.479996 8.30214 0.479996 8.69786 0.724074 8.94194L3.22407 11.4419Z" />
-                                                </svg>
-                                            </span>
-                                        </div>
-                                        <p class="text-base font-medium text-bgray-600 dark:text-bgray-50">
-                                            Bimbel
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="status">
-                                <div class="mb-1.5 flex items-center justify-between">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="h-2.5 w-2.5 rounded-full bg-success-300"></div>
-                                        <span class="text-sm font-medium text-bgray-600 dark:text-bgray-50">Daycare</span>
-                                    </div>
-                                    <p class="text-sm font-bold text-bgray-900 dark:text-bgray-50">
-                                        13%
-                                    </p>
-                                </div>
-                                <div class="mb-1.5 flex items-center justify-between">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="h-2.5 w-2.5 rounded-full bg-warning-300"></div>
-                                        <span class="text-sm font-medium text-bgray-600 dark:text-white">Bermain</span>
-                                    </div>
-                                    <p class="text-sm font-bold text-bgray-900 dark:text-bgray-50">
-                                        28%
-                                    </p>
-                                </div>
-                                <div class="mb-1.5 flex items-center justify-between">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="h-2.5 w-2.5 rounded-full bg-bgray-200"></div>
-                                        <span class="text-sm font-medium text-bgray-600 dark:text-white">Others</span>
-                                    </div>
-                                    <p class="text-sm font-bold text-bgray-900 dark:text-bgray-50">
-                                        59%
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <!-- Recent Users Table -->
             <div class="w-full rounded-lg bg-white px-[24px] py-[20px] dark:bg-darkblack-600">
@@ -422,8 +191,147 @@
 @endsection
 
 @push('scripts')
-<!-- Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<!-- Dashboard specific scripts -->
-<script src="{{ asset('js/dashboard-users.js') }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Weekly Join Rate Chart
+    const weeklyJoinCtx = document.getElementById('weeklyJoinRate');
+    if (weeklyJoinCtx) {
+        new Chart(weeklyJoinCtx, {
+            type: 'bar',
+            data: {
+                labels: @json($weeklyData['labels']),
+                datasets: [
+                    {
+                        label: 'Daycare',
+                        data: @json($weeklyData['daycare']),
+                        backgroundColor: '#22C55E', // Hijau
+                        borderRadius: 6,
+                    },
+                    {
+                        label: 'Bimbel',
+                        data: @json($weeklyData['bimbel']),
+                        backgroundColor: '#F59E0B', // Orange
+                        borderRadius: 6,
+                    },
+                    {
+                        label: 'Bermain',
+                        data: @json($weeklyData['bermain']),
+                        backgroundColor: '#3B82F6', // Biru
+                        borderRadius: 6,
+                    },
+                    {
+                        label: 'Stimulasi',
+                        data: @json($weeklyData['stimulasi']),
+                        backgroundColor: '#A855F7', // Ungu
+                        borderRadius: 6,
+                    },
+                    {
+                        label: 'Event',
+                        data: @json($weeklyData['event']),
+                        backgroundColor: '#EC4899', // Pink
+                        borderRadius: 6,
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        stacked: true,
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            font: {
+                                size: 12
+                            },
+                            color: '#9CA3AF'
+                        }
+                    },
+                    y: {
+                        stacked: true,
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(156, 163, 175, 0.1)'
+                        },
+                        ticks: {
+                            font: {
+                                size: 12
+                            },
+                            color: '#9CA3AF'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            color: '#9CA3AF',
+                            padding: 20,
+                            font: {
+                                size: 12
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: function(context) {
+                                return context[0].label;
+                            },
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.parsed.y} pendaftar`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+
+    // Mini Charts untuk setiap card
+    const cardChartOptions = {
+        type: 'line',
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { display: false },
+                y: { display: false }
+            },
+            elements: {
+                line: {
+                    tension: 0.4,
+                    borderWidth: 2,
+                },
+                point: {
+                    radius: 0
+                }
+            }
+        }
+    };
+
+    // Inisialisasi mini charts jika ada
+    ['totalEarn', 'totalSpending', 'totalGoal'].forEach(chartId => {
+        const ctx = document.getElementById(chartId);
+        if (ctx) {
+            new Chart(ctx, {
+                ...cardChartOptions,
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        data: [20, 40, 30, 50, 40, 60],
+                        borderColor: chartId === 'totalEarn' ? '#22C55E' :
+                                   chartId === 'totalSpending' ? '#F59E0B' : '#3B82F6',
+                        fill: false
+                    }]
+                }
+            });
+        }
+    });
+});
+</script>
 @endpush

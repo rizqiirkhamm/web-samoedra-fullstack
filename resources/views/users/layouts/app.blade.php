@@ -156,6 +156,51 @@
                 transform: scale(1) translateY(0);
             }
         }
+
+        /* Tambahkan CSS untuk memastikan layout yang benar */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .layout-wrapper {
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .body-wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        main {
+            flex: 1;
+            width: 100%;
+            background-color: #0a0a0a; /* darkblack-600 */
+        }
+
+        /* Pastikan dark mode bekerja dengan benar */
+        .dark .body-wrapper,
+        .dark main {
+            background-color: #0a0a0a;
+        }
+
+        /* Hilangkan scrollbar yang tidak perlu */
+        .body-wrapper {
+            overflow-x: hidden;
+        }
+
+        /* Pastikan konten mengisi seluruh lebar */
+        .content-wrapper {
+            width: 100%;
+            height: 100%;
+        }
     </style>
 
     <!-- Menggunakan asset() Laravel untuk memanggil file CSS di public/css/ -->
@@ -166,16 +211,20 @@
 </head>
 
 <body class="dark:bg-darkblack-500">
-    <div class="layout-wrapper active w-full">
-
-        <div class="relative flex w-full">
+    <div class="layout-wrapper active">
+        <div class="flex min-h-screen w-full">
             @include('users.partials.sidebar')
-        <div class="body-wrapper flex-1 overflow-x-hidden dark:bg-darkblack-500">
-            @include('users.partials.header')
-            <main class="w-full px-6 pb-6 pt-[100px] sm:pt-[156px] xl:px-12 xl:pb-12" style="height: 100vh">
-            @yield('content')
-            </main>
-        </div>
+            <div class="body-wrapper flex-1 overflow-x-hidden bg-white dark:bg-darkblack-500">
+                <div class="w-full">
+                    @include('users.partials.header')
+
+                    <main class="w-full h-full">
+                        <div class="p-4 md:p-6 2xl:p-10 w-full mt-[80px]">
+                            @yield('content')
+                        </div>
+                    </main>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -188,9 +237,6 @@
     <script src="{{ asset('js/quill.min.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     <script src="{{ asset('js/chart.js') }}"></script>
-    @if(Route::currentRouteName() === 'dashboard')
-        <script src="{{ asset('js/dashboard-users.js') }}"></script>
-    @endif
 
     <!-- Common Scripts -->
     <script src="{{ asset('js/common.js') }}"></script>
