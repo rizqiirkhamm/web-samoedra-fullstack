@@ -18,12 +18,15 @@
     <!-- Navbar -->
     <nav class="bg-white shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
+            <div class="flex justify-between h-16 items-center">
                 <div class="flex">
                     <div class="flex-shrink-0 flex items-center">
-                        <img src="{{ asset('images/logo/logo_samoedra.JPG') }}" class="h-8 w-auto" alt="Samoedra">
+                        <a href="{{route('home')}}"> <p class="ml-2 font- text-slate-400 hover:text-slate-500">< kembali</p></a>
+
                     </div>
+
                 </div>
+                <img src="{{ asset('images/logo/logo_samoedra.JPG') }}" class="h-8 w-auto" alt="Samoedra">
             </div>
         </div>
     </nav>
@@ -1565,7 +1568,7 @@
                         Memproses...
                     `;
 
-                    fetch('/layanan-public', {
+                    fetch('/daftar-public', {
                         method: 'POST',
                         body: formData,
                         headers: {

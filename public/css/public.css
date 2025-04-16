@@ -1,0 +1,116 @@
+.no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.svg-container {
+    width: 100%;
+    height: 350px;
+    /* Tinggi container, sesuaikan sesuai kebutuhan */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2360 441" fill="none"><path d="M124.13 17.305C42.7284 17.305 -20.1285 59.7075 -35.3602 71.7724C-50.592 83.8372 -13.0916 366 -13.0916 366H2367.97L2376.82 360.829C2376.82 360.829 2424.48 35.074 2376.82 7.15214C2329.16 -20.7698 2277.24 42.0704 2233.51 42.0704C2189.78 42.0704 2156.2 7.15214 2091.84 7.15214C2027.47 7.15214 2000.95 42.07 1940.03 42.07C1879.1 42.07 1860.9 7.15214 1792.12 7.15214C1723.33 7.15214 1713.45 42.07 1623.05 42.07C1532.64 42.07 1536.97 0.956025 1459.34 0.956025C1381.71 0.956025 1388.27 42.07 1315.06 42.07C1241.85 42.07 1246.23 7.15214 1153.37 7.15214C1060.5 7.15214 1054.69 42.0667 975.582 42.0667C896.475 42.0667 876.737 7.15214 801.561 7.15214C726.385 7.15214 690.977 42.0667 627.102 42.0667C563.227 42.0667 549.5 7.15214 462.532 7.15214C375.564 7.15214 351.6 42.0667 293.621 42.0667C235.643 42.0667 205.533 17.305 124.13 17.305Z" fill="%23EFF5F6"/></svg>');
+    background-size: cover;
+    /* Memastikan SVG ter-crop */
+    background-position: center;
+    /* Memastikan bagian tengah SVG selalu terlihat */
+    background-repeat: no-repeat;
+    /* Menghindari pengulangan */
+}
+
+.svg-container2 {
+    width: 100%;
+    height: 70px;
+    /* Tinggi container, sesuaikan sesuai kebutuhan */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2360 93" fill="none"><path d="M123.93 4.31053C42.5229 4.31053 1.93236 22.8044 -13.3003 26.2882C-28.5329 29.7721 -13.3003 105 -13.3003 105H2367.9L2376.75 103.507C2376.75 103.507 2424.41 9.44154 2376.75 1.3788C2329.08 -6.68395 2282.16 23.2466 2238.43 23.2466C2194.7 23.2466 2156.12 1.3788 2091.75 1.3788C2027.38 1.3788 2010.86 23.2469 1949.93 23.2469C1889 23.2469 1860.8 1.3788 1792.01 1.3788C1723.22 1.3788 1729.34 23.2469 1638.93 23.2469C1548.52 23.2469 1545.84 1.35248 1468.2 1.35248C1390.57 1.35248 1392.14 23.2469 1318.93 23.2469C1245.71 23.2469 1246.09 1.3788 1153.22 1.3788C1060.35 1.3788 1045.04 23.2469 965.93 23.2469C886.818 23.2469 876.58 1.3788 801.399 1.3788C726.219 1.3788 691.808 23.2469 627.93 23.2469C564.051 23.2469 549.324 1.3788 462.351 1.3788C375.377 1.3788 333.412 23.2469 275.43 23.2469C217.447 23.2469 205.336 4.31053 123.93 4.31053Z" fill="%233E5467"/></svg>');
+    background-size: cover;
+    /* Memastikan SVG ter-crop */
+    background-position: center;
+    /* Memastikan bagian tengah SVG selalu terlihat */
+    background-repeat: no-repeat;
+    /* Menghindari pengulangan */
+}
+
+.mask-faq {
+  -webkit-mask-image: url('data:image/svg+xml;utf8,<svg width="540" height="554" viewBox="0 0 540 554" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M83.6556 74.5468C164.533 0.770854 407.169 -28.9505 475.32 35.1993C543.471 99.3492 563.178 429.49 508.164 492.199C453.15 554.909 124.71 592.207 44.2426 492.199C-36.2249 392.192 2.77797 148.323 83.6556 74.5468Z" fill="black"/></svg>');
+  mask-image: url('data:image/svg+xml;utf8,<svg width="540" height="554" viewBox="0 0 540 554" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M83.6556 74.5468C164.533 0.770854 407.169 -28.9505 475.32 35.1993C543.471 99.3492 563.178 429.49 508.164 492.199C453.15 554.909 124.71 592.207 44.2426 492.199C-36.2249 392.192 2.77797 148.323 83.6556 74.5468Z" fill="black"/></svg>');
+  -webkit-mask-size: 100% 100%; /* Masking mengikuti ukuran div */
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+  
+/* Animasi untuk ikan (bergerak naik turun) */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float-ikan {
+  0%, 100% {
+    transform: translateY(-20px); /* Mulai dari posisi lebih tinggi */
+  }
+  50% {
+    transform: translateY(0px); /* Bergerak ke posisi normal */
+  }
+}
+
+.animate-float-ikan {
+  animation: float-ikan 3s ease-in-out infinite;
+}
+
+/* Animasi untuk hiu (bergerak maju mundur) */
+@keyframes swim {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-20px);
+  }
+}
+
+.animate-swim {
+  animation: swim 4s ease-in-out infinite;
+}
+
+/* Tambahkan keyframes untuk animasi kepiting */
+@keyframes walkAround {
+    0% {
+        transform: translate(0, 0) rotate(-12deg);
+    }
+    25% {
+        transform: translate(50px, -30px) rotate(-5deg);
+    }
+    50% {
+        transform: translate(100px, 0) rotate(40deg);
+    }
+}
+
+/* Class untuk animasi kepiting */
+.animate-walk {
+    animation: walkAround 8s ease-in-out infinite;
+}
+
+.mask-home {
+  -webkit-mask-image: url('data:image/svg+xml;utf8,<svg width="606" height="452" viewBox="0 0 606 452" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M120.66 46.1758C134.626 50.2654 144.565 55.7394 153.511 61.1195C154.88 61.9425 156.226 62.7641 157.561 63.5787C164.944 68.0843 171.976 72.3753 180.45 75.5027C200.505 82.9039 228.564 83.7744 288.757 66.2371C318.56 57.5542 346.963 45.0719 373.702 33.3208L374.554 32.9464C401.558 21.0795 426.841 10.0177 450.204 4.3844C473.559 -1.24683 494.928 -1.43572 514.13 8.37303C533.336 18.1839 550.469 38.0442 565.242 72.7147C594.805 142.094 606.438 222.855 604.861 291.572C604.072 325.929 599.982 357.259 593.187 382.639C586.388 408.037 576.899 427.405 565.365 437.915C553.857 448.4 538.598 451.984 520.146 451.449C501.685 450.913 480.103 446.259 456.017 440.342C450.428 438.969 444.705 437.528 438.857 436.056C394.338 424.849 342.559 411.813 287.225 412.912C246.813 413.715 212.654 422.342 183.267 429.764C181.674 430.166 180.096 430.564 178.531 430.958C148.048 438.627 122.895 444.373 101.119 437.805C87.7079 433.761 75.0498 423.799 63.5268 409.5C52.0068 395.204 41.6483 376.607 32.8287 355.353C15.1894 312.845 3.73227 259.776 1.42962 209.414C-0.873734 159.037 5.98665 111.453 24.9011 79.8623C34.3521 64.0776 46.8008 52.3043 62.6064 46.1485C78.412 39.9927 97.6302 39.4326 120.66 46.1758Z" fill="black"/></svg>');
+  mask-image: url('data:image/svg+xml;utf8,<svg width="606" height="452" viewBox="0 0 606 452" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M120.66 46.1758C134.626 50.2654 144.565 55.7394 153.511 61.1195C154.88 61.9425 156.226 62.7641 157.561 63.5787C164.944 68.0843 171.976 72.3753 180.45 75.5027C200.505 82.9039 228.564 83.7744 288.757 66.2371C318.56 57.5542 346.963 45.0719 373.702 33.3208L374.554 32.9464C401.558 21.0795 426.841 10.0177 450.204 4.3844C473.559 -1.24683 494.928 -1.43572 514.13 8.37303C533.336 18.1839 550.469 38.0442 565.242 72.7147C594.805 142.094 606.438 222.855 604.861 291.572C604.072 325.929 599.982 357.259 593.187 382.639C586.388 408.037 576.899 427.405 565.365 437.915C553.857 448.4 538.598 451.984 520.146 451.449C501.685 450.913 480.103 446.259 456.017 440.342C450.428 438.969 444.705 437.528 438.857 436.056C394.338 424.849 342.559 411.813 287.225 412.912C246.813 413.715 212.654 422.342 183.267 429.764C181.674 430.166 180.096 430.564 178.531 430.958C148.048 438.627 122.895 444.373 101.119 437.805C87.7079 433.761 75.0498 423.799 63.5268 409.5C52.0068 395.204 41.6483 376.607 32.8287 355.353C15.1894 312.845 3.73227 259.776 1.42962 209.414C-0.873734 159.037 5.98665 111.453 24.9011 79.8623C34.3521 64.0776 46.8008 52.3043 62.6064 46.1485C78.412 39.9927 97.6302 39.4326 120.66 46.1758Z" fill="black"/></svg>');
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}

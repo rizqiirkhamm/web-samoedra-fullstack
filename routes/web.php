@@ -12,11 +12,39 @@ use App\Http\Controllers\JournalController;
 use App\Http\Controllers\EventController;
 use App\Models\EventRegistrationModel;
 use App\Http\Controllers\DaycareController;
+use App\Http\Controllers\Frontend\ArtikelController;
+use App\Http\Controllers\Frontend\DetailArtikelController;
+use App\Http\Controllers\Frontend\DetailLayananController;
+use App\Http\Controllers\Frontend\FaqController;
+use App\Http\Controllers\Frontend\GaleriController;
+use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\ProgramController;
+use App\Http\Controllers\Frontend\TentangController;
 use App\Http\Controllers\StimulasiController;
 
+
+// routes/web.php
+Route::get('', [HomeController::class, 'index'])->name('home'); // Ganti 'welcome' menjadi 'home'
+
+
+Route::get('/tentang', [TentangController::class, 'index'])->name('tentang');
+
+Route::get('/layanan', [ProgramController::class, 'index'])->name('program');
+
+Route::get('/artikel', [ArtikelController::class, 'index'])->name('artikel.index');
+Route::get('/faq', [FaqController::class, 'index'])->name('faq');
+Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri');
+
+
+//detail layanan
+
+// routes/web.php
+Route::get('layanan/{id}', [DetailLayananController::class, 'show'])->name('layanan.detail');
+
+
 // Public routes (before auth middleware)
-Route::get('/', [LayananController::class, 'welcome'])->name('welcome');
-Route::post('/layanan-public', [LayananController::class, 'submitPublic'])->name('layanan.public.submit');
+Route::get('/daftar', [LayananController::class, 'welcome'])->name('welcome');
+Route::post('/daftar-public', [LayananController::class, 'submitPublic'])->name('layanan.public.submit');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -63,8 +91,8 @@ Route::group(['middleware' => 'useradmin'], function() {
         Route::get('/search', [BimbelController::class, 'search'])->name('search');
     });
 
-    Route::get('/layanan', [LayananController::class, 'index'])->name('layanan');
-    Route::post('/layanan', [LayananController::class, 'submit'])->name('layanan.submit');
+    Route::get('/program', [LayananController::class, 'index'])->name('layanan');
+    Route::post('/program', [LayananController::class, 'submit'])->name('layanan.submit');
 
     Route::prefix('journal')->group(function () {
         Route::get('/', [JournalController::class, 'index'])->name('journal.index');

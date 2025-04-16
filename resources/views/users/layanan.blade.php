@@ -2580,7 +2580,7 @@ function bermainFormData() {
 function submitBermainForm() {
     const formData = new FormData(document.getElementById('bermainForm'));
 
-    fetch('/layanan/submit', {
+    fetch('/daftar/submit', {
         method: 'POST',
         body: formData,
         headers: {
