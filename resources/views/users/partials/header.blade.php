@@ -63,8 +63,9 @@
                 <div class="relative group">
                     <div class="flex cursor-pointer space-x-0 lg:space-x-3">
                         <div class="h-[52px] w-[52px] overflow-hidden rounded-xl border border-bgray-300">
-                            <img class="object-cover" src="{{asset('/images/avatar/profile-52x52.png')}}"
-                                alt="avatar" />
+                            <div class="flex h-full w-full items-center justify-center rounded-xl bg-bgray-100 dark:bg-darkblack-500">
+                                <span class="text-lg font-medium text-bgray-900 dark:text-white">{{ substr(Auth::user()->name, 0, 1) }}</span>
+                            </div>
                         </div>
                         <div class="hidden 2xl:block">
                             <div class="flex items-center space-x-2.5">
@@ -92,20 +93,20 @@
                                 <!-- Profile Settings -->
                                 <li>
                                     <a href="{{ route('profile.edit') }}" class="flex items-center space-x-3 rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-darkblack-500">
-                                        <svg class="h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg class="h-5 w-5 text-gray-500 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                         </svg>
-                                        <span class="text-sm font-medium">Edit Profil</span>
+                                        <span class="text-sm font-medium dark:text-white">Edit Profil</span>
                                     </a>
                                 </li>
 
                                 <!-- Change Password -->
                                 <li>
                                     <a href="{{ route('password.change') }}" class="flex items-center space-x-3 rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-darkblack-500">
-                                        <svg class="h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg class="h-5 w-5 text-gray-500 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
                                         </svg>
-                                        <span class="text-sm font-medium">Ganti Password</span>
+                                        <span class="text-sm font-medium dark:text-white">Ganti Password</span>
                                     </a>
                                 </li>
 
@@ -316,6 +317,31 @@ document.addEventListener('DOMContentLoaded', function() {
     const profileDropdown = document.querySelector('.profile-dropdown');
     if (profileDropdown) {
         profileDropdown.classList.add('hidden');
+    }
+
+    // Inisialisasi tema sesuai dengan preferensi yang disimpan
+    const isDarkMode = localStorage.getItem('darkMode') === 'true';
+    if (isDarkMode) {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+    }
+
+    // Tambahkan event listener untuk toggle tema
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', function() {
+            // Toggle class dark pada html element
+            const isDark = document.documentElement.classList.toggle('dark');
+
+            // Simpan preferensi ke localStorage
+            localStorage.setItem('darkMode', isDark);
+
+            // Custom event untuk memberitahu komponen lain tentang perubahan tema
+            document.dispatchEvent(new CustomEvent('themeChanged', {
+                detail: { isDark }
+            }));
+        });
     }
 });
 </script>

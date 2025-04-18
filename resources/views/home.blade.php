@@ -27,19 +27,19 @@
       class="lg:w-3/4 w-full px-8 lg:px-0 mx-auto md:my-18 flex flex-col-reverse md:flex-row justify-between items-center">
       <div class="flex items-center w-full md:w-1/2">
         <div class="flex-col">
-          <h1 class="text-[#3E5467] font-semibold text-4xl xl:text-5xl" style="font-family: 'Fredoka';">Halo👋🏻,
+          <h1 class="text-[#3E5467] font-semibold text-2xl sm:text-4xl xl:text-5xl" style="font-family: 'Fredoka';">Halo👋🏻,
             Selamat Datang
           </h1>
           <div class="flex items-center gap-2">
-            <h1 class="text-[#3E5467] font-semibold text-4xl xl:text-5xl leading-none" style="font-family: 'Fredoka';">
+            <h1 class="text-[#3E5467] font-semibold text-2xl sm:text-4xl xl:text-5xl leading-none" style="font-family: 'Fredoka';">
               Di Rumah</h1>
-            <img src="images/assets/text_samoedra.png" class="h-12 xl:h-18" alt="">
+            <img src="images/assets/text_samoedra.png" class="sm:h-12 h-9 xl:h-18" alt="">
           </div>
           <p class=" text-[#A2A2BD] max-w-xl mt-4">Rumah Samoedra adalah ruang bermain dan belajar anak
             dengan layanan daycare, area bermain, bimbel, kelas
             stimulasi, serta event seperti playdate, ulang tahun, dan outing class. </p>
           <div class="flex gap-5 mt-6">
-            <a href="#">
+            <a href="{{route('welcome')}}">
               <button
                 class="bg-[#3E5467] rounded-full flex items-center gap-2 text-white px-6 py-2 transition-all duration-300 hover:bg-[#BDBDCB]">Daftar<svg
                   width="21" height="10" viewBox="0 0 21 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -66,7 +66,7 @@
         </div>
       </div>
       <div class="w-full md:w-1/2 relative flex justify-center items-center mb-16 md:mb-0">
-        <div class="w-full md:max-w-[600px] md:h-[600px] p-3 xl:p-6 bg-[#EFF5F6] mask-home relative z-10">
+        <div class="w-full md:max-w-[600px] md:h-[600px] p-3 xl:p-6 bg-[#91CFE0] mask-home relative z-10">
           <div class="mask-home h-full">
             <img src="images/assets/img.png" class="w-full h-full object-cover object-center" alt="">
           </div>
@@ -101,10 +101,10 @@
           Kami</h1>
 
         <div class="md:w-3/4 w-full px-8 md:px-0 overflow-x-auto no-scrollbar mx-auto flex flex-col items-start">
-          <div class="flex flex-row gap-7 py-10 overflow-x-auto">
 
+    <div class="flex flex-row gap-7 py-10 overflow-x-auto scroll-smooth" id="cards-container">
             <!-- Card Template -->
-            <div class="w-80 h-96 rounded-4xl bg-white p-6 flex flex-col relative">
+            <div class="card-item w-80 h-96 rounded-4xl bg-white p-6 flex flex-col relative">
               <img src="images/assets/img_layanan.png" alt="Daycare" class="w-full h-44 rounded-3xl object-cover">
               <div class="flex justify-between my-5">
                 <h1 class="text-3xl text-[#3E5467] font-semibold" style="font-family: 'Fredoka';">Daycare</h1>
@@ -126,7 +126,7 @@
               </div>
             </div>
 
-            <div class="w-80 h-96 rounded-4xl bg-white p-6 flex flex-col relative">
+            <div class="card-item w-80 h-96 rounded-4xl bg-white p-6 flex flex-col relative">
               <img src="images/assets/img_layanan.png" alt="Daycare" class="w-full h-44 rounded-3xl object-cover">
               <div class="flex justify-between my-5">
                 <h1 class="text-3xl text-[#3E5467] font-semibold" style="font-family: 'Fredoka';">Area Main</h1>
@@ -148,7 +148,7 @@
               </div>
             </div>
 
-            <div class="w-80 h-96 rounded-4xl bg-white p-6 flex flex-col relative">
+            <div class="card-item w-80 h-96 rounded-4xl bg-white p-6 flex flex-col relative">
               <img src="images/assets/img_layanan.png" alt="Daycare" class="w-full h-44 rounded-3xl object-cover">
               <div class="flex justify-between my-5">
                 <h1 class="text-3xl text-[#3E5467] font-semibold" style="font-family: 'Fredoka';">Bimbel</h1>
@@ -170,7 +170,7 @@
               </div>
             </div>
 
-            <div class="w-80 h-96 rounded-4xl bg-white p-6 flex flex-col relative">
+            <div class="card-item w-80 h-96 rounded-4xl bg-white p-6 flex flex-col relative">
               <img src="images/assets/img_layanan.png" alt="Daycare" class="w-full h-44 rounded-3xl object-cover">
               <div class="flex justify-between my-5">
                 <h1 class="text-3xl text-[#3E5467] font-semibold" style="font-family: 'Fredoka';">Stimulasi</h1>
@@ -192,7 +192,7 @@
               </div>
             </div>
 
-            <div class="w-80 h-96 rounded-4xl bg-white p-6 flex flex-col relative">
+            <div class="card-item w-80 h-96 rounded-4xl bg-white p-6 flex flex-col relative">
               <img src="images/assets/img_layanan.png" alt="Daycare" class="w-full h-44 rounded-3xl object-cover">
               <div class="flex justify-between my-5">
                 <h1 class="text-3xl text-[#3E5467] font-semibold" style="font-family: 'Fredoka';">Event</h1>
@@ -213,6 +213,9 @@
                 </svg>
               </div>
             </div>
+          </div>
+          <div class="w-full items-start justify-start flex ">
+            <p class="text-left text-[#A2A2BD] mt-1.5" style="font-family: 'Fuzzy Bubbles';">Tips : Scroll Horizontal</p>
           </div>
         </div>
       </div>
@@ -439,7 +442,7 @@
       <div class="flex flex-col md:flex-row justify-between items-center md:py-16">
         <!-- Container dengan clip-path -->
         <div class="w-full md:w-1/2 relative">
-          <div class="w-full max-w-[500px] h-[500px] mx-auto p-3 xl:p-5 bg-[#EFF5F6] mask-faq relative z-10">
+          <div class="w-full max-w-[500px] h-[500px] mx-auto p-3 xl:p-5 bg-[#91CFE0] mask-faq relative z-10">
             <div class="mask-faq h-full">
               <img src="images/assets/img_faq.png" class="w-full h-full object-cover object-center" alt="">
             </div>

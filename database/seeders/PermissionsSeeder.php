@@ -229,6 +229,62 @@ class PermissionsSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now()
             ],
+            [
+                'id' => 28,
+                'name' => 'Gallery',
+                'slug' => 'Gallery',
+                'groupby' => 12,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'id' => 29,
+                'name' => 'Gallery Edit',
+                'slug' => 'Gallery Edit',
+                'groupby' => 12,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'id' => 30,
+                'name' => 'Gallery Delete',
+                'slug' => 'Gallery Delete',
+                'groupby' => 12,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'id' => 31,
+                'name' => 'Article',
+                'slug' => 'Article',
+                'groupby' => 13,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'id' => 32,
+                'name' => 'Article Edit',
+                'slug' => 'Article Edit',
+                'groupby' => 13,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'id' => 33,
+                'name' => 'Article Delete',
+                'slug' => 'Article Delete',
+                'groupby' => 13,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'id' => 34,
+                'name' => 'Article Detail',
+                'slug' => 'Article Detail',
+                'groupby' => 13,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
         ];
 
         DB::table('permissions')->insert($permissions);

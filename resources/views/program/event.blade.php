@@ -29,7 +29,7 @@
                     Selamat Datang <br> Di Layanan Event
                 </h1>
                 <div class="flex gap-5 mt-10">
-                    <a href="#">
+                    <a href="{{route('welcome')}}">
                         <button
                             class="bg-[#3E5467] rounded-full flex items-center gap-2 text-white px-6 py-2 transition-all duration-300 hover:bg-[#BDBDCB]">Daftar<svg
                                 width="21" height="10" viewBox="0 0 21 10" fill="none"
@@ -64,13 +64,7 @@
                             <h1 class="font-semibold text-[#3E5467] text-3xl xl:text-4xl mt-8"
                                 style="font-family: 'Fredoka';">Kelebihan Event Kami</h1>
                             <p class="text-[#A2A2BD] mt-4" style="font-family: 'Onest';">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus itaque rem quae
-                                alias
-                                facere ipsum in maiores cupiditate modi, magnam qui natus beatae nam aut voluptate,
-                                neque
-                                quibusdam reiciendis aliquid atque. Necessitatibus praesentium maiores, modi ratione
-                                nostrum
-                                vel odit recusandae!
+                                Event kami dirancang dengan konsep yang menyenangkan, edukatif, dan penuh makna. Setiap kegiatan dipersiapkan untuk memberikan pengalaman terbaik bagi anak dan orang tua, mulai dari permainan interaktif, stimulasi motorik, hingga aktivitas sosial yang membangun rasa percaya diri. Tim kami profesional dan ramah, menciptakan suasana yang aman dan nyaman untuk semua peserta.
                             </p>
                         </div>
                         <div class="w-full xl:w-1/3">
@@ -179,121 +173,7 @@
                     </div>
                 </div>
                 <section id="informasi">
-                    <div class="w-full flex flex-col md:flex-row mt-24">
-                        <div class="w-full lg:w-1/2 flex flex-col justify-center">
-                            <div class="space-y-3">
-                                <p class="text-[#E8A26A] text-xl" style="font-family: Fuzzy Bubbles;">Program Event
-                                </p>
-                                <h1 class="text-[#3E5467] font-semibold text-4xl xl:text-5xl text-start"
-                                    style="font-family: 'Fredoka';">Program Event Rumah Samoedra
-                                </h1>
-                                <p class="text-[#A2A2BD] max-w-xl mt-5" style="font-family: 'Onest';">Lorem ipsum dolor
-                                    sit
-                                    amet, consectetur adipisicing elit. Sequi fugit delectus repellendus non sed illo
-                                    aliquam totam velit, dolorum quo sunt inventore temporibus eaque doloribus sint!
-                                    Placeat
-                                    quia alias perferendis.</p>
-                            </div>
-                            <div class="space-y-4 mt-6">
-                                <div class="flex flex-row space-x-3">
-                                    <div
-                                        class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M9.55018 15.15L18.0252 6.675C18.2252 6.475 18.4585 6.375 18.7252 6.375C18.9918 6.375 19.2252 6.475 19.4252 6.675C19.6252 6.875 19.7252 7.11267 19.7252 7.388C19.7252 7.66333 19.6252 7.90067 19.4252 8.1L10.2502 17.3C10.0502 17.5 9.81685 17.6 9.55018 17.6C9.28351 17.6 9.05018 17.5 8.85018 17.3L4.55018 13C4.35018 12.8 4.25418 12.5627 4.26218 12.288C4.27018 12.0133 4.37451 11.7757 4.57518 11.575C4.77585 11.3743 5.01351 11.2743 5.28818 11.275C5.56285 11.2757 5.80018 11.3757 6.00018 11.575L9.55018 15.15Z"
-                                                fill="white" />
-                                        </svg>
-                                    </div>
-                                    <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">
-                                        Daily
-                                        Activity</h1>
-                                </div>
-                                <div class="flex flex-row space-x-3">
-                                    <div
-                                        class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M9.55018 15.15L18.0252 6.675C18.2252 6.475 18.4585 6.375 18.7252 6.375C18.9918 6.375 19.2252 6.475 19.4252 6.675C19.6252 6.875 19.7252 7.11267 19.7252 7.388C19.7252 7.66333 19.6252 7.90067 19.4252 8.1L10.2502 17.3C10.0502 17.5 9.81685 17.6 9.55018 17.6C9.28351 17.6 9.05018 17.5 8.85018 17.3L4.55018 13C4.35018 12.8 4.25418 12.5627 4.26218 12.288C4.27018 12.0133 4.37451 11.7757 4.57518 11.575C4.77585 11.3743 5.01351 11.2743 5.28818 11.275C5.56285 11.2757 5.80018 11.3757 6.00018 11.575L9.55018 15.15Z"
-                                                fill="white" />
-                                        </svg>
-                                    </div>
-                                    <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">
-                                        Pengecekan Tumbuh Kembang Rutin</h1>
-                                </div>
-                                <div class="flex flex-row space-x-3">
-                                    <div
-                                        class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M9.55018 15.15L18.0252 6.675C18.2252 6.475 18.4585 6.375 18.7252 6.375C18.9918 6.375 19.2252 6.475 19.4252 6.675C19.6252 6.875 19.7252 7.11267 19.7252 7.388C19.7252 7.66333 19.6252 7.90067 19.4252 8.1L10.2502 17.3C10.0502 17.5 9.81685 17.6 9.55018 17.6C9.28351 17.6 9.05018 17.5 8.85018 17.3L4.55018 13C4.35018 12.8 4.25418 12.5627 4.26218 12.288C4.27018 12.0133 4.37451 11.7757 4.57518 11.575C4.77585 11.3743 5.01351 11.2743 5.28818 11.275C5.56285 11.2757 5.80018 11.3757 6.00018 11.575L9.55018 15.15Z"
-                                                fill="white" />
-                                        </svg>
-                                    </div>
-                                    <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">
-                                        Daily
-                                        Report</h1>
-                                </div>
-                                <div class="flex flex-row space-x-3">
-                                    <div
-                                        class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M9.55018 15.15L18.0252 6.675C18.2252 6.475 18.4585 6.375 18.7252 6.375C18.9918 6.375 19.2252 6.475 19.4252 6.675C19.6252 6.875 19.7252 7.11267 19.7252 7.388C19.7252 7.66333 19.6252 7.90067 19.4252 8.1L10.2502 17.3C10.0502 17.5 9.81685 17.6 9.55018 17.6C9.28351 17.6 9.05018 17.5 8.85018 17.3L4.55018 13C4.35018 12.8 4.25418 12.5627 4.26218 12.288C4.27018 12.0133 4.37451 11.7757 4.57518 11.575C4.77585 11.3743 5.01351 11.2743 5.28818 11.275C5.56285 11.2757 5.80018 11.3757 6.00018 11.575L9.55018 15.15Z"
-                                                fill="white" />
-                                        </svg>
-                                    </div>
-                                    <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">
-                                        Stimulasi Sesuai Usia</h1>
-                                </div>
-                                <div class="flex flex-row space-x-3">
-                                    <div
-                                        class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M9.55018 15.15L18.0252 6.675C18.2252 6.475 18.4585 6.375 18.7252 6.375C18.9918 6.375 19.2252 6.475 19.4252 6.675C19.6252 6.875 19.7252 7.11267 19.7252 7.388C19.7252 7.66333 19.6252 7.90067 19.4252 8.1L10.2502 17.3C10.0502 17.5 9.81685 17.6 9.55018 17.6C9.28351 17.6 9.05018 17.5 8.85018 17.3L4.55018 13C4.35018 12.8 4.25418 12.5627 4.26218 12.288C4.27018 12.0133 4.37451 11.7757 4.57518 11.575C4.77585 11.3743 5.01351 11.2743 5.28818 11.275C5.56285 11.2757 5.80018 11.3757 6.00018 11.575L9.55018 15.15Z"
-                                                fill="white" />
-                                        </svg>
-                                    </div>
-                                    <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">
-                                        Outdor
-                                        Activity</h1>
-                                </div>
-                                <div class="flex flex-row space-x-3">
-                                    <div
-                                        class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M9.55018 15.15L18.0252 6.675C18.2252 6.475 18.4585 6.375 18.7252 6.375C18.9918 6.375 19.2252 6.475 19.4252 6.675C19.6252 6.875 19.7252 7.11267 19.7252 7.388C19.7252 7.66333 19.6252 7.90067 19.4252 8.1L10.2502 17.3C10.0502 17.5 9.81685 17.6 9.55018 17.6C9.28351 17.6 9.05018 17.5 8.85018 17.3L4.55018 13C4.35018 12.8 4.25418 12.5627 4.26218 12.288C4.27018 12.0133 4.37451 11.7757 4.57518 11.575C4.77585 11.3743 5.01351 11.2743 5.28818 11.275C5.56285 11.2757 5.80018 11.3757 6.00018 11.575L9.55018 15.15Z"
-                                                fill="white" />
-                                        </svg>
-                                    </div>
-                                    <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">Art
-                                        And
-                                        Craft</h1>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-full lg:w-1/2 relative flex justify-center items-center">
-                            <div class="w-full max-w-[500px] h-[500px] p-3 xl:p-5 bg-[#EFF5F6] mask-faq relative z-10">
-                                <div class="mask-faq h-full">
-                                    <img src="{{asset('images/assets/img_detail_layanan.png')}}" class="w-full h-full object-cover object-center"
-                                        alt="">
-                                </div>
-                            </div>
-                            <img src="{{asset('images/assets/vector_line_faq.svg')}}" alt="Vector FAQ"
-                                class="absolute w-full max-w-[540px] h-[540px] -z-10 mx-auto bottom-0 left-0 right-0 top-1">
-                            <img src="{{asset('images/assets/ikan_pari.svg')}}" alt="Ikan Pari"
-                                class="absolute top-15 md:left-10 md:top-7 animate-float w-32 md:w-52">
-                            <img src="{{asset('images/assets/ikan_biru.svg')}}" alt="Ikan Biru"
-                                class="absolute bottom-10 right-0 md:right-12 md:bottom-0 animate-float-ikan w-24 md:w-44">
-                        </div>
-                    </div>
+
                 </section>
             </div>
         </div>
@@ -316,7 +196,7 @@
                 <div class="w-full relative flex flex-col justify-center items-center py-28">
                     <p class="text-[#E8A26A] text-xl" style="font-family: 'Fuzzy Bubbles', cursive;">Fasilitas</p>
                     <h1 class="text-[#3E5467] text-3xl md:text-4xl font-semibold" style="font-family: 'Fredoka';">
-                        Event
+                        Event Samoedra
                     </h1>
 
                     <div
@@ -324,40 +204,15 @@
                         <div class="flex flex-row gap-7 py-10 overflow-x-auto">
 
                             <!-- Card Template -->
-                            <div class="w-80 h-64 rounded-4xl bg-white p-6 flex flex-col relative">
+                            <div class="w-78 sm:w-80 h-[450px] sm:h-[500px] rounded-4xl bg-white p-3 flex flex-col relative">
                                 <img src="{{asset('images/assets/img_layanan.png')}}" alt="Event"
-                                    class="w-full h-44 rounded-3xl object-cover">
-                                <h1 class="text-3xl text-[#3E5467] font-semibold text-center mt-3"
-                                    style="font-family: 'Fredoka';">Full AC</h1>
+                                    class="w-full h-80 sm:h-96 rounded-3xl object-cover">
+                                <div class="div w-full items-start justify-center">
+                                 <p class="text-2xl">Birthday Party</p>
+                                </div>
                             </div>
 
-                            <div class="w-80 h-64 rounded-4xl bg-white p-6 flex flex-col relative">
-                                <img src="{{asset('images/assets/img_layanan.png')}}" alt="Event"
-                                    class="w-full h-44 rounded-3xl object-cover">
-                                <h1 class="text-3xl text-[#3E5467] font-semibold text-center mt-3"
-                                    style="font-family: 'Fredoka';">Purifier</h1>
-                            </div>
 
-                            <div class="w-80 h-64 rounded-4xl bg-white p-6 flex flex-col relative">
-                                <img src="{{asset('images/assets/img_layanan.png')}}" alt="Event"
-                                    class="w-full h-44 rounded-3xl object-cover">
-                                <h1 class="text-3xl text-[#3E5467] font-semibold text-center mt-3"
-                                    style="font-family: 'Fredoka';">3 Kamar</h1>
-                            </div>
-
-                            <div class="w-80 h-64 rounded-4xl bg-white p-6 flex flex-col relative">
-                                <img src="{{asset('images/assets/img_layanan.png')}}" alt="Event"
-                                    class="w-full h-44 rounded-3xl object-cover">
-                                <h1 class="text-3xl text-[#3E5467] font-semibold text-center mt-3"
-                                    style="font-family: 'Fredoka';">Baby Bed</h1>
-                            </div>
-
-                            <div class="w-80 h-64 rounded-4xl bg-white p-6 flex flex-col relative">
-                                <img src="{{asset('images/assets/img_layanan.png')}}" alt="Event"
-                                    class="w-full h-44 rounded-3xl object-cover">
-                                <h1 class="text-3xl text-[#3E5467] font-semibold text-center mt-3"
-                                    style="font-family: 'Fredoka';">Outdor Area</h1>
-                            </div>
                         </div>
                     </div>
                 </div>

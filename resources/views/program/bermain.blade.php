@@ -29,7 +29,7 @@
                     Selamat Datang <br> Di Layanan Area Bermain
                 </h1>
                 <div class="flex gap-5 mt-10">
-                    <a href="#">
+                    <a href="{{route('welcome')}}">
                         <button
                             class="bg-[#3E5467] rounded-full flex items-center gap-2 text-white px-6 py-2 transition-all duration-300 hover:bg-[#BDBDCB]">Daftar<svg
                                 width="21" height="10" viewBox="0 0 21 10" fill="none"
@@ -106,8 +106,8 @@
                                             <h1 class="font-semibold text-[#3E5467] text-xl md:text-2xl"
                                                 style="font-family: 'Fredoka';">Jam</h1>
                                         </flex>
-                                        <p class="text-[#A2A2BD] text-end max-w-72" style="font-family: 'Onest';">7:00 -
-                                            17:00 (Lebih dari batas : 15k/jam)</p>
+                                        <p class="text-[#A2A2BD] text-end max-w-72" style="font-family: 'Onest';">9:00 -
+                                            17:00 </p>
                                     </div>
                                     <div
                                         class="flex justify-between border-b-2 border-dashed pb-3 border-[#E8A26A] items-center">
@@ -121,180 +121,30 @@
                                             <h1 class="font-semibold text-[#3E5467] text-xl md:text-2xl"
                                                 style="font-family: 'Fredoka';">Hari</h1>
                                         </flex>
-                                        <p class="text-[#A2A2BD] text-end max-w-72" style="font-family: 'Onest';">6 bln
-                                            - 12 y.o</p>
+                                        <p class="text-[#A2A2BD] text-end max-w-72" style="font-family: 'Onest';">Senin-Sabtu</p>
+                                    </div>
+                                    <div
+                                        class="flex justify-between border-b-2 border-dashed pb-3 border-[#E8A26A] items-center">
+                                        <flex class="flex-row flex items-center space-x-3">
+                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M12.1012 0.664006C12.7292 0.248006 13.7932 -0.0489938 14.5962 0.754006L19.2432 5.40201C20.0492 6.20601 19.7512 7.27001 19.3342 7.89701C19.1084 8.23699 18.8145 8.52642 18.4712 8.74701C18.1372 8.96001 17.7152 9.12101 17.2602 9.09701C17.04 9.08141 16.8206 9.05773 16.6022 9.02601L16.5342 9.01601C16.2996 8.98237 16.0637 8.95802 15.8272 8.94301C15.3232 8.91801 15.1292 9.00301 15.0672 9.06301L12.5772 11.554C12.4972 11.634 12.3972 11.812 12.3212 12.154C12.2482 12.484 12.2162 12.89 12.2082 13.34C12.2012 13.772 12.2162 14.214 12.2322 14.64L12.2332 14.687C12.2482 15.11 12.2632 15.542 12.2422 15.881C12.1772 16.912 11.3742 17.671 10.5842 18.022C9.79418 18.372 8.66718 18.459 7.88418 17.675L5.63418 15.425L1.52918 19.53C1.46051 19.6037 1.37771 19.6628 1.28572 19.7038C1.19372 19.7448 1.0944 19.7668 0.9937 19.7686C0.892997 19.7704 0.792968 19.7518 0.69958 19.7141C0.606191 19.6764 0.521357 19.6203 0.450139 19.549C0.37892 19.4778 0.322775 19.393 0.285054 19.2996C0.247333 19.2062 0.228809 19.1062 0.230585 19.0055C0.232362 18.9048 0.254404 18.8055 0.295396 18.7135C0.336388 18.6215 0.39549 18.5387 0.469177 18.47L4.57318 14.365L2.32318 12.115C1.54018 11.331 1.62618 10.205 1.97718 9.41501C2.32718 8.62501 3.08718 7.82201 4.11718 7.75701C4.45718 7.73601 4.88918 7.75101 5.31218 7.76601L5.35918 7.76701C5.78518 7.78201 6.22718 7.79801 6.65918 7.79101C7.10918 7.78301 7.51518 7.75101 7.84518 7.67801C8.18718 7.60201 8.36518 7.50101 8.44518 7.42101L10.9352 4.93101C10.9962 4.87001 11.0812 4.67501 11.0552 4.17101C11.0402 3.93447 11.0158 3.69862 10.9822 3.46401L10.9732 3.39601C10.9415 3.17762 10.9178 2.95814 10.9022 2.73801C10.8772 2.28301 11.0382 1.86101 11.2502 1.52701C11.4662 1.18701 11.7652 0.887006 12.1012 0.664006Z"
+                                                    fill="#E8A26A" />
+                                            </svg>
+                                            <h1 class="font-semibold text-[#3E5467] text-xl md:text-2xl"
+                                                style="font-family: 'Fredoka';">Biaya</h1>
+                                        </flex>
+                                        <p class="text-[#A2A2BD] text-end max-w-72" style="font-family: 'Onest';">15k perJam <br> 45k sepuasnya <br> (max 6jam) </p>
                                     </div>
                                 </div>
-                                <h2 class="font-semibold text-[#3E5467] text-2xl md:text-3xl mb-5 mt-7"
-                                    style="font-family: 'Fredoka';">About Area Bermain</h2>
-                                <div class="space-y-3">
-                                    <div
-                                        class="flex justify-between border-b-2 border-dashed pb-3 border-[#E8A26A] items-center">
-                                        <flex class="flex-row flex items-center space-x-3">
-                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M12.1012 0.664006C12.7292 0.248006 13.7932 -0.0489938 14.5962 0.754006L19.2432 5.40201C20.0492 6.20601 19.7512 7.27001 19.3342 7.89701C19.1084 8.23699 18.8145 8.52642 18.4712 8.74701C18.1372 8.96001 17.7152 9.12101 17.2602 9.09701C17.04 9.08141 16.8206 9.05773 16.6022 9.02601L16.5342 9.01601C16.2996 8.98237 16.0637 8.95802 15.8272 8.94301C15.3232 8.91801 15.1292 9.00301 15.0672 9.06301L12.5772 11.554C12.4972 11.634 12.3972 11.812 12.3212 12.154C12.2482 12.484 12.2162 12.89 12.2082 13.34C12.2012 13.772 12.2162 14.214 12.2322 14.64L12.2332 14.687C12.2482 15.11 12.2632 15.542 12.2422 15.881C12.1772 16.912 11.3742 17.671 10.5842 18.022C9.79418 18.372 8.66718 18.459 7.88418 17.675L5.63418 15.425L1.52918 19.53C1.46051 19.6037 1.37771 19.6628 1.28572 19.7038C1.19372 19.7448 1.0944 19.7668 0.9937 19.7686C0.892997 19.7704 0.792968 19.7518 0.69958 19.7141C0.606191 19.6764 0.521357 19.6203 0.450139 19.549C0.37892 19.4778 0.322775 19.393 0.285054 19.2996C0.247333 19.2062 0.228809 19.1062 0.230585 19.0055C0.232362 18.9048 0.254404 18.8055 0.295396 18.7135C0.336388 18.6215 0.39549 18.5387 0.469177 18.47L4.57318 14.365L2.32318 12.115C1.54018 11.331 1.62618 10.205 1.97718 9.41501C2.32718 8.62501 3.08718 7.82201 4.11718 7.75701C4.45718 7.73601 4.88918 7.75101 5.31218 7.76601L5.35918 7.76701C5.78518 7.78201 6.22718 7.79801 6.65918 7.79101C7.10918 7.78301 7.51518 7.75101 7.84518 7.67801C8.18718 7.60201 8.36518 7.50101 8.44518 7.42101L10.9352 4.93101C10.9962 4.87001 11.0812 4.67501 11.0552 4.17101C11.0402 3.93447 11.0158 3.69862 10.9822 3.46401L10.9732 3.39601C10.9415 3.17762 10.9178 2.95814 10.9022 2.73801C10.8772 2.28301 11.0382 1.86101 11.2502 1.52701C11.4662 1.18701 11.7652 0.887006 12.1012 0.664006Z"
-                                                    fill="#E8A26A" />
-                                            </svg>
-                                            <h1 class="font-semibold text-[#3E5467] text-xl md:text-2xl"
-                                                style="font-family: 'Fredoka';">Usia 0 - 1</h1>
-                                        </flex>
-                                        <p class="text-[#A2A2BD] text-end max-w-72" style="font-family: 'Onest';">1 Anak
-                                            1 Care Giver</p>
-                                    </div>
-                                    <div
-                                        class="flex justify-between border-b-2 border-dashed pb-3 border-[#E8A26A] items-center">
-                                        <flex class="flex-row flex items-center space-x-3">
-                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M12.1012 0.664006C12.7292 0.248006 13.7932 -0.0489938 14.5962 0.754006L19.2432 5.40201C20.0492 6.20601 19.7512 7.27001 19.3342 7.89701C19.1084 8.23699 18.8145 8.52642 18.4712 8.74701C18.1372 8.96001 17.7152 9.12101 17.2602 9.09701C17.04 9.08141 16.8206 9.05773 16.6022 9.02601L16.5342 9.01601C16.2996 8.98237 16.0637 8.95802 15.8272 8.94301C15.3232 8.91801 15.1292 9.00301 15.0672 9.06301L12.5772 11.554C12.4972 11.634 12.3972 11.812 12.3212 12.154C12.2482 12.484 12.2162 12.89 12.2082 13.34C12.2012 13.772 12.2162 14.214 12.2322 14.64L12.2332 14.687C12.2482 15.11 12.2632 15.542 12.2422 15.881C12.1772 16.912 11.3742 17.671 10.5842 18.022C9.79418 18.372 8.66718 18.459 7.88418 17.675L5.63418 15.425L1.52918 19.53C1.46051 19.6037 1.37771 19.6628 1.28572 19.7038C1.19372 19.7448 1.0944 19.7668 0.9937 19.7686C0.892997 19.7704 0.792968 19.7518 0.69958 19.7141C0.606191 19.6764 0.521357 19.6203 0.450139 19.549C0.37892 19.4778 0.322775 19.393 0.285054 19.2996C0.247333 19.2062 0.228809 19.1062 0.230585 19.0055C0.232362 18.9048 0.254404 18.8055 0.295396 18.7135C0.336388 18.6215 0.39549 18.5387 0.469177 18.47L4.57318 14.365L2.32318 12.115C1.54018 11.331 1.62618 10.205 1.97718 9.41501C2.32718 8.62501 3.08718 7.82201 4.11718 7.75701C4.45718 7.73601 4.88918 7.75101 5.31218 7.76601L5.35918 7.76701C5.78518 7.78201 6.22718 7.79801 6.65918 7.79101C7.10918 7.78301 7.51518 7.75101 7.84518 7.67801C8.18718 7.60201 8.36518 7.50101 8.44518 7.42101L10.9352 4.93101C10.9962 4.87001 11.0812 4.67501 11.0552 4.17101C11.0402 3.93447 11.0158 3.69862 10.9822 3.46401L10.9732 3.39601C10.9415 3.17762 10.9178 2.95814 10.9022 2.73801C10.8772 2.28301 11.0382 1.86101 11.2502 1.52701C11.4662 1.18701 11.7652 0.887006 12.1012 0.664006Z"
-                                                    fill="#E8A26A" />
-                                            </svg>
-                                            <h1 class="font-semibold text-[#3E5467] text-xl md:text-2xl"
-                                                style="font-family: 'Fredoka';">Usia 1 -3</h1>
-                                        </flex>
-                                        <p class="text-[#A2A2BD] text-end max-w-72" style="font-family: 'Onest';">2 Anak
-                                            1 Care Giver</p>
-                                    </div>
-                                    <div
-                                        class="flex justify-between border-b-2 border-dashed pb-3 border-[#E8A26A] items-center">
-                                        <flex class="flex-row flex items-center space-x-3">
-                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M12.1012 0.664006C12.7292 0.248006 13.7932 -0.0489938 14.5962 0.754006L19.2432 5.40201C20.0492 6.20601 19.7512 7.27001 19.3342 7.89701C19.1084 8.23699 18.8145 8.52642 18.4712 8.74701C18.1372 8.96001 17.7152 9.12101 17.2602 9.09701C17.04 9.08141 16.8206 9.05773 16.6022 9.02601L16.5342 9.01601C16.2996 8.98237 16.0637 8.95802 15.8272 8.94301C15.3232 8.91801 15.1292 9.00301 15.0672 9.06301L12.5772 11.554C12.4972 11.634 12.3972 11.812 12.3212 12.154C12.2482 12.484 12.2162 12.89 12.2082 13.34C12.2012 13.772 12.2162 14.214 12.2322 14.64L12.2332 14.687C12.2482 15.11 12.2632 15.542 12.2422 15.881C12.1772 16.912 11.3742 17.671 10.5842 18.022C9.79418 18.372 8.66718 18.459 7.88418 17.675L5.63418 15.425L1.52918 19.53C1.46051 19.6037 1.37771 19.6628 1.28572 19.7038C1.19372 19.7448 1.0944 19.7668 0.9937 19.7686C0.892997 19.7704 0.792968 19.7518 0.69958 19.7141C0.606191 19.6764 0.521357 19.6203 0.450139 19.549C0.37892 19.4778 0.322775 19.393 0.285054 19.2996C0.247333 19.2062 0.228809 19.1062 0.230585 19.0055C0.232362 18.9048 0.254404 18.8055 0.295396 18.7135C0.336388 18.6215 0.39549 18.5387 0.469177 18.47L4.57318 14.365L2.32318 12.115C1.54018 11.331 1.62618 10.205 1.97718 9.41501C2.32718 8.62501 3.08718 7.82201 4.11718 7.75701C4.45718 7.73601 4.88918 7.75101 5.31218 7.76601L5.35918 7.76701C5.78518 7.78201 6.22718 7.79801 6.65918 7.79101C7.10918 7.78301 7.51518 7.75101 7.84518 7.67801C8.18718 7.60201 8.36518 7.50101 8.44518 7.42101L10.9352 4.93101C10.9962 4.87001 11.0812 4.67501 11.0552 4.17101C11.0402 3.93447 11.0158 3.69862 10.9822 3.46401L10.9732 3.39601C10.9415 3.17762 10.9178 2.95814 10.9022 2.73801C10.8772 2.28301 11.0382 1.86101 11.2502 1.52701C11.4662 1.18701 11.7652 0.887006 12.1012 0.664006Z"
-                                                    fill="#E8A26A" />
-                                            </svg>
-                                            <h1 class="font-semibold text-[#3E5467] text-xl md:text-2xl"
-                                                style="font-family: 'Fredoka';">Usia 3 - 12</h1>
-                                        </flex>
-                                        <p class="text-[#A2A2BD] text-end max-w-72" style="font-family: 'Onest';">14
-                                            Anak 1 Care Giver</p>
-                                    </div>
-                                </div>
+
+
                             </div>
                         </div>
                     </div>
                 </div>
-                <section id="informasi">
-                    <div class="w-full flex flex-col md:flex-row mt-24">
-                        <div class="w-full lg:w-1/2 flex flex-col justify-center">
-                            <div class="space-y-3">
-                                <p class="text-[#E8A26A] text-xl" style="font-family: Fuzzy Bubbles;">Program Area Bermain
-                                </p>
-                                <h1 class="text-[#3E5467] font-semibold text-4xl xl:text-5xl text-start"
-                                    style="font-family: 'Fredoka';">Program Area Bermain Rumah Samoedra
-                                </h1>
-                                <p class="text-[#A2A2BD] max-w-xl mt-5" style="font-family: 'Onest';">Lorem ipsum dolor
-                                    sit
-                                    amet, consectetur adipisicing elit. Sequi fugit delectus repellendus non sed illo
-                                    aliquam totam velit, dolorum quo sunt inventore temporibus eaque doloribus sint!
-                                    Placeat
-                                    quia alias perferendis.</p>
-                            </div>
-                            <div class="space-y-4 mt-6">
-                                <div class="flex flex-row space-x-3">
-                                    <div
-                                        class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M9.55018 15.15L18.0252 6.675C18.2252 6.475 18.4585 6.375 18.7252 6.375C18.9918 6.375 19.2252 6.475 19.4252 6.675C19.6252 6.875 19.7252 7.11267 19.7252 7.388C19.7252 7.66333 19.6252 7.90067 19.4252 8.1L10.2502 17.3C10.0502 17.5 9.81685 17.6 9.55018 17.6C9.28351 17.6 9.05018 17.5 8.85018 17.3L4.55018 13C4.35018 12.8 4.25418 12.5627 4.26218 12.288C4.27018 12.0133 4.37451 11.7757 4.57518 11.575C4.77585 11.3743 5.01351 11.2743 5.28818 11.275C5.56285 11.2757 5.80018 11.3757 6.00018 11.575L9.55018 15.15Z"
-                                                fill="white" />
-                                        </svg>
-                                    </div>
-                                    <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">
-                                        Daily
-                                        Activity</h1>
-                                </div>
-                                <div class="flex flex-row space-x-3">
-                                    <div
-                                        class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M9.55018 15.15L18.0252 6.675C18.2252 6.475 18.4585 6.375 18.7252 6.375C18.9918 6.375 19.2252 6.475 19.4252 6.675C19.6252 6.875 19.7252 7.11267 19.7252 7.388C19.7252 7.66333 19.6252 7.90067 19.4252 8.1L10.2502 17.3C10.0502 17.5 9.81685 17.6 9.55018 17.6C9.28351 17.6 9.05018 17.5 8.85018 17.3L4.55018 13C4.35018 12.8 4.25418 12.5627 4.26218 12.288C4.27018 12.0133 4.37451 11.7757 4.57518 11.575C4.77585 11.3743 5.01351 11.2743 5.28818 11.275C5.56285 11.2757 5.80018 11.3757 6.00018 11.575L9.55018 15.15Z"
-                                                fill="white" />
-                                        </svg>
-                                    </div>
-                                    <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">
-                                        Pengecekan Tumbuh Kembang Rutin</h1>
-                                </div>
-                                <div class="flex flex-row space-x-3">
-                                    <div
-                                        class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M9.55018 15.15L18.0252 6.675C18.2252 6.475 18.4585 6.375 18.7252 6.375C18.9918 6.375 19.2252 6.475 19.4252 6.675C19.6252 6.875 19.7252 7.11267 19.7252 7.388C19.7252 7.66333 19.6252 7.90067 19.4252 8.1L10.2502 17.3C10.0502 17.5 9.81685 17.6 9.55018 17.6C9.28351 17.6 9.05018 17.5 8.85018 17.3L4.55018 13C4.35018 12.8 4.25418 12.5627 4.26218 12.288C4.27018 12.0133 4.37451 11.7757 4.57518 11.575C4.77585 11.3743 5.01351 11.2743 5.28818 11.275C5.56285 11.2757 5.80018 11.3757 6.00018 11.575L9.55018 15.15Z"
-                                                fill="white" />
-                                        </svg>
-                                    </div>
-                                    <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">
-                                        Daily
-                                        Report</h1>
-                                </div>
-                                <div class="flex flex-row space-x-3">
-                                    <div
-                                        class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M9.55018 15.15L18.0252 6.675C18.2252 6.475 18.4585 6.375 18.7252 6.375C18.9918 6.375 19.2252 6.475 19.4252 6.675C19.6252 6.875 19.7252 7.11267 19.7252 7.388C19.7252 7.66333 19.6252 7.90067 19.4252 8.1L10.2502 17.3C10.0502 17.5 9.81685 17.6 9.55018 17.6C9.28351 17.6 9.05018 17.5 8.85018 17.3L4.55018 13C4.35018 12.8 4.25418 12.5627 4.26218 12.288C4.27018 12.0133 4.37451 11.7757 4.57518 11.575C4.77585 11.3743 5.01351 11.2743 5.28818 11.275C5.56285 11.2757 5.80018 11.3757 6.00018 11.575L9.55018 15.15Z"
-                                                fill="white" />
-                                        </svg>
-                                    </div>
-                                    <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">
-                                        Stimulasi Sesuai Usia</h1>
-                                </div>
-                                <div class="flex flex-row space-x-3">
-                                    <div
-                                        class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M9.55018 15.15L18.0252 6.675C18.2252 6.475 18.4585 6.375 18.7252 6.375C18.9918 6.375 19.2252 6.475 19.4252 6.675C19.6252 6.875 19.7252 7.11267 19.7252 7.388C19.7252 7.66333 19.6252 7.90067 19.4252 8.1L10.2502 17.3C10.0502 17.5 9.81685 17.6 9.55018 17.6C9.28351 17.6 9.05018 17.5 8.85018 17.3L4.55018 13C4.35018 12.8 4.25418 12.5627 4.26218 12.288C4.27018 12.0133 4.37451 11.7757 4.57518 11.575C4.77585 11.3743 5.01351 11.2743 5.28818 11.275C5.56285 11.2757 5.80018 11.3757 6.00018 11.575L9.55018 15.15Z"
-                                                fill="white" />
-                                        </svg>
-                                    </div>
-                                    <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">
-                                        Outdor
-                                        Activity</h1>
-                                </div>
-                                <div class="flex flex-row space-x-3">
-                                    <div
-                                        class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M9.55018 15.15L18.0252 6.675C18.2252 6.475 18.4585 6.375 18.7252 6.375C18.9918 6.375 19.2252 6.475 19.4252 6.675C19.6252 6.875 19.7252 7.11267 19.7252 7.388C19.7252 7.66333 19.6252 7.90067 19.4252 8.1L10.2502 17.3C10.0502 17.5 9.81685 17.6 9.55018 17.6C9.28351 17.6 9.05018 17.5 8.85018 17.3L4.55018 13C4.35018 12.8 4.25418 12.5627 4.26218 12.288C4.27018 12.0133 4.37451 11.7757 4.57518 11.575C4.77585 11.3743 5.01351 11.2743 5.28818 11.275C5.56285 11.2757 5.80018 11.3757 6.00018 11.575L9.55018 15.15Z"
-                                                fill="white" />
-                                        </svg>
-                                    </div>
-                                    <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">Art
-                                        And
-                                        Craft</h1>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-full lg:w-1/2 relative flex justify-center items-center">
-                            <div class="w-full max-w-[500px] h-[500px] p-3 xl:p-5 bg-[#EFF5F6] mask-faq relative z-10">
-                                <div class="mask-faq h-full">
-                                    <img src="{{asset('images/assets/img_detail_layanan.png')}}" class="w-full h-full object-cover object-center"
-                                        alt="">
-                                </div>
-                            </div>
-                            <img src="{{asset('images/assets/vector_line_faq.svg')}}" alt="Vector FAQ"
-                                class="absolute w-full max-w-[540px] h-[540px] -z-10 mx-auto bottom-0 left-0 right-0 top-1">
-                            <img src="{{asset('images/assets/ikan_pari.svg')}}" alt="Ikan Pari"
-                                class="absolute top-15 md:left-10 md:top-7 animate-float w-32 md:w-52">
-                            <img src="{{asset('images/assets/ikan_biru.svg')}}" alt="Ikan Biru"
-                                class="absolute bottom-10 right-0 md:right-12 md:bottom-0 animate-float-ikan w-24 md:w-44">
-                        </div>
-                    </div>
-                </section>
+
             </div>
         </div>
         <div class="absolute w-full h-full top-40 z-0 overflow-x-hidden">
@@ -371,61 +221,7 @@
             </div>
         </section>
 
-        <section id="pricelist">
-            <!-- Wrapper div table-->
-            <div class="w-full md:w-3/4 mx-auto px-8 md:px-0">
-                <div class="flex flex-col justify-center mt-20 items-center">
-                    <p class="text-[#E8A26A] text-xl" style="font-family: 'Fuzzy Bubbles', cursive;">Pricelist</p>
-                    <h1 class="text-[#3E5467] text-3xl md:text-4xl font-semibold" style="font-family: 'Fredoka';">
-                        Area Bermain
-                    </h1>
-                </div>
-                <div class="mt-10 overflow-x-auto">
-                    <table class="w-full border-collapse border border-[#E8A26A] min-w-[800px]">
-                        <thead>
-                            <tr class="text-[#3E5467] text-lg md:text-xl" style="font-family: 'Fredoka';">
-                                <th class="border border-[#E8A26A] px-4 py-3 text-center">No</th>
-                                <th class="border border-[#E8A26A] px-4 py-3 text-center">Layanan</th>
-                                <th class="border border-[#E8A26A] px-4 py-3 text-center">Usia</th>
-                                <th class="border border-[#E8A26A] px-4 py-3 text-center">Promo Pendaftaran</th>
-                                <th class="border border-[#E8A26A] px-4 py-3 text-center">Biaya</th>
-                                <th class="border border-[#E8A26A] px-4 py-3 text-center">Biaya Makan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="border border-[#E8A26A] px-4 py-3 text-[#3E5467] text-center"
-                                    style="font-family: 'Onest';">01</td>
-                                <td class="border border-[#E8A26A] px-4 py-3 text-[#3E5467] text-center"
-                                    style="font-family: 'Onest';">Area Bermain Harian</td>
-                                <td class="border border-[#E8A26A] px-4 py-3 text-[#3E5467] text-center"
-                                    style="font-family: 'Onest';">6 bln s/d 12 thn</td>
-                                <td class="border border-[#E8A26A] px-4 py-3 text-[#3E5467] text-center"
-                                    style="font-family: 'Onest';">-</td>
-                                <td class="border border-[#E8A26A] px-4 py-3 text-[#3E5467] text-center"
-                                    style="font-family: 'Onest';">Rp. 110.000</td>
-                                <td class="border border-[#E8A26A] px-4 py-3 text-[#3E5467] text-center"
-                                    style="font-family: 'Onest';">12.5k / Porsi, 5k Snack</td>
-                            </tr>
-                            <tr>
-                                <td class="border border-[#E8A26A] px-4 py-3 text-[#3E5467] text-center"
-                                    style="font-family: 'Onest';">02</td>
-                                <td class="border border-[#E8A26A] px-4 py-3 text-[#3E5467] text-center"
-                                    style="font-family: 'Onest';">Area Bermain Bulanan</td>
-                                <td class="border border-[#E8A26A] px-4 py-3 text-[#3E5467] text-center"
-                                    style="font-family: 'Onest';">6 bln s/d 12 thn</td>
-                                <td class="border border-[#E8A26A] px-4 py-3 text-[#3E5467] text-center"
-                                    style="font-family: 'Onest';">Rp. 100.000</td>
-                                <td class="border border-[#E8A26A] px-4 py-3 text-[#3E5467] text-center"
-                                    style="font-family: 'Onest';">Rp. 1.300.000</td>
-                                <td class="border border-[#E8A26A] px-4 py-3 text-[#3E5467] text-center"
-                                    style="font-family: 'Onest';">12.5k / Porsi, 5k Snack</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
+
         <section id="galery">
             <div class="w-full px-8 md:w-3/4 md:px-0 mx-auto">
                 <div class="flex flex-col justify-center mb-40 mt-20 items-center">

@@ -42,7 +42,7 @@
             </svg>
           </button>
           <div id="mobile-dropdown-content" class="hidden w-full py-3 space-y-2">
-            <a href="{{ route('artikel.index') }}"
+            <a href="{{ route('artikel') }}"
               class="block text-[#3E5467] hover:text-[#BDBDCB] transition-all duration-300 text-lg ml-10">Artikel</a>
             <a href="{{ route('galeri') }}"
               class="block text-[#3E5467] hover:text-[#BDBDCB] transition-all duration-300 text-lg ml-10">Galeri</a>
@@ -131,17 +131,17 @@
             </li>
             <li class="relative group">
                 <a href="#"
-                   class="{{ request()->routeIs('artikel.index', 'galeri') ? 'text-[#3E5467]' : 'text-[#BDBDCB]' }} gap-2 group-hover:text-[#3E5467] transition-all duration-300 font-medium flex items-center">
+                   class="{{ request()->routeIs('artikel', 'galeri') ? 'text-[#3E5467]' : 'text-[#BDBDCB]' }} gap-2 group-hover:text-[#3E5467] transition-all duration-300 font-medium flex items-center">
                    Informasi
                    <svg width="8" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                        <path d="M0.999999 1L7 7L13 1"
-                             stroke="{{ request()->routeIs('artikel.index', 'galeri') ? '#3E5467' : '#A2A2BD' }}"
+                             stroke="{{ request()->routeIs('artikel', 'galeri') ? '#3E5467' : '#A2A2BD' }}"
                              class="group-hover:stroke-[#3E5467] transition-all duration-300"
                              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                    </svg>
                 </a>
                 <div class="invisible opacity-0 group-hover:visible group-hover:opacity-100 absolute left-0 mt-2 w-48 bg-white border border-slate-200 rounded-xl transition-all duration-300 ease-in-out z-50">
-                    <a href="{{ route('artikel.index') }}">
+                    <a href="{{ route('artikel') }}">
                         <div class="p-2">
                             <p class="block px-3 py-1 text-[#3E5467] hover:bg-[#CFE1E4] transition-all duration-300 rounded-xl">
                                 Artikel
@@ -208,7 +208,7 @@
         </li>
         <li class="relative">
             <button id="mobile-dropdown-trigger"
-                class="{{ request()->routeIs('artikel.index', 'galeri') ? 'text-[#3E5467]' : 'text-[#BDBDCB]' }} text-xl font-semibold flex items-center justify-center hover:text-[#3E5467] transition-all duration-300 w-full gap-2">
+                class="{{ request()->routeIs('artikel', 'galeri') ? 'text-[#3E5467]' : 'text-[#BDBDCB]' }} text-xl font-semibold flex items-center justify-center hover:text-[#3E5467] transition-all duration-300 w-full gap-2">
                 Informasi
                 <svg class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
@@ -216,8 +216,8 @@
                 </svg>
             </button>
             <div id="mobile-dropdown-content" class="hidden w-full py-3 space-y-2">
-                <a href="{{ route('artikel.index') }}"
-                   class="block {{ request()->routeIs('artikel.index') ? 'text-[#3E5467]' : 'text-[#BDBDCB]' }} hover:text-[#3E5467] transition-all duration-300 text-lg ml-10">
+                <a href="{{ route('artikel') }}"
+                   class="block {{ request()->routeIs('artikel') ? 'text-[#3E5467]' : 'text-[#BDBDCB]' }} hover:text-[#3E5467] transition-all duration-300 text-lg ml-10">
                    Artikel
                 </a>
                 <a href="{{ route('galeri') }}"

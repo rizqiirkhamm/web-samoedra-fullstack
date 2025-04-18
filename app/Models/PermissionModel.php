@@ -11,6 +11,12 @@ class PermissionModel extends Model
 
         protected $table = 'permissions';
 
+    protected $fillable = [
+        'name',
+        'slug',
+        'groupby'
+    ];
+
         static public function getSingle($id){
             return RoleModel::find($id);
         }

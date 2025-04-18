@@ -17,10 +17,15 @@ use App\Http\Controllers\Frontend\DetailArtikelController;
 use App\Http\Controllers\Frontend\DetailLayananController;
 use App\Http\Controllers\Frontend\FaqController;
 use App\Http\Controllers\Frontend\GaleriController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\Frontend\ArticleController as FrontendArticleController;
+use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\ProgramController;
 use App\Http\Controllers\Frontend\TentangController;
 use App\Http\Controllers\StimulasiController;
+use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\TentangController as AdminTentangController;
 
 
 // routes/web.php
@@ -28,13 +33,8 @@ Route::get('', [HomeController::class, 'index'])->name('home'); // Ganti 'welcom
 
 
 Route::get('/tentang', [TentangController::class, 'index'])->name('tentang');
-
 Route::get('/layanan', [ProgramController::class, 'index'])->name('program');
-
-Route::get('/artikel', [ArtikelController::class, 'index'])->name('artikel.index');
 Route::get('/faq', [FaqController::class, 'index'])->name('faq');
-Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri');
-
 
 //detail layanan
 
@@ -52,6 +52,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/password', [ProfileController::class, 'changePassword'])->name('password.change');
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('password.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
+    Route::post('/gallery', [GalleryController::class, 'store'])->name('gallery.store');
+    Route::put('/gallery/{gallery}', [GalleryController::class, 'update'])->name('gallery.update');
+    Route::delete('/gallery/{gallery}', [GalleryController::class, 'destroy'])->name('gallery.destroy');
 });
 
 Route::group(['middleware' => 'useradmin'], function() {
@@ -125,6 +129,23 @@ Route::group(['middleware' => 'useradmin'], function() {
         Route::get('/generate-invoice/{id}', [StimulasiController::class, 'generateInvoice'])->name('stimulasi.invoice');
     });
 
+    Route::prefix('article')->group(function () {
+        Route::get('/', [ArticleController::class, 'index'])->name('article.master');
+        Route::post('/', [ArticleController::class, 'store'])->name('article.store');
+        Route::post('/upload-image', [ArticleController::class, 'uploadImage'])->name('article.upload.image');
+        Route::get('/edit/{id}', [ArticleController::class, 'edit'])->name('article.edit');
+        Route::put('/edit/{id}', [ArticleController::class, 'update'])->name('article.update');
+        Route::delete('/{id}', [ArticleController::class, 'destroy'])->name('article.destroy');
+        Route::get('/{id}', [ArticleController::class, 'show'])->name('article.show');
+    });
+
+    // Route untuk mengedit halaman tentang
+    Route::prefix('tentang')->name('tentang.')->group(function () {
+        Route::get('/edit', [AdminTentangController::class, 'edit'])->name('edit');
+        Route::post('/update', [AdminTentangController::class, 'update'])->name('update');
+        Route::post('/organisasi/update', [AdminTentangController::class, 'updateOrganisasi'])->name('organisasi.update');
+    });
+
 });
 
 // Tambahkan route untuk generate invoice
@@ -150,6 +171,25 @@ Route::get('/debug/events', function() {
             'line' => $e->getLine()
         ]);
     }
+});
+
+// Image upload route for TinyMCE
+Route::post('/upload-image', [ImageUploadController::class, 'upload'])->name('upload.image');
+
+Route::post('/users/article/upload-image', [App\Http\Controllers\ArticleController::class, 'uploadImage'])->name('article.upload.image');
+
+// Frontend Article Routes
+Route::get('/artikel', [App\Http\Controllers\Frontend\ArticleController::class, 'index'])->name('artikel');
+Route::get('/artikel/{slug}', [App\Http\Controllers\Frontend\ArticleController::class, 'show'])->name('artikel.detail');
+
+// Frontend Routes
+Route::get('/galeri', [App\Http\Controllers\Frontend\GalleryController::class, 'index'])->name('galeri');
+Route::get('/program/daycare', [App\Http\Controllers\Frontend\DaycareController::class, 'daycare'])->name('program.daycare');
+
+// Daycare Edit Route
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/daycare/edit', [App\Http\Controllers\Frontend\DaycareEditController::class, 'index'])->name('daycare.edit');
+    Route::put('/daycare/update', [App\Http\Controllers\Frontend\DaycareEditController::class, 'update'])->name('daycare.update');
 });
 
 require __DIR__.'/auth.php';

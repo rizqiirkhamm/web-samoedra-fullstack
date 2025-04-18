@@ -6,7 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>@yield('title')</title>
+
+    <!-- jQuery harus dimuat pertama -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Flowbite -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+
     @stack('head')
+    @yield('styles')
 
     <!-- Tailwind dengan konfigurasi dark mode -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -182,7 +190,6 @@
         main {
             flex: 1;
             width: 100%;
-            background-color: #0a0a0a; /* darkblack-600 */
         }
 
         /* Pastikan dark mode bekerja dengan benar */
@@ -200,6 +207,10 @@
         .content-wrapper {
             width: 100%;
             height: 100%;
+        }
+
+        .note-modal-backdrop {
+            display: none !important;
         }
     </style>
 
@@ -228,7 +239,7 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
+    <!-- Scripts -->
     <script src="{{ asset('js/aos.js') }}"></script>
     <script src="{{ asset('js/slick.min.js') }}"></script>
     <script>
@@ -237,11 +248,10 @@
     <script src="{{ asset('js/quill.min.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     <script src="{{ asset('js/chart.js') }}"></script>
-
-    <!-- Common Scripts -->
-    <script src="{{ asset('js/common.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 
     <!-- Page Specific Scripts -->
+    @yield('scripts')
     @stack('scripts')
 
     <script>

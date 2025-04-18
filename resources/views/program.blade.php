@@ -22,7 +22,7 @@
     <div class="w-full">
         <!-- Overlay & Text -->
         <div class="w-full h-110 flex flex-col items-center justify-center text-white text-center"
-            style="background-image: url('images/assets/banner.png'); background-repeat: no-repeat; background-position: center;">
+            style="background-image: url('{{ asset('images/assets/banner.png') }}'); background-repeat: no-repeat; background-position: center;">
             <h1 class="text-white font-semibold text-4xl xl:text-5xl" style="font-family: 'Fredoka';">Layanan Kami</h1>
             <p class="mt-5 duration-300 text-xl" style="font-family: 'Fuzzy Bubbles';">
                 <span class="text-[#E8A26A] text-xl" style="font-family: 'Fuzzy Bubbles', cursive;">Home →</span>
@@ -35,15 +35,15 @@
         <!-- Container untuk card dan hewan laut -->
         <div class="w-full px-8 md:w-3/4 md:px-0 mx-auto relative overflow-x-hidden md:overflow-x-visible">
             <!-- Hewan laut dengan posisi relatif terhadap container -->
-            <img src="images/assets/kura2.svg" alt="Kura-kura"
+            <img src="{{ asset('images/assets/kura2.svg') }}" alt="Kura-kura"
                 class="absolute w-28 md:w-36 top-16 -left-12 transform animate-swim">
 
-            <img src="images/assets/ikan_pari.svg" alt="Ikan Pari"
+            <img src="{{ asset('images/assets/ikan_pari.svg') }}" alt="Ikan Pari"
                 class="absolute w-28 md:w-46 top-[860px] md:top-[750px] -left-10 md:-left-20 rotate-45 transform animate-float">
 
-            <img src="images/assets/lobster.svg" alt="Lobster"
+            <img src="{{ asset('images/assets/lobster.svg') }}" alt="Lobster"
                 class="absolute w-22 md:w-30 top-[750px] -right-5 md:right-0 transform animate-float">
-            <img src="images/assets/lumba2.svg" alt="Lumba Lumba"
+            <img src="{{ asset('images/assets/lumba2.svg') }}" alt="Lumba Lumba"
                 class="absolute w-20 md:w-36 top-[1600px] md:top-[1500px] right-0 md:-right-5 -scale-x-[1] transform animate-swim">
             <!-- Konten card -->
             <p class="text-[#E8A26A] text-xl text-center mt-12" style="font-family: 'Fuzzy Bubbles';">Program Layanan
@@ -52,7 +52,7 @@
                 style="font-family: 'Fredoka';">Rumah Samoedra</h1>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div class="w-full h-180 border-3 border-[#7BA5B0] border-dashed rounded-3xl p-5 md:p-7 flex flex-col">
-                    <img src="images/assets/img1.png" alt="Layanan 1" class="w-full h-96 object-cover rounded-3xl">
+                    <img src="{{ asset('images/assets/img1.png') }}" alt="Layanan 1" class="w-full h-96 object-cover rounded-3xl">
                     <div class="px-3">
                         <h1 class="text-[#3E5467] text-3xl md:text-4xl font-semibold mt-5"
                             style="font-family: 'Fredoka';">
@@ -88,7 +88,7 @@
                     </div>
                 </div>
                 <div class="w-full h-180 border-3 border-[#7BA5B0] border-dashed rounded-3xl p-5 md:p-7 flex flex-col">
-                    <img src="images/assets/img1.png" alt="Layanan 1" class="w-full h-96 object-cover rounded-3xl">
+                    <img src="{{ asset('images/assets/img1.png') }}" alt="Layanan 1" class="w-full h-96 object-cover rounded-3xl">
                     <div class="px-3">
                         <h1 class="text-[#3E5467] text-3xl md:text-4xl font-semibold mt-5"
                             style="font-family: 'Fredoka';">
@@ -124,7 +124,7 @@
                     </div>
                 </div>
                 <div class="w-full h-180 border-3 border-[#7BA5B0] border-dashed rounded-3xl p-5 md:p-7 flex flex-col">
-                    <img src="images/assets/img1.png" alt="Layanan 1" class="w-full h-96 object-cover rounded-3xl">
+                    <img src="{{ asset('images/assets/img1.png') }}" alt="Layanan 1" class="w-full h-96 object-cover rounded-3xl">
                     <div class="px-3">
                         <h1 class="text-[#3E5467] text-3xl md:text-4xl font-semibold mt-5"
                             style="font-family: 'Fredoka';">
@@ -160,7 +160,7 @@
                     </div>
                 </div>
                 <div class="w-full h-180 border-3 border-[#7BA5B0] border-dashed rounded-3xl p-5 md:p-7 flex flex-col">
-                    <img src="images/assets/img1.png" alt="Layanan 1" class="w-full h-96 object-cover rounded-3xl">
+                    <img src="{{ asset('images/assets/img1.png') }}" alt="Layanan 1" class="w-full h-96 object-cover rounded-3xl">
                     <div class="px-3">
                         <h1 class="text-[#3E5467] text-3xl md:text-4xl font-semibold mt-5"
                             style="font-family: 'Fredoka';">
@@ -196,7 +196,7 @@
                     </div>
                 </div>
                 <div class="w-full h-180 border-3 border-[#7BA5B0] border-dashed rounded-3xl p-5 md:p-7 flex flex-col">
-                    <img src="images/assets/img1.png" alt="Layanan 1" class="w-full h-96 object-cover rounded-3xl">
+                    <img src="{{ asset('images/assets/img1.png') }}" alt="Layanan 1" class="w-full h-96 object-cover rounded-3xl">
                     <div class="px-3">
                         <h1 class="text-[#3E5467] text-3xl md:text-4xl font-semibold mt-5"
                             style="font-family: 'Fredoka';">

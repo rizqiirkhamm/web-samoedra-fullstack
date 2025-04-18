@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rumah Samoedra</title>
   <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="{{ asset('style.css') }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -22,7 +22,7 @@
   <div class="w-full ">
     <!-- Overlay & Text -->
     <div class="w-full h-110 flex flex-col items-center justify-center text-white text-center"
-      style="background-image: url('images/assets/banner.png'); background-repeat: no-repeat; background-position: center;">
+      style="background-image: url('{{ asset('images/assets/banner.png') }}'); background-repeat: no-repeat; background-position: center;">
       <h1 class="text-white font-semibold text-4xl xl:text-5xl" style="font-family: 'Fredoka';">Tentang Kami</h1>
       <p class="mt-5 duration-300 text-xl" style="font-family: 'Fuzzy Bubbles';">
         <span class="text-[#E8A26A] text-xl" style="font-family: 'Fuzzy Bubbles', cursive;">Home →</span>
@@ -32,16 +32,16 @@
   </div>
   <div class="overflow-hidden md:w-3/4 w-full px-8 md:px-0 mx-auto duration-300 md:flex py-20">
     <div class="w-full duration-300 lg:w-1/2 flex items-center justify-start relative">
-      <img class="absolute w-full items-center justify-center z-[-10] -left-30 -top-20" src="images/assets/line1.png" alt="">
+      <img class="absolute w-full items-center justify-center z-[-10] -left-30 -top-20" src="{{ asset('images/assets/line1.png') }}" alt="">
 
       <!-- Container untuk gambar utama dan line1.png -->
       <div
-        class=" w-full lg:w-[70%] p-3 h-auto bg-[#EFF5F6] rounded-tl-[130px] md:rounded-tl-[170px] rounded-br-[130px] items-center justify-center md:rounded-br-[170px] lg:rounded-tl-[190px] lg:rounded-br-[190px] rounded-tr-[70px] rounded-bl-[70px] relative">
-        <img src="images/assets/lumba2.svg" alt="Lumba Lumba"
+        class=" w-full lg:w-[70%] p-3 h-auto bg-[#91CFE0] rounded-tl-[130px] md:rounded-tl-[170px] rounded-br-[130px] items-center justify-center md:rounded-br-[170px] lg:rounded-tl-[190px] lg:rounded-br-[190px] rounded-tr-[70px] rounded-bl-[70px] relative">
+        <img src="{{ asset('images/assets/lumba2.svg') }}" alt="Lumba Lumba"
           class=" z-10 duration-300 absolute w-28 md:w-28 lg:w-36 -bottom-20 md:-bottom-40 -left-5 md:-left-25 rotate-0 transform -translate-y-1/2">
-        <img src="images/assets/bintang_laut_pink.svg" alt="Bintang Pink"
+        <img src="{{ asset('images/assets/bintang_laut_pink.svg') }}" alt="Bintang Pink"
           class=" z-10 duration-300 absolute w-16 md:w-28 lg:w-28 -bottom-12 right-0 md:-right-30 rotate-0 transform -translate-y-1/2">
-          <img src="images/assets/cumi.svg" alt="Cumi"
+          <img src="{{ asset('images/assets/cumi.svg') }}" alt="Cumi"
           class=" z-[-10] duration-300 absolute w-24 md:w-28 lg:w-48 -right-10 md:-top-2 md:-right-16 -rotate-18 transform -translate-y-1/2">
 
 
@@ -51,7 +51,9 @@
           class="w-full  pb-[100%] items-center justify-center bg-slate-300  rounded-tl-[130px] md:rounded-tl-[170px] rounded-br-[130px] md:rounded-br-[170px] lg:rounded-tl-[190px] lg:rounded-br-[190px] rounded-tr-[70px] rounded-bl-[70px] relative ">
           <img
             class="absolute w-full h-full object-cover rounded-tl-[130px] md:rounded-tl-[170px] rounded-br-[130px] md:rounded-br-[170px] lg:rounded-tl-[190px] lg:rounded-br-[190px] rounded-tr-[70px] rounded-bl-[70px] "
-            src="images/assets/img1.png" alt="Img Layanan">
+            src="{{ isset($tentangData['image_sambutan']) && Storage::disk('public')->exists($tentangData['image_sambutan'])
+                ? asset('storage/' . $tentangData['image_sambutan'])
+                : asset('images/assets/img1.png') }}" alt="Img Layanan">
         </div>
       </div>
     </div>
@@ -62,16 +64,9 @@
       </h1>
       <div class="flex items-center gap-2">
         <h1 class="text-[#3E5467] font-semibold text-4xl xl:text-5xl" style="font-family: 'Fredoka';">Rumah</h1>
-        <img src="images/assets/text_samoedra.png" class="h-13 xl:h-18" alt="Samoedra">
+        <img src="{{ asset('images/assets/text_samoedra.png') }}" class="h-13 xl:h-18" alt="Samoedra">
       </div>
-      <p class="mt-5 text-[#A2A2BD] mb-3">SAMOEDRA berdiri murni dibawah Lembaga swasta tidak dibawah
-        Kementerian Tertentu sehingga memiliki keunikan tersendiri dalam pelayanan anak karena tidak ada
-        intervensi dari tekanan Kurikulum tertentu. Sesuai koncep dan motonya, "belajar dan main suka-suka"
-      </p>
-      <p class="text-[#A2A2BD]">
-        "Kami hadir untuk memberikan pengembangan tumbuh kembang anak yang baik, luar Biasa, istimewa. Kami
-        hadir merepresentasikan pecan orang tua dalam mendidik anak."
-      </p>
+      <p class="mt-5 text-[#A2A2BD] mb-3">{{ $tentangData['sambutan_lembaga'] }}</p>
 
     </div>
   </div>
@@ -81,9 +76,7 @@
       <p class="text-[#E8A26A] text-xl" style="font-family: 'Fuzzy Bubbles';">Tentang Kami</p>
       <h2 class="text-[#3E5467] font-semibold text-4xl xl:text-5xl" style="font-family: 'Fredoka';">Tempat
         nya Bermain & Belajar Suka Suka</h2>
-      <p class="text-[#A2A2BD] mt-4 text-lg">Lorem, ipsum dolor sit amet consectetur adipisicing elit. At, animi
-        deserunt unde architecto, natus asperiores numquam expedita assumenda quidem quis, suscipit facere
-        perspiciatis porro.</p>
+      <p class="text-[#A2A2BD] mt-4 text-lg">{!! $tentangData['tempat_bermain'] !!}</p>
       <div class="flex gap-5 mt-6">
         <a href="#">
           <button
@@ -124,9 +117,7 @@
         </div>
         <div class="space-y-1">
           <h3 class="text-2xl font-semibold text-[#3E5467]" style="font-family: 'Fredoka';">Konsep Pendidikan</h3>
-          <p class="text-[#A2A2BD]">Kurikulum Adaptif: Dirancang untuk memenuhi kebutuhan anak dengan pendekatan
-            sensorik dan stimulasi motorik, mengusung konsep "Bebas dan Merdeka Belajar" yang fleksibel dan berkembang
-            sesuai ilmu pengetahuan.</p>
+          <p class="text-[#A2A2BD]">{!! $tentangData['konsep_pendidikan'] !!}</p>
         </div>
       </div>
       <div class="flex items-center space-x-8">
@@ -139,9 +130,7 @@
         </div>
         <div class="space-y-1">
           <h3 class="text-2xl font-semibold text-[#3E5467]" style="font-family: 'Fredoka';">Filosofi</h3>
-          <p class="text-[#A2A2BD]">Samoedra melambangkan kebebasan dan keluasaan hidup, seperti samudra yang tak
-            terbatas. ORCA merepresentasikan kecerdasan paus dan lumba-lumba, mengajarkan anak belajar dengan bebas dan
-            pintar.</p>
+          <p class="text-[#A2A2BD]">{!! $tentangData['filosofi'] !!}</p>
         </div>
       </div>
       <div class="flex items-center space-x-8">
@@ -155,26 +144,25 @@
         </div>
         <div class="space-y-1">
           <h3 class="text-2xl font-semibold text-[#3E5467]" style="font-family: 'Fredoka';">Sejarah</h3>
-          <p class="text-[#A2A2BD]">CV Konci, berdiri sejak 2017, bergerak di bidang pendidikan tinggi dan kemitraan.
-            Resmi terdaftar sebagai Penanaman Modal Dalam Negeri (PMDN).</p>
+          <p class="text-[#A2A2BD]">{!! $tentangData['sejarah'] !!}</p>
         </div>
       </div>
     </div>
   </section>
   <section class="w-full h-auto relative overflow-hidden">
     <!-- Elemen hewan laut di sebelah kiri -->
-    <img src="images/assets/kepiting.svg" alt="Kepiting"
-      class=" duration-300 absolute w-20 md:w-36 top-80 left-0 rotate-90 transform -translate-x-6 animate-float">
-    <img src="images/assets/kura2.svg" alt="Kura-kura"
-      class=" duration-300 absolute w-28  md:w-36 top-[800px] -left-8 transform -translate-y-1/2 animate-float-delay  -scale-x-100">
-    <img src="images/assets/paus.svg" alt="Paus"
-      class=" duration-300 absolute w-28 h-28 md:w-40 bottom-14 -left-7 rotate-2 transform -translate-y-1/2 animate-float">
+    <img src="{{ asset('images/assets/kepiting.svg') }}" alt="Kepiting"
+      class="duration-300 absolute w-20 md:w-36 top-80 left-0 rotate-90 transform -translate-x-6 animate-float">
+    <img src="{{ asset('images/assets/kura2.svg') }}" alt="Kura-kura"
+      class="duration-300 absolute w-28 md:w-36 top-[800px] -left-8 transform -translate-y-1/2 animate-float-delay -scale-x-100">
+    <img src="{{ asset('images/assets/paus.svg') }}" alt="Paus"
+      class="duration-300 absolute w-28 h-28 md:w-40 bottom-14 -left-7 rotate-2 transform -translate-y-1/2 animate-float">
 
     <!-- Elemen hewan laut di sebelah kanan -->
-    <img src="images/assets/ikan_biru.svg" alt="Ikan Biru"
-      class=" duration-300 absolute w-20 h-28 md:w-36 top-[550px] -right-7 rotate-2 transform -translate-y-1/2 animate-swim  -scale-x-100">
-    <img src="images/assets/lobster.svg" alt="Lobster"
-      class=" duration-300 absolute w-28 h-28 md:w-40 bottom-150 -right-7 rotate-2 scale-x-[1] transform -translate-y-1/2 animate-float ">
+    <img src="{{ asset('images/assets/ikan_biru.svg') }}" alt="Ikan Biru"
+      class="duration-300 absolute w-20 h-28 md:w-36 top-[550px] -right-7 rotate-2 transform -translate-y-1/2 animate-swim -scale-x-100">
+    <img src="{{ asset('images/assets/lobster.svg') }}" alt="Lobster"
+      class="duration-300 absolute w-28 h-28 md:w-40 bottom-150 -right-7 rotate-2 scale-x-[1] transform -translate-y-1/2 animate-float">
 
     <!-- Konten utama -->
     <div class="md:w-3/4 md:px-0 px-8 w-full mx-auto p-8 mt-16 text-center">
@@ -183,13 +171,18 @@
         Organisasi</h1>
 
       <div class="mt-9 flex flex-col items-center">
-        <!-- Jabatan Direktur -->
+        <!-- Direktur -->
+        @if(isset($organisasiData['manajemen'][0]))
         <div class="relative">
-          <img src="images/assets/img1.png" alt="Mr Hakim"
+          <img src="{{ isset($organisasiData['manajemen'][0]['foto']) && \Illuminate\Support\Facades\Storage::disk('public')->exists($organisasiData['manajemen'][0]['foto'])
+                ? asset('storage/' . $organisasiData['manajemen'][0]['foto'])
+                : asset($organisasiData['manajemen'][0]['foto']) }}"
+                alt="{{ $organisasiData['manajemen'][0]['nama'] }}"
             class="duration-300 md:w-32 w-24 h-28 md:h-36 lg:w-40 lg:h-44 rounded-t-full border-3 p-2 object-cover border-dashed border-[#7BA5B0] mx-auto">
-          <p class="font-semibold mt-2 text-[#3E5467] text-2xl" style="font-family: 'Fredoka';">Mr Hakim</p>
-          <p class="text-[#E8A26A]" style="font-family: 'Onest';">Direktur</p>
+          <p class="font-semibold mt-2 text-[#3E5467] text-2xl" style="font-family: 'Fredoka';">{{ $organisasiData['manajemen'][0]['nama'] }}</p>
+          <p class="text-[#E8A26A]" style="font-family: 'Onest';">{{ $organisasiData['manajemen'][0]['jabatan'] }}</p>
         </div>
+        @endif
 
         <!-- Garis ke Manager -->
         <div class="relative flex flex-col items-center my-3">
@@ -198,13 +191,18 @@
           <div class="w-3 h-3 bg-[#7BA5B0] rounded-full"></div>
         </div>
 
-        <!-- Jabatan Manager -->
+        <!-- Manager -->
+        @if(isset($organisasiData['manajemen'][1]))
         <div class="relative">
-          <img src="images/assets/img1.png" alt="Miss Achy"
+          <img src="{{ isset($organisasiData['manajemen'][1]['foto']) && \Illuminate\Support\Facades\Storage::disk('public')->exists($organisasiData['manajemen'][1]['foto'])
+                ? asset('storage/' . $organisasiData['manajemen'][1]['foto'])
+                : asset($organisasiData['manajemen'][1]['foto']) }}"
+                alt="{{ $organisasiData['manajemen'][1]['nama'] }}"
             class="duration-300 md:w-32 w-24 h-28 md:h-36 lg:w-40 lg:h-44 rounded-t-full border-3 p-2 object-cover border-dashed border-[#7BA5B0] mx-auto">
-          <p class="font-semibold mt-2 text-[#3E5467] text-2xl" style="font-family: 'Fredoka';">Miss Rina</p>
-          <p class="text-[#E8A26A]" style="font-family: 'Onest';">Manager Operasional</p>
+          <p class="font-semibold mt-2 text-[#3E5467] text-2xl" style="font-family: 'Fredoka';">{{ $organisasiData['manajemen'][1]['nama'] }}</p>
+          <p class="text-[#E8A26A]" style="font-family: 'Onest';">{{ $organisasiData['manajemen'][1]['jabatan'] }}</p>
         </div>
+        @endif
 
         <!-- Garis ke Teachers -->
         <div class="relative flex flex-col items-center mt-4 w-[50%] md:w-[75%]">
@@ -215,90 +213,53 @@
 
         <!-- Garis ke Teachers -->
         <div class="relative flex flex-col items-center w-full">
-          <div class="grid grid-cols-2 md:grid-cols-4 w-full justify-items-center">
-            <div class="flex justify-center">
-              <div class="border-l-3 border-[#7BA5B0] border-dashed h-16 relative">
-                <div
-                  class="w-3 h-3 bg-[#7BA5B0] rounded-full absolute bottom-[-4px] left-[-2px] transform -translate-x-1/2">
+            <div class="grid grid-cols-2 md:grid-cols-4 w-full justify-items-center">
+              <div class="flex justify-center">
+                <div class="border-l-3 border-[#7BA5B0] border-dashed h-16 relative">
+                  <div
+                    class="w-3 h-3 bg-[#7BA5B0] rounded-full absolute bottom-[-4px] left-[-2px] transform -translate-x-1/2">
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="flex justify-center">
-              <div class="border-l-3 border-[#7BA5B0] border-dashed h-16 relative">
-                <div
-                  class="w-3 h-3 bg-[#7BA5B0] rounded-full absolute bottom-[-4px] left-[-2px] transform -translate-x-1/2">
+              <div class="flex justify-center">
+                <div class="border-l-3 border-[#7BA5B0] border-dashed h-16 relative">
+                  <div
+                    class="w-3 h-3 bg-[#7BA5B0] rounded-full absolute bottom-[-4px] left-[-2px] transform -translate-x-1/2">
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="hidden md:flex justify-center">
-              <div class="border-l-3 border-[#7BA5B0] border-dashed h-16 relative">
-                <div
-                  class="w-3 h-3 bg-[#7BA5B0] rounded-full absolute bottom-[-4px] left-[-2px] transform -translate-x-1/2">
+              <div class="hidden md:flex justify-center">
+                <div class="border-l-3 border-[#7BA5B0] border-dashed h-16 relative">
+                  <div
+                    class="w-3 h-3 bg-[#7BA5B0] rounded-full absolute bottom-[-4px] left-[-2px] transform -translate-x-1/2">
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="hidden md:flex justify-center">
-              <div class="border-l-3 border-[#7BA5B0] border-dashed h-16 relative">
-                <div
-                  class="w-3 h-3 bg-[#7BA5B0] rounded-full absolute bottom-[-4px] left-[-2px] transform -translate-x-1/2">
+              <div class="hidden md:flex justify-center">
+                <div class="border-l-3 border-[#7BA5B0] border-dashed h-16 relative">
+                  <div
+                    class="w-3 h-3 bg-[#7BA5B0] rounded-full absolute bottom-[-4px] left-[-2px] transform -translate-x-1/2">
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
         <!-- Teachers Section -->
         <div
           class="grid w-full grid-cols-2 md:grid-cols-4 gap-6 mt-6 h-full justify-items-center place-items-center mb-28">
-          <!-- Teacher 1 -->
+          <!-- Teachers -->
+          @foreach($organisasiData['guru'] as $guru)
           <div class="text-center">
-            <img src="images/assets/img1.png" alt="Mr Karim"
+            <img src="{{ isset($guru['foto']) && \Illuminate\Support\Facades\Storage::disk('public')->exists($guru['foto'])
+                  ? asset('storage/' . $guru['foto'])
+                  : asset($guru['foto']) }}"
+                  alt="{{ $guru['nama'] }}"
               class="duration-300 md:w-32 w-24 h-28 md:h-36 lg:w-40 lg:h-44 rounded-t-full border-3 p-2 object-cover border-dashed border-[#7BA5B0] mx-auto">
-            <p class="font-semibold mt-2 text-[#3E5467] text-2xl" style="font-family: 'Fredoka';">Mr. Karim</p>
-            <p class="text-[#E8A26A]" style="font-family: 'Onest';">Teachers</p>
+            <p class="font-semibold mt-2 text-[#3E5467] text-2xl" style="font-family: 'Fredoka';">{{ $guru['nama'] }}</p>
+            <p class="text-[#E8A26A]" style="font-family: 'Onest';">{{ $guru['jabatan'] }}</p>
           </div>
-
-          <!-- Teacher 2 -->
-          <div class="text-center">
-            <img src="images/assets/img1.png" alt="Mr Dimas"
-              class="duration-300 md:w-32 w-24 h-28 md:h-36 lg:w-40 lg:h-44 rounded-t-full border-3 p-2 object-cover border-dashed border-[#7BA5B0] mx-auto">
-            <p class="font-semibold mt-2 text-[#3E5467] text-2xl" style="font-family: 'Fredoka';">Mr. Dimas</p>
-            <p class="text-[#E8A26A]" style="font-family: 'Onest';">Teachers</p>
-          </div>
-
-          <!-- Teacher 3 -->
-          <div class="md:block text-center">
-            <img src="images/assets/img1.png" alt="Mr Andi"
-              class="duration-300 md:w-32 w-24 h-28 md:h-36 lg:w-40 lg:h-44 rounded-t-full border-3 p-2 object-cover border-dashed border-[#7BA5B0] mx-auto">
-            <p class="font-semibold mt-2 text-[#3E5467] text-2xl" style="font-family: 'Fredoka';">Mr. Andi</p>
-            <p class="text-[#E8A26A]" style="font-family: 'Onest';">Teachers</p>
-          </div>
-
-          <!-- Teacher 4 -->
-          <div class="md:block text-center">
-            <img src="images/assets/img1.png" alt="Miss Anna"
-              class="duration-300 md:w-32 w-24 h-28 md:h-36 lg:w-40 lg:h-44 rounded-t-full border-3 p-2 object-cover border-dashed border-[#7BA5B0] mx-auto">
-            <p class="font-semibold mt-2 text-[#3E5467] text-2xl" style="font-family: 'Fredoka';">Miss Anna</p>
-            <p class="text-[#E8A26A]" style="font-family: 'Onest';">Teachers</p>
-          </div>
-          <div class="md:block text-center">
-            <img src="images/assets/img1.png" alt="Miss Anna"
-              class="duration-300 md:w-32 w-24 h-28 md:h-36 lg:w-40 lg:h-44 rounded-t-full border-3 p-2 object-cover border-dashed border-[#7BA5B0] mx-auto">
-            <p class="font-semibold mt-2 text-[#3E5467] text-2xl" style="font-family: 'Fredoka';">Miss Anna</p>
-            <p class="text-[#E8A26A]" style="font-family: 'Onest';">Teachers</p>
-          </div>
-          <div class="md:block text-center">
-            <img src="images/assets/img1.png" alt="Miss Anna"
-              class="duration-300 md:w-32 w-24 h-28 md:h-36 lg:w-40 lg:h-44 rounded-t-full border-3 p-2 object-cover border-dashed border-[#7BA5B0] mx-auto">
-            <p class="font-semibold mt-2 text-[#3E5467] text-2xl" style="font-family: 'Fredoka';">Miss Anna</p>
-            <p class="text-[#E8A26A]" style="font-family: 'Onest';">Teachers</p>
-          </div>
-          <div class="md:block text-center">
-            <img src="images/assets/img1.png" alt="Miss Anna"
-              class="duration-300 md:w-32 w-24 h-28 md:h-36 lg:w-40 lg:h-44 rounded-t-full border-3 p-2 object-cover border-dashed border-[#7BA5B0] mx-auto">
-            <p class="font-semibold mt-2 text-[#3E5467] text-2xl" style="font-family: 'Fredoka';">Miss Anna</p>
-            <p class="text-[#E8A26A]" style="font-family: 'Onest';">Teachers</p>
-          </div>
+          @endforeach
         </div>
       </div>
     </div>
