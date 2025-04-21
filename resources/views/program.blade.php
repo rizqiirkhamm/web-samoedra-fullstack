@@ -16,6 +16,14 @@
 </head>
 
 <body>
+    @php
+    // Function to extract YouTube video ID from URL
+    function getYoutubeVideoId($url) {
+        preg_match('/(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/', $url, $matches);
+        return isset($matches[1]) ? $matches[1] : '';
+    }
+    @endphp
+
     <!-- Navbar Section -->
     @include('components.navbar-fe')
     <!-- Banner -->
@@ -52,7 +60,7 @@
                 style="font-family: 'Fredoka';">Rumah Samoedra</h1>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div class="w-full h-180 border-3 border-[#7BA5B0] border-dashed rounded-3xl p-5 md:p-7 flex flex-col">
-                    <img src="{{ asset('images/assets/img1.png') }}" alt="Layanan 1" class="w-full h-96 object-cover rounded-3xl">
+                    <img src="{{ asset($daycareData['banner_image']) }}" alt="Layanan Daycare" class="w-full h-96 object-cover rounded-3xl">
                     <div class="px-3">
                         <h1 class="text-[#3E5467] text-3xl md:text-4xl font-semibold mt-5"
                             style="font-family: 'Fredoka';">
@@ -60,21 +68,18 @@
                         <div class="flex items-center gap-4 mt-4">
                             <p class="text-white bg-[#7BA5B0] px-3 py-1 rounded-xl w-fit"
                                 style="font-family: 'Fredoka';">
-                                08.00 - 15.00</p>
-                            <p class="text-[#7BA5B0]" style="font-family: 'Fredoka';">Senin - Sabtu</p>
+                                {{ $daycareData['about_daycare']['details']['jam_operasional'] }}</p>
+                            <p class="text-[#7BA5B0]" style="font-family: 'Fredoka';">{{ $daycareData['about_daycare']['details']['hari'] }}</p>
                         </div>
-                        <p class="text-[#A2A2BD] mt-5">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias
-                            facere dolorem nesciunt ratione assumenda natus vitae nemo, dolores voluptatibus ipsum,
-                            numquam
-                            modi totam unde quas quaerat, rerum quasi voluptates deleniti.</p>
+                        <p class="text-[#A2A2BD] mt-5">{{ $daycareData['kelebihan_daycare'] }}</p>
                         <div class="flex gap-5 mt-5">
-                            <a href="{{ route('layanan.detail', ['id' => 'daycare']) }}">
+                            <a href="{{ route('program.daycare') }}">
                                 <button
                                     class="rounded-full cursor-pointer outline outline-[#7BA5B0] hover:outline-[#BDBDCB] flex items-center gap-2 text-[#7BA5B0] px-6 py-2 transition-all duration-300 group">
                                     <span class="group-hover:text-[#BDBDCB] transition-all duration-300">Detail</span>
                                 </button>
                             </a>
-                            <a href="#">
+                            <a href="{{route('welcome')}}">
                                 <button
                                     class="bg-[#7BA5B0] rounded-full flex items-center gap-2 text-white px-6 py-2 transition-all duration-300 hover:bg-[#BDBDCB]">Daftar
                                     <svg width="21" height="10" viewBox="0 0 21 10" fill="none"
@@ -88,7 +93,17 @@
                     </div>
                 </div>
                 <div class="w-full h-180 border-3 border-[#7BA5B0] border-dashed rounded-3xl p-5 md:p-7 flex flex-col">
-                    <img src="{{ asset('images/assets/img1.png') }}" alt="Layanan 1" class="w-full h-96 object-cover rounded-3xl">
+                    @if(isset($bermain) && isset($bermain['banner_type']))
+                        @if($bermain['banner_type'] == 'video')
+                            <div class="w-full h-96 rounded-3xl overflow-hidden">
+                                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{ getYoutubeVideoId($bermain['banner_video']) }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        @else
+                            <img src="{{ asset(isset($bermain['banner_image']) ? 'storage/' . $bermain['banner_image'] : 'images/assets/img1.png') }}" alt="Area Main" class="w-full h-96 object-cover rounded-3xl">
+                        @endif
+                    @else
+                        <img src="{{ asset('images/assets/img1.png') }}" alt="Area Main" class="w-full h-96 object-cover rounded-3xl">
+                    @endif
                     <div class="px-3">
                         <h1 class="text-[#3E5467] text-3xl md:text-4xl font-semibold mt-5"
                             style="font-family: 'Fredoka';">
@@ -96,21 +111,18 @@
                         <div class="flex items-center gap-4 mt-4">
                             <p class="text-white bg-[#7BA5B0] px-3 py-1 rounded-xl w-fit"
                                 style="font-family: 'Fredoka';">
-                                08.00 - 15.00</p>
-                            <p class="text-[#7BA5B0]" style="font-family: 'Fredoka';">Senin - Sabtu</p>
+                                {{ $bermain['operating_hours'] ?? '08.00 - 15.00' }}</p>
+                            <p class="text-[#7BA5B0]" style="font-family: 'Fredoka';">{{ $bermain['operating_days'] ?? 'Senin - Sabtu' }}</p>
                         </div>
-                        <p class="text-[#A2A2BD] mt-5">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias
-                            facere dolorem nesciunt ratione assumenda natus vitae nemo, dolores voluptatibus ipsum,
-                            numquam
-                            modi totam unde quas quaerat, rerum quasi voluptates deleniti.</p>
+                        <p class="text-[#A2A2BD] mt-5">{{ $bermain['benefit_description'] ?? 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias facere dolorem nesciunt ratione assumenda natus vitae nemo, dolores voluptatibus ipsum, numquam modi totam unde quas quaerat, rerum quasi voluptates deleniti.' }}</p>
                         <div class="flex gap-5 mt-5">
-                            <a href="{{ route('layanan.detail', ['id' => 'bermain']) }}">
+                            <a href="{{ route('program.bermain') }}">
                                 <button
                                     class="rounded-full cursor-pointer outline outline-[#7BA5B0] hover:outline-[#BDBDCB] flex items-center gap-2 text-[#7BA5B0] px-6 py-2 transition-all duration-300 group">
                                     <span class="group-hover:text-[#BDBDCB] transition-all duration-300">Detail</span>
                                 </button>
                             </a>
-                            <a href="#">
+                            <a href="{{route('welcome')}}">
                                 <button
                                     class="bg-[#7BA5B0] rounded-full flex items-center gap-2 text-white px-6 py-2 transition-all duration-300 hover:bg-[#BDBDCB]">Daftar
                                     <svg width="21" height="10" viewBox="0 0 21 10" fill="none"
@@ -124,7 +136,18 @@
                     </div>
                 </div>
                 <div class="w-full h-180 border-3 border-[#7BA5B0] border-dashed rounded-3xl p-5 md:p-7 flex flex-col">
-                    <img src="{{ asset('images/assets/img1.png') }}" alt="Layanan 1" class="w-full h-96 object-cover rounded-3xl">
+                    @if($bimbelData['banner_type'] == 'video')
+                        <div class="w-full h-96 rounded-3xl overflow-hidden">
+                            <iframe width="100%" height="100%"
+                                src="https://www.youtube.com/embed/{{ getYoutubeVideoId($bimbelData['banner_video']) }}"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    @else
+                        <img src="{{ asset($bimbelData['banner_image']) }}" alt="Layanan Bimbel" class="w-full h-96 object-cover rounded-3xl">
+                    @endif
                     <div class="px-3">
                         <h1 class="text-[#3E5467] text-3xl md:text-4xl font-semibold mt-5"
                             style="font-family: 'Fredoka';">
@@ -132,21 +155,18 @@
                         <div class="flex items-center gap-4 mt-4">
                             <p class="text-white bg-[#7BA5B0] px-3 py-1 rounded-xl w-fit"
                                 style="font-family: 'Fredoka';">
-                                08.00 - 15.00</p>
-                            <p class="text-[#7BA5B0]" style="font-family: 'Fredoka';">Senin - Sabtu</p>
+                                {{ $bimbelData['operating_hours'] }}</p>
+                            <p class="text-[#7BA5B0]" style="font-family: 'Fredoka';">{{ $bimbelData['operating_days'] }}</p>
                         </div>
-                        <p class="text-[#A2A2BD] mt-5">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias
-                            facere dolorem nesciunt ratione assumenda natus vitae nemo, dolores voluptatibus ipsum,
-                            numquam
-                            modi totam unde quas quaerat, rerum quasi voluptates deleniti.</p>
+                        <p class="text-[#A2A2BD] mt-5">{{ $bimbelData['benefit_description'] }}</p>
                         <div class="flex gap-5 mt-5">
-                            <a href="{{ route('layanan.detail', ['id' => 'bimbel']) }}">
+                            <a href="{{ route('program.bimbel') }}">
                                 <button
                                     class="rounded-full cursor-pointer outline outline-[#7BA5B0] hover:outline-[#BDBDCB] flex items-center gap-2 text-[#7BA5B0] px-6 py-2 transition-all duration-300 group">
                                     <span class="group-hover:text-[#BDBDCB] transition-all duration-300">Detail</span>
                                 </button>
                             </a>
-                            <a href="#">
+                            <a href="{{route('welcome')}}">
                                 <button
                                     class="bg-[#7BA5B0] rounded-full flex items-center gap-2 text-white px-6 py-2 transition-all duration-300 hover:bg-[#BDBDCB]">Daftar
                                     <svg width="21" height="10" viewBox="0 0 21 10" fill="none"
@@ -160,7 +180,7 @@
                     </div>
                 </div>
                 <div class="w-full h-180 border-3 border-[#7BA5B0] border-dashed rounded-3xl p-5 md:p-7 flex flex-col">
-                    <img src="{{ asset('images/assets/img1.png') }}" alt="Layanan 1" class="w-full h-96 object-cover rounded-3xl">
+                    <img src="{{ asset($stimulasiData['banner_image']) }}" alt="Layanan Kelas Stimulasi" class="w-full h-96 object-cover rounded-3xl">
                     <div class="px-3">
                         <h1 class="text-[#3E5467] text-3xl md:text-4xl font-semibold mt-5"
                             style="font-family: 'Fredoka';">
@@ -168,21 +188,18 @@
                         <div class="flex items-center gap-4 mt-4">
                             <p class="text-white bg-[#7BA5B0] px-3 py-1 rounded-xl w-fit"
                                 style="font-family: 'Fredoka';">
-                                08.00 - 15.00</p>
-                            <p class="text-[#7BA5B0]" style="font-family: 'Fredoka';">Senin - Sabtu</p>
+                                {{ $stimulasiData['hours'] }}</p>
+                            <p class="text-[#7BA5B0]" style="font-family: 'Fredoka';">{{ $stimulasiData['days'] }}</p>
                         </div>
-                        <p class="text-[#A2A2BD] mt-5">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias
-                            facere dolorem nesciunt ratione assumenda natus vitae nemo, dolores voluptatibus ipsum,
-                            numquam
-                            modi totam unde quas quaerat, rerum quasi voluptates deleniti.</p>
+                        <p class="text-[#A2A2BD] mt-5">{{ $stimulasiData['description'] }}</p>
                         <div class="flex gap-5 mt-5">
-                            <a href="{{ route('layanan.detail', ['id' => 'stimulasi']) }}">
+                            <a href="{{ route('program.stimulasi') }}">
                                 <button
                                     class="rounded-full cursor-pointer outline outline-[#7BA5B0] hover:outline-[#BDBDCB] flex items-center gap-2 text-[#7BA5B0] px-6 py-2 transition-all duration-300 group">
                                     <span class="group-hover:text-[#BDBDCB] transition-all duration-300">Detail</span>
                                 </button>
                             </a>
-                            <a href="#">
+                            <a href="{{route('welcome')}}">
                                 <button
                                     class="bg-[#7BA5B0] rounded-full flex items-center gap-2 text-white px-6 py-2 transition-all duration-300 hover:bg-[#BDBDCB]">Daftar
                                     <svg width="21" height="10" viewBox="0 0 21 10" fill="none"
@@ -196,29 +213,56 @@
                     </div>
                 </div>
                 <div class="w-full h-180 border-3 border-[#7BA5B0] border-dashed rounded-3xl p-5 md:p-7 flex flex-col">
-                    <img src="{{ asset('images/assets/img1.png') }}" alt="Layanan 1" class="w-full h-96 object-cover rounded-3xl">
+                    @if(isset($data['events']) && count($data['events']) > 0)
+                        @php
+                            // Ambil event terbaru (item pertama)
+                            $latestEvent = $data['events'][0];
+                        @endphp
+
+                        @if($latestEvent['banner_type'] == 'video')
+                            <div class="w-full h-96 rounded-3xl overflow-hidden">
+                                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{ getYoutubeVideoId($latestEvent['banner_video']) }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        @else
+                            <img src="{{ asset($latestEvent['banner_image']) }}" alt="Layanan Event" class="w-full h-96 object-cover rounded-3xl">
+                        @endif
+                    @else
+                        <img src="{{ asset('images/assets/img1.png') }}" alt="Layanan Event" class="w-full h-96 object-cover rounded-3xl">
+                    @endif
                     <div class="px-3">
                         <h1 class="text-[#3E5467] text-3xl md:text-4xl font-semibold mt-5"
                             style="font-family: 'Fredoka';">
                             Layanan Event</h1>
-                        <div class="flex items-center gap-4 mt-4">
-                            <p class="text-white bg-[#7BA5B0] px-3 py-1 rounded-xl w-fit"
-                                style="font-family: 'Fredoka';">
-                                08.00 - 15.00</p>
-                            <p class="text-[#7BA5B0]" style="font-family: 'Fredoka';">Senin - Sabtu</p>
-                        </div>
-                        <p class="text-[#A2A2BD] mt-5">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias
-                            facere dolorem nesciunt ratione assumenda natus vitae nemo, dolores voluptatibus ipsum,
-                            numquam
-                            modi totam unde quas quaerat, rerum quasi voluptates deleniti.</p>
+
+                        @if(isset($data['events']) && count($data['events']) > 0)
+                            @php
+                                $latestEvent = $data['events'][0];
+                                $firstDescription = isset($latestEvent['descriptions'][0]) ? $latestEvent['descriptions'][0]['content'] : '';
+                            @endphp
+                            <div class="flex items-center gap-4 mt-4">
+                                @if(isset($latestEvent['about_event']['tanggal']))
+                                    <p class="text-white bg-[#7BA5B0] px-3 py-1 rounded-xl w-fit"
+                                        style="font-family: 'Fredoka';">{{ $latestEvent['about_event']['tanggal'] }}</p>
+                                @endif
+                                @if(isset($latestEvent['about_event']['kegiatan']))
+                                    <p class="text-[#7BA5B0]" style="font-family: 'Fredoka';">{{ $latestEvent['about_event']['kegiatan'] }}</p>
+                                @endif
+                            </div>
+                            <p class="text-[#A2A2BD] mt-5">{{ $firstDescription }}</p>
+                        @else
+                            <p class="text-[#A2A2BD] mt-5">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias
+                                facere dolorem nesciunt ratione assumenda natus vitae nemo, dolores voluptatibus ipsum,
+                                numquam
+                                modi totam unde quas quaerat, rerum quasi voluptates deleniti.</p>
+                        @endif
                         <div class="flex gap-5 mt-5">
-                            <a href="{{ route('layanan.detail', ['id' => 'event']) }}">
+                            <a href="{{ route('program.event') }}">
                                 <button
                                     class="rounded-full cursor-pointer outline outline-[#7BA5B0] hover:outline-[#BDBDCB] flex items-center gap-2 text-[#7BA5B0] px-6 py-2 transition-all duration-300 group">
                                     <span class="group-hover:text-[#BDBDCB] transition-all duration-300">Detail</span>
                                 </button>
                             </a>
-                            <a href="#">
+                            <a href="{{route('welcome')}}">
                                 <button
                                     class="bg-[#7BA5B0] rounded-full flex items-center gap-2 text-white px-6 py-2 transition-all duration-300 hover:bg-[#BDBDCB]">Daftar
                                     <svg width="21" height="10" viewBox="0 0 21 10" fill="none"

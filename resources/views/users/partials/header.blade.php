@@ -14,15 +14,18 @@
             </span>
         </button>
         <!--              page-title-->
-        <div>
-            <h3
-                class="text-xl font-bold text-bgray-900 dark:text-bgray-50 lg:text-3xl lg:leading-[36.4px]">
-                Dashboard
-            </h3>
-            <p
-                class="text-xs font-medium text-bgray-600 dark:text-bgray-50 lg:text-sm lg:leading-[25.2px]">
-                Selamat Datang di Samoedra
-            </p>
+        <div class="flex items-center space-x-4">
+
+            <div>
+                <h3
+                    class="text-xl font-bold text-bgray-900 dark:text-bgray-50 lg:text-3xl lg:leading-[36.4px]">
+                    Dashboard
+                </h3>
+                <p
+                    class="text-xs font-medium text-bgray-600 dark:text-bgray-50 lg:text-sm lg:leading-[25.2px]">
+                    Selamat Datang di Samoedra
+                </p>
+            </div>
         </div>
         <!--              search-bar-->
 
@@ -146,11 +149,7 @@
             </span>
         </button>
         <div>
-            <a href="/">
-                <img src="{{ asset('images/logo/logo_samoedra.JPG') }}"
-                     class="h-12 w-auto object-contain"
-                     alt="Samoedra Logo" />
-            </a>
+
         </div>
     </div>
     <div class="mr-2">

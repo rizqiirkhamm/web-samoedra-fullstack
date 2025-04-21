@@ -219,16 +219,22 @@
                         <input type="hidden" name="manajemen[{{$index}}][dapat_dihapus]" value="{{ $manager['dapat_dihapus'] ? 'true' : 'false' }}">
 
                         <div class="flex items-center space-x-4">
-                            <div class="w-20 h-20 overflow-hidden rounded-full border border-dashed border-bgray-200 flex items-center justify-center">
-                                <img
-                                    src="{{ isset($manager['foto']) && \Illuminate\Support\Facades\Storage::disk('public')->exists($manager['foto'])
-                                        ? asset('storage/' . $manager['foto'])
-                                        : asset($manager['foto']) }}"
-                                    alt="{{ $manager['nama'] }}"
-                                    class="w-full h-full object-cover"
-                                >
+                            <div class="relative w-32 h-32">
+                                <div class="w-32 h-32 overflow-hidden rounded-lg border-2 border-dashed border-bgray-200 dark:border-darkblack-400 flex items-center justify-center bg-bgray-50 dark:bg-darkblack-500">
+                                    <img
+                                        src="{{ isset($manager['foto']) && \Illuminate\Support\Facades\Storage::disk('public')->exists($manager['foto'])
+                                            ? asset('storage/' . $manager['foto'])
+                                            : asset($manager['foto']) }}"
+                                        alt="{{ $manager['nama'] }}"
+                                        class="w-full h-full object-cover"
+                                        id="preview-manajemen-{{$index}}"
+                                    >
+                                </div>
                             </div>
-                            <input type="file" name="manajemen[{{$index}}][foto]" class="text-sm">
+                            <input type="file" name="manajemen[{{$index}}][foto]" class="hidden" id="file-manajemen-{{$index}}" onchange="previewImage(this, 'preview-manajemen-{{$index}}')">
+                            <label for="file-manajemen-{{$index}}" class="text-sm text-bgray-500 dark:text-bgray-300 cursor-pointer hover:text-success-300 dark:hover:text-success-300">
+                                Upload Foto
+                            </label>
                         </div>
 
                         <div>
@@ -267,16 +273,22 @@
                         <input type="hidden" name="guru[{{$index}}][dapat_dihapus]" value="{{ $guru['dapat_dihapus'] ? 'true' : 'false' }}">
 
                         <div class="flex items-center space-x-4">
-                            <div class="w-20 h-20 overflow-hidden rounded-full border border-dashed border-bgray-200 flex items-center justify-center">
-                                <img
-                                    src="{{ isset($guru['foto']) && \Illuminate\Support\Facades\Storage::disk('public')->exists($guru['foto'])
-                                        ? asset('storage/' . $guru['foto'])
-                                        : asset($guru['foto']) }}"
-                                    alt="{{ $guru['nama'] }}"
-                                    class="w-full h-full object-cover"
-                                >
+                            <div class="relative w-32 h-32">
+                                <div class="w-32 h-32 overflow-hidden rounded-lg border-2 border-dashed border-bgray-200 dark:border-darkblack-400 flex items-center justify-center bg-bgray-50 dark:bg-darkblack-500">
+                                    <img
+                                        src="{{ isset($guru['foto']) && \Illuminate\Support\Facades\Storage::disk('public')->exists($guru['foto'])
+                                            ? asset('storage/' . $guru['foto'])
+                                            : asset($guru['foto']) }}"
+                                        alt="{{ $guru['nama'] }}"
+                                        class="w-full h-full object-cover"
+                                        id="preview-guru-{{$index}}"
+                                    >
+                                </div>
                             </div>
-                            <input type="file" name="guru[{{$index}}][foto]" class="text-sm">
+                            <input type="file" name="guru[{{$index}}][foto]" class="hidden" id="file-guru-{{$index}}" onchange="previewImage(this, 'preview-guru-{{$index}}')">
+                            <label for="file-guru-{{$index}}" class="text-sm text-bgray-500 dark:text-bgray-300 cursor-pointer hover:text-success-300 dark:hover:text-success-300">
+                                Upload Foto
+                            </label>
                         </div>
 
                         <div>
@@ -369,10 +381,15 @@
                 <input type="hidden" name="guru[${index}][dapat_dihapus]" value="true">
 
                 <div class="flex items-center space-x-4">
-                    <div class="w-20 h-20 overflow-hidden rounded-full border border-dashed border-bgray-200 flex items-center justify-center">
-                        <img src="{{ asset('images/assets/img1.png') }}" alt="Default" class="w-full h-full object-cover">
+                    <div class="relative w-32 h-32">
+                        <div class="w-32 h-32 overflow-hidden rounded-lg border-2 border-dashed border-bgray-200 dark:border-darkblack-400 flex items-center justify-center bg-bgray-50 dark:bg-darkblack-500">
+                            <img src="{{ asset('images/assets/img1.png') }}" alt="Default" class="w-full h-full object-cover">
+                        </div>
                     </div>
-                    <input type="file" name="guru[${index}][foto]" class="text-sm">
+                    <input type="file" name="guru[${index}][foto]" class="hidden" id="file-guru-${index}" onchange="previewImage(this, 'preview-guru-${index}')">
+                    <label for="file-guru-${index}" class="text-sm text-bgray-500 dark:text-bgray-300 cursor-pointer hover:text-success-300 dark:hover:text-success-300">
+                        Upload Foto
+                    </label>
                 </div>
 
                 <div>
@@ -400,6 +417,35 @@
     function hapusAnggota(button) {
         if (confirm('Anda yakin ingin menghapus?')) {
             button.closest('.grid').remove();
+        }
+    }
+
+    // Fungsi untuk preview gambar
+    function previewImage(input, previewId) {
+        if (input.files && input.files[0]) {
+            const file = input.files[0];
+
+            // Validasi tipe file
+            if (!file.type.startsWith('image/')) {
+                alert('Mohon upload file gambar saja (JPG, PNG, GIF)');
+                input.value = '';
+                return;
+            }
+
+            // Validasi ukuran file (maksimal 2MB)
+            if (file.size > 2 * 1024 * 1024) {
+                alert('Ukuran file terlalu besar. Maksimal 2MB.');
+                input.value = '';
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const preview = document.getElementById(previewId);
+                preview.src = e.target.result;
+                preview.parentElement.classList.add('border-success-300');
+            }
+            reader.readAsDataURL(file);
         }
     }
 </script>

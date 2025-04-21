@@ -6,21 +6,31 @@
 <div class="2xl:flex 2xl:space-x-[48px]">
     <section class="mb-6 2xl:mb-0 2xl:flex-1">
         <div class="mb-6 flex flex-wrap items-center justify-between gap-4">
-            <h2 class="text-xl font-semibold text-black dark:text-white">Journal Bimbel</h2>
+            <div class="flex items-center gap-4">
+                <h2 class="text-xl font-semibold text-black dark:text-white">Journal Bimbel</h2>
+                <a href="{{ route('journal.export', ['search' => request('search')]) }}"
+                   class="flex items-center gap-2 rounded-lg bg-success-300 px-4 py-2 text-white hover:bg-success-400 transition-all duration-300 transform hover:scale-[1.02] shadow-lg hover:shadow-success-300/50">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    Export Excel
+                </a>
+            </div>
             <div class="flex flex-wrap items-center gap-3">
                 <div class="relative w-[230px]">
                     <input
                         type="text"
-                        id="searchInput"
-                        class="h-[44px] w-full rounded-lg border border-bgray-300 pl-14 pr-4 focus:border-success-300 focus:ring-0 dark:border-darkblack-400 dark:bg-darkblack-500 dark:text-white"
-                        placeholder="Search"
+                        class="w-full rounded-lg border border-bgray-300 bg-white px-4 py-3 text-sm font-medium text-bgray-900 placeholder:text-bgray-500 focus:border-success-300 focus:ring-0 dark:border-darkblack-400 dark:bg-darkblack-500 dark:text-white"
+                        placeholder="Cari..."
+                        value="{{ request('search') }}"
+                        onkeyup="searchJournal(this.value)"
                     />
-                    <span class="absolute left-5 top-1/2 -translate-y-1/2">
-                        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9 17C13.4183 17 17 13.4183 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17Z" stroke="#7F8995" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                            <path d="M19 19L14.65 14.65" stroke="#7F8995" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <button class="absolute right-0 top-0 flex h-full w-[50px] items-center justify-center rounded-r-lg border border-l border-bgray-300 bg-white dark:border-darkblack-400 dark:bg-darkblack-500">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.33333 12.6667C10.2789 12.6667 12.6667 10.2789 12.6667 7.33333C12.6667 4.38781 10.2789 2 7.33333 2C4.38781 2 2 4.38781 2 7.33333C2 10.2789 4.38781 12.6667 7.33333 12.6667Z" stroke="#A0AEC0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M14.0001 14.0001L11.1001 11.1001" stroke="#A0AEC0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                    </span>
+                    </button>
                 </div>
                 @if(!empty($PermissionAdd))
                 <button type="button" id="addJournalBtn" class="btn-primary bg-success-300 hover:bg-success-400 px-4 py-2 text-white rounded-lg transition-all duration-300 transform hover:scale-[1.02] shadow-lg hover:shadow-success-300/50">
@@ -122,7 +132,7 @@
                                     <div class="flex gap-2">
                                         @if(!empty($PermissionEdit))
                                         <button onclick="showEditModal({{ $journal->id }})"
-                                                class="flex items-center px-3 py-1.5 bg-warning-500 text-white rounded-lg hover:bg-warning-600 transition-all duration-200 shadow-lg hover:shadow-warning-500/30">
+                                                class="flex items-center px-3 py-1.5 bg-blue-500 text-white rounded-lg transition-all duration-200 shadow-lg hover:bg-blue-600">
                                             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                             </svg>
@@ -132,7 +142,7 @@
 
                                         @if(!empty($PermissionDelete))
                                         <button onclick="deleteJournal({{ $journal->id }})"
-                                                class="flex items-center px-3 py-1.5 bg-danger-500 text-white rounded-lg hover:bg-danger-600 transition-all duration-200 shadow-lg hover:shadow-danger-500/30">
+                                                class="flex items-center px-3 py-1.5 bg-red-500 text-white rounded-lg transition-all duration-200 shadow-lg hover:bg-red-600">
                                             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                             </svg>
@@ -540,7 +550,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Handler untuk pencarian
     let searchTimeout;
-    const searchInput = document.getElementById('searchInput');
+    const searchInput = document.querySelector('.relative input[type="text"]');
     if (searchInput) {
         searchInput.addEventListener('input', function() {
             clearTimeout(searchTimeout);
@@ -638,7 +648,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="flex gap-2">
                         @if(!empty($PermissionEdit))
                         <button onclick="showEditModal(${journal.id})"
-                                class="flex items-center px-3 py-1.5 bg-warning-500 text-white rounded-lg hover:bg-warning-600 transition-all duration-200 shadow-lg hover:shadow-warning-500/30">
+                                class="flex items-center px-3 py-1.5 bg-blue-500 text-white rounded-lg transition-all duration-200 shadow-lg hover:bg-blue-600">
                             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                             </svg>
@@ -648,7 +658,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                         @if(!empty($PermissionDelete))
                         <button onclick="deleteJournal(${journal.id})"
-                                class="flex items-center px-3 py-1.5 bg-danger-500 text-white rounded-lg hover:bg-danger-600 transition-all duration-200 shadow-lg hover:shadow-danger-500/30">
+                                class="flex items-center px-3 py-1.5 bg-red-500 text-white rounded-lg transition-all duration-200 shadow-lg hover:bg-red-600">
                             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                             </svg>
@@ -664,6 +674,27 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fungsi untuk update pagination
     function updatePagination(data) {
         // Implementasi pagination sesuai kebutuhan
+    }
+
+    // Fungsi untuk handle export
+    function handleExport() {
+        const searchQuery = document.querySelector('.relative input[type="text"]').value;
+        let url = '{{ route("journal.export") }}';
+
+        if (searchQuery) {
+            url += `?search=${encodeURIComponent(searchQuery)}`;
+        }
+
+        window.location.href = url;
+    }
+
+    // Tambahkan event listener untuk tombol export
+    const exportBtn = document.querySelector('a[href*="export"]');
+    if (exportBtn) {
+        exportBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            handleExport();
+        });
     }
 });
 </script>
@@ -695,6 +726,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 .btn-danger {
     @apply bg-red-500 hover:bg-red-600;
+}
+
+/* Tambahan style untuk bg-danger dan bg-blue */
+.bg-danger {
+    @apply bg-red-500 hover:bg-red-600;
+}
+
+.bg-blue {
+    @apply bg-blue-500 hover:bg-blue-600;
 }
 
 /* Dark mode improvements */

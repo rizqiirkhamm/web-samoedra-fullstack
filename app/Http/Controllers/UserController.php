@@ -60,7 +60,10 @@ class UserController extends Controller
         }
 
         request()->validate([
-            'email' => 'required|email|unique:Users',
+            'email' => 'required|email|unique:users,email',
+    'role_id' => 'required|integer|exists:roles,id',
+    'password' => 'required|min:6',
+            
         ]);
 
         $user = new User;

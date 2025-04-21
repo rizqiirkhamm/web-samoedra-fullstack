@@ -14,7 +14,7 @@
         <!-- Scripts -->
         @vite([
     'resources/css/app.css',
-    'resources/css/public.css',
+    'public/css/public.css',
     'resources/js/app.js',
     'resources/js/script.js',
 ])

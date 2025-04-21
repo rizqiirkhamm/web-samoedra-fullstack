@@ -17,13 +17,21 @@
 </head>
 
 <body>
+    @php
+    // Function to extract YouTube video ID from URL
+    function getYoutubeVideoId($url) {
+        preg_match('/(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/', $url, $matches);
+        return isset($matches[1]) ? $matches[1] : '';
+    }
+    @endphp
+
     <!-- Navbar Section -->
     @include('components.navbar-detail')
 
 
     <section id="home">
-        <div class="w-full px-8 md:w-3/4 md:px-0 mx-auto md:py-24 relative z-10">
-            <div class="flex justify-center flex-col items-center">
+        <div class="w-full px-8  md:w-3/4 md:px-0 mx-auto md:py-24 relative z-10">
+            <div class=" flex justify-center flex-col items-center">
                 <h1 class="text-[#3E5467] font-semibold text-4xl xl:text-5xl text-center"
                     style="font-family: 'Fredoka';">Halo👋🏻,
                     Selamat Datang <br> Di Layanan Area Bermain
@@ -54,30 +62,33 @@
                         <h1 class="text-[#A2A2BD]">+62 896 111 111 53</h1>
                     </a>
                 </div>
-                <div class="flex md:flex-row justify-center items-center w-full gap-10">
+                <div class="flex  py-14  md:flex-row justify-center items-center w-full gap-10">
                     <!-- Video/Gambar Thumbnail -->
-                    <div class="flex flex-col xl:flex-row gap-10 mt-10 md:mt-20">
+                    <div class="w-full flex flex-col xl:flex-row gap-10 mt-10 md:mt-20">
                         <div class="w-full xl:w-9/12">
-                            <img src="{{asset ('images/assets/img.png')}}" alt="Samoedra Area Bermain"
-                                class="rounded-3xl h-96 w-full object-cover">
+                            @if(isset($bermain) && isset($bermain['banner_type']))
+                                @if($bermain['banner_type'] == 'video')
+                                    <div class="rounded-3xl h-96 w-full overflow-hidden">
+                                        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{ getYoutubeVideoId($bermain['banner_video']) }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    </div>
+                                @else
+                                    <img src="{{asset(isset($bermain['banner_image']) ? 'storage/' . $bermain['banner_image'] : 'images/assets/img.png')}}" alt="Samoedra Area Bermain" class="rounded-3xl h-96 w-full object-cover">
+                                @endif
+                            @else
+                                <img src="{{asset('images/assets/img.png')}}" alt="Samoedra Area Bermain" class="rounded-3xl h-96 w-full object-cover">
+                            @endif
                             <!-- Kelebihan Daycare -->
                             <h1 class="font-semibold text-[#3E5467] text-3xl xl:text-4xl mt-8"
-                                style="font-family: 'Fredoka';">Kelebihan Area Bermain Kami</h1>
+                                style="font-family: 'Fredoka';">{{ $bermain['benefit_title'] ?? 'Kelebihan Area Bermain Kami' }}</h1>
                             <p class="text-[#A2A2BD] mt-4" style="font-family: 'Onest';">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus itaque rem quae
-                                alias
-                                facere ipsum in maiores cupiditate modi, magnam qui natus beatae nam aut voluptate,
-                                neque
-                                quibusdam reiciendis aliquid atque. Necessitatibus praesentium maiores, modi ratione
-                                nostrum
-                                vel odit recusandae!
+                                {{ $bermain['benefit_description'] ?? 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus itaque rem quae alias facere ipsum in maiores cupiditate modi, magnam qui natus beatae nam aut voluptate, neque quibusdam reiciendis aliquid atque. Necessitatibus praesentium maiores, modi ratione nostrum vel odit recusandae!' }}
                             </p>
                         </div>
                         <div class="w-full xl:w-1/3">
                             <!-- Kartu Informasi -->
                             <div class="bg-[#F3EEE6] p-8 rounded-3xl">
                                 <h2 class="font-semibold text-[#3E5467] text-2xl md:text-3xl mb-5"
-                                    style="font-family: 'Fredoka';">About Area Bermain</h2>
+                                    style="font-family: 'Fredoka';">{{ $bermain['info_title'] ?? 'About Area Bermain' }}</h2>
                                 <div class="space-y-3">
                                     <div
                                         class="flex justify-between border-b-2 border-dashed pb-3 border-[#E8A26A] items-center">
@@ -91,8 +102,7 @@
                                             <h1 class="font-semibold text-[#3E5467] text-xl md:text-2xl"
                                                 style="font-family: 'Fredoka';">Usia</h1>
                                         </flex>
-                                        <p class="text-[#A2A2BD] text-end max-w-72" style="font-family: 'Onest';">6 bln
-                                            - 12 y.o</p>
+                                        <p class="text-[#A2A2BD] text-end max-w-72" style="font-family: 'Onest';">{{ $bermain['age_range'] ?? '6 bln - 12 y.o' }}</p>
                                     </div>
                                     <div
                                         class="flex justify-between border-b-2 border-dashed pb-3 border-[#E8A26A] items-center">
@@ -106,8 +116,7 @@
                                             <h1 class="font-semibold text-[#3E5467] text-xl md:text-2xl"
                                                 style="font-family: 'Fredoka';">Jam</h1>
                                         </flex>
-                                        <p class="text-[#A2A2BD] text-end max-w-72" style="font-family: 'Onest';">9:00 -
-                                            17:00 </p>
+                                        <p class="text-[#A2A2BD] text-end max-w-72" style="font-family: 'Onest';">{{ $bermain['operating_hours'] ?? '9:00 - 17:00' }}</p>
                                     </div>
                                     <div
                                         class="flex justify-between border-b-2 border-dashed pb-3 border-[#E8A26A] items-center">
@@ -121,7 +130,7 @@
                                             <h1 class="font-semibold text-[#3E5467] text-xl md:text-2xl"
                                                 style="font-family: 'Fredoka';">Hari</h1>
                                         </flex>
-                                        <p class="text-[#A2A2BD] text-end max-w-72" style="font-family: 'Onest';">Senin-Sabtu</p>
+                                        <p class="text-[#A2A2BD] text-end max-w-72" style="font-family: 'Onest';">{{ $bermain['operating_days'] ?? 'Senin-Sabtu' }}</p>
                                     </div>
                                     <div
                                         class="flex justify-between border-b-2 border-dashed pb-3 border-[#E8A26A] items-center">
@@ -135,7 +144,7 @@
                                             <h1 class="font-semibold text-[#3E5467] text-xl md:text-2xl"
                                                 style="font-family: 'Fredoka';">Biaya</h1>
                                         </flex>
-                                        <p class="text-[#A2A2BD] text-end max-w-72" style="font-family: 'Onest';">15k perJam <br> 45k sepuasnya <br> (max 6jam) </p>
+                                        <p class="text-[#A2A2BD] text-end max-w-72" style="font-family: 'Onest';">{!! nl2br(e($bermain['cost'] ?? "15k perJam\n45k sepuasnya\n(max 6jam)")) !!}</p>
                                     </div>
                                 </div>
 
@@ -166,48 +175,59 @@
                 <div class="w-full relative flex flex-col justify-center items-center py-28">
                     <p class="text-[#E8A26A] text-xl" style="font-family: 'Fuzzy Bubbles', cursive;">Fasilitas</p>
                     <h1 class="text-[#3E5467] text-3xl md:text-4xl font-semibold" style="font-family: 'Fredoka';">
-                        Area Bermain
+                        {{ $bermain['facility_title'] ?? 'Area Bermain' }}
                     </h1>
 
                     <div
                         class="md:w-3/4 w-full px-8 md:px-0 overflow-x-auto no-scrollbar mx-auto flex flex-col items-start">
                         <div class="flex flex-row gap-7 py-10 overflow-x-auto">
 
-                            <!-- Card Template -->
-                            <div class="w-80 h-64 rounded-4xl bg-white p-6 flex flex-col relative">
-                                <img src="{{asset('images/assets/img_layanan.png')}}" alt="Area Bermain"
-                                    class="w-full h-44 rounded-3xl object-cover">
-                                <h1 class="text-3xl text-[#3E5467] font-semibold text-center mt-3"
-                                    style="font-family: 'Fredoka';">Full AC</h1>
-                            </div>
+                            @if(isset($bermain) && isset($bermain['facilities']))
+                                @foreach($bermain['facilities'] as $facility)
+                                <div class="w-80 h-64 rounded-4xl bg-white p-6 flex flex-col relative">
+                                    <img src="{{ asset(isset($facility['image']) ? 'storage/' . $facility['image'] : 'images/assets/img_layanan.png') }}" alt="{{ $facility['name'] }}"
+                                        class="w-full h-44 rounded-3xl object-cover">
+                                    <h1 class="text-3xl text-[#3E5467] font-semibold text-center mt-3"
+                                        style="font-family: 'Fredoka';">{{ $facility['name'] }}</h1>
+                                </div>
+                                @endforeach
+                            @else
+                                <!-- Default facilities if not set -->
+                                <div class="w-80 h-64 rounded-4xl bg-white p-6 flex flex-col relative">
+                                    <img src="{{asset('images/assets/img_layanan.png')}}" alt="Area Bermain"
+                                        class="w-full h-44 rounded-3xl object-cover">
+                                    <h1 class="text-3xl text-[#3E5467] font-semibold text-center mt-3"
+                                        style="font-family: 'Fredoka';">Full AC</h1>
+                                </div>
 
-                            <div class="w-80 h-64 rounded-4xl bg-white p-6 flex flex-col relative">
-                                <img src="{{asset('images/assets/img_layanan.png')}}" alt="Area Bermain"
-                                    class="w-full h-44 rounded-3xl object-cover">
-                                <h1 class="text-3xl text-[#3E5467] font-semibold text-center mt-3"
-                                    style="font-family: 'Fredoka';">Purifier</h1>
-                            </div>
+                                <div class="w-80 h-64 rounded-4xl bg-white p-6 flex flex-col relative">
+                                    <img src="{{asset('images/assets/img_layanan.png')}}" alt="Area Bermain"
+                                        class="w-full h-44 rounded-3xl object-cover">
+                                    <h1 class="text-3xl text-[#3E5467] font-semibold text-center mt-3"
+                                        style="font-family: 'Fredoka';">Purifier</h1>
+                                </div>
 
-                            <div class="w-80 h-64 rounded-4xl bg-white p-6 flex flex-col relative">
-                                <img src="{{asset('images/assets/img_layanan.png')}}" alt="Area Bermain"
-                                    class="w-full h-44 rounded-3xl object-cover">
-                                <h1 class="text-3xl text-[#3E5467] font-semibold text-center mt-3"
-                                    style="font-family: 'Fredoka';">3 Kamar</h1>
-                            </div>
+                                <div class="w-80 h-64 rounded-4xl bg-white p-6 flex flex-col relative">
+                                    <img src="{{asset('images/assets/img_layanan.png')}}" alt="Area Bermain"
+                                        class="w-full h-44 rounded-3xl object-cover">
+                                    <h1 class="text-3xl text-[#3E5467] font-semibold text-center mt-3"
+                                        style="font-family: 'Fredoka';">3 Kamar</h1>
+                                </div>
 
-                            <div class="w-80 h-64 rounded-4xl bg-white p-6 flex flex-col relative">
-                                <img src="{{asset('images/assets/img_layanan.png')}}" alt="Area Bermain"
-                                    class="w-full h-44 rounded-3xl object-cover">
-                                <h1 class="text-3xl text-[#3E5467] font-semibold text-center mt-3"
-                                    style="font-family: 'Fredoka';">Baby Bed</h1>
-                            </div>
+                                <div class="w-80 h-64 rounded-4xl bg-white p-6 flex flex-col relative">
+                                    <img src="{{asset('images/assets/img_layanan.png')}}" alt="Area Bermain"
+                                        class="w-full h-44 rounded-3xl object-cover">
+                                    <h1 class="text-3xl text-[#3E5467] font-semibold text-center mt-3"
+                                        style="font-family: 'Fredoka';">Baby Bed</h1>
+                                </div>
 
-                            <div class="w-80 h-64 rounded-4xl bg-white p-6 flex flex-col relative">
-                                <img src="{{asset('images/assets/img_layanan.png')}}" alt="Area Bermain"
-                                    class="w-full h-44 rounded-3xl object-cover">
-                                <h1 class="text-3xl text-[#3E5467] font-semibold text-center mt-3"
-                                    style="font-family: 'Fredoka';">Outdor Area</h1>
-                            </div>
+                                <div class="w-80 h-64 rounded-4xl bg-white p-6 flex flex-col relative">
+                                    <img src="{{asset('images/assets/img_layanan.png')}}" alt="Area Bermain"
+                                        class="w-full h-44 rounded-3xl object-cover">
+                                    <h1 class="text-3xl text-[#3E5467] font-semibold text-center mt-3"
+                                        style="font-family: 'Fredoka';">Outdor Area</h1>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -221,39 +241,9 @@
             </div>
         </section>
 
-
-        <section id="galery">
-            <div class="w-full px-8 md:w-3/4 md:px-0 mx-auto">
-                <div class="flex flex-col justify-center mb-40 mt-20 items-center">
-                    <p class="text-[#E8A26A] text-xl" style="font-family: 'Fuzzy Bubbles', cursive;">Galeri</p>
-                    <h1 class="text-[#3E5467] text-3xl md:text-4xl font-semibold" style="font-family: 'Fredoka';">
-                        Area Bermain
-                    </h1>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
-                        <div class="w-full rounded-3xl overflow-hidden">
-                            <img src="{{asset('images/assets/img_layanan.png')}}" alt="Galeri" class="w-full h-64 object-cover">
-                        </div>
-                        <div class="w-full rounded-3xl overflow-hidden">
-                            <img src="{{asset('images/assets/img_layanan.png')}}" alt="Galeri" class="w-full h-64 object-cover">
-                        </div>
-                        <div class="w-full rounded-3xl overflow-hidden">
-                            <img src="{{asset('images/assets/img_layanan.png')}}" alt="Galeri" class="w-full h-64 object-cover">
-                        </div>
-                        <div class="w-full rounded-3xl overflow-hidden">
-                            <img src="{{asset('images/assets/img_layanan.png')}}" alt="Galeri" class="w-full h-64 object-cover">
-                        </div>
-                        <div class="w-full rounded-3xl overflow-hidden">
-                            <img src="{{asset('images/assets/img_layanan.png')}}" alt="Galeri" class="w-full h-64 object-cover">
-                        </div>
-                        <div class="w-full rounded-3xl overflow-hidden">
-                            <img src="{{asset('images/assets/img_layanan.png')}}" alt="Galeri" class="w-full h-64 object-cover">
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="w-full mt-32">
             @include('components.footer-fe')
-        </section>
-
+        </div>
     </section>
 
 

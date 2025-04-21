@@ -110,7 +110,18 @@
 
             <!-- Table -->
             <div class="w-full rounded-lg bg-white dark:bg-darkblack-600 px-[24px] py-[20px]">
-                <div class="flex justify-end mb-4">
+                <div class="flex justify-between mb-4">
+                    <!-- Tombol Export Excel -->
+                    <div>
+                        <a href="{{ route('bermain.export') }}" id="exportExcel" class="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all duration-200 shadow-lg hover:shadow-green-600/30">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            Export Excel
+                        </a>
+                    </div>
+
+                    <!-- Real Time Clock -->
                     <div class="bg-white dark:bg-darkblack-600 rounded-lg px-4 py-2 shadow">
                         <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Waktu Sekarang:</span>
                         <span id="realTimeClock" class="ml-2 text-lg font-bold text-gray-800 dark:text-white">00:00:00</span>
@@ -207,14 +218,11 @@
                                     <td class="px-6 py-5 xl:px-0">
                                         <div class="flex items-center space-x-2.5">
                                             <span class="text-base font-medium text-bgray-600 dark:text-bgray-50">Sisa Waktu</span>
-                                            <span>
-                                                <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M10.332 1.31567V13.3157" stroke="#718096" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    <path d="M5.66602 11.3157L3.66602 13.3157L1.66602 11.3157" stroke="#718096" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    <path d="M3.66602 13.3157V1.31567" stroke="#718096" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    <path d="M12.332 3.31567L10.332 1.31567L8.33203 3.31567" stroke="#718096" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                </svg>
-                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-5 xl:px-0">
+                                        <div class="flex items-center space-x-2.5">
+                                            <span class="text-base font-medium text-bgray-600 dark:text-bgray-50">Bukti Pembayaran</span>
                                         </div>
                                     </td>
                                     <td class="px-6 py-5 xl:px-0">
@@ -252,7 +260,7 @@
                                         </p>
                                     </td>
                                     <td class="px-6 py-5 xl:px-0">
-                                        <span class="status-badge {{ $item->status }} dark:bg-opacity-10">
+                                        <span class="text-base font-medium {{ $item->status }} dark:text-white">
                                             @if($item->status === 'waiting')
                                                 Menunggu
                                             @elseif($item->status === 'playing')
@@ -281,7 +289,22 @@
                                         </span>
                                     </td>
                                     <td class="px-6 py-5 xl:px-0">
-                                        <div class="flex gap-2">
+                                        @if($item->payment_proof)
+                                            <a href="{{ asset('storage/payment_proofs/' . str_replace('payment_proofs/', '', $item->payment_proof)) }}"
+                                               target="_blank"
+                                               class="inline-flex items-center px-3 py-1.5 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all duration-200 shadow-lg hover:shadow-green-500/30 w-fit">
+                                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                                </svg>
+                                                Lihat Bukti
+                                            </a>
+                                        @else
+                                            <span class="text-red-500 dark:text-red-400">Tidak ada bukti</span>
+                                        @endif
+                                    </td>
+                                    <td class="px-6 py-5 xl:px-0">
+                                        <div class="flex gap-2 justify-end">
                                             @if(!empty($PermissionDelete))
                                             <button onclick="confirmDelete('{{ $item->id }}')"
                                                     class="flex items-center px-3 py-1.5 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 shadow-lg hover:shadow-red-500/30">
@@ -332,6 +355,7 @@
                                             <li onclick="changePerPage(3)" class="cursor-pointer px-5 py-2 text-sm font-medium text-bgray-900 hover:bg-bgray-100 dark:text-white dark:hover:bg-darkblack-400">3</li>
                                             <li onclick="changePerPage(5)" class="cursor-pointer px-5 py-2 text-sm font-medium text-bgray-900 hover:bg-bgray-100 dark:text-white dark:hover:bg-darkblack-400">5</li>
                                             <li onclick="changePerPage(7)" class="cursor-pointer px-5 py-2 text-sm font-medium text-bgray-900 hover:bg-bgray-100 dark:text-white dark:hover:bg-darkblack-400">7</li>
+                                            <li onclick="changePerPage('all')" class="cursor-pointer px-5 py-2 text-sm font-medium text-bgray-900 hover:bg-bgray-100 dark:text-white dark:hover:bg-darkblack-400">All</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -678,7 +702,7 @@ function togglePerPageDropdown() {
 
 function changePerPage(value) {
     perPage = value;
-    document.getElementById('per-page-value').textContent = value;
+    document.getElementById('per-page-value').textContent = value === 'all' ? 'Semua' : value;
     togglePerPageDropdown();
     currentPage = 1; // Reset ke halaman pertama
     updateTable(document.getElementById('searchInput').value);
@@ -758,7 +782,7 @@ function createPageButton(pageNumber) {
 }
 
 function changePage(page) {
-    if (page < 1 || page > lastPage) return;
+    if (page < 1 || page > lastPage || page === currentPage) return;
     currentPage = page;
     updateTable(document.getElementById('searchInput').value);
 }
@@ -790,16 +814,34 @@ function updateTable(query = '') {
         }
     });
 
-    fetch(`/bermain/search?query=${encodeURIComponent(query)}&status=${currentStatus}&page=${currentPage}&per_page=${perPage}`, {
+    // Tambahkan parameter per_page dan page ke URL
+    let url = `/bermain/search?query=${encodeURIComponent(query)}&status=${currentStatus}`;
+
+    // Hanya tambahkan parameter page jika bukan 'all'
+    if (perPage !== 'all') {
+        url += `&per_page=${perPage}&page=${currentPage}`;
+    } else {
+        url += '&per_page=all';
+    }
+
+    fetch(url, {
         headers: {
-            'X-CSRF-TOKEN': token
+            'X-CSRF-TOKEN': token,
+            'Accept': 'application/json'
         }
     })
     .then(response => response.json())
     .then(response => {
         const data = response.data;
-        currentPage = response.current_page;
-        lastPage = response.last_page;
+
+        // Update pagination info
+        if (perPage === 'all') {
+            currentPage = 1;
+            lastPage = 1;
+        } else {
+            currentPage = parseInt(response.current_page);
+            lastPage = parseInt(response.last_page);
+        }
 
         const tbody = document.querySelector('tbody');
         tbody.innerHTML = '';
@@ -854,10 +896,23 @@ function updateTable(query = '') {
             });
         }, 100);
 
-        // Update pagination buttons
-        updatePaginationButtons();
+        // Update pagination buttons jika bukan 'all'
+        const paginationContainer = document.getElementById('pagination-buttons');
+        if (perPage === 'all') {
+            paginationContainer.innerHTML = ''; // Sembunyikan pagination
+            // Update tampilan jumlah data
+            const perPageValue = document.getElementById('per-page-value');
+            if (perPageValue) {
+                perPageValue.textContent = 'Semua';
+            }
+        } else {
+            updatePaginationButtons();
+        }
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => {
+        console.error('Error:', error);
+        showAlert('Terjadi kesalahan saat memuat data', 'error');
+    });
 }
 
 // Update fungsi updateServerTimer
@@ -1089,28 +1144,32 @@ function createTableRow(item) {
                 <p class="text-base font-medium text-bgray-900 dark:text-white">${duration} Jam</p>
             </td>
             <td class="px-6 py-5 xl:px-0">
-                <span class="status-badge ${item.status} dark:bg-opacity-10">${statusText}</span>
+                <span class="text-base font-medium text-bgray-900 ${item.status} dark:text-white">${statusText}</span>
             </td>
             <td class="px-6 py-5 xl:px-0">
                 <span class="timer text-base font-medium text-bgray-900 dark:text-white"
-                      data-remaining="{{ isset($item) ? $item->remaining_time : 0 }}"
-                      data-duration="{{ isset($item) ? $item->duration : 0 }}"
-                      data-selected-date-time="{{ isset($item) ? $item->start_datetime : '' }}">
-                    @if(isset($item))
-                        @if($item->status === 'playing')
-                            {{ gmdate('H:i:s', $item->remaining_time) }}
-                        @elseif($item->status === 'waiting')
-                            Belum Mulai
-                        @else
-                            Selesai
-                        @endif
-                    @else
-                        -
-                    @endif
+                      data-remaining="${item.remaining_time}"
+                      data-duration="${item.duration}"
+                      data-selected-date-time="${item.start_datetime}">
+                    ${timerText}
                 </span>
             </td>
             <td class="px-6 py-5 xl:px-0">
-                <div class="flex gap-2">
+                ${item.payment_proof ?
+                    `<a href="${item.payment_proof}"
+                        target="_blank"
+                        class="inline-flex items-center px-3 py-1.5 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all duration-200 shadow-lg hover:shadow-green-500/30 w-fit">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                        </svg>
+                        Lihat Bukti
+                    </a>` :
+                    '<span class="text-red-500 dark:text-red-400">Tidak ada bukti</span>'
+                }
+            </td>
+            <td class="px-6 py-5 xl:px-0">
+                <div class="flex gap-2 justify-end">
                     @if(!empty($PermissionDelete))
                     <button onclick="confirmDelete('${id}')"
                             class="flex items-center px-3 py-1.5 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 shadow-lg hover:shadow-red-500/30">
@@ -1267,7 +1326,7 @@ function calculatePrice(duration, needSocks) {
 
     // Tambah harga kaos kaki jika diperlukan
     if (needSocks) {
-        price += 15000;
+        price += 5000;
     }
 
     return price;
@@ -1486,5 +1545,55 @@ function closeAlertModal() {
         setTimeout(() => modal.remove(), 300);
     }
 }
+
+// Tambahkan script untuk export Excel
+document.addEventListener('DOMContentLoaded', function() {
+    // Update tombol export saat status atau search berubah
+    function updateExportUrl() {
+        const exportBtn = document.getElementById('exportExcel');
+        if (exportBtn) {
+            let url = '{{ route("bermain.export") }}';
+            let params = new URLSearchParams();
+
+            // Tambahkan parameter status jika bukan 'all'
+            if (currentStatus !== 'all') {
+                params.append('status', currentStatus);
+            }
+
+            // Tambahkan parameter search jika ada
+            const searchValue = document.getElementById('searchInput').value;
+            if (searchValue) {
+                params.append('search', searchValue);
+            }
+
+            // Tambahkan params ke URL
+            const queryString = params.toString();
+            if (queryString) {
+                url += '?' + queryString;
+            }
+
+            exportBtn.href = url;
+        }
+    }
+
+    // Tambahkan event listener ke filter button
+    document.querySelectorAll('.filter-btn').forEach(button => {
+        button.addEventListener('click', updateExportUrl);
+    });
+
+    // Tambahkan event listener ke search input
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                updateExportUrl();
+            }, 300);
+        });
+    }
+
+    // Set URL awal
+    updateExportUrl();
+});
 </script>
 @endpush

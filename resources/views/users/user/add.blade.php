@@ -21,7 +21,7 @@
                     Fill in the information below to create a new user
                 </p>
             </div>
-            <a href="{{ route('user') }}" class="inline-flex h-10 items-center justify-center rounded-md bg-bgray-200 px-5 text-sm font-medium text-bgray-700 hover:bg-bgray-300 lg:px-6 xl:h-12 dark:bg-darkblack-500 dark:text-white dark:hover:bg-darkblack-400">
+            <a href="{{ route('user.list') }}" class="inline-flex h-10 items-center justify-center rounded-md bg-bgray-200 px-5 text-sm font-medium text-bgray-700 hover:bg-bgray-300 lg:px-6 xl:h-12 dark:bg-darkblack-500 dark:text-white dark:hover:bg-darkblack-400">
                 <span class="mr-2">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-5 w-5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
@@ -32,7 +32,7 @@
         </div>
 
         <div class="mt-6">
-            <form method="post" action="">
+            <form method="post" action="{{ route('user.insert') }}">
                 @csrf
                 <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
                     <div class="mb-5">
@@ -63,23 +63,23 @@
                                 {{ $message }}
                             @enderror
                         </div>
-                </div>
+                    </div>
 
                     <div class="mb-5">
                         <label for="password_confirmation" class="block mb-2 text-sm font-medium text-bgray-900 dark:text-white">Confirm Password</label>
                         <input type="password" id="password_confirmation" name="password_confirmation" class="bg-bgray-50 border border-bgray-200 text-bgray-900 text-sm rounded-lg focus:ring-success-300 focus:border-success-300 block w-full p-3 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white" placeholder="•••••••••" required>
-                </div>
+                    </div>
 
                     <div class="mb-5">
-                        <label for="user_type" class="block mb-2 text-sm font-medium text-bgray-900 dark:text-white">Role</label>
-                        <select id="user_type" name="user_type" class="bg-bgray-50 border border-bgray-200 text-bgray-900 text-sm rounded-lg focus:ring-success-300 focus:border-success-300 block w-full p-3 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white">
-                        <option value="">Select Role</option>
-                        @foreach ($getRole as $value)
-                                <option value="{{ $value->id }}">{{ $value->name }}</option>
-                        @endforeach
-                    </select>
+                        <label for="role_id" class="block mb-2 text-sm font-medium text-bgray-900 dark:text-white">Role</label>
+                        <select id="role_id" name="role_id" class="bg-bgray-50 border border-bgray-200 text-bgray-900 text-sm rounded-lg focus:ring-success-300 focus:border-success-300 block w-full p-3 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white" required>
+                            <option value="">Select Role</option>
+                            @foreach ($getRole as $value)
+                                <option value="{{ $value->id }}" {{ old('role_id') == $value->id ? 'selected' : '' }}>{{ $value->name }}</option>
+                            @endforeach
+                        </select>
                         <div class="text-red-500">
-                            @error('user_type')
+                            @error('role_id')
                                 {{ $message }}
                             @enderror
                         </div>
@@ -87,7 +87,7 @@
                 </div>
 
                 <div class="flex justify-end mt-6 space-x-4">
-                    <a href="{{ route('user') }}" class="inline-flex h-12 items-center justify-center rounded-md border border-bgray-200 bg-white px-6 text-base font-medium text-bgray-700 hover:bg-bgray-50 dark:border-darkblack-400 dark:bg-darkblack-600 dark:text-white dark:hover:bg-darkblack-500">
+                    <a href="{{ route('user.list') }}" class="inline-flex h-12 items-center justify-center rounded-md border border-bgray-200 bg-white px-6 text-base font-medium text-bgray-700 hover:bg-bgray-50 dark:border-darkblack-400 dark:bg-darkblack-600 dark:text-white dark:hover:bg-darkblack-500">
                         Cancel
                     </a>
                     <button type="submit" class="inline-flex h-12 items-center justify-center rounded-md bg-success-300 px-6 text-base font-medium text-white hover:bg-success-400">

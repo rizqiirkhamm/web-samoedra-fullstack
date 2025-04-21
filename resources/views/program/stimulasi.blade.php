@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Layanan Daycare</title>
+    <title>{{ $stimulasiData['title'] ?? 'Kelas Stimulasi' }}</title>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="{{ asset('style.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,6 +17,9 @@
 </head>
 
 <body>
+    <!-- Set default data jika $stimulasiData belum ada -->
+
+
     <!-- Navbar Section -->
     @include('components.navbar-detail')
 
@@ -26,7 +29,7 @@
             <div class="flex justify-center flex-col items-center">
                 <h1 class="text-[#3E5467] font-semibold text-4xl xl:text-5xl text-center"
                     style="font-family: 'Fredoka';">Halo👋🏻,
-                    Selamat Datang <br> Di Layanan Kelas Stimulasi Little Exploler
+                    Selamat Datang <br> Di {{ $stimulasiData['title'] }}
                 </h1>
                 <div class="flex gap-5 mt-10">
                     <a href="{{route('welcome')}}">
@@ -56,21 +59,23 @@
                 </div>
                 <div class="flex md:flex-row justify-center items-center w-full gap-10">
                     <!-- Video/Gambar Thumbnail -->
-                    <div class="flex flex-col xl:flex-row gap-10 mt-10 md:mt-20">
+                    <div class="w-full flex flex-col xl:flex-row gap-10 mt-10 md:mt-20">
                         <div class="w-full xl:w-9/12">
-                            <img src="{{asset ('images/assets/img.png')}}" alt="Samoedra Kelas Stimulasi"
+                            @if($stimulasiData['banner_type'] == 'video')
+                                <div class="rounded-3xl overflow-hidden h-96">
+                                    <iframe width="100%" height="100%" src="{{ str_replace('watch?v=', 'embed/', $stimulasiData['banner_video']) }}"
+                                        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen class="w-full h-full object-cover"></iframe>
+                                </div>
+                            @else
+                                <img src="{{asset($stimulasiData['banner_image'])}}" alt="Samoedra Kelas Stimulasi"
                                 class="rounded-3xl h-96 w-full object-cover">
+                            @endif
                             <!-- Kelebihan Daycare -->
                             <h1 class="font-semibold text-[#3E5467] text-3xl xl:text-4xl mt-8"
                                 style="font-family: 'Fredoka';">Apa itu kelas stimulasi ?</h1>
                             <p class="text-[#A2A2BD] mt-4" style="font-family: 'Onest';">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus itaque rem quae
-                                alias
-                                facere ipsum in maiores cupiditate modi, magnam qui natus beatae nam aut voluptate,
-                                neque
-                                quibusdam reiciendis aliquid atque. Necessitatibus praesentium maiores, modi ratione
-                                nostrum
-                                vel odit recusandae!
+                                {!! $stimulasiData['description'] !!}
                             </p>
                         </div>
                         <div class="w-full xl:w-1/3">
@@ -88,11 +93,10 @@
                                                     d="M12.1012 0.664006C12.7292 0.248006 13.7932 -0.0489938 14.5962 0.754006L19.2432 5.40201C20.0492 6.20601 19.7512 7.27001 19.3342 7.89701C19.1084 8.23699 18.8145 8.52642 18.4712 8.74701C18.1372 8.96001 17.7152 9.12101 17.2602 9.09701C17.04 9.08141 16.8206 9.05773 16.6022 9.02601L16.5342 9.01601C16.2996 8.98237 16.0637 8.95802 15.8272 8.94301C15.3232 8.91801 15.1292 9.00301 15.0672 9.06301L12.5772 11.554C12.4972 11.634 12.3972 11.812 12.3212 12.154C12.2482 12.484 12.2162 12.89 12.2082 13.34C12.2012 13.772 12.2162 14.214 12.2322 14.64L12.2332 14.687C12.2482 15.11 12.2632 15.542 12.2422 15.881C12.1772 16.912 11.3742 17.671 10.5842 18.022C9.79418 18.372 8.66718 18.459 7.88418 17.675L5.63418 15.425L1.52918 19.53C1.46051 19.6037 1.37771 19.6628 1.28572 19.7038C1.19372 19.7448 1.0944 19.7668 0.9937 19.7686C0.892997 19.7704 0.792968 19.7518 0.69958 19.7141C0.606191 19.6764 0.521357 19.6203 0.450139 19.549C0.37892 19.4778 0.322775 19.393 0.285054 19.2996C0.247333 19.2062 0.228809 19.1062 0.230585 19.0055C0.232362 18.9048 0.254404 18.8055 0.295396 18.7135C0.336388 18.6215 0.39549 18.5387 0.469177 18.47L4.57318 14.365L2.32318 12.115C1.54018 11.331 1.62618 10.205 1.97718 9.41501C2.32718 8.62501 3.08718 7.82201 4.11718 7.75701C4.45718 7.73601 4.88918 7.75101 5.31218 7.76601L5.35918 7.76701C5.78518 7.78201 6.22718 7.79801 6.65918 7.79101C7.10918 7.78301 7.51518 7.75101 7.84518 7.67801C8.18718 7.60201 8.36518 7.50101 8.44518 7.42101L10.9352 4.93101C10.9962 4.87001 11.0812 4.67501 11.0552 4.17101C11.0402 3.93447 11.0158 3.69862 10.9822 3.46401L10.9732 3.39601C10.9415 3.17762 10.9178 2.95814 10.9022 2.73801C10.8772 2.28301 11.0382 1.86101 11.2502 1.52701C11.4662 1.18701 11.7652 0.887006 12.1012 0.664006Z"
                                                     fill="#E8A26A" />
                                             </svg>
-                                            <h1 class="font-semibold text-[#3E5467] text-xl md:text-2xl"
+                                            <h1 class="text-[#3E5467] font-semibold text-xl md:text-2xl"
                                                 style="font-family: 'Fredoka';">Usia</h1>
                                         </flex>
-                                        <p class="text-[#A2A2BD] text-end max-w-72" style="font-family: 'Onest';">6 bln
-                                            - 12 y.o</p>
+                                        <p class="text-[#A2A2BD] text-end max-w-72" style="font-family: 'Onest';">{{ $stimulasiData['age_range'] }}</p>
                                     </div>
                                     <div
                                         class="flex justify-between border-b-2 border-dashed pb-3 border-[#E8A26A] items-center">
@@ -103,11 +107,10 @@
                                                     d="M12.1012 0.664006C12.7292 0.248006 13.7932 -0.0489938 14.5962 0.754006L19.2432 5.40201C20.0492 6.20601 19.7512 7.27001 19.3342 7.89701C19.1084 8.23699 18.8145 8.52642 18.4712 8.74701C18.1372 8.96001 17.7152 9.12101 17.2602 9.09701C17.04 9.08141 16.8206 9.05773 16.6022 9.02601L16.5342 9.01601C16.2996 8.98237 16.0637 8.95802 15.8272 8.94301C15.3232 8.91801 15.1292 9.00301 15.0672 9.06301L12.5772 11.554C12.4972 11.634 12.3972 11.812 12.3212 12.154C12.2482 12.484 12.2162 12.89 12.2082 13.34C12.2012 13.772 12.2162 14.214 12.2322 14.64L12.2332 14.687C12.2482 15.11 12.2632 15.542 12.2422 15.881C12.1772 16.912 11.3742 17.671 10.5842 18.022C9.79418 18.372 8.66718 18.459 7.88418 17.675L5.63418 15.425L1.52918 19.53C1.46051 19.6037 1.37771 19.6628 1.28572 19.7038C1.19372 19.7448 1.0944 19.7668 0.9937 19.7686C0.892997 19.7704 0.792968 19.7518 0.69958 19.7141C0.606191 19.6764 0.521357 19.6203 0.450139 19.549C0.37892 19.4778 0.322775 19.393 0.285054 19.2996C0.247333 19.2062 0.228809 19.1062 0.230585 19.0055C0.232362 18.9048 0.254404 18.8055 0.295396 18.7135C0.336388 18.6215 0.39549 18.5387 0.469177 18.47L4.57318 14.365L2.32318 12.115C1.54018 11.331 1.62618 10.205 1.97718 9.41501C2.32718 8.62501 3.08718 7.82201 4.11718 7.75701C4.45718 7.73601 4.88918 7.75101 5.31218 7.76601L5.35918 7.76701C5.78518 7.78201 6.22718 7.79801 6.65918 7.79101C7.10918 7.78301 7.51518 7.75101 7.84518 7.67801C8.18718 7.60201 8.36518 7.50101 8.44518 7.42101L10.9352 4.93101C10.9962 4.87001 11.0812 4.67501 11.0552 4.17101C11.0402 3.93447 11.0158 3.69862 10.9822 3.46401L10.9732 3.39601C10.9415 3.17762 10.9178 2.95814 10.9022 2.73801C10.8772 2.28301 11.0382 1.86101 11.2502 1.52701C11.4662 1.18701 11.7652 0.887006 12.1012 0.664006Z"
                                                     fill="#E8A26A" />
                                             </svg>
-                                            <h1 class="font-semibold text-[#3E5467] text-xl md:text-2xl"
+                                            <h1 class="text-[#3E5467] font-semibold text-xl md:text-2xl"
                                                 style="font-family: 'Fredoka';">Jam</h1>
                                         </flex>
-                                        <p class="text-[#A2A2BD] text-end max-w-72" style="font-family: 'Onest';">
-                                            9.00-17.00</p>
+                                        <p class="text-[#A2A2BD] text-end max-w-72" style="font-family: 'Onest';">{{ $stimulasiData['hours'] }}</p>
                                     </div>
                                     <div
                                         class="flex justify-between border-b-2 border-dashed pb-3 border-[#E8A26A] items-center">
@@ -118,11 +121,10 @@
                                                     d="M12.1012 0.664006C12.7292 0.248006 13.7932 -0.0489938 14.5962 0.754006L19.2432 5.40201C20.0492 6.20601 19.7512 7.27001 19.3342 7.89701C19.1084 8.23699 18.8145 8.52642 18.4712 8.74701C18.1372 8.96001 17.7152 9.12101 17.2602 9.09701C17.04 9.08141 16.8206 9.05773 16.6022 9.02601L16.5342 9.01601C16.2996 8.98237 16.0637 8.95802 15.8272 8.94301C15.3232 8.91801 15.1292 9.00301 15.0672 9.06301L12.5772 11.554C12.4972 11.634 12.3972 11.812 12.3212 12.154C12.2482 12.484 12.2162 12.89 12.2082 13.34C12.2012 13.772 12.2162 14.214 12.2322 14.64L12.2332 14.687C12.2482 15.11 12.2632 15.542 12.2422 15.881C12.1772 16.912 11.3742 17.671 10.5842 18.022C9.79418 18.372 8.66718 18.459 7.88418 17.675L5.63418 15.425L1.52918 19.53C1.46051 19.6037 1.37771 19.6628 1.28572 19.7038C1.19372 19.7448 1.0944 19.7668 0.9937 19.7686C0.892997 19.7704 0.792968 19.7518 0.69958 19.7141C0.606191 19.6764 0.521357 19.6203 0.450139 19.549C0.37892 19.4778 0.322775 19.393 0.285054 19.2996C0.247333 19.2062 0.228809 19.1062 0.230585 19.0055C0.232362 18.9048 0.254404 18.8055 0.295396 18.7135C0.336388 18.6215 0.39549 18.5387 0.469177 18.47L4.57318 14.365L2.32318 12.115C1.54018 11.331 1.62618 10.205 1.97718 9.41501C2.32718 8.62501 3.08718 7.82201 4.11718 7.75701C4.45718 7.73601 4.88918 7.75101 5.31218 7.76601L5.35918 7.76701C5.78518 7.78201 6.22718 7.79801 6.65918 7.79101C7.10918 7.78301 7.51518 7.75101 7.84518 7.67801C8.18718 7.60201 8.36518 7.50101 8.44518 7.42101L10.9352 4.93101C10.9962 4.87001 11.0812 4.67501 11.0552 4.17101C11.0402 3.93447 11.0158 3.69862 10.9822 3.46401L10.9732 3.39601C10.9415 3.17762 10.9178 2.95814 10.9022 2.73801C10.8772 2.28301 11.0382 1.86101 11.2502 1.52701C11.4662 1.18701 11.7652 0.887006 12.1012 0.664006Z"
                                                     fill="#E8A26A" />
                                             </svg>
-                                            <h1 class="font-semibold text-[#3E5467] text-xl md:text-2xl"
+                                            <h1 class="text-[#3E5467] font-semibold text-xl md:text-2xl"
                                                 style="font-family: 'Fredoka';">Hari</h1>
                                         </flex>
-                                        <p class="text-[#A2A2BD] text-end max-w-72" style="font-family: 'Onest';">
-                                            Senin-Sabtu</p>
+                                        <p class="text-[#A2A2BD] text-end max-w-72" style="font-family: 'Onest';">{{ $stimulasiData['days'] }}</p>
                                     </div>
                                 </div>
 
@@ -131,7 +133,6 @@
                     </div>
                 </div>
             </div>
-            {{-- ## --}}
             <section id="informasi">
                 <div class="w-full flex flex-col md:flex-row mt-24">
                     <div class="w-full lg:w-1/2 flex flex-col justify-center">
@@ -140,16 +141,16 @@
                                 Stimulasi
                             </p>
                             <h1 class="text-[#3E5467] font-semibold text-4xl xl:text-5xl text-start"
-                                style="font-family: 'Fredoka';"> Kelas Stimulasi Di Rumah Samoedra
+                                style="font-family: 'Fredoka';"> {{ $stimulasiData['program_title'] ?? 'Kelas Stimulasi Di Rumah Samoedra' }}
                             </h1>
-                            <p class="text-[#A2A2BD] max-w-xl mt-5" style="font-family: 'Onest';">Kelas Stimulasi Rumah Samoedra dirancang untuk mendukung tumbuh kembang anak melalui aktivitas bermain yang menyenangkan dan penuh makna. Kami percaya setiap anak itu unik, dan melalui kelas ini, mereka diajak belajar, bermain, dan tumbuh bersama dalam lingkungan yang aman dan penuh kasih. Yuk, kenalkan si kecil pada dunia belajar yang seru dan interaktif bersama Rumah Samoedra!</p>
+                            <p class="text-[#A2A2BD] max-w-xl mt-5" style="font-family: 'Onest';">{{ $stimulasiData['program_description'] ?? 'Kelas Stimulasi Rumah Samoedra dirancang untuk mendukung tumbuh kembang anak melalui aktivitas bermain yang menyenangkan dan penuh makna. Kami percaya setiap anak itu unik, dan melalui kelas ini, mereka diajak belajar, bermain, dan tumbuh bersama dalam lingkungan yang aman dan penuh kasih. Yuk, kenalkan si kecil pada dunia belajar yang seru dan interaktif bersama Rumah Samoedra!' }}</p>
                         </div>
 
                     </div>
                     <div class="w-full lg:w-1/2 relative flex justify-center items-center">
                         <div class="w-full max-w-[500px] h-[500px] p-3 xl:p-5 bg-[#EFF5F6] mask-faq relative z-10">
                             <div class="mask-faq h-full">
-                                <img src="{{asset('images/assets/img_detail_layanan.png')}}"
+                                <img src="{{asset($stimulasiData['program_image'] ?? 'images/assets/img_detail_layanan.png')}}"
                                     class="w-full h-full object-cover object-center" alt="">
                             </div>
                         </div>
@@ -162,7 +163,7 @@
                     </div>
                 </div>
             </section>
-            {{-- ## --}}
+
 
             <section id="informasi">
                 <div class="w-full flex items-start flex-col md:flex-row mt-24">
@@ -175,202 +176,17 @@
                         </div>
                         <div class="space-y-4 mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                             <!-- Daftar fitur utama -->
+                            @foreach($stimulasiData['program']['points'] as $point)
                             <div class="flex flex-row space-x-3">
                                 <div
                                     class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M9.55018 15.15L18.0252 6.675C18.2252 6.475 18.4585 6.375 18.7252 6.375C18.9918 6.375 19.2252 6.475 19.4252 6.675C19.6252 6.875 19.7252 7.11267 19.7252 7.388C19.7252 7.66333 19.6252 7.90067 19.4252 8.1L10.2502 17.3C10.0502 17.5 9.81685 17.6 9.55018 17.6C9.28351 17.6 9.05018 17.5 8.85018 17.3L4.55018 13C4.35018 12.8 4.25418 12.5627 4.26218 12.288C4.27018 12.0133 4.37451 11.7757 4.57518 11.575C4.77585 11.3743 5.01351 11.2743 5.28818 11.275C5.56285 11.2757 5.80018 11.3757 6.00018 11.575L9.55018 15.15Z"
-                                            fill="white" />
-                                    </svg>
+                                    <p class="text-white font-semibold">1</p>
                                 </div>
                                 <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">
-                                    Eksplorasi</h1>
+                                    {{ $point }}</h1>
                             </div>
+                            @endforeach
 
-                            <!-- Fitur lainnya dengan pola yang sama -->
-                            <div class="flex flex-row space-x-3">
-                                <div
-                                    class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M9.55018 15.15L18.0252 6.675C18.2252 6.475 18.4585 6.375 18.7252 6.375C18.9918 6.375 19.2252 6.475 19.4252 6.675C19.6252 6.875 19.7252 7.11267 19.7252 7.388C19.7252 7.66333 19.6252 7.90067 19.4252 8.1L10.2502 17.3C10.0502 17.5 9.81685 17.6 9.55018 17.6C9.28351 17.6 9.05018 17.5 8.85018 17.3L4.55018 13C4.35018 12.8 4.25418 12.5627 4.26218 12.288C4.27018 12.0133 4.37451 11.7757 4.57518 11.575C4.77585 11.3743 5.01351 11.2743 5.28818 11.275C5.56285 11.2757 5.80018 11.3757 6.00018 11.575L9.55018 15.15Z"
-                                            fill="white" />
-                                    </svg>
-                                </div>
-                                <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">
-                                    Stimulasi</h1>
-                            </div>
-
-                            <div class="flex flex-row space-x-3">
-                                <div
-                                    class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M9.55018 15.15L18.0252 6.675C18.2252 6.475 18.4585 6.375 18.7252 6.375C18.9918 6.375 19.2252 6.475 19.4252 6.675C19.6252 6.875 19.7252 7.11267 19.7252 7.388C19.7252 7.66333 19.6252 7.90067 19.4252 8.1L10.2502 17.3C10.0502 17.5 9.81685 17.6 9.55018 17.6C9.28351 17.6 9.05018 17.5 8.85018 17.3L4.55018 13C4.35018 12.8 4.25418 12.5627 4.26218 12.288C4.27018 12.0133 4.37451 11.7757 4.57518 11.575C4.77585 11.3743 5.01351 11.2743 5.28818 11.275C5.56285 11.2757 5.80018 11.3757 6.00018 11.575L9.55018 15.15Z"
-                                            fill="white" />
-                                    </svg>
-                                </div>
-                                <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">Sensori
-                                </h1>
-                            </div>
-
-                            <div class="flex flex-row space-x-3">
-                                <div
-                                    class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M9.55018 15.15L18.0252 6.675C18.2252 6.475 18.4585 6.375 18.7252 6.375C18.9918 6.375 19.2252 6.475 19.4252 6.675C19.6252 6.875 19.7252 7.11267 19.7252 7.388C19.7252 7.66333 19.6252 7.90067 19.4252 8.1L10.2502 17.3C10.0502 17.5 9.81685 17.6 9.55018 17.6C9.28351 17.6 9.05018 17.5 8.85018 17.3L4.55018 13C4.35018 12.8 4.25418 12.5627 4.26218 12.288C4.27018 12.0133 4.37451 11.7757 4.57518 11.575C4.77585 11.3743 5.01351 11.2743 5.28818 11.275C5.56285 11.2757 5.80018 11.3757 6.00018 11.575L9.55018 15.15Z"
-                                            fill="white" />
-                                    </svg>
-                                </div>
-                                <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">Motorik
-                                </h1>
-                            </div>
-
-                            <div class="flex flex-row space-x-3">
-                                <div
-                                    class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M9.55018 15.15L18.0252 6.675C18.2252 6.475 18.4585 6.375 18.7252 6.375C18.9918 6.375 19.2252 6.475 19.4252 6.675C19.6252 6.875 19.7252 7.11267 19.7252 7.388C19.7252 7.66333 19.6252 7.90067 19.4252 8.1L10.2502 17.3C10.0502 17.5 9.81685 17.6 9.55018 17.6C9.28351 17.6 9.05018 17.5 8.85018 17.3L4.55018 13C4.35018 12.8 4.25418 12.5627 4.26218 12.288C4.27018 12.0133 4.37451 11.7757 4.57518 11.575C4.77585 11.3743 5.01351 11.2743 5.28818 11.275C5.56285 11.2757 5.80018 11.3757 6.00018 11.575L9.55018 15.15Z"
-                                            fill="white" />
-                                    </svg>
-                                </div>
-                                <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">Logika
-                                </h1>
-                            </div>
-
-                            <div class="flex flex-row space-x-3">
-                                <div
-                                    class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M9.55018 15.15L18.0252 6.675C18.2252 6.475 18.4585 6.375 18.7252 6.375C18.9918 6.375 19.2252 6.475 19.4252 6.675C19.6252 6.875 19.7252 7.11267 19.7252 7.388C19.7252 7.66333 19.6252 7.90067 19.4252 8.1L10.2502 17.3C10.0502 17.5 9.81685 17.6 9.55018 17.6C9.28351 17.6 9.05018 17.5 8.85018 17.3L4.55018 13C4.35018 12.8 4.25418 12.5627 4.26218 12.288C4.27018 12.0133 4.37451 11.7757 4.57518 11.575C4.77585 11.3743 5.01351 11.2743 5.28818 11.275C5.56285 11.2757 5.80018 11.3757 6.00018 11.575L9.55018 15.15Z"
-                                            fill="white" />
-                                    </svg>
-                                </div>
-                                <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">Sosial
-                                </h1>
-                            </div>
-
-                            <div class="flex flex-row space-x-3">
-                                <div
-                                    class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M9.55018 15.15L18.0252 6.675C18.2252 6.475 18.4585 6.375 18.7252 6.375C18.9918 6.375 19.2252 6.475 19.4252 6.675C19.6252 6.875 19.7252 7.11267 19.7252 7.388C19.7252 7.66333 19.6252 7.90067 19.4252 8.1L10.2502 17.3C10.0502 17.5 9.81685 17.6 9.55018 17.6C9.28351 17.6 9.05018 17.5 8.85018 17.3L4.55018 13C4.35018 12.8 4.25418 12.5627 4.26218 12.288C4.27018 12.0133 4.37451 11.7757 4.57518 11.575C4.77585 11.3743 5.01351 11.2743 5.28818 11.275C5.56285 11.2757 5.80018 11.3757 6.00018 11.575L9.55018 15.15Z"
-                                            fill="white" />
-                                    </svg>
-                                </div>
-                                <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">
-                                    Keseimbangan</h1>
-                            </div>
-
-                            <div class="flex flex-row space-x-3">
-                                <div
-                                    class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M9.55018 15.15L18.0252 6.675C18.2252 6.475 18.4585 6.375 18.7252 6.375C18.9918 6.375 19.2252 6.475 19.4252 6.675C19.6252 6.875 19.7252 7.11267 19.7252 7.388C19.7252 7.66333 19.6252 7.90067 19.4252 8.1L10.2502 17.3C10.0502 17.5 9.81685 17.6 9.55018 17.6C9.28351 17.6 9.05018 17.5 8.85018 17.3L4.55018 13C4.35018 12.8 4.25418 12.5627 4.26218 12.288C4.27018 12.0133 4.37451 11.7757 4.57518 11.575C4.77585 11.3743 5.01351 11.2743 5.28818 11.275C5.56285 11.2757 5.80018 11.3757 6.00018 11.575L9.55018 15.15Z"
-                                            fill="white" />
-                                    </svg>
-                                </div>
-                                <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">
-                                    Keterampilan</h1>
-                            </div>
-
-                            <div class="flex flex-row space-x-3">
-                                <div
-                                    class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M9.55018 15.15L18.0252 6.675C18.2252 6.475 18.4585 6.375 18.7252 6.375C18.9918 6.375 19.2252 6.475 19.4252 6.675C19.6252 6.875 19.7252 7.11267 19.7252 7.388C19.7252 7.66333 19.6252 7.90067 19.4252 8.1L10.2502 17.3C10.0502 17.5 9.81685 17.6 9.55018 17.6C9.28351 17.6 9.05018 17.5 8.85018 17.3L4.55018 13C4.35018 12.8 4.25418 12.5627 4.26218 12.288C4.27018 12.0133 4.37451 11.7757 4.57518 11.575C4.77585 11.3743 5.01351 11.2743 5.28818 11.275C5.56285 11.2757 5.80018 11.3757 6.00018 11.575L9.55018 15.15Z"
-                                            fill="white" />
-                                    </svg>
-                                </div>
-                                <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">
-                                    Kognitif</h1>
-                            </div>
-
-                            <div class="flex flex-row space-x-3">
-                                <div
-                                    class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M9.55018 15.15L18.0252 6.675C18.2252 6.475 18.4585 6.375 18.7252 6.375C18.9918 6.375 19.2252 6.475 19.4252 6.675C19.6252 6.875 19.7252 7.11267 19.7252 7.388C19.7252 7.66333 19.6252 7.90067 19.4252 8.1L10.2502 17.3C10.0502 17.5 9.81685 17.6 9.55018 17.6C9.28351 17.6 9.05018 17.5 8.85018 17.3L4.55018 13C4.35018 12.8 4.25418 12.5627 4.26218 12.288C4.27018 12.0133 4.37451 11.7757 4.57518 11.575C4.77585 11.3743 5.01351 11.2743 5.28818 11.275C5.56285 11.2757 5.80018 11.3757 6.00018 11.575L9.55018 15.15Z"
-                                            fill="white" />
-                                    </svg>
-                                </div>
-                                <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">
-                                    Experiment</h1>
-                            </div>
-
-                            <div class="flex flex-row space-x-3">
-                                <div
-                                    class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M9.55018 15.15L18.0252 6.675C18.2252 6.475 18.4585 6.375 18.7252 6.375C18.9918 6.375 19.2252 6.475 19.4252 6.675C19.6252 6.875 19.7252 7.11267 19.7252 7.388C19.7252 7.66333 19.6252 7.90067 19.4252 8.1L10.2502 17.3C10.0502 17.5 9.81685 17.6 9.55018 17.6C9.28351 17.6 9.05018 17.5 8.85018 17.3L4.55018 13C4.35018 12.8 4.25418 12.5627 4.26218 12.288C4.27018 12.0133 4.37451 11.7757 4.57518 11.575C4.77585 11.3743 5.01351 11.2743 5.28818 11.275C5.56285 11.2757 5.80018 11.3757 6.00018 11.575L9.55018 15.15Z"
-                                            fill="white" />
-                                    </svg>
-                                </div>
-                                <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">Sains
-                                </h1>
-                            </div>
-
-                            <div class="flex flex-row space-x-3">
-                                <div
-                                    class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M9.55018 15.15L18.0252 6.675C18.2252 6.475 18.4585 6.375 18.7252 6.375C18.9918 6.375 19.2252 6.475 19.4252 6.675C19.6252 6.875 19.7252 7.11267 19.7252 7.388C19.7252 7.66333 19.6252 7.90067 19.4252 8.1L10.2502 17.3C10.0502 17.5 9.81685 17.6 9.55018 17.6C9.28351 17.6 9.05018 17.5 8.85018 17.3L4.55018 13C4.35018 12.8 4.25418 12.5627 4.26218 12.288C4.27018 12.0133 4.37451 11.7757 4.57518 11.575C4.77585 11.3743 5.01351 11.2743 5.28818 11.275C5.56285 11.2757 5.80018 11.3757 6.00018 11.575L9.55018 15.15Z"
-                                            fill="white" />
-                                    </svg>
-                                </div>
-                                <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">Fokus
-                                </h1>
-                            </div>
-
-                            <div class="flex flex-row space-x-3">
-                                <div
-                                    class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M9.55018 15.15L18.0252 6.675C18.2252 6.475 18.4585 6.375 18.7252 6.375C18.9918 6.375 19.2252 6.475 19.4252 6.675C19.6252 6.875 19.7252 7.11267 19.7252 7.388C19.7252 7.66333 19.6252 7.90067 19.4252 8.1L10.2502 17.3C10.0502 17.5 9.81685 17.6 9.55018 17.6C9.28351 17.6 9.05018 17.5 8.85018 17.3L4.55018 13C4.35018 12.8 4.25418 12.5627 4.26218 12.288C4.27018 12.0133 4.37451 11.7757 4.57518 11.575C4.77585 11.3743 5.01351 11.2743 5.28818 11.275C5.56285 11.2757 5.80018 11.3757 6.00018 11.575L9.55018 15.15Z"
-                                            fill="white" />
-                                    </svg>
-                                </div>
-                                <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">
-                                    Kreatifitas</h1>
-                            </div>
-
-                            <div class="flex flex-row space-x-3">
-                                <div
-                                    class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M9.55018 15.15L18.0252 6.675C18.2252 6.475 18.4585 6.375 18.7252 6.375C18.9918 6.375 19.2252 6.475 19.4252 6.675C19.6252 6.875 19.7252 7.11267 19.7252 7.388C19.7252 7.66333 19.6252 7.90067 19.4252 8.1L10.2502 17.3C10.0502 17.5 9.81685 17.6 9.55018 17.6C9.28351 17.6 9.05018 17.5 8.85018 17.3L4.55018 13C4.35018 12.8 4.25418 12.5627 4.26218 12.288C4.27018 12.0133 4.37451 11.7757 4.57518 11.575C4.77585 11.3743 5.01351 11.2743 5.28818 11.275C5.56285 11.2757 5.80018 11.3757 6.00018 11.575L9.55018 15.15Z"
-                                            fill="white" />
-                                    </svg>
-                                </div>
-                                <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">
-                                    Perilaku</h1>
-                            </div>
                         </div>
                     </div>
 
@@ -387,91 +203,111 @@
                             <p class="text-[#E8A26A] text-xl" style="font-family: Fuzzy Bubbles;">Program Kelas
                                 Stimulasi</p>
                             <h1 class="text-[#3E5467] font-semibold text-4xl xl:text-5xl text-start"
-                                style="font-family: 'Fredoka';">Kegiatan Kelas Stimulasi Rumah Samoedra</h1>
+                                style="font-family: 'Fredoka';">{{ $stimulasiData['kegiatan_title'] ?? 'Kegiatan Kelas Stimulasi Rumah Samoedra' }}</h1>
 
                         </div>
                         <div class="kegiatan grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-12">
-                            <div class="space-y-2 mt-6">
-                                <!-- Daftar fitur utama -->
-                                <div class="flex flex-row space-x-3">
-                                    <div
-                                        class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                        <p class="text-white font-semibold">1</p>
+                            @if(isset($stimulasiData['kegiatan']) && count($stimulasiData['kegiatan']) > 0)
+                                @foreach($stimulasiData['kegiatan'] as $index => $kegiatan)
+                                <div class="space-y-2 mt-6 {{ $index > 0 ? 'px-5' : '' }}">
+                                    <!-- Daftar fitur utama -->
+                                    <div class="flex flex-row space-x-3">
+                                        <div
+                                            class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
+                                            <p class="text-white font-semibold">{{ $index + 1 }}</p>
+                                        </div>
+                                        <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">
+                                            {{ $kegiatan['name'] }}</h1>
                                     </div>
-                                    <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">
-                                        ADAPTASI SOSIAL</h1>
-                                </div>
-                                <div class="ml-5 font-medium text-slate-700">
-                                    <li>Diskusi tentang pengalaman bulan Puasa & Lebaran</li>
-                                    <li>⁠Praktik Bersalaman dan Bermaaf maafan</li>
-                                    <li>⁠Berkenalan dengan teman baru</li>
-                                    <li>Menjawab pertanyaan sederhana</li>
-                                </div>
-                            </div>
-                            <div class="space-y-2 mt-6 px-5">
-                                <!-- Daftar fitur utama -->
-                                <div class="flex flex-row space-x-3">
-                                    <div
-                                        class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                        <p class="text-white font-semibold">1</p>
+                                    <div class="ml-5 font-medium text-slate-700">
+                                        @foreach(explode("\n", $kegiatan['description']) as $line)
+                                            <li>{{ $line }}</li>
+                                        @endforeach
                                     </div>
-                                    <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">
-                                        LOGIKA MATEMATIKA
-                                    </h1>
                                 </div>
-                                <div class="ml-5 font-medium text-slate-700">
-                                    <li> ⁠Meniru bentuk sebuah pola menggunakan stick</li>
-                                    <li>Belajar mengenal waktu Tahun, Bulan, Minggu, Hari, Jam menggunakan kalender dan jam dinding</li>
-                                </div>
-                            </div>
-                            <div class="space-y-2 mt-6 px-5">
-                                <!-- Daftar fitur utama -->
-                                <div class="flex flex-row space-x-3">
-                                    <div
-                                        class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                        <p class="text-white font-semibold">1</p>
+                                @endforeach
+                            @else
+                                <div class="space-y-2 mt-6">
+                                    <!-- Daftar fitur utama -->
+                                    <div class="flex flex-row space-x-3">
+                                        <div
+                                            class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
+                                            <p class="text-white font-semibold">1</p>
+                                        </div>
+                                        <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">
+                                            ADAPTASI SOSIAL</h1>
                                     </div>
-                                    <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">
-                                        FISIK MOTORIK
-                                    </h1>
-                                </div>
-                                <div class="ml-5 font-medium text-slate-700">
-                                    <li>Melewati rintangan sensory path</li>
-                                    <li>Bermain lompat karet</li>
-                                </div>
-                            </div>
-                            <div class="space-y-2 mt-6 px-5">
-                                <!-- Daftar fitur utama -->
-                                <div class="flex flex-row space-x-3">
-                                    <div
-                                        class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                        <p class="text-white font-semibold">1</p>
+                                    <div class="ml-5 font-medium text-slate-700">
+                                        <li>Diskusi tentang pengalaman bulan Puasa & Lebaran</li>
+                                        <li>⁠Praktik Bersalaman dan Bermaaf maafan</li>
+                                        <li>⁠Berkenalan dengan teman baru</li>
+                                        <li>Menjawab pertanyaan sederhana</li>
                                     </div>
-                                    <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">
-                                        KREATIFITAS
-                                    </h1>
                                 </div>
-                                <div class="ml-5 font-medium text-slate-700">
-                                    <li> ⁠Melengkapi setengah gambar dengan cara meniru gambar di sebelahnya </li>
-                                </div>
-                            </div>
-                            <div class="space-y-2 mt-6 px-5">
-                                <!-- Daftar fitur utama -->
-                                <div class="flex flex-row space-x-3">
-                                    <div
-                                        class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
-                                        <p class="text-white font-semibold">1</p>
+                                <div class="space-y-2 mt-6 px-5">
+                                    <!-- Daftar fitur utama -->
+                                    <div class="flex flex-row space-x-3">
+                                        <div
+                                            class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
+                                            <p class="text-white font-semibold">1</p>
+                                        </div>
+                                        <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">
+                                            LOGIKA MATEMATIKA
+                                        </h1>
                                     </div>
-                                    <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">
-                                        FOKUS & KESEIMBANGAN
-                                    </h1>
+                                    <div class="ml-5 font-medium text-slate-700">
+                                        <li> ⁠Meniru bentuk sebuah pola menggunakan stick</li>
+                                        <li>Belajar mengenal waktu Tahun, Bulan, Minggu, Hari, Jam menggunakan kalender dan jam dinding</li>
+                                    </div>
                                 </div>
-                                <div class="ml-5 font-medium text-slate-700">
-                                    <li>menggulung tali dan melepaskan jepitan</li>
-                                    <li>menarik bola dalam lingkaran & melemparnya </li>
-
+                                <div class="space-y-2 mt-6 px-5">
+                                    <!-- Daftar fitur utama -->
+                                    <div class="flex flex-row space-x-3">
+                                        <div
+                                            class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
+                                            <p class="text-white font-semibold">1</p>
+                                        </div>
+                                        <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">
+                                            FISIK MOTORIK
+                                        </h1>
+                                    </div>
+                                    <div class="ml-5 font-medium text-slate-700">
+                                        <li>Melewati rintangan sensory path</li>
+                                        <li>Bermain lompat karet</li>
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="space-y-2 mt-6 px-5">
+                                    <!-- Daftar fitur utama -->
+                                    <div class="flex flex-row space-x-3">
+                                        <div
+                                            class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
+                                            <p class="text-white font-semibold">1</p>
+                                        </div>
+                                        <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">
+                                            KREATIFITAS
+                                        </h1>
+                                    </div>
+                                    <div class="ml-5 font-medium text-slate-700">
+                                        <li> ⁠Melengkapi setengah gambar dengan cara meniru gambar di sebelahnya </li>
+                                    </div>
+                                </div>
+                                <div class="space-y-2 mt-6 px-5">
+                                    <!-- Daftar fitur utama -->
+                                    <div class="flex flex-row space-x-3">
+                                        <div
+                                            class="w-8 h-8 aspect-square bg-[#7BA5B0] rounded-xl p-1 flex justify-center items-center">
+                                            <p class="text-white font-semibold">1</p>
+                                        </div>
+                                        <h1 class="text-[#3E5467] font-semibold text-xl" style="font-family: 'Fredoka';">
+                                            FOKUS & KESEIMBANGAN
+                                        </h1>
+                                    </div>
+                                    <div class="ml-5 font-medium text-slate-700">
+                                        <li>menggulung tali dan melepaskan jepitan</li>
+                                        <li>menarik bola dalam lingkaran & melemparnya </li>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -507,41 +343,53 @@
                     class="md:w-3/4 w-full px-8 md:px-0 overflow-x-auto no-scrollbar mx-auto flex flex-col items-start">
                     <div class="flex flex-row gap-7 py-10 overflow-x-auto">
 
-                        <!-- Card Template -->
-                        <div class="w-80 h-64 rounded-4xl bg-white p-6 flex flex-col relative">
-                            <img src="{{asset('images/assets/img_layanan.png')}}" alt="Kelas Stimulasi"
-                                class="w-full h-44 rounded-3xl object-cover">
-                            <h1 class="text-3xl text-[#3E5467] font-semibold text-center mt-3"
-                                style="font-family: 'Fredoka';">Full AC</h1>
-                        </div>
+                        @if(isset($stimulasiData['fasilitas']) && count($stimulasiData['fasilitas']) > 0)
+                            @foreach($stimulasiData['fasilitas'] as $fasilitas)
+                            <!-- Card Template -->
+                            <div class="w-80 h-64 rounded-4xl bg-white p-6 flex flex-col relative">
+                                <img src="{{asset($fasilitas['image'])}}" alt="{{ $fasilitas['name'] }}"
+                                    class="w-full h-44 rounded-3xl object-cover">
+                                <h1 class="text-3xl text-[#3E5467] font-semibold text-center mt-3"
+                                    style="font-family: 'Fredoka';">{{ $fasilitas['name'] }}</h1>
+                            </div>
+                            @endforeach
+                        @else
+                            <!-- Default Fasilitas -->
+                            <div class="w-80 h-64 rounded-4xl bg-white p-6 flex flex-col relative">
+                                <img src="{{asset('images/assets/img_layanan.png')}}" alt="Kelas Stimulasi"
+                                    class="w-full h-44 rounded-3xl object-cover">
+                                <h1 class="text-3xl text-[#3E5467] font-semibold text-center mt-3"
+                                    style="font-family: 'Fredoka';">Full AC</h1>
+                            </div>
 
-                        <div class="w-80 h-64 rounded-4xl bg-white p-6 flex flex-col relative">
-                            <img src="{{asset('images/assets/img_layanan.png')}}" alt="Kelas Stimulasi"
-                                class="w-full h-44 rounded-3xl object-cover">
-                            <h1 class="text-3xl text-[#3E5467] font-semibold text-center mt-3"
-                                style="font-family: 'Fredoka';">Purifier</h1>
-                        </div>
+                            <div class="w-80 h-64 rounded-4xl bg-white p-6 flex flex-col relative">
+                                <img src="{{asset('images/assets/img_layanan.png')}}" alt="Kelas Stimulasi"
+                                    class="w-full h-44 rounded-3xl object-cover">
+                                <h1 class="text-3xl text-[#3E5467] font-semibold text-center mt-3"
+                                    style="font-family: 'Fredoka';">Purifier</h1>
+                            </div>
 
-                        <div class="w-80 h-64 rounded-4xl bg-white p-6 flex flex-col relative">
-                            <img src="{{asset('images/assets/img_layanan.png')}}" alt="Kelas Stimulasi"
-                                class="w-full h-44 rounded-3xl object-cover">
-                            <h1 class="text-3xl text-[#3E5467] font-semibold text-center mt-3"
-                                style="font-family: 'Fredoka';">3 Kamar</h1>
-                        </div>
+                            <div class="w-80 h-64 rounded-4xl bg-white p-6 flex flex-col relative">
+                                <img src="{{asset('images/assets/img_layanan.png')}}" alt="Kelas Stimulasi"
+                                    class="w-full h-44 rounded-3xl object-cover">
+                                <h1 class="text-3xl text-[#3E5467] font-semibold text-center mt-3"
+                                    style="font-family: 'Fredoka';">3 Kamar</h1>
+                            </div>
 
-                        <div class="w-80 h-64 rounded-4xl bg-white p-6 flex flex-col relative">
-                            <img src="{{asset('images/assets/img_layanan.png')}}" alt="Kelas Stimulasi"
-                                class="w-full h-44 rounded-3xl object-cover">
-                            <h1 class="text-3xl text-[#3E5467] font-semibold text-center mt-3"
-                                style="font-family: 'Fredoka';">Baby Bed</h1>
-                        </div>
+                            <div class="w-80 h-64 rounded-4xl bg-white p-6 flex flex-col relative">
+                                <img src="{{asset('images/assets/img_layanan.png')}}" alt="Kelas Stimulasi"
+                                    class="w-full h-44 rounded-3xl object-cover">
+                                <h1 class="text-3xl text-[#3E5467] font-semibold text-center mt-3"
+                                    style="font-family: 'Fredoka';">Baby Bed</h1>
+                            </div>
 
-                        <div class="w-80 h-64 rounded-4xl bg-white p-6 flex flex-col relative">
-                            <img src="{{asset('images/assets/img_layanan.png')}}" alt="Kelas Stimulasi"
-                                class="w-full h-44 rounded-3xl object-cover">
-                            <h1 class="text-3xl text-[#3E5467] font-semibold text-center mt-3"
-                                style="font-family: 'Fredoka';">Outdor Area</h1>
-                        </div>
+                            <div class="w-80 h-64 rounded-4xl bg-white p-6 flex flex-col relative">
+                                <img src="{{asset('images/assets/img_layanan.png')}}" alt="Kelas Stimulasi"
+                                    class="w-full h-44 rounded-3xl object-cover">
+                                <h1 class="text-3xl text-[#3E5467] font-semibold text-center mt-3"
+                                    style="font-family: 'Fredoka';">Outdor Area</h1>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -560,9 +408,9 @@
         <!-- Wrapper div table-->
         <div class="w-full md:w-3/4 mx-auto px-8 md:px-0">
             <div class="flex flex-col justify-center mt-20 items-center">
-                <p class="text-[#E8A26A] text-xl" style="font-family: 'Fuzzy Bubbles', cursive;">Pricelist</p>
+                <p class="text-[#E8A26A] text-xl" style="font-family: 'Fuzzy Bubbles', cursive;">{{ $stimulasiData['pricelist_subtitle'] ?? 'Pricelist' }}</p>
                 <h1 class="text-[#3E5467] text-3xl md:text-4xl font-semibold" style="font-family: 'Fredoka';">
-                    Price List Kelas Stimulasi
+                    {{ $stimulasiData['pricelist_title'] ?? 'Price List Kelas Stimulasi' }}
                 </h1>
             </div>
             <div class="mt-10 overflow-x-auto">
@@ -575,26 +423,42 @@
                             <th class="border border-[#E8A26A] px-4 py-3 text-center">Promo Pendaftaran</th>
                             <th class="border border-[#E8A26A] px-4 py-3 text-center">Biaya</th>
                             <th class="border border-[#E8A26A] px-4 py-3 text-center">Pertemuan</th>
-
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="border border-[#E8A26A] px-4 py-3 text-[#3E5467] text-center"
-                                style="font-family: 'Onest';">01</td>
-                            <td class="border border-[#E8A26A] px-4 py-3 text-[#3E5467] text-center"
-                                style="font-family: 'Onest';">Kelas Stimulasi Little Exploler</td>
-                            <td class="border border-[#E8A26A] px-4 py-3 text-[#3E5467] text-center"
-                                style="font-family: 'Onest';">6 bln s/d 12 thn</td>
-                            <td class="border border-[#E8A26A] px-4 py-3 text-[#3E5467] text-center"
-                                style="font-family: 'Onest';">Rp. 50.000</td>
-                            <td class="border border-[#E8A26A] px-4 py-3 text-[#3E5467] text-center"
-                                style="font-family: 'Onest';">Rp. 375.000</td>
-                            <td class="border border-[#E8A26A] px-4 py-3 text-[#3E5467] text-center"
-                                style="font-family: 'Onest';">4x Pertemuan</td>
-
-                        </tr>
-
+                        @if(isset($stimulasiData['pricelist_items']) && count($stimulasiData['pricelist_items']) > 0)
+                            @foreach($stimulasiData['pricelist_items'] as $index => $item)
+                            <tr>
+                                <td class="border border-[#E8A26A] px-4 py-3 text-[#3E5467] text-center"
+                                    style="font-family: 'Onest';">{{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}</td>
+                                <td class="border border-[#E8A26A] px-4 py-3 text-[#3E5467] text-center"
+                                    style="font-family: 'Onest';">{{ $item['title'] }}</td>
+                                <td class="border border-[#E8A26A] px-4 py-3 text-[#3E5467] text-center"
+                                    style="font-family: 'Onest';">{{ $item['age_range'] }}</td>
+                                <td class="border border-[#E8A26A] px-4 py-3 text-[#3E5467] text-center"
+                                    style="font-family: 'Onest';">{{ $item['registration_fee'] }}</td>
+                                <td class="border border-[#E8A26A] px-4 py-3 text-[#3E5467] text-center"
+                                    style="font-family: 'Onest';">{{ $item['price'] }}</td>
+                                <td class="border border-[#E8A26A] px-4 py-3 text-[#3E5467] text-center"
+                                    style="font-family: 'Onest';">{{ $item['meetings'] }}</td>
+                            </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td class="border border-[#E8A26A] px-4 py-3 text-[#3E5467] text-center"
+                                    style="font-family: 'Onest';">01</td>
+                                <td class="border border-[#E8A26A] px-4 py-3 text-[#3E5467] text-center"
+                                    style="font-family: 'Onest';">{{ $stimulasiData['title'] ?? 'Kelas Stimulasi Little Exploler' }}</td>
+                                <td class="border border-[#E8A26A] px-4 py-3 text-[#3E5467] text-center"
+                                    style="font-family: 'Onest';">{{ $stimulasiData['age_range'] }}</td>
+                                <td class="border border-[#E8A26A] px-4 py-3 text-[#3E5467] text-center"
+                                    style="font-family: 'Onest';">{{ $stimulasiData['registration_fee'] }}</td>
+                                <td class="border border-[#E8A26A] px-4 py-3 text-[#3E5467] text-center"
+                                    style="font-family: 'Onest';">{{ $stimulasiData['price'] }}</td>
+                                <td class="border border-[#E8A26A] px-4 py-3 text-[#3E5467] text-center"
+                                    style="font-family: 'Onest';">{{ $stimulasiData['meetings'] }}</td>
+                            </tr>
+                        @endif
                     </tbody>
                 </table>
             </div>
@@ -608,30 +472,27 @@
                     Kelas Stimulasi
                 </h1>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+                    @if(isset($galleries) && count($galleries) > 0)
+                        @foreach($galleries->take(6) as $gallery)
                     <div class="w-full rounded-3xl overflow-hidden">
-                        <img src="{{asset('images/assets/img_layanan.png')}}" alt="Galeri"
-                            class="w-full h-64 object-cover">
+                            <img src="{{ asset('storage/' . $gallery->image) }}" alt="{{ $gallery->title }}" class="w-full h-64 object-cover">
+                            <div class="bg-white p-3">
+                                <p class="text-[#E8A26A] text-sm">{{ $gallery->category }}</p>
+                                <h3 class="text-[#3E5467] font-semibold">{{ $gallery->title }}</h3>
+                            </div>
                     </div>
+                        @endforeach
+                    @else
+                        @for($i = 0; $i < 6; $i++)
                     <div class="w-full rounded-3xl overflow-hidden">
-                        <img src="{{asset('images/assets/img_layanan.png')}}" alt="Galeri"
-                            class="w-full h-64 object-cover">
+                            <img src="{{ asset('images/assets/img_layanan.png') }}" alt="Galeri {{ $i + 1 }}" class="w-full h-64 object-cover">
+                            <div class="bg-white p-3">
+                                <p class="text-[#E8A26A] text-sm">Kelas Stimulasi</p>
+                                <h3 class="text-[#3E5467] font-semibold">Galeri Kelas Stimulasi {{ $i + 1 }}</h3>
+                            </div>
                     </div>
-                    <div class="w-full rounded-3xl overflow-hidden">
-                        <img src="{{asset('images/assets/img_layanan.png')}}" alt="Galeri"
-                            class="w-full h-64 object-cover">
-                    </div>
-                    <div class="w-full rounded-3xl overflow-hidden">
-                        <img src="{{asset('images/assets/img_layanan.png')}}" alt="Galeri"
-                            class="w-full h-64 object-cover">
-                    </div>
-                    <div class="w-full rounded-3xl overflow-hidden">
-                        <img src="{{asset('images/assets/img_layanan.png')}}" alt="Galeri"
-                            class="w-full h-64 object-cover">
-                    </div>
-                    <div class="w-full rounded-3xl overflow-hidden">
-                        <img src="{{asset('images/assets/img_layanan.png')}}" alt="Galeri"
-                            class="w-full h-64 object-cover">
-                    </div>
+                        @endfor
+                    @endif
                 </div>
             </div>
         </div>
@@ -641,7 +502,7 @@
     </section>
 
 
-    <script src="script.js"></script>
+    <script src="{{ asset('script.js') }}"></script>
 </body>
 
 </html>

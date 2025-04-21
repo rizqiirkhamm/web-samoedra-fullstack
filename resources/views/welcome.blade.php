@@ -141,7 +141,7 @@
                             <label for="age" class="block text-sm font-medium text-gray-700 mb-2">
                                 Usia
                             </label>
-                            <input type="number" id="age" name="age" required min="1" max="15"
+                            <input type="number" id="age" name="age" required min="1" max="100"
                                    class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                         </div>
                     </div>

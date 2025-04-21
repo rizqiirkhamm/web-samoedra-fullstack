@@ -424,7 +424,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Nomor HP Anak (Opsional)
                         </label>
-                        <input type="tel" name="child_phone"
+                        <input type="number" name="child_phone"
                                class="w-full bg-gray-50 dark:bg-darkblack-500 border-2 border-gray-200 dark:border-darkblack-400 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-success-300 focus:border-transparent transition-all duration-300">
                     </div>
 
@@ -846,7 +846,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <label class="mb-2 block text-base font-medium text-bgray-600 dark:text-bgray-50">
                         Nomor HP Anak (Opsional)
                     </label>
-                    <input type="tel" name="child_phone"
+                    <input type="number" name="child_phone"
                            class="w-full rounded-lg border border-bgray-300 p-2.5">
                 </div>
 
@@ -1146,7 +1146,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Nomor HP Anak (Opsional)
                         </label>
-                        <input type="tel" name="child_phone"
+                        <input type="number" name="child_phone"
                                class="w-full bg-gray-50 dark:bg-darkblack-500 border-2 border-gray-200 dark:border-darkblack-400 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-success-300 focus:border-transparent transition-all duration-300">
                     </div>
 

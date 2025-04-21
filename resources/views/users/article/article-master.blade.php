@@ -384,6 +384,12 @@
                         <label class="block text-sm font-medium text-bgray-600 mb-2">Konten</label>
                         <div id="summernote" style="display: none;"></div>
                         <textarea name="content" id="contentInput" style="display:none;"></textarea>
+                        <div class="mt-2 text-sm text-gray-500 italic">
+                            <svg class="inline-block w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Catatan: Setelah selesai menulis paragraf terakhir, tekan Enter satu kali untuk memastikan format yang baik.
+                        </div>
                     </div>
 
                     <div>

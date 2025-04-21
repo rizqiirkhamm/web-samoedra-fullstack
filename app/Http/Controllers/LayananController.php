@@ -552,7 +552,7 @@ class LayananController extends Controller
             $validator = Validator::make($request->all(), [
                 'main_service_type' => 'required|in:bermain,bimbel,stimulasi,daycare,event',
                 'name' => 'required|string|max:255',
-                'age' => 'required|numeric|min:1|max:15',
+                'age' => 'required|numeric|min:1|max:100',
                 'phone' => 'required|string|max:15',
             ]);
 

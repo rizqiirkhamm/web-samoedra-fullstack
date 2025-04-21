@@ -285,6 +285,86 @@ class PermissionsSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now()
             ],
+            [
+                'id' => 35,
+                'name' => 'FAQ',
+                'slug' => 'FAQ',
+                'groupby' => 14,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'id' => 36,
+                'name' => 'Testimoni',
+                'slug' => 'Testimoni',
+                'groupby' => 15,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'id' => 37,
+                'name' => 'Statistik',
+                'slug' => 'Statistik',
+                'groupby' => 16,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'id' => 38,
+                'name' => 'Edit Bermain',
+                'slug' => 'Edit Bermain',
+                'groupby' => 17,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'id' => 39,
+                'name' => 'Edit Bimbel',
+                'slug' => 'Edit Bimbel',
+                'groupby' => 17,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'id' => 40,
+                'name' => 'Edit Daycare',
+                'slug' => 'Edit Daycare',
+                'groupby' => 17,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'id' => 41,
+                'name' => 'Edit Content',
+                'slug' => 'Edit Content',
+                'groupby' => 17,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'id' => 42,
+                'name' => 'Edit Stimulasi',
+                'slug' => 'Edit Stimulasi',
+                'groupby' => 18,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'id' => 43,
+                'name' => 'Edit Event',
+                'slug' => 'Edit Event',
+                'groupby' => 18,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'id' => 44,
+                'name' => 'Edit Home Content',
+                'slug' => 'Edit Home Content',
+                'groupby' => 18,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
         ];
 
         DB::table('permissions')->insert($permissions);

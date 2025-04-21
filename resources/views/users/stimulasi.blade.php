@@ -93,6 +93,15 @@
                         <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
                     </select>
                 </div>
+                <div>
+                    <a href="{{ route('stimulasi.export', ['search' => request('search'), 'status' => request('status')]) }}"
+                       class="h-[44px] px-4 py-2 bg-success-300 text-white rounded-lg hover:bg-success-400 transition-colors flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        Export Excel
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -427,7 +436,7 @@ function renderDetailModal(data) {
 
                 <!-- Content -->
                 <div class="p-6">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <!-- Kolom 1: Foto dan Info Dasar -->
                         <div class="md:col-span-1">
                             <div class="flex flex-col items-center mb-6">
@@ -444,64 +453,103 @@ function renderDetailModal(data) {
                                 <h4 class="text-lg font-semibold text-bgray-900 dark:text-white">${data.name || '-'}</h4>
                                 <p class="text-sm text-bgray-500 dark:text-bgray-300">${data.age || '-'} tahun</p>
                             </div>
+                        </div>
 
-                            <div class="space-y-3">
-                                <div class="flex justify-between">
-                                    <span class="text-sm font-medium text-bgray-600 dark:text-bgray-300">Tinggi Badan:</span>
-                                    <span class="text-sm text-bgray-900 dark:text-white">${data.height || '-'} cm</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-sm font-medium text-bgray-600 dark:text-bgray-300">Berat Badan:</span>
-                                    <span class="text-sm text-bgray-900 dark:text-white">${data.weight || '-'} gr</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-sm font-medium text-bgray-600 dark:text-bgray-300">Status:</span>
-                                    <span class="text-sm ${data.status === 'active' ? 'text-success-500' : 'text-error-500'}">${data.status ? (data.status === 'active' ? 'Aktif' : 'Tidak Aktif') : '-'}</span>
-                                </div>
+                        <!-- Kolom 2: Informasi Anak -->
+                        <div class="md:col-span-1">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Informasi Anak</h3>
+                            <div class="space-y-2">
+                                <p class="text-sm text-gray-600 dark:text-gray-400">
+                                    <span class="font-medium text-gray-900 dark:text-white">Jenis Kelamin:</span> ${data.gender === 'L' ? 'Laki-laki' : 'Perempuan'}
+                                </p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">
+                                    <span class="font-medium text-gray-900 dark:text-white">Tempat Lahir:</span> ${data.birth_place}
+                                </p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">
+                                    <span class="font-medium text-gray-900 dark:text-white">Tanggal Lahir:</span> ${new Date(data.birth_date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+                                </p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">
+                                    <span class="font-medium text-gray-900 dark:text-white">Agama:</span> ${data.religion.charAt(0).toUpperCase() + data.religion.slice(1)}
+                                </p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">
+                                    <span class="font-medium text-gray-900 dark:text-white">Alamat:</span> ${data.address}
+                                </p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">
+                                    <span class="font-medium text-gray-900 dark:text-white">Urutan Anak:</span> Anak ke-${data.child_order}
+                                </p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">
+                                    <span class="font-medium text-gray-900 dark:text-white">No. HP Anak:</span> ${data.child_phone || '-'}
+                                </p>
                             </div>
                         </div>
 
-                        <!-- Kolom 2: Informasi Orang Tua -->
+                        <!-- Kolom 3: Informasi Orang Tua -->
                         <div class="md:col-span-1">
-                            <h5 class="text-md font-semibold text-bgray-900 dark:text-white mb-4">Informasi Orang Tua</h5>
-                            <div class="space-y-3">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Informasi Orang Tua</h3>
+                            <div class="space-y-4">
                                 <div>
-                                    <p class="text-sm font-medium text-bgray-600 dark:text-bgray-300">Nama Ayah:</p>
-                                    <p class="text-sm text-bgray-900 dark:text-white">${data.father_name || '-'}</p>
+                                    <h4 class="text-sm font-medium text-gray-900 dark:text-white mb-2">Ayah</h4>
+                                    <div class="space-y-1">
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            <span class="font-medium">Nama:</span> ${data.father_name}
+                                        </p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            <span class="font-medium">Usia:</span> ${data.father_age} Tahun
+                                        </p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            <span class="font-medium">Pendidikan:</span> ${data.father_education}
+                                        </p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            <span class="font-medium">Pekerjaan:</span> ${data.father_occupation}
+                                        </p>
+                                    </div>
                                 </div>
                                 <div>
-                                    <p class="text-sm font-medium text-bgray-600 dark:text-bgray-300">Nama Ibu:</p>
-                                    <p class="text-sm text-bgray-900 dark:text-white">${data.mother_name || '-'}</p>
-                                </div>
-                                <div>
-                                    <p class="text-sm font-medium text-bgray-600 dark:text-bgray-300">Alamat:</p>
-                                    <p class="text-sm text-bgray-900 dark:text-white">${data.address || '-'}</p>
-                                </div>
-                                <div>
-                                    <p class="text-sm font-medium text-bgray-600 dark:text-bgray-300">No. Telepon:</p>
-                                    <p class="text-sm text-bgray-900 dark:text-white">${phoneNumber}</p>
+                                    <h4 class="text-sm font-medium text-gray-900 dark:text-white mb-2">Ibu</h4>
+                                    <div class="space-y-1">
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            <span class="font-medium">Nama:</span> ${data.mother_name}
+                                        </p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            <span class="font-medium">Usia:</span> ${data.mother_age} Tahun
+                                        </p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            <span class="font-medium">Pendidikan:</span> ${data.mother_education}
+                                        </p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                            <span class="font-medium">Pekerjaan:</span> ${data.mother_occupation}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Kolom 3: Bukti Pembayaran dan Info Tambahan -->
-                        <div class="md:col-span-1">
-                            <h5 class="text-md font-semibold text-bgray-900 dark:text-white mb-4">Bukti Pembayaran</h5>
-                            <div class="w-full aspect-square bg-gray-100 dark:bg-darkblack-500 rounded-lg overflow-hidden mb-4">
-                                ${paymentProofUrl ?
-                                    `<img src="${paymentProofUrl}" alt="Bukti Pembayaran" class="w-full h-full object-cover">` :
-                                    `<div class="w-full h-full flex items-center justify-center">
-                                        <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                        </svg>
-                                    </div>`
-                                }
+                    <!-- Informasi Stimulasi -->
+                    <div class="mt-6 bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Informasi Stimulasi</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <p class="text-sm text-gray-600 dark:text-gray-400">
+                                    <span class="font-medium text-gray-900 dark:text-white">Sekolah:</span> ${data.has_school_history ? data.school_name : 'Belum Sekolah'}
+                                </p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">
+                                    <span class="font-medium text-gray-900 dark:text-white">Hari:</span> ${data.day || 'Belum ditentukan'}
+                                </p>
                             </div>
-                            <div class="space-y-3">
-                                <div>
-                                    <p class="text-sm font-medium text-bgray-600 dark:text-bgray-300">Tanggal Pendaftaran:</p>
-                                    <p class="text-sm text-bgray-900 dark:text-white">${new Date(data.created_at).toLocaleDateString('id-ID', {day: 'numeric', month: 'long', year: 'numeric'})}</p>
-                                </div>
+                            <div class="space-y-2">
+                                <p class="text-sm text-gray-600 dark:text-gray-400">
+                                    <span class="font-medium text-gray-900 dark:text-white">Total Pertemuan:</span> 8 Pertemuan
+                                </p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">
+                                    <span class="font-medium text-gray-900 dark:text-white">Tanggal Mulai:</span> ${new Date(data.start_date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+                                </p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">
+                                    <span class="font-medium text-gray-900 dark:text-white">Status:</span>
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full ${data.status === 'active' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'}">
+                                        ${data.status === 'active' ? 'Aktif' : 'Tidak Aktif'}
+                                    </span>
+                                </p>
                             </div>
                         </div>
                     </div>

@@ -98,6 +98,15 @@
                     </select>
                 </div>
             </div>
+            <div>
+                <a href="{{ route('daycare.export') }}?{{ http_build_query(request()->query()) }}"
+                   class="inline-flex items-center gap-2 rounded-lg bg-success-300 py-3 px-4 font-medium text-white hover:bg-success-400 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Export Excel
+                </a>
+            </div>
         </div>
 
         <!-- Table -->
@@ -124,6 +133,9 @@
                                 </th>
                                 <th class="px-6 py-5 text-left">
                                     <span class="text-base font-medium text-bgray-600 dark:text-white">Status</span>
+                                </th>
+                                <th class="px-6 py-5 text-left">
+                                    <span class="text-base font-medium text-bgray-600 dark:text-white">Bukti Pembayaran</span>
                                 </th>
                                 <th class="px-6 py-5 text-left">
                                     <span class="text-base font-medium text-bgray-600 dark:text-white">Aksi</span>
@@ -165,6 +177,19 @@
                                             {{ $daycare->status === 'active' ? 'bg-success-50 text-success-300' : 'bg-warning-50 text-warning-300' }}">
                                             {{ ucfirst($daycare->status) }}
                                         </span>
+                                    </td>
+                                    <td class="px-6 py-5">
+                                        @if($daycare->payment_proof)
+                                            <a href="{{ asset('storage/' . $daycare->payment_proof) }}" target="_blank" class="inline-flex items-center gap-2 text-success-300 hover:text-success-400">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                </svg>
+                                                Lihat Bukti
+                                            </a>
+                                        @else
+                                            <span class="text-bgray-500 dark:text-bgray-300">Tidak ada bukti</span>
+                                        @endif
                                     </td>
                                     <td class="px-6 py-5">
                                         <div class="flex gap-2">
@@ -299,7 +324,6 @@ function renderDetailModal(data) {
     // Format tanggal lahir dengan benar
     let formattedBirthDate = '-';
     if (data.birth_date) {
-        // Coba parse tanggal dari format ISO atau format lainnya
         const birthDate = new Date(data.birth_date);
         if (!isNaN(birthDate.getTime())) {
             formattedBirthDate = birthDate.toLocaleDateString('id-ID', {
@@ -311,17 +335,6 @@ function renderDetailModal(data) {
             formattedBirthDate = data.birth_date;
         }
     }
-
-    // Perbaiki jalur akses foto dan bukti pembayaran
-    const studentPhotoUrl = data.student_photo ?
-        (data.student_photo.startsWith('student_photos/') ?
-            `/storage/${data.student_photo}` :
-            `/storage/student_photos/${data.student_photo.split('/').pop()}`) : null;
-
-    const paymentProofUrl = data.payment_proof ?
-        (data.payment_proof.startsWith('payment_proofs/') ?
-            `/storage/${data.payment_proof}` :
-            `/storage/payment_proofs/${data.payment_proof.split('/').pop()}`) : null;
 
     const detailModal = document.getElementById('detailModal');
 
@@ -352,8 +365,8 @@ function renderDetailModal(data) {
                         <div class="md:col-span-1">
                             <div class="flex flex-col items-center mb-6">
                                 <div class="w-full max-w-[200px] aspect-[3/4] bg-gray-100 dark:bg-darkblack-500 rounded-lg overflow-hidden mb-4">
-                                    ${studentPhotoUrl ?
-                                        `<img src="${studentPhotoUrl}" alt="Foto ${data.name}" class="w-full h-full object-cover">` :
+                                    ${data.student_photo ?
+                                        `<img src="/storage/${data.student_photo}" alt="Foto ${data.name}" class="w-full h-full object-cover">` :
                                         `<div class="w-full h-full flex items-center justify-center">
                                             <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -498,24 +511,6 @@ function renderDetailModal(data) {
                                         <h5 class="text-sm font-medium text-bgray-600 dark:text-bgray-300">Pekerjaan</h5>
                                         <p class="text-sm text-bgray-900 dark:text-white">${data.mother_occupation || '-'}</p>
                                     </div>
-                                </div>
-                            </div>
-
-                            <!-- Bukti Pembayaran -->
-                            <div class="mt-6">
-                                <h4 class="text-md font-semibold text-bgray-900 dark:text-white border-b pb-2 mb-4">Bukti Pembayaran</h4>
-                                <div class="flex justify-center">
-                                    ${paymentProofUrl ?
-                                        `<div class="w-full max-w-[300px] aspect-[4/3] bg-gray-100 dark:bg-darkblack-500 rounded-lg overflow-hidden">
-                                            <img src="${paymentProofUrl}" alt="Bukti Pembayaran" class="w-full h-full object-cover">
-                                        </div>` :
-                                        `<div class="w-full max-w-[300px] aspect-[4/3] bg-gray-100 dark:bg-darkblack-500 rounded-lg overflow-hidden flex items-center justify-center">
-                                            <svg class="w-10 h-10 text-gray-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                            </svg>
-                                            <p class="text-gray-500 dark:text-gray-300">Bukti pembayaran tidak tersedia</p>
-                                        </div>`
-                                    }
                                 </div>
                             </div>
                         </div>
@@ -855,79 +850,11 @@ function showLoadingMessage(message) {
     document.body.insertAdjacentHTML('beforeend', modalHtml);
 }
 
-// Fungsi untuk menampilkan pesan sukses
-function showSuccessMessage(message) {
-    closeLoadingModal();
-    const modalHtml = `
-        <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center">
-            <div class="fixed inset-0 bg-black/30 dark:bg-white/10 backdrop-blur-sm"></div>
-            <div class="relative bg-white dark:bg-darkblack-600 rounded-xl shadow-2xl p-6 w-96 max-w-md transform transition-all animate-modal-pop">
-                <div class="text-center">
-                    <svg class="mx-auto mb-4 w-14 h-14 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Berhasil!</h3>
-                    <p class="text-gray-600 dark:text-gray-300 mb-5">${message}</p>
-                    <button onclick="closeSuccessModal()"
-                            class="px-4 py-2 bg-success-300 text-white rounded-lg hover:bg-success-400 transition-colors duration-200">
-                        Tutup
-                    </button>
-                </div>
-            </div>
-        </div>
-    `;
-    document.body.insertAdjacentHTML('beforeend', modalHtml);
-
-    setTimeout(closeSuccessModal, 5000);
-}
-
-// Fungsi untuk menampilkan pesan error
-function showErrorMessage(message) {
-    closeLoadingModal();
-    const modalHtml = `
-        <div id="errorModal" class="fixed inset-0 z-50 flex items-center justify-center">
-            <div class="fixed inset-0 bg-black/30 dark:bg-white/10 backdrop-blur-sm"></div>
-            <div class="relative bg-white dark:bg-darkblack-600 rounded-xl shadow-2xl p-6 w-96 max-w-md transform transition-all animate-modal-pop">
-                <div class="text-center">
-                    <svg class="mx-auto mb-4 w-14 h-14 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Error!</h3>
-                    <p class="text-gray-600 dark:text-gray-300 mb-5">${message}</p>
-                    <button onclick="closeErrorModal()"
-                            class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200">
-                        Tutup
-                    </button>
-                </div>
-            </div>
-        </div>
-    `;
-    document.body.insertAdjacentHTML('beforeend', modalHtml);
-}
-
 // Fungsi untuk menutup modal loading
 function closeLoadingModal() {
     const modal = document.getElementById('loadingModal');
     if (modal) {
         modal.remove();
-    }
-}
-
-// Fungsi untuk menutup modal sukses
-function closeSuccessModal() {
-    const modal = document.getElementById('successModal');
-    if (modal) {
-        modal.classList.add('fade-out');
-        setTimeout(() => modal.remove(), 300);
-    }
-}
-
-// Fungsi untuk menutup modal error
-function closeErrorModal() {
-    const modal = document.getElementById('errorModal');
-    if (modal) {
-        modal.classList.add('fade-out');
-        setTimeout(() => modal.remove(), 300);
     }
 }
 

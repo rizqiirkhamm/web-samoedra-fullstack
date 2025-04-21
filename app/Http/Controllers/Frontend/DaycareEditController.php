@@ -6,30 +6,39 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use App\Models\PermissionRoleModel;
+use Illuminate\Support\Facades\Auth;
 
 class DaycareEditController extends Controller
 {
-    public function index()
+    public function edit()
     {
+        // Check permission untuk edit daycare
+        $permissionRole = PermissionRoleModel::getPermission(Auth::user()->role_id, 'Edit Daycare');
+        if (empty($permissionRole)) {
+            abort(404);
+        }
+
         $daycareData = $this->getDaycareData();
         return view('users.daycare-edit', compact('daycareData'));
     }
 
     public function update(Request $request)
     {
+        // Check permission untuk edit daycare
+        $permissionRole = PermissionRoleModel::getPermission(Auth::user()->role_id, 'Edit Daycare');
+        if (empty($permissionRole)) {
+            abort(404);
+        }
+
         $validator = Validator::make($request->all(), [
             'banner_type' => 'required|in:image,video',
             'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'banner_video' => 'nullable|string|max:255',
             'kelebihan_daycare' => 'required|string',
-            'about_daycare_title' => 'required|string|max:255',
-            'about_daycare_description' => 'required|string',
             'usia' => 'required|string|max:255',
             'jam_operasional' => 'required|string|max:255',
-            'rasio' => 'required|string|max:255',
-            'makanan' => 'required|string|max:255',
-            'about_caregiver_title' => 'required|string|max:255',
-            'about_caregiver_description' => 'required|string',
+            'hari' => 'nullable|string|max:255',
             'program_description' => 'required|string',
             'program_points' => 'required|array',
             'program_points.*' => 'required|string',
@@ -41,11 +50,15 @@ class DaycareEditController extends Controller
             'pricelist_items' => 'required|array',
             'pricelist_items.*.title' => 'required|string|max:255',
             'pricelist_items.*.price' => 'required|string|max:255',
-            'pricelist_items.*.description' => 'required|string',
+            'pricelist_items.*.description' => 'nullable|numeric',
+            'pricelist_items.*.food_cost' => 'nullable|string|max:255',
             'activity_items' => 'required|array',
             'activity_items.*.title' => 'required|string|max:255',
             'activity_items.*.time' => 'required|string|max:255',
             'activity_items.*.description' => 'required|string',
+            'caregiver_items' => 'nullable|array',
+            'caregiver_items.*.usia' => 'nullable|string|max:255',
+            'caregiver_items.*.rasio' => 'nullable|string|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -82,21 +95,28 @@ class DaycareEditController extends Controller
         // Update about daycare section
         $daycareData['kelebihan_daycare'] = $request->kelebihan_daycare;
         $daycareData['about_daycare'] = [
-            'title' => $request->about_daycare_title,
-            'description' => $request->about_daycare_description,
             'details' => [
                 'usia' => $request->usia,
                 'jam_operasional' => $request->jam_operasional,
-                'rasio' => $request->rasio,
-                'makanan' => $request->makanan,
+                'hari' => $request->hari ?? 'Senin-Sabtu'
             ]
         ];
 
         // Update about caregiver section
         $daycareData['about_caregiver'] = [
-            'title' => $request->about_caregiver_title,
-            'description' => $request->about_caregiver_description
+            'caregivers' => []
         ];
+
+        if ($request->has('caregiver_items')) {
+            foreach ($request->caregiver_items as $caregiver) {
+                if (!empty($caregiver['usia']) && !empty($caregiver['rasio'])) {
+                    $daycareData['about_caregiver']['caregivers'][] = [
+                        'usia' => $caregiver['usia'],
+                        'rasio' => $caregiver['rasio']
+                    ];
+                }
+            }
+        }
 
         // Update program section
         $daycareData['program'] = [
@@ -104,9 +124,16 @@ class DaycareEditController extends Controller
             'points' => $request->program_points
         ];
 
+        // Tambahkan kondisi untuk mempertahankan gambar program yang sudah ada jika tidak ada upload baru
+        if (isset($daycareData['program']['image'])) {
+            $daycareData['program']['image'] = $daycareData['program']['image'];
+        } else {
+            $daycareData['program']['image'] = 'images/daycare/img.png'; // Default image jika tidak ada
+        }
+
         if ($request->hasFile('program_image')) {
             // Delete old image if exists
-            if (isset($daycareData['program']['image']) && file_exists(public_path($daycareData['program']['image']))) {
+            if (isset($daycareData['program']['image']) && file_exists(public_path($daycareData['program']['image'])) && $daycareData['program']['image'] != 'images/daycare/img.png') {
                 unlink(public_path($daycareData['program']['image']));
             }
 
@@ -156,10 +183,17 @@ class DaycareEditController extends Controller
         // Update pricelist
         $daycareData['pricelist'] = [];
         foreach ($request->pricelist_items as $pricelist) {
+            $price = $pricelist['price'];
+            // Jika tidak dimulai dengan "Rp", tambahkan
+            if (!str_starts_with(strtolower(trim($price)), 'rp')) {
+                $price = 'Rp ' . $price;
+            }
+
             $daycareData['pricelist'][] = [
                 'title' => $pricelist['title'],
-                'price' => $pricelist['price'],
-                'description' => $pricelist['description']
+                'price' => $price,
+                'description' => !empty($pricelist['description']) ? 'Rp. ' . number_format($pricelist['description'], 0, ',', '.') : '-',
+                'food_cost' => $pricelist['food_cost'] ?? '12.5k / Porsi, 5k Snack'
             ];
         }
 
@@ -189,108 +223,135 @@ class DaycareEditController extends Controller
     {
         $defaultData = [
             'banner_type' => 'image',
-            'banner_image' => 'images/assets/img.png',
-            'banner_video' => null,
-            'kelebihan_daycare' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus itaque rem quae alias facere ipsum in maiores cupiditate modi, magnam qui natus beatae nam aut voluptate, neque quibusdam reiciendis aliquid atque.',
+            'banner_image' => 'images/daycare/banner.jpg',
+            'banner_video' => '',
+            'kelebihan_daycare' => 'Fokus pada pertumbuhan dan perkembangan anak secara holistik',
             'about_daycare' => [
-                'title' => 'About Daycare',
-                'description' => 'Informasi mengenai layanan daycare di Rumah Samoedra',
                 'details' => [
-                    'usia' => '6 bln - 12 y.o',
-                    'jam_operasional' => 'Senin - Sabtu 07.00 - 17.00',
-                    'rasio' => '1:4 (1 caregiver, 4 anak)',
-                    'makanan' => 'Snack, Lunch'
+                    'usia' => '6 bulan - 12 tahun',
+                    'jam_operasional' => '07.00 - 17.00 WIB, Senin - Sabtu',
+                    'hari' => 'Senin-Sabtu'
                 ]
             ],
             'about_caregiver' => [
-                'title' => 'About Care Giver',
-                'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, quaerat. Aliquid perferendis minus, nihil esse ducimus eos repellendus natus, neque cumque expedita pariatur eaque, mollitia eveniet? Incidunt non corporis illum.'
+                'caregivers' => [
+                    [
+                        'usia' => 'Usia 0 - 1',
+                        'rasio' => '1 Anak 1 Care Giver'
+                    ],
+                    [
+                        'usia' => 'Usia 1 - 3',
+                        'rasio' => '2 Anak 1 Care Giver'
+                    ],
+                    [
+                        'usia' => 'Usia 3 - 12',
+                        'rasio' => '4 Anak 1 Care Giver'
+                    ]
+                ]
             ],
             'program' => [
-                'description' => 'Berikut adalah program-program yang diterapkan di Daycare Rumah Samoedra',
-                'image' => 'images/assets/img.png',
+                'description' => 'Program daycare kami dirancang untuk memberikan pengalaman belajar yang menyenangkan dan stimulatif bagi anak-anak',
+                'image' => 'images/daycare/program.jpg',
                 'points' => [
-                    'Program Pengembangan Fisik Motorik',
-                    'Program Pengembangan Kognitif',
-                    'Program Pengembangan Bahasa',
-                    'Program Pengembangan Sosial Emosional',
-                    'Program Pengembangan NAM'
+                    'Daily Activity',
+                    'Pengecekan Tumbuh Kembang Rutin',
+                    'Daily Report',
+                    'Stimulasi Sesuai Usia',
+                    'Outdoor Activity',
+                    'Art and Craft'
                 ]
             ],
             'facilities' => [
                 [
-                    'title' => 'Fasilitas Tidur',
-                    'description' => 'Tempat tidur yang nyaman dan bersih untuk anak-anak beristirahat',
-                    'image' => 'images/assets/img.png'
+                    'title' => 'Full AC',
+                    'description' => 'Ruangan ber-AC untuk kenyamanan anak',
+                    'image' => 'images/daycare/facility-ac.jpg'
                 ],
                 [
-                    'title' => 'Fasilitas Bermain',
-                    'description' => 'Area bermain dengan berbagai mainan edukatif dan aman',
-                    'image' => 'images/assets/img.png'
+                    'title' => 'Purifier',
+                    'description' => 'Air purifier untuk udara yang bersih dan sehat',
+                    'image' => 'images/daycare/facility-purifier.jpg'
                 ],
                 [
-                    'title' => 'Fasilitas Makan',
-                    'description' => 'Ruang makan yang nyaman dan peralatan makan yang bersih',
-                    'image' => 'images/assets/img.png'
+                    'title' => '3 Kamar',
+                    'description' => 'Kamar terpisah untuk berbagai kegiatan dan usia',
+                    'image' => 'images/daycare/facility-rooms.jpg'
+                ],
+                [
+                    'title' => 'Baby Bed',
+                    'description' => 'Tempat tidur khusus bayi yang nyaman dan aman',
+                    'image' => 'images/daycare/facility-bed.jpg'
+                ],
+                [
+                    'title' => 'Outdoor Area',
+                    'description' => 'Area bermain luar ruangan yang aman',
+                    'image' => 'images/daycare/facility-outdoor.jpg'
                 ]
             ],
             'pricelist' => [
                 [
-                    'title' => 'Full Day',
-                    'price' => 'Rp 800.000/bulan',
-                    'description' => 'Senin - Jumat (08.00 - 16.00)'
+                    'title' => 'Daycare Harian',
+                    'price' => 'Rp 110.000',
+                    'description' => 'promo Rp. 100.000',
+                    'food_cost' => '12.5k / Porsi, 5k Snack'
                 ],
                 [
-                    'title' => 'Half Day',
-                    'price' => 'Rp 500.000/bulan',
-                    'description' => 'Senin - Jumat (08.00 - 12.00 atau 12.00 - 16.00)'
-                ],
-                [
-                    'title' => 'Daily',
-                    'price' => 'Rp 50.000/hari',
-                    'description' => 'Maksimal 8 jam'
+                    'title' => 'Daycare Bulanan',
+                    'price' => 'Rp 1.300.000',
+                    'description' => 'promo Rp. 100.000',
+                    'food_cost' => '12.5k / Porsi, 5k Snack'
                 ]
             ],
             'activities' => [
                 [
-                    'title' => 'Penyambutan Anak',
-                    'time' => '07.00 - 08.00',
-                    'description' => 'Penyambutan anak oleh caregiver'
+                    'title' => 'Kedatangan',
+                    'time' => '07.00 - 07.30',
+                    'description' => 'Penyambutan anak-anak yang datang'
                 ],
                 [
-                    'title' => 'Kegiatan Pembelajaran',
-                    'time' => '08.00 - 10.00',
-                    'description' => 'Kegiatan pembelajaran sesuai tema'
+                    'title' => 'Sarapan',
+                    'time' => '07.30 - 08.00',
+                    'description' => 'Sarapan bersama'
+                ],
+                [
+                    'title' => 'Kegiatan Pagi',
+                    'time' => '08.00 - 09.30',
+                    'description' => 'Aktivitas edukasi pagi'
                 ],
                 [
                     'title' => 'Snack Time',
-                    'time' => '10.00 - 10.30',
-                    'description' => 'Waktu makan snack'
+                    'time' => '09.30 - 10.00',
+                    'description' => 'Makanan ringan dan istirahat'
                 ],
                 [
-                    'title' => 'Bermain Bebas',
-                    'time' => '10.30 - 12.00',
-                    'description' => 'Bermain bebas di dalam/luar ruangan'
+                    'title' => 'Outdoor Play',
+                    'time' => '10.00 - 11.30',
+                    'description' => 'Bermain di luar ruangan'
                 ],
                 [
                     'title' => 'Makan Siang',
-                    'time' => '12.00 - 13.00',
-                    'description' => 'Waktu makan siang'
+                    'time' => '11.30 - 12.30',
+                    'description' => 'Makan siang bersama'
                 ],
                 [
                     'title' => 'Tidur Siang',
-                    'time' => '13.00 - 15.00',
-                    'description' => 'Waktu tidur siang'
+                    'time' => '12.30 - 14.30',
+                    'description' => 'Waktu istirahat/tidur siang'
+                ],
+                [
+                    'title' => 'Snack Sore',
+                    'time' => '14.30 - 15.00',
+                    'description' => 'Makanan ringan sore'
                 ],
                 [
                     'title' => 'Kegiatan Sore',
                     'time' => '15.00 - 16.30',
-                    'description' => 'Kegiatan sore yang menyenangkan'
+                    'description' => 'Aktivitas edukasi sore'
                 ],
                 [
                     'title' => 'Persiapan Pulang',
                     'time' => '16.30 - 17.00',
-                    'description' => 'Persiapan pulang dan penjemputan'
+                    'description' => 'Persiapan untuk dijemput'
                 ]
             ]
         ];

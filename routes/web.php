@@ -25,8 +25,10 @@ use App\Http\Controllers\Frontend\ProgramController;
 use App\Http\Controllers\Frontend\TentangController;
 use App\Http\Controllers\StimulasiController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\HomeContentController;
+use App\Http\Controllers\StatistikController;
 use App\Http\Controllers\TentangController as AdminTentangController;
-
+use App\Http\Controllers\TestimoniController;
 
 // routes/web.php
 Route::get('', [HomeController::class, 'index'])->name('home'); // Ganti 'welcome' menjadi 'home'
@@ -35,11 +37,6 @@ Route::get('', [HomeController::class, 'index'])->name('home'); // Ganti 'welcom
 Route::get('/tentang', [TentangController::class, 'index'])->name('tentang');
 Route::get('/layanan', [ProgramController::class, 'index'])->name('program');
 Route::get('/faq', [FaqController::class, 'index'])->name('faq');
-
-//detail layanan
-
-// routes/web.php
-Route::get('layanan/{id}', [DetailLayananController::class, 'show'])->name('layanan.detail');
 
 
 // Public routes (before auth middleware)
@@ -85,6 +82,7 @@ Route::group(['middleware' => 'useradmin'], function() {
         Route::post('/update-timer/{id}', [BermainController::class, 'updateTimer'])->name('update-timer');
         Route::delete('/{id}', [BermainController::class, 'destroy'])->name('destroy');
         Route::get('/search', [BermainController::class, 'search'])->name('search');
+        Route::get('/export', [BermainController::class, 'export'])->name('export');
     });
 
     Route::prefix('bimbel')->name('bimbel.')->group(function () {
@@ -93,6 +91,7 @@ Route::group(['middleware' => 'useradmin'], function() {
         Route::get('/detail/{id}', [BimbelController::class, 'detail'])->name('detail');
         Route::delete('/destroy/{id}', [BimbelController::class, 'destroy'])->name('destroy');
         Route::get('/search', [BimbelController::class, 'search'])->name('search');
+        Route::get('/export', [BimbelController::class, 'export'])->name('export');
     });
 
     Route::get('/program', [LayananController::class, 'index'])->name('layanan');
@@ -100,6 +99,7 @@ Route::group(['middleware' => 'useradmin'], function() {
 
     Route::prefix('journal')->group(function () {
         Route::get('/', [JournalController::class, 'index'])->name('journal.index');
+        Route::get('/export', [JournalController::class, 'export'])->name('journal.export');
         Route::get('/{id}', [JournalController::class, 'show'])->name('journal.show');
         Route::post('/', [JournalController::class, 'store'])->name('journal.store');
         Route::put('/{id}', [JournalController::class, 'update'])->name('journal.update');
@@ -112,6 +112,7 @@ Route::group(['middleware' => 'useradmin'], function() {
         Route::post('/master', [EventController::class, 'storeMaster'])->name('event.master.store');
         Route::delete('/master/{id}', [EventController::class, 'destroyMaster'])->name('event.master.destroy');
         Route::post('/register', [EventController::class, 'register'])->name('event.register');
+        Route::get('/export', [EventController::class, 'export'])->name('event.export');
     });
 
     Route::prefix('daycare')->group(function () {
@@ -119,6 +120,8 @@ Route::group(['middleware' => 'useradmin'], function() {
         Route::get('/detail/{id}', [DaycareController::class, 'detail'])->name('daycare.detail');
         Route::delete('/destroy/{id}', [DaycareController::class, 'destroy'])->name('daycare.destroy');
         Route::get('/generate-invoice/{id}', [DaycareController::class, 'generateInvoice'])->name('daycare.invoice');
+        Route::get('/invoice/{id}', [DaycareController::class, 'generateInvoice'])->name('daycare.invoice');
+        Route::get('/export', [DaycareController::class, 'export'])->name('daycare.export');
     });
 
     Route::prefix('stimulasi')->group(function () {
@@ -127,6 +130,7 @@ Route::group(['middleware' => 'useradmin'], function() {
         Route::get('/detail/{id}', [StimulasiController::class, 'detail'])->name('stimulasi.detail');
         Route::delete('/{id}', [StimulasiController::class, 'destroy'])->name('stimulasi.destroy');
         Route::get('/generate-invoice/{id}', [StimulasiController::class, 'generateInvoice'])->name('stimulasi.invoice');
+        Route::get('/export', [StimulasiController::class, 'export'])->name('stimulasi.export');
     });
 
     Route::prefix('article')->group(function () {
@@ -144,6 +148,24 @@ Route::group(['middleware' => 'useradmin'], function() {
         Route::get('/edit', [AdminTentangController::class, 'edit'])->name('edit');
         Route::post('/update', [AdminTentangController::class, 'update'])->name('update');
         Route::post('/organisasi/update', [AdminTentangController::class, 'updateOrganisasi'])->name('organisasi.update');
+    });
+
+    // ***
+    Route::prefix('faq')->name('faq.')->group(function () {
+        Route::get('/', [FaqController::class, 'adminIndex'])->name('admin.index');
+        Route::get('/create', [FaqController::class, 'create'])->name('create');
+        Route::post('/', [FaqController::class, 'store'])->name('store');
+        Route::get('/{faq}/edit', [FaqController::class, 'edit'])->name('edit');
+        Route::put('/{faq}', [FaqController::class, 'update'])->name('update');
+        Route::delete('/{faq}', [FaqController::class, 'destroy'])->name('destroy');
+    });
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/statistik', [StatistikController::class, 'index'])->name('statistik.index');
+        Route::get('/statistik/edit/{kategori}', [StatistikController::class, 'edit'])->name('statistik.edit');
+        Route::put('/statistik/update/{kategori}', [StatistikController::class, 'update'])->name('statistik.update');
+        Route::get('/home-content', [HomeContentController::class, 'index'])->name('home-content.index');
+        Route::get('/home-content/edit', [HomeContentController::class, 'edit'])->name('home-content.edit');
+        Route::put('/home-content/update', [HomeContentController::class, 'update'])->name('home-content.update');
     });
 
 });
@@ -185,12 +207,61 @@ Route::get('/artikel/{slug}', [App\Http\Controllers\Frontend\ArticleController::
 // Frontend Routes
 Route::get('/galeri', [App\Http\Controllers\Frontend\GalleryController::class, 'index'])->name('galeri');
 Route::get('/program/daycare', [App\Http\Controllers\Frontend\DaycareController::class, 'daycare'])->name('program.daycare');
+Route::get('/program/stimulasi', [App\Http\Controllers\Frontend\StimulasiController::class, 'index'])->name('program.stimulasi');
+Route::get('/program/bermain', [App\Http\Controllers\Frontend\BermainController::class, 'index'])->name('program.bermain');
+Route::get('/program/bimbel', [App\Http\Controllers\Frontend\BimbelController::class, 'index'])->name('program.bimbel');
+Route::get('/program/event', [App\Http\Controllers\Frontend\EventController::class, 'index'])->name('program.event');
 
 // Daycare Edit Route
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/daycare/edit', [App\Http\Controllers\Frontend\DaycareEditController::class, 'index'])->name('daycare.edit');
+    Route::get('/daycare/edit', [App\Http\Controllers\Frontend\DaycareEditController::class, 'edit'])->name('daycare.edit');
     Route::put('/daycare/update', [App\Http\Controllers\Frontend\DaycareEditController::class, 'update'])->name('daycare.update');
 });
 
+// Stimulasi Edit Route
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/stimulasi/edit', [App\Http\Controllers\Frontend\StimulasiEditController::class, 'edit'])->name('stimulasi.edit');
+    Route::put('/stimulasi/update', [App\Http\Controllers\Frontend\StimulasiEditController::class, 'update'])->name('stimulasi.update');
+});
+
+// Bermain Edit Route
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/bermain/edit', [App\Http\Controllers\Frontend\BermainEditController::class, 'edit'])->name('bermain.edit');
+    Route::put('/bermain/update', [App\Http\Controllers\Frontend\BermainEditController::class, 'update'])->name('update.bermain');
+});
+
+// Bimbel Edit Route
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/bimbel/edit', [App\Http\Controllers\Frontend\BimbelEditController::class, 'edit'])->name('bimbel.edit');
+    Route::put('/bimbel/update', [App\Http\Controllers\Frontend\BimbelEditController::class, 'update'])->name('bimbel.update');
+});
+
+// Event Edit Route
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/event/edit', [App\Http\Controllers\Frontend\EventEditController::class, 'index'])->name('event.edit');
+    Route::put('/event/update', [App\Http\Controllers\Frontend\EventEditController::class, 'update'])->name('event.update');
+});
+
 require __DIR__.'/auth.php';
+
+// Public FAQ Routes
+Route::get('/faq', [\App\Http\Controllers\Frontend\FaqController::class, 'index'])->name('faq.public');
+
+Route::group(['middleware' => 'useradmin'], function () {
+    Route::prefix('admin/faq')->name('faq.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\FaqController::class, 'adminIndex'])->name('admin.index');
+        Route::get('/create', [\App\Http\Controllers\FaqController::class, 'create'])->name('create');
+        Route::post('/', [\App\Http\Controllers\FaqController::class, 'store'])->name('store');
+        Route::get('/{faq}/edit', [\App\Http\Controllers\FaqController::class, 'edit'])->name('edit');
+        Route::put('/{faq}', [\App\Http\Controllers\FaqController::class, 'update'])->name('update');
+        Route::delete('/{faq}', [\App\Http\Controllers\FaqController::class, 'destroy'])->name('destroy');
+    });
+});
+
+// Testimoni Routes
+Route::middleware(['auth'])->group(function () {
+    Route::resource('testimoni', TestimoniController::class);
+});
+
+Route::post('/faq/update-image', [FaqController::class, 'updateImage'])->name('faq.update-image');
 
