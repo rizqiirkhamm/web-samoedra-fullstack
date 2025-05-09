@@ -3,7 +3,7 @@
 @section('title', 'Event Registrations')
 
 @section('content')
-<div class="w-full rounded-lg bg-white px-[24px] py-[20px] dark:bg-darkblack-600">
+<div class="w-full rounded-lg bg-white px-[24px] py-[20px] dark:bg-darkblack-600 shadow-md border border-gray-100 dark:border-darkblack-400 hover:shadow-lg transition-all duration-200">
     <div class="flex flex-wrap items-center justify-between gap-4 border-b border-bgray-200 pb-4">
         <div class="flex items-center gap-4">
             <h2 class="text-xl font-semibold text-bgray-800 dark:text-white">Daftar Registrasi Event</h2>

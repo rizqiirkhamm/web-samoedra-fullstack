@@ -8,12 +8,9 @@
 @endpush
 
 @section('content')
-
-
-    <!-- write your code here-->
-    <div class="2xl:flex 2xl:space-x-[48px]">
+    <div class="container px-4 2xl:flex">
         <section class="mb-6 2xl:mb-0 2xl:flex-1">
-            <!-- total widget-->
+            <!-- total widget -->
             <div class="mb-[24px] w-full">
                 <div class="grid grid-cols-1 gap-[24px] lg:grid-cols-5">
                     <!-- Total Daycare Card -->
@@ -37,7 +34,7 @@
                     <div class="rounded-xl bg-white p-6 dark:bg-darkblack-600 shadow-md border border-gray-100 dark:border-darkblack-400 hover:shadow-lg transition-all duration-200">
                         <div class="flex items-center justify-between mb-4">
                             <div class="flex items-center">
-                                <div class="inline-block p-4 rounded-lg bg-warning-50">
+                                <div class="inline-block p-4 rounded-lg bg-yellow-50">
                                     <svg class="w-8 h-8 text-warning-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
                                     </svg>
@@ -54,8 +51,8 @@
                     <div class="rounded-xl bg-white p-6 dark:bg-darkblack-600 shadow-md border border-gray-100 dark:border-darkblack-400 hover:shadow-lg transition-all duration-200">
                         <div class="flex items-center justify-between mb-4">
                             <div class="flex items-center">
-                                <div class="inline-block p-4 rounded-lg bg-info-50">
-                                    <svg class="w-8 h-8 text-info-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="inline-block p-4 rounded-lg bg-indigo-50">
+                                    <svg class="w-8 h-8 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                     </svg>
                                 </div>
@@ -116,7 +113,6 @@
                         <canvas id="weeklyJoinRate" height="255"></canvas>
                     </div>
                 </div>
-
             </div>
             <!-- Recent Users Table -->
             <div class="w-full rounded-lg bg-white px-[24px] py-[20px] dark:bg-darkblack-600">
@@ -129,7 +125,6 @@
                             Lihat Semua
                         </a>
                     </div>
-
                     <div class="table-content w-full overflow-x-auto">
                         <table class="w-full">
                             <thead>
@@ -289,7 +284,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-
 
     // Mini Charts untuk setiap card
     const cardChartOptions = {

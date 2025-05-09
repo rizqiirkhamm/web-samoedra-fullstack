@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rumah Samoedra</title>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+
+    <link rel="icon" href="{{ asset('images/assets/logo-doang.png') }}" type="image/png">
+
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,6 +16,15 @@
         href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&family=Fredoka:wght@300..700&family=Fuzzy+Bubbles:wght@400;700&family=Onest:wght@100..900&display=swap"
         rel="stylesheet">
         <link href="{{ asset('css/public.css') }}" rel="stylesheet">
+    <style>
+        .description-text {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
 </head>
 
 <body>
@@ -60,7 +72,18 @@
                 style="font-family: 'Fredoka';">Rumah Samoedra</h1>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div class="w-full h-180 border-3 border-[#7BA5B0] border-dashed rounded-3xl p-5 md:p-7 flex flex-col">
-                    <img src="{{ asset($daycareData['banner_image']) }}" alt="Layanan Daycare" class="w-full h-96 object-cover rounded-3xl">
+                    @if($daycareData['banner_type'] == 'video')
+                        <div class="w-full h-96 rounded-3xl overflow-hidden">
+                            <iframe width="100%" height="100%"
+                                src="https://www.youtube.com/embed/{{ getYoutubeVideoId($daycareData['banner_video']) }}"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    @else
+                        <img src="{{ asset($daycareData['banner_image']) }}" alt="Layanan Daycare" class="w-full h-96 object-cover rounded-3xl">
+                    @endif
                     <div class="px-3">
                         <h1 class="text-[#3E5467] text-3xl md:text-4xl font-semibold mt-5"
                             style="font-family: 'Fredoka';">
@@ -71,7 +94,7 @@
                                 {{ $daycareData['about_daycare']['details']['jam_operasional'] }}</p>
                             <p class="text-[#7BA5B0]" style="font-family: 'Fredoka';">{{ $daycareData['about_daycare']['details']['hari'] }}</p>
                         </div>
-                        <p class="text-[#A2A2BD] mt-5">{{ $daycareData['kelebihan_daycare'] }}</p>
+                        <p class="text-[#A2A2BD] mt-5 description-text">{{ $daycareData['kelebihan_daycare'] }}</p>
                         <div class="flex gap-5 mt-5">
                             <a href="{{ route('program.daycare') }}">
                                 <button
@@ -114,7 +137,7 @@
                                 {{ $bermain['operating_hours'] ?? '08.00 - 15.00' }}</p>
                             <p class="text-[#7BA5B0]" style="font-family: 'Fredoka';">{{ $bermain['operating_days'] ?? 'Senin - Sabtu' }}</p>
                         </div>
-                        <p class="text-[#A2A2BD] mt-5">{{ $bermain['benefit_description'] ?? 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias facere dolorem nesciunt ratione assumenda natus vitae nemo, dolores voluptatibus ipsum, numquam modi totam unde quas quaerat, rerum quasi voluptates deleniti.' }}</p>
+                        <p class="text-[#A2A2BD] mt-5 description-text">{{ $bermain['benefit_description'] ?? 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias facere dolorem nesciunt ratione assumenda natus vitae nemo, dolores voluptatibus ipsum, numquam modi totam unde quas quaerat, rerum quasi voluptates deleniti.' }}</p>
                         <div class="flex gap-5 mt-5">
                             <a href="{{ route('program.bermain') }}">
                                 <button
@@ -158,7 +181,7 @@
                                 {{ $bimbelData['operating_hours'] }}</p>
                             <p class="text-[#7BA5B0]" style="font-family: 'Fredoka';">{{ $bimbelData['operating_days'] }}</p>
                         </div>
-                        <p class="text-[#A2A2BD] mt-5">{{ $bimbelData['benefit_description'] }}</p>
+                        <p class="text-[#A2A2BD] mt-5 description-text">{{ $bimbelData['benefit_description'] }}</p>
                         <div class="flex gap-5 mt-5">
                             <a href="{{ route('program.bimbel') }}">
                                 <button
@@ -180,7 +203,18 @@
                     </div>
                 </div>
                 <div class="w-full h-180 border-3 border-[#7BA5B0] border-dashed rounded-3xl p-5 md:p-7 flex flex-col">
-                    <img src="{{ asset($stimulasiData['banner_image']) }}" alt="Layanan Kelas Stimulasi" class="w-full h-96 object-cover rounded-3xl">
+                    @if($stimulasiData['banner_type'] == 'video')
+                        <div class="w-full h-96 rounded-3xl overflow-hidden">
+                            <iframe width="100%" height="100%"
+                                src="https://www.youtube.com/embed/{{ getYoutubeVideoId($stimulasiData['banner_video']) }}"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    @else
+                        <img src="{{ asset(Str::startsWith($stimulasiData['banner_image'], 'images/') ? $stimulasiData['banner_image'] : 'storage/' . $stimulasiData['banner_image']) }}" alt="Layanan Kelas Stimulasi" class="w-full h-96 object-cover rounded-3xl">
+                    @endif
                     <div class="px-3">
                         <h1 class="text-[#3E5467] text-3xl md:text-4xl font-semibold mt-5"
                             style="font-family: 'Fredoka';">
@@ -191,7 +225,7 @@
                                 {{ $stimulasiData['hours'] }}</p>
                             <p class="text-[#7BA5B0]" style="font-family: 'Fredoka';">{{ $stimulasiData['days'] }}</p>
                         </div>
-                        <p class="text-[#A2A2BD] mt-5">{{ $stimulasiData['description'] }}</p>
+                        <p class="text-[#A2A2BD] mt-5 description-text">{{ $stimulasiData['description'] }}</p>
                         <div class="flex gap-5 mt-5">
                             <a href="{{ route('program.stimulasi') }}">
                                 <button
@@ -248,12 +282,9 @@
                                     <p class="text-[#7BA5B0]" style="font-family: 'Fredoka';">{{ $latestEvent['about_event']['kegiatan'] }}</p>
                                 @endif
                             </div>
-                            <p class="text-[#A2A2BD] mt-5">{{ $firstDescription }}</p>
+                            <p class="text-[#A2A2BD] mt-5 description-text">{{ $firstDescription }}</p>
                         @else
-                            <p class="text-[#A2A2BD] mt-5">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias
-                                facere dolorem nesciunt ratione assumenda natus vitae nemo, dolores voluptatibus ipsum,
-                                numquam
-                                modi totam unde quas quaerat, rerum quasi voluptates deleniti.</p>
+                            <p class="text-[#A2A2BD] mt-5 description-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias facere dolorem nesciunt ratione assumenda natus vitae nemo, dolores voluptatibus ipsum, numquam modi totam unde quas quaerat, rerum quasi voluptates deleniti.</p>
                         @endif
                         <div class="flex gap-5 mt-5">
                             <a href="{{ route('program.event') }}">

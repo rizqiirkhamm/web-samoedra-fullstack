@@ -10,12 +10,12 @@
 <div class="w-full px-6 py-6 mx-auto">
     <div class="flex flex-wrap -mx-3">
         <div class="w-full max-w-full px-3 flex-0">
-            <div class="relative flex flex-col min-w-0 break-words bg-white border-0 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+            <div class="relative flex flex-col min-w-0 break-words bg-white border-0 shadow-xl dark:bg-darkblack-600 dark:shadow-dark-xl rounded-2xl bg-clip-border">
                 <div class="p-6 pb-0 mb-0 border-b-0">
                     <div class="flex items-center justify-between">
                         <h6 class="dark:text-white">Daftar Galeri</h6>
                         @if($canEdit)
-                        <button type="button" data-modal-target="tambahGaleri" data-modal-toggle="tambahGaleri" class="text-white bg-[#3E5467] hover:bg-[#576B81] font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
+                        <button type="button" data-modal-target="tambahGaleri" data-modal-toggle="tambahGaleri" class="text-white bg-success-300 hover:bg-success-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                             </svg>
@@ -53,15 +53,15 @@
                                 </div>
                             </div>
                             <div class="mt-2">
-                                <p class="text-[#E8A26A]">{{ $gallery->category }}</p>
-                                <h3 class="text-lg font-semibold text-[#3E5467]">{{ $gallery->title }}</h3>
+                                <p class="text-[#E8A26A] dark:text-amber-400">{{ $gallery->category }}</p>
+                                <h3 class="text-lg font-semibold text-[#3E5467] dark:text-white">{{ $gallery->title }}</h3>
                             </div>
                         </div>
                         @empty
                         <div class="col-span-full flex flex-col items-center justify-center py-12">
                             <img src="{{ asset('images/assets/ikan2.svg') }}" alt="No Galleries" class="w-32 h-32 mb-4 animate-float">
-                            <h3 class="text-lg font-semibold text-[#3E5467]">Belum Ada Galeri</h3>
-                            <p class="text-gray-500">Silakan tambahkan galeri baru</p>
+                            <h3 class="text-lg font-semibold text-[#3E5467] dark:text-white">Belum Ada Galeri</h3>
+                            <p class="text-gray-500 dark:text-gray-400">Silakan tambahkan galeri baru</p>
                         </div>
                         @endforelse
                     </div>
@@ -121,13 +121,13 @@
 <div id="tambahGaleri" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative w-full max-w-2xl max-h-full">
         <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <div class="relative bg-white dark:bg-darkblack-600 rounded-lg shadow card border border-gray-300 dark:border-darkblack-400">
             <!-- Modal header -->
-            <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+            <div class="flex items-start justify-between p-4 border-b rounded-t border-gray-200 dark:border-darkblack-400">
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                     Tambah Galeri Baru
                 </h3>
-                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="tambahGaleri">
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-darkblack-400 dark:hover:text-white" data-modal-hide="tambahGaleri">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                     </svg>
@@ -139,12 +139,12 @@
                 @csrf
                 <div class="p-6 space-y-6">
                     <div class="mb-4">
-                        <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Judul</label>
-                        <input type="text" name="title" id="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                        <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Judul</label>
+                        <input type="text" name="title" id="title" class="w-full px-3 py-2 bg-white dark:bg-darkblack-500 border border-gray-300 dark:border-darkblack-400 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-success-300" required>
                     </div>
                     <div class="mb-4">
-                        <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategori</label>
-                        <select name="category" id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                        <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Kategori</label>
+                        <select name="category" id="category" class="w-full px-3 py-2 bg-white dark:bg-darkblack-500 border border-gray-300 dark:border-darkblack-400 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-success-300" required>
                             <option value="">Pilih Kategori</option>
                             <option value="Daycare">Daycare</option>
                             <option value="Area Main">Area Main</option>
@@ -154,14 +154,14 @@
                         </select>
                     </div>
                     <div class="mb-4">
-                        <label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gambar</label>
-                        <input type="file" name="image" id="image" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400" accept="image/*" required>
+                        <label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Gambar</label>
+                        <input type="file" name="image" id="image" class="block w-full text-sm text-gray-900 dark:text-gray-400 border border-gray-300 dark:border-darkblack-400 rounded-lg cursor-pointer bg-white dark:bg-darkblack-500 focus:outline-none" accept="image/*" required>
                     </div>
                 </div>
                 <!-- Modal footer -->
-                <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Simpan</button>
-                    <button type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600" data-modal-hide="tambahGaleri">Batal</button>
+                <div class="flex items-center p-6 space-x-2 border-t border-gray-200 dark:border-darkblack-400 rounded-b">
+                    <button type="submit" class="text-white bg-success-300 hover:bg-success-400 focus:ring-4 focus:outline-none focus:ring-success-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Simpan</button>
+                    <button type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-darkblack-600 dark:text-gray-300 dark:border-darkblack-400 dark:hover:text-white dark:hover:bg-darkblack-500 dark:focus:ring-darkblack-400" data-modal-hide="tambahGaleri">Batal</button>
                 </div>
             </form>
         </div>
@@ -187,11 +187,11 @@
                 <div class="p-6 space-y-6">
                     <div class="mb-4">
                         <label for="title{{ $gallery->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Judul</label>
-                        <input type="text" name="title" id="title{{ $gallery->id }}" value="{{ $gallery->title }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                        <input type="text" name="title" id="title{{ $gallery->id }}" value="{{ $gallery->title }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:text-white" required>
                     </div>
                     <div class="mb-4">
                         <label for="category{{ $gallery->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategori</label>
-                        <select name="category" id="category{{ $gallery->id }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                        <select name="category" id="category{{ $gallery->id }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:text-white" required>
                             <option value="Daycare" {{ $gallery->category == 'Daycare' ? 'selected' : '' }}>Daycare</option>
                             <option value="Area Main" {{ $gallery->category == 'Area Main' ? 'selected' : '' }}>Area Main</option>
                             <option value="Bimbel" {{ $gallery->category == 'Bimbel' ? 'selected' : '' }}>Bimbel</option>
@@ -201,13 +201,13 @@
                     </div>
                     <div class="mb-4">
                         <label for="image{{ $gallery->id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gambar</label>
-                        <input type="file" name="image" id="image{{ $gallery->id }}" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" accept="image/*">
-                        <p class="mt-1 text-sm text-gray-500">Biarkan kosong jika tidak ingin mengubah gambar</p>
+                        <input type="file" name="image" id="image{{ $gallery->id }}" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none dark:bg-gray-600 dark:border-gray-500 dark:text-white dark:placeholder-gray-400" accept="image/*">
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Biarkan kosong jika tidak ingin mengubah gambar</p>
                     </div>
                 </div>
                 <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                     <button type="submit" class="text-white bg-[#3E5467] hover:bg-[#576B81] font-medium rounded-lg text-sm px-5 py-2.5 text-center">Simpan Perubahan</button>
-                    <button type="button" class="text-gray-500 bg-white hover:bg-gray-100 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5" data-modal-hide="editGaleri{{ $gallery->id }}">Batal</button>
+                    <button type="button" class="text-gray-500 bg-white hover:bg-gray-100 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="editGaleri{{ $gallery->id }}">Batal</button>
                 </div>
             </form>
         </div>
@@ -248,6 +248,30 @@
         }
     });
 </script>
+
+<style>
+    /* Dark mode improvements for gallery cards */
+    .dark .aspect-w-16 {
+        border-color: rgba(55, 65, 81, 0.5);
+    }
+    
+    /* Improve card hover in dark mode */
+    .dark .group:hover {
+        background-color: rgba(55, 65, 81, 0.1);
+        border-radius: 0.5rem;
+    }
+    
+    /* Improve image preview in dark mode */
+    .dark .bg-gray-50 {
+        background-color: rgba(31, 41, 55, 0.5);
+    }
+    
+    /* Improve placeholder styling in dark mode */
+    .dark input::placeholder,
+    .dark textarea::placeholder {
+        color: rgba(156, 163, 175, 0.8);
+    }
+</style>
 @endsection
 
 @push('scripts')

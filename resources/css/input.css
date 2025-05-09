@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 .switch-btn{
-    @apply bg-bgray-300;
+    @apply bg-gray-300;
 }
 .switch-btn.active {
     @apply bg-success-300;

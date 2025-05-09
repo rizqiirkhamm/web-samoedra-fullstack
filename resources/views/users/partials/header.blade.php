@@ -13,7 +13,7 @@
                 </svg>
             </span>
         </button>
-        <!--              page-title-->
+        <!-- page-title-->
         <div class="flex items-center space-x-4">
 
             <div>
@@ -33,7 +33,7 @@
         <div class="quick-access-wrapper relative">
             <div class="flex items-center space-x-[43px]">
                 <div class="hidden items-center space-x-5 xl:flex">
-                    <button type="button" id="theme-toggle"
+                    <button type="button" id="desktop-theme-toggle"
                         class="relative flex h-[52px] w-[52px] items-center justify-center rounded-[12px] border border-success-300 dark:border-darkblack-400">
                         <span class="block dark:hidden">
                             <svg class="stroke-bgray-900" width="24" height="24" viewBox="0 0 24 24"
@@ -137,13 +137,13 @@
 <header class="mobile-wrapper fixed z-20 block w-full md:hidden">
 <div class="flex h-[80px] w-full items-center justify-between bg-white dark:bg-darkblack-600">
     <div class="flex h-full w-full items-center space-x-5">
-        <button type="button" class="drawer-btn rotate-180 transform">
+        <button type="button" class="drawer-btn sidebar-toggle-btn rotate-180 transform ml-2">
             <span>
                 <svg width="16" height="40" viewBox="0 0 16 40" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path d="M0 10C0 4.47715 4.47715 0 10 0H16V40H10C4.47715 40 0 35.5228 0 30V10Z"
-                        fill="#F7F7F7" />
-                    <path d="M10 15L6 20.0049L10 25.0098" stroke="#A0AEC0" stroke-width="1.2"
+                        fill="#22C55E" />
+                    <path d="M10 15L6 20.0049L10 25.0098" stroke="#ffffff" stroke-width="1.2"
                         stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
             </span>
@@ -152,7 +152,36 @@
 
         </div>
     </div>
-    <div class="mr-2">
+    <div class="mr-2 flex items-center space-x-4">
+        <!-- Tombol toggle tema untuk mobile -->
+        <button type="button" id="mobile-theme-toggle"
+            class="relative flex h-[42px] w-[42px] items-center justify-center rounded-[10px] border border-success-300 dark:border-darkblack-400">
+            <span class="block dark:hidden">
+                <svg class="stroke-bgray-900" width="20" height="20" viewBox="0 0 24 24"
+                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M18.3284 14.8687C13.249 14.8687 9.13135 10.751 9.13135 5.67163C9.13135 4.74246 9.26914 3.84548 9.5254 3C5.74897 4.14461 3 7.65276 3 11.803C3 16.8824 7.11765 21 12.197 21C16.3472 21 19.8554 18.251 21 14.4746C20.1545 14.7309 19.2575 14.8687 18.3284 14.8687Z"
+                        stroke-width="1.5" stroke-linejoin="round" />
+                </svg>
+            </span>
+            <span class="hidden dark:block">
+                <svg class="stroke-bgray-900 dark:stroke-bgray-50" width="20" height="20"
+                    viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="5" stroke-width="1.5" />
+                    <path d="M12 2V4" stroke-width="1.5" stroke-linecap="round" />
+                    <path d="M12 20V22" stroke-width="1.5" stroke-linecap="round" />
+                    <path d="M20.6602 7L18.9281 8" stroke-width="1.5"
+                        stroke-linecap="round" />
+                    <path d="M5.07178 16L3.33973 17" stroke-width="1.5"
+                        stroke-linecap="round" />
+                    <path d="M3.33984 7L5.07189 8" stroke-width="1.5"
+                        stroke-linecap="round" />
+                    <path d="M18.9282 16L20.6603 17" stroke-width="1.5"
+                        stroke-linecap="round" />
+                </svg>
+            </span>
+        </button>
+
         <div class="relative group">
             <div class="flex cursor-pointer space-x-0 lg:space-x-3">
                 <div class="hidden 2xl:block">
@@ -326,21 +355,30 @@ document.addEventListener('DOMContentLoaded', function() {
         document.documentElement.classList.remove('dark');
     }
 
-    // Tambahkan event listener untuk toggle tema
-    const themeToggle = document.getElementById('theme-toggle');
-    if (themeToggle) {
-        themeToggle.addEventListener('click', function() {
-            // Toggle class dark pada html element
-            const isDark = document.documentElement.classList.toggle('dark');
+    // Tambahkan event listener untuk toggle tema di desktop
+    const desktopThemeToggle = document.getElementById('desktop-theme-toggle');
+    if (desktopThemeToggle) {
+        desktopThemeToggle.addEventListener('click', toggleTheme);
+    }
 
-            // Simpan preferensi ke localStorage
-            localStorage.setItem('darkMode', isDark);
+    // Tambahkan event listener untuk toggle tema di mobile
+    const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+    if (mobileThemeToggle) {
+        mobileThemeToggle.addEventListener('click', toggleTheme);
+    }
 
-            // Custom event untuk memberitahu komponen lain tentang perubahan tema
-            document.dispatchEvent(new CustomEvent('themeChanged', {
-                detail: { isDark }
-            }));
-        });
+    // Fungsi toggle tema
+    function toggleTheme() {
+        // Toggle class dark pada html element
+        const isDark = document.documentElement.classList.toggle('dark');
+
+        // Simpan preferensi ke localStorage
+        localStorage.setItem('darkMode', isDark);
+
+        // Custom event untuk memberitahu komponen lain tentang perubahan tema
+        document.dispatchEvent(new CustomEvent('themeChanged', {
+            detail: { isDark }
+        }));
     }
 });
 </script>

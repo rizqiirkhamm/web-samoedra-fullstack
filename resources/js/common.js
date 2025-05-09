@@ -3,10 +3,8 @@ function initThemeToggle() {
     const themeToggleBtn = document.getElementById('theme-toggle');
     if (themeToggleBtn) {
         themeToggleBtn.addEventListener('click', function() {
-            document.documentElement.classList.toggle('dark');
-            localStorage.setItem('theme',
-                document.documentElement.classList.contains('dark') ? 'dark' : 'light'
-            );
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', isDark);
         });
     }
 }

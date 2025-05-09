@@ -46,74 +46,119 @@ class EventEditController extends Controller
         try {
             // Validasi input untuk events
             if ($request->has('events')) {
-        $request->validate([
-            'events' => 'required|array',
-            'events.*.banner_type' => 'required|in:image,video',
-            'events.*.event_title' => 'required|string',
-            'events.*.descriptions' => 'required|array',
-            'events.*.descriptions.*.title' => 'required|string',
-            'events.*.descriptions.*.content' => 'required|string',
-            'events.*.about_event.usia' => 'required|string',
-            'events.*.about_event.biaya' => 'required|string',
-            'events.*.about_event.tanggal' => 'required|string',
-            'events.*.about_event.kegiatan' => 'required|string',
-                    'events.*.about_event.created_at' => 'required|string',
-            'events.*.about_event.activities' => 'required|array',
-            'events.*.about_event.activities.*' => 'required|string',
-            'events.*.banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'events.*.banner_video' => 'nullable|string|url',
-        ]);
+                // Batasi jumlah event maksimal 4
+                if (count($request->events) > 4) {
+                    return redirect()->back()
+                        ->with('error', 'Maksimal hanya boleh ada 4 event. Silakan hapus beberapa event.')
+                        ->withInput();
+                }
+
+                // Kumpulkan hanya event yang memiliki banner_type untuk validasi
+                $validEvents = [];
+                foreach ($request->events as $index => $event) {
+                    if (isset($event['banner_type'])) {
+                        $validEvents[$index] = $event;
+                    }
+                }
+
+                // Jika tidak ada event valid, hentikan proses
+                if (empty($validEvents)) {
+                    return redirect()->back()
+                        ->with('error', 'Tidak ada event valid untuk disimpan.')
+                        ->withInput();
+                }
+
+                // Validasi hanya event yang valid
+                $validator = \Illuminate\Support\Facades\Validator::make(['events' => $validEvents], [
+                    'events' => 'required|array|max:4',
+                    'events.*.banner_type' => 'required|in:image,video',
+                    'events.*.event_title' => 'nullable|string',
+                    'events.*.descriptions' => 'nullable|array',
+                    'events.*.descriptions.*.title' => 'required_with:events.*.descriptions|string',
+                    'events.*.descriptions.*.content' => 'required_with:events.*.descriptions|string',
+                    'events.*.about_event.usia' => 'nullable|string',
+                    'events.*.about_event.biaya' => 'nullable|string',
+                    'events.*.about_event.tanggal' => 'nullable|string',
+                    'events.*.about_event.kegiatan' => 'nullable|string',
+                    'events.*.about_event.created_at' => 'nullable|string',
+                    'events.*.about_event.activities' => 'nullable|array',
+                    'events.*.about_event.activities.*' => 'nullable|string',
+                    'events.*.banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                    'events.*.banner_video' => 'nullable|string',
+                ]);
+
+                if ($validator->fails()) {
+                    return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput()
+                        ->with('error', 'Terjadi kesalahan validasi data.');
+                }
 
                 // Simpan data events yang lama jika ada
                 $oldEvents = isset($data['events']) ? $data['events'] : [];
                 $newEvents = [];
 
-            // Process each event
-            foreach ($request->events as $index => $eventData) {
-                $event = [
-                    'banner_type' => $eventData['banner_type'],
-                    'event_title' => $eventData['event_title'],
-                    'banner_video' => $eventData['banner_video'] ?? null,
-                    'descriptions' => [],
-                    'about_event' => [
-                        'usia' => $eventData['about_event']['usia'],
-                        'biaya' => $eventData['about_event']['biaya'],
-                        'tanggal' => $eventData['about_event']['tanggal'],
-                        'kegiatan' => $eventData['about_event']['kegiatan'],
-                            'created_at' => $eventData['about_event']['created_at'],
-                        'activities' => $eventData['about_event']['activities'] ?? []
-                    ]
-                ];
+                // Process each event
+                foreach ($request->events as $index => $eventData) {
+                    // Skip event jika tidak memiliki data yang cukup
+                    if (!isset($eventData['banner_type'])) {
+                        continue;
+                    }
 
-                // Handle banner image upload
-                if (isset($eventData['banner_image']) && $eventData['banner_image'] instanceof \Illuminate\Http\UploadedFile) {
+                    $event = [
+                        'banner_type' => $eventData['banner_type'],
+                        'event_title' => $eventData['event_title'] ?? 'Event Baru',
+                        'banner_video' => $eventData['banner_video'] ?? null,
+                        'descriptions' => [],
+                        'about_event' => [
+                            'usia' => isset($eventData['about_event']) && isset($eventData['about_event']['usia']) ? $eventData['about_event']['usia'] : 'Semua Usia',
+                            'biaya' => isset($eventData['about_event']) && isset($eventData['about_event']['biaya']) ? $eventData['about_event']['biaya'] : 'Hubungi Admin',
+                            'tanggal' => isset($eventData['about_event']) && isset($eventData['about_event']['tanggal']) ? $eventData['about_event']['tanggal'] : date('d M Y'),
+                            'kegiatan' => isset($eventData['about_event']) && isset($eventData['about_event']['kegiatan']) ? $eventData['about_event']['kegiatan'] : 'Event',
+                            'created_at' => isset($eventData['about_event']) && isset($eventData['about_event']['created_at']) ? $eventData['about_event']['created_at'] : date('Y-m-d\TH:i'),
+                            'activities' => isset($eventData['about_event']) && isset($eventData['about_event']['activities']) ? $eventData['about_event']['activities'] : []
+                        ]
+                    ];
+
+                    // Handle banner image upload
+                    if (isset($eventData['banner_image']) && $eventData['banner_image'] instanceof \Illuminate\Http\UploadedFile) {
                         // Delete old image if exists and not default
                         if (isset($oldEvents[$index]['banner_image']) && !str_contains($oldEvents[$index]['banner_image'], 'assets/img.png')) {
                             $oldPath = str_replace('storage/', '', $oldEvents[$index]['banner_image']);
-                        if (Storage::disk('public')->exists($oldPath)) {
-                            Storage::disk('public')->delete($oldPath);
+                            if (Storage::disk('public')->exists($oldPath)) {
+                                Storage::disk('public')->delete($oldPath);
+                            }
                         }
-                    }
 
-                    $path = $eventData['banner_image']->store('event', 'public');
-                    $event['banner_image'] = 'storage/' . $path;
+                        $path = $eventData['banner_image']->store('event', 'public');
+                        $event['banner_image'] = 'storage/' . $path;
                     } elseif (isset($oldEvents[$index]['banner_image'])) {
                         // Gunakan gambar lama jika ada
                         $event['banner_image'] = $oldEvents[$index]['banner_image'];
                     } else {
                         // Gunakan default jika tidak ada
-                        $event['banner_image'] = 'assets/img.png';
-                }
+                        $event['banner_image'] = 'images/assets/img_layanan.png';
+                    }
 
-                // Process descriptions
-                if (isset($eventData['descriptions'])) {
-                    foreach ($eventData['descriptions'] as $description) {
+                    // Process descriptions
+                    if (isset($eventData['descriptions']) && is_array($eventData['descriptions'])) {
+                        foreach ($eventData['descriptions'] as $description) {
+                            if (isset($description['title']) && isset($description['content'])) {
+                                $event['descriptions'][] = [
+                                    'title' => $description['title'],
+                                    'content' => $description['content']
+                                ];
+                            }
+                        }
+                    }
+
+                    // Tambahkan deskripsi default jika tidak ada
+                    if (empty($event['descriptions'])) {
                         $event['descriptions'][] = [
-                            'title' => $description['title'],
-                            'content' => $description['content']
+                            'title' => 'Deskripsi',
+                            'content' => 'Informasi lengkap event akan segera diupdate.'
                         ];
                     }
-                }
 
                     $newEvents[] = $event;
                 }

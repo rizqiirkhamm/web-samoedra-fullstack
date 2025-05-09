@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,10 +11,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
+    <link rel="icon" href="{{ asset('images/assets/logo-doang.png') }}" type="image/png">
+
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
+
 <body class="bg-gray-50">
     <!-- Navbar -->
     <nav class="bg-white shadow-sm">
@@ -21,56 +25,63 @@
             <div class="flex justify-between h-16 items-center">
                 <div class="flex">
                     <div class="flex-shrink-0 flex items-center">
-                        <a href="{{route('home')}}"> <p class="ml-2 font- text-slate-400 hover:text-slate-500">< kembali</p></a>
-
-                    </div>
-
-                </div>
-                <img src="{{ asset('images/logo/logo_samoedra.JPG') }}" class="h-8 w-auto" alt="Samoedra">
+                        <a href="{{route('home')}}">
+                            <p class="ml-2 font- text-gray-600 bg-gray-200 px-4 py-2 rounded-xl hover:text-gray-400 transition-all duration-300 flex gap-2 items-center"><svg
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                                </svg>
+                                Kembali</p>
+                        </a> </div>
+                </div> <img src="{{ asset('images/assets/logo-doang.png') }}" class="h-8 w-auto" alt="Samoedra">
             </div>
         </div>
     </nav>
 
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div class="w-full rounded-lg bg-white px-[24px] py-[20px]">
+        <div class="w-full rounded-xl bg-white px-[24px] py-[20px]">
             <!-- Image Preview dengan desain baru -->
             <div class="flex justify-center mb-8">
-                <div class="relative w-[400px] h-[250px] rounded-2xl overflow-hidden shadow-lg transition-transform hover:scale-105 duration-300">
-                    <img id="preview-image"
-                         src="{{ asset('images/avatar/samodra.png') }}"
-                         class="h-full w-full object-cover transition-all duration-500"
-                         onerror="this.onerror=null; this.src='{{ asset('images/avatar/samodra.png') }}';">
+                <div
+                    class="relative w-full max-w-3xl md:h-[400px] rounded-xl overflow-hidden shadow-lg">
+                    <img id="preview-image" src="{{ asset('images/avatar/samodra.png') }}"
+                        class="h-full w-full object-cover transition-all duration-500"
+                        onerror="this.onerror=null; this.src='{{ asset('images/avatar/samodra.png') }}';">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                    <div class="absolute bottom-4 left-4 text-white">
-                        <h3 class="text-xl font-semibold tracking-wide">Layanan Samoedra</h3>
-                        <p class="text-sm opacity-90">Pilih layanan untuk memulai</p>
+                    <div class="absolute bottom-6 left-6 text-white">
+                        <h3 class="text-2xl font-semibold">Layanan Samoedra</h3>
                     </div>
                 </div>
             </div>
 
             <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
                 <div class="fixed inset-0 bg-black/50 dark:bg-white/10 backdrop-blur-sm"></div>
-                <div class="relative bg-white dark:bg-darkblack-600 rounded-xl shadow-2xl p-8 w-96 max-w-md transform transition-all animate-modal-pop">
+                <div
+                    class="relative bg-white dark:bg-darkblack-600 rounded-xl shadow-2xl p-8 w-96 max-w-md transform transition-all animate-modal-pop">
                     <div class="text-center">
                         <!-- Icon sukses yang lebih besar dan lebih menarik -->
                         <div class="mx-auto mb-6 w-20 h-20 rounded-full bg-green-100 flex items-center justify-center">
                             <svg class="w-12 h-12 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
 
                         <!-- Judul dengan ukuran yang lebih besar -->
-                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">Berhasil!</h3>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Berhasil!</h3>
 
                         <!-- Pesan dengan margin yang lebih baik -->
-                        <p class="text-gray-600 dark:text-gray-300 mb-8">Data berhasil disimpan.</p>
+                        <p class="text-gray-600 mb-8">Data berhasil disimpan.</p>
 
                         <!-- Info invoice dengan desain yang lebih baik -->
-                        <div class="bg-blue-50 border border-blue-100 rounded-lg p-4 mb-6">
+                        <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-6">
                             <div class="flex items-start">
-                                <svg class="w-5 h-5 text-blue-500 mt-0.5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                <svg class="w-5 h-5 text-blue-500 mt-0.5 mr-2 flex-shrink-0" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                                 <p class="text-blue-700 text-sm text-left">
                                     Untuk mendapatkan invoice, silahkan hubungi admin
@@ -79,7 +90,8 @@
                         </div>
 
                         <!-- Tombol tutup yang lebih menarik -->
-                        <button onclick="closeSuccessModal()" class="w-full py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors duration-200 font-medium">
+                        <button onclick="closeSuccessModal()"
+                            class="w-full py-3 bg-gray-800 text-white rounded-xl hover:bg-gray-700 transition-colors duration-200 font-medium">
                             Tutup
                         </button>
                     </div>
@@ -87,7 +99,8 @@
             </div>
 
             <!-- Form dengan desain baru -->
-            <form id="layananForm" action="{{ route('layanan.public.submit') }}" method="POST" enctype="multipart/form-data" class="max-w-3xl mx-auto">
+            <form id="layananForm" action="{{ route('layanan.public.submit') }}" method="POST"
+                enctype="multipart/form-data" class="max-w-3xl mx-auto">
                 @csrf
 
                 <!-- Alert Error -->
@@ -97,7 +110,8 @@
                         <div class="flex items-center">
                             <div class="flex-shrink-0">
                                 <svg class="h-5 w-5 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                                 </svg>
                             </div>
                             <div class="ml-3">
@@ -116,11 +130,11 @@
                         Pilih Layanan
                     </label>
                     <select id="main_service_type" name="main_service_type" required
-                            class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                        class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                         <option value="">Pilih Layanan</option>
                         <option value="bermain">Bermain</option>
                         <option value="bimbel">Bimbel</option>
-                        <option value="stimulasi">Stimulasi</option>
+                        <option value="stimulasi">Kelas Stimulasi</option>
                         <option value="daycare">Daycare</option>
                         <option value="event">Event</option>
                     </select>
@@ -135,14 +149,14 @@
                                 Nama Lengkap
                             </label>
                             <input type="text" id="name" name="name" required
-                                   class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                         </div>
                         <div>
                             <label for="age" class="block text-sm font-medium text-gray-700 mb-2">
                                 Usia
                             </label>
                             <input type="number" id="age" name="age" required min="1" max="100"
-                                   class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                         </div>
                     </div>
                     <div class="mt-4">
@@ -150,7 +164,7 @@
                             Nomor Telepon Orangtua
                         </label>
                         <input type="number" id="phone" name="phone" required
-                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                            class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                     </div>
                 </div>
 
@@ -165,13 +179,26 @@
                 <div class="mb-6">
                     <label class="flex items-center">
                         <input type="checkbox" name="need_socks" class="mr-2">
-                        <span>Beli Kaos Kaki (Rp 15.000) - <span class="text-red-500">*Wajib beli jika belum memiliki kaos kaki</span></span>
+                        <span>Beli Kaos Kaki (Rp 5.000) - <span class="text-red-500">*Wajib beli jika belum memiliki
+                                kaos kaki</span></span>
                     </label>
+                </div>
+
+                <!-- Informasi Pembayaran -->
+                <div class="form-group animate-fade-in mb-6">
+                    <div class="p-4 bg-yellow-50 rounded-xl">
+                        <p class="text-yellow-800">
+                            <strong>Informasi Pembayaran:</strong><br>
+                            No Rekening: 6821039361<br>
+                            BCA atas nama: siti nur arsyillah. a
+                        </p>
+                    </div>
                 </div>
 
                 <!-- Submit Button -->
                 <div class="flex justify-end">
-                    <button type="submit" class="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors duration-300">
+                    <button type="submit"
+                        class="px-6 py-3 bg-green-500 text-white rounded-xl hover:bg-green-600 transition-colors duration-300">
                         Daftar Sekarang
                     </button>
                 </div>
@@ -182,14 +209,14 @@
     <!-- Copy all scripts from layanan.blade.php -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Inisialisasi form
             const mainServiceType = document.getElementById('main_service_type');
             const dynamicFields = document.getElementById('dynamic-fields');
             const serviceFields = document.getElementById('serviceFields');
 
             if (mainServiceType) {
-                mainServiceType.addEventListener('change', function() {
+                mainServiceType.addEventListener('change', function () {
                     const selectedService = this.value;
 
                     if (selectedService) {
@@ -208,8 +235,20 @@
                 });
             }
 
+            const today = new Date();
+            const yesterday = new Date(today);
+            yesterday.setDate(today.getDate() - 1);
+
+            // Format tanggal ke YYYY-MM-DD
+            const maxDate = yesterday.toISOString().split('T')[0];
+
+            // Set max date untuk semua input birth_date
+            document.querySelectorAll('input[name="birth_date"]').forEach(input => {
+                input.setAttribute('max', maxDate);
+            });
+
             // Fungsi untuk memuat field berdasarkan tipe layanan
-            window.loadServiceFields = function(service) {
+            window.loadServiceFields = function (service) {
                 if (service === 'bermain') {
                     serviceFields.innerHTML = `
                         <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
@@ -217,7 +256,7 @@
 
                             <!-- Informasi Operasional -->
                             <div class="mb-4">
-                                <div class="p-4 bg-yellow-50 rounded-lg">
+                                <div class="p-4 bg-yellow-50 rounded-xl">
                                     <p class="text-yellow-800">
                                         <strong>Jam Operasional:</strong> 08:00 - 17:00 WIB
                                     </p>
@@ -235,7 +274,7 @@
                                        required
                                        min="${new Date().toISOString().split('T')[0]}"
                                        onchange="updateHariBermain()"
-                                       class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                       class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                             </div>
 
                             <!-- Hari (Readonly) -->
@@ -248,7 +287,7 @@
                                        name="day"
                                        readonly
                                        required
-                                       class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300 cursor-not-allowed">
+                                       class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300 cursor-not-allowed">
                             </div>
 
                             <!-- Jam Mulai -->
@@ -257,7 +296,7 @@
                                     Jam Mulai
                                 </label>
                                 <input type="time" id="bermain_time" name="selected_time" required
-                                       class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                       class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                                 <input type="hidden" id="start_datetime" name="start_datetime">
                             </div>
 
@@ -267,7 +306,7 @@
                                     Durasi Bermain
                                 </label>
                                 <select name="duration" id="bermain_duration" required
-                                        class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                        class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                                     <option value="">Pilih Durasi</option>
                                     <option value="1">1 Jam</option>
                                     <option value="2">2 Jam</option>
@@ -282,7 +321,7 @@
                                     Bukti Pembayaran
                                 </label>
                                 <div class="flex flex-col items-center">
-                                    <div class="w-full max-w-[300px] aspect-[4/3] bg-gray-100 rounded-lg overflow-hidden mb-4">
+                                    <div class="w-full max-w-3xl aspect-[5/3] bg-gray-100 rounded-xl overflow-hidden mb-4">
                                         <div id="payment-proof-preview" class="w-full h-full flex items-center justify-center">
                                             <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -291,7 +330,7 @@
                                     </div>
                                     <div class="w-full">
                                         <label class="relative flex flex-col items-center gap-2 cursor-pointer">
-                                            <div class="w-full px-4 py-3 text-sm text-center text-white bg-green-500 rounded-lg hover:bg-green-600 transition-colors duration-200">
+                                            <div class="w-full px-4 py-3 text-sm text-center text-white bg-green-500 rounded-xl hover:bg-green-600 transition-colors duration-200">
                                                 <span class="flex items-center justify-center gap-2">
                                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -307,7 +346,7 @@
                                                    onchange="window.previewPaymentProof(this)">
                                         </label>
                                         <p class="mt-2 text-sm text-gray-500 text-center">
-                                            Format yang diterima: JPG, JPEG, PNG (Max. 2MB)
+                                            Format yang diterima: JPG, JPEG, PNG, HEIC (Max. 10MB)
                                         </p>
                                     </div>
                                 </div>
@@ -336,7 +375,7 @@
                                     Jenis Bimbel
                                 </label>
                                 <select name="bimbel_type" required
-                                        class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                        class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                                     <option value="">Pilih Jenis Bimbel</option>
                                     <option value="offline">Offline</option>
                                     <option value="online">Online</option>
@@ -349,7 +388,7 @@
                                     Bimbel yang ingin diikuti
                                 </label>
                                 <select name="service_type" required
-                                        class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                        class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                                     <option value="">Pilih Bimbel</option>
                                     <option value="bimbel_calistung">Bimbel Calistung</option>
                                     <option value="bimbel_sd">Bimbel Pelajaran SD</option>
@@ -369,7 +408,7 @@
                                     Tanggal Mulai Bimbel
                                 </label>
                                 <input type="date" name="start_date" id="bimbel_start_date" required min="${new Date().toISOString().split('T')[0]}"
-                                       class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300"
+                                       class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300"
                                        onchange="updateBimbelDay(this.value)">
                             </div>
 
@@ -379,7 +418,7 @@
                                     Hari
                                 </label>
                                 <input type="text" id="bimbel_day_display" readonly
-                                       class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300 cursor-not-allowed">
+                                       class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300 cursor-not-allowed">
                                 <input type="hidden" name="day" id="bimbel_day" value="">
                             </div>
 
@@ -409,7 +448,7 @@
                                     Tempat Lahir
                                 </label>
                                 <input type="text" name="birth_place" required
-                                       class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                       class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                             </div>
 
                             <div class="mb-4">
@@ -417,7 +456,7 @@
                                     Tanggal Lahir
                                 </label>
                                 <input type="date" name="birth_date" required
-                                       class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                       class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300" max="{{ date('Y-m-d', strtotime('-1 day')) }}">
                             </div>
 
                             <!-- Riwayat Sekolah -->
@@ -443,7 +482,7 @@
                                     Nama Sekolah
                                 </label>
                                 <input type="text" name="school_name"
-                                       class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                       class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                             </div>
 
                             <!-- Agama -->
@@ -452,7 +491,7 @@
                                     Agama
                                 </label>
                                 <select name="religion" required
-                                        class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                        class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                                     <option value="">Pilih Agama</option>
                                     <option value="islam">Islam</option>
                                     <option value="kristen">Kristen</option>
@@ -468,7 +507,7 @@
                                     Alamat
                                 </label>
                                 <textarea name="address" required rows="3"
-                                          class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300"></textarea>
+                                          class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300"></textarea>
                             </div>
 
                             <!-- Anak ke- -->
@@ -477,7 +516,7 @@
                                     Anak ke-
                                 </label>
                                 <input type="number" name="child_order" required min="1"
-                                       class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                       class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                             </div>
 
                             <!-- Nomor HP Anak (opsional) -->
@@ -486,7 +525,7 @@
                                     Nomor HP Anak (opsional)
                                 </label>
                                 <input type="number" name="child_phone"
-                                       class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                       class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                             </div>
 
                             <!-- Data Ayah -->
@@ -497,7 +536,7 @@
                                     Nama Ayah
                                 </label>
                                 <input type="text" name="father_name" required
-                                       class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                       class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                             </div>
 
                             <div class="mb-4">
@@ -505,7 +544,7 @@
                                     Usia Ayah
                                 </label>
                                 <input type="number" name="father_age" required min="1"
-                                       class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                       class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                             </div>
 
                             <div class="mb-4">
@@ -513,7 +552,7 @@
                                     Pendidikan Terakhir Ayah
                                 </label>
                                 <textarea name="father_education" required
-                                          class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300"
+                                          class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300"
                                           placeholder="Sebutkan dengan detail untuk kepentingan assessment"></textarea>
                             </div>
 
@@ -522,7 +561,7 @@
                                     Pekerjaan Ayah
                                 </label>
                                 <textarea name="father_occupation" required
-                                          class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300"
+                                          class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300"
                                           placeholder="Sebutkan dengan detail untuk kepentingan assessment"></textarea>
                             </div>
 
@@ -534,7 +573,7 @@
                                     Nama Ibu
                                 </label>
                                 <input type="text" name="mother_name" required
-                                       class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                       class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                             </div>
 
                             <div class="mb-4">
@@ -542,7 +581,7 @@
                                     Usia Ibu
                                 </label>
                                 <input type="number" name="mother_age" required min="1"
-                                       class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                       class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                             </div>
 
                             <div class="mb-4">
@@ -550,7 +589,7 @@
                                     Pendidikan Terakhir Ibu
                                 </label>
                                 <textarea name="mother_education" required
-                                          class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300"
+                                          class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300"
                                           placeholder="Sebutkan dengan detail untuk kepentingan assessment"></textarea>
                             </div>
 
@@ -559,7 +598,7 @@
                                     Pekerjaan Ibu
                                 </label>
                                 <textarea name="mother_occupation" required
-                                          class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300"
+                                          class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300"
                                           placeholder="Sebutkan dengan detail untuk kepentingan assessment"></textarea>
                             </div>
 
@@ -569,7 +608,7 @@
                                     Foto Peserta Bimbel
                                 </label>
                                 <div class="flex flex-col items-center">
-                                    <div class="w-full max-w-[300px] aspect-[3/4] bg-gray-100 rounded-lg overflow-hidden mb-4">
+                                    <div class="w-full max-w-3xl aspect-[5/3] bg-gray-100 rounded-xl overflow-hidden mb-4">
                                         <div id="student-photo-preview" class="w-full h-full flex items-center justify-center">
                                             <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -578,7 +617,7 @@
                                     </div>
                                     <div class="w-full">
                                         <label class="relative flex flex-col items-center gap-2 cursor-pointer">
-                                            <div class="w-full px-4 py-3 text-sm text-center text-white bg-green-500 rounded-lg hover:bg-green-600 transition-colors duration-200">
+                                            <div class="w-full px-4 py-3 text-sm text-center text-white bg-green-500 rounded-xl hover:bg-green-600 transition-colors duration-200">
                                                 <span class="flex items-center justify-center gap-2">
                                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -594,7 +633,7 @@
                                                    onchange="previewStudentPhoto(this)">
                                         </label>
                                         <p class="mt-2 text-sm text-gray-500 text-center">
-                                            Format yang diterima: JPG, JPEG, PNG (Max. 2MB)
+                                            Format yang diterima: JPG, JPEG, PNG, HEIC (Max. 10MB)
                                         </p>
                                     </div>
                                 </div>
@@ -606,7 +645,7 @@
                                     Bukti Pembayaran
                                 </label>
                                 <div class="flex flex-col items-center">
-                                    <div class="w-full max-w-[300px] aspect-[4/3] bg-gray-100 rounded-lg overflow-hidden mb-4">
+                                    <div class="w-full max-w-3xl aspect-[5/3] bg-gray-100 rounded-xl overflow-hidden mb-4">
                                         <div id="bimbel-payment-proof-preview" class="w-full h-full flex items-center justify-center">
                                             <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -615,7 +654,7 @@
                                     </div>
                                     <div class="w-full">
                                         <label class="relative flex flex-col items-center gap-2 cursor-pointer">
-                                            <div class="w-full px-4 py-3 text-sm text-center text-white bg-green-500 rounded-lg hover:bg-green-600 transition-colors duration-200">
+                                            <div class="w-full px-4 py-3 text-sm text-center text-white bg-green-500 rounded-xl hover:bg-green-600 transition-colors duration-200">
                                                 <span class="flex items-center justify-center gap-2">
                                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -631,7 +670,7 @@
                                                    onchange="previewBimbelPaymentProof(this)">
                                         </label>
                                         <p class="mt-2 text-sm text-gray-500 text-center">
-                                            Format yang diterima: JPG, JPEG, PNG (Max. 2MB)
+                                            Format yang diterima: JPG, JPEG, PNG, HEIC (Max. 10MB)
                                         </p>
                                     </div>
                                 </div>
@@ -661,7 +700,7 @@
 
                             <!-- Informasi Operasional -->
                             <div class="mb-4">
-                                <div class="p-4 bg-yellow-50 rounded-lg">
+                                <div class="p-4 bg-yellow-50 rounded-xl">
                                     <p class="text-yellow-800">
                                         <strong>Informasi Layanan:</strong> ada Eksplorasi, Sensory, Motorik, Science Expriment, dll
                                     </p>
@@ -679,7 +718,7 @@
                                             Jenis Kelamin
                                         </label>
                                         <select name="gender" required
-                                                class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                                class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                                             <option value="">Pilih Jenis Kelamin</option>
                                             <option value="L">Laki-laki</option>
                                             <option value="P">Perempuan</option>
@@ -692,7 +731,7 @@
                                             Agama
                                         </label>
                                         <select name="religion" required
-                                                class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                                class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                                             <option value="">Pilih Agama</option>
                                             <option value="islam">Islam</option>
                                             <option value="kristen">Kristen</option>
@@ -711,7 +750,7 @@
                                             Tempat Lahir
                                         </label>
                                         <input type="text" name="birth_place" required
-                                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                                     </div>
 
                                     <!-- Tanggal Lahir -->
@@ -720,7 +759,7 @@
                                             Tanggal Lahir
                                         </label>
                                         <input type="date" name="birth_date" required
-                                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300" max="{{ date('Y-m-d', strtotime('-1 day')) }}">
                                     </div>
                                 </div>
 
@@ -731,16 +770,16 @@
                                             Tinggi Badan (cm)
                                         </label>
                                         <input type="number" name="height" required min="1"
-                                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                                     </div>
 
                                     <!-- Berat Badan -->
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700 mb-2">
-                                            Berat Badan (gram)
+                                            Berat Badan (kg)
                                         </label>
                                         <input type="number" name="weight" required min="1"
-                                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                                     </div>
                                 </div>
 
@@ -751,7 +790,7 @@
                                             Alamat
                                         </label>
                                         <textarea name="address" required rows="3"
-                                                  class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300"></textarea>
+                                                  class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300"></textarea>
                                     </div>
                                 </div>
 
@@ -762,7 +801,7 @@
                                             Anak ke-
                                         </label>
                                         <input type="number" name="child_order" required min="1"
-                                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                                     </div>
 
                                     <!-- Nomor Telepon Anak (opsional) -->
@@ -771,7 +810,7 @@
                                             Nomor Telepon Anak (opsional)
                                         </label>
                                         <input type="number" name="child_phone"
-                                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                                     </div>
                                 </div>
                             </div>
@@ -787,7 +826,7 @@
                                             Nama Ayah
                                         </label>
                                         <input type="text" name="father_name" required
-                                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                                     </div>
 
                                     <!-- Usia Ayah -->
@@ -796,7 +835,7 @@
                                             Usia Ayah
                                         </label>
                                         <input type="number" name="father_age" required min="1"
-                                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                                     </div>
                                 </div>
 
@@ -807,7 +846,7 @@
                                             Pendidikan Ayah
                                         </label>
                                         <input type="text" name="father_education" required
-                                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                                     </div>
 
                                     <!-- Pekerjaan Ayah -->
@@ -816,7 +855,7 @@
                                             Pekerjaan Ayah
                                         </label>
                                         <input type="text" name="father_occupation" required
-                                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                                     </div>
                                 </div>
 
@@ -829,7 +868,7 @@
                                             Nama Ibu
                                         </label>
                                         <input type="text" name="mother_name" required
-                                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                                     </div>
 
                                     <!-- Usia Ibu -->
@@ -838,7 +877,7 @@
                                             Usia Ibu
                                         </label>
                                         <input type="number" name="mother_age" required min="1"
-                                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                                     </div>
                                 </div>
 
@@ -849,7 +888,7 @@
                                             Pendidikan Ibu
                                         </label>
                                         <input type="text" name="mother_education" required
-                                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                                     </div>
 
                                     <!-- Pekerjaan Ibu -->
@@ -858,7 +897,7 @@
                                             Pekerjaan Ibu
                                         </label>
                                         <input type="text" name="mother_occupation" required
-                                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                                     </div>
                                 </div>
                             </div>
@@ -872,14 +911,14 @@
                                         <label class="block text-sm font-medium text-gray-700 mb-2">
                                             Foto Anak
                                         </label>
-                                        <div class="bg-gray-100 rounded-lg overflow-hidden mb-3 aspect-[3/4]">
+                                        <div class="bg-gray-100 rounded-xl overflow-hidden mb-3 aspect-[3/4]">
                                             <div id="stimulasi-photo-preview" class="w-full h-full flex items-center justify-center">
                                                 <svg class="w-20 h-20 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                                 </svg>
                                             </div>
                                         </div>
-                                        <label for="student_photo" class="w-full py-3 px-4 bg-green-500 hover:bg-green-600 text-white rounded-lg flex items-center justify-center cursor-pointer transition-colors">
+                                        <label for="student_photo" class="w-full py-3 px-4 bg-green-500 hover:bg-green-600 text-white rounded-xl flex items-center justify-center cursor-pointer transition-colors">
                                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                             </svg>
@@ -914,14 +953,14 @@
                                         <label class="block text-sm font-medium text-gray-700 mb-2">
                                             Bukti Pembayaran
                                         </label>
-                                        <div class="bg-gray-100 rounded-lg overflow-hidden mb-3 aspect-[3/4]">
+                                        <div class="bg-gray-100 rounded-xl overflow-hidden mb-3 aspect-[3/4]">
                                             <div id="stimulasi-payment-proof-preview" class="w-full h-full flex items-center justify-center">
                                                 <svg class="w-20 h-20 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                                 </svg>
                                             </div>
                                         </div>
-                                        <label for="payment_proof" class="w-full py-3 px-4 bg-green-500 hover:bg-green-600 text-white rounded-lg flex items-center justify-center cursor-pointer transition-colors">
+                                        <label for="payment_proof" class="w-full py-3 px-4 bg-green-500 hover:bg-green-600 text-white rounded-xl flex items-center justify-center cursor-pointer transition-colors">
                                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                             </svg>
@@ -961,7 +1000,7 @@
 
             <!-- Informasi Operasional -->
             <div class="mb-4">
-                <div class="p-4 bg-blue-50 rounded-lg">
+                <div class="p-4 bg-blue-50 rounded-xl">
                     <p class="text-blue-800">
                         <strong>Informasi Layanan:</strong> Daycare untuk penitipan anak
                     </p>
@@ -977,7 +1016,7 @@
                             Pilih Tipe Daycare
                         </label>
                         <select name="daycare_type" required
-                                class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                             <option value="">Pilih Tipe</option>
                             <option value="bulanan">Bulanan</option>
                             <option value="harian">Harian</option>
@@ -997,7 +1036,7 @@
                             Jenis Kelamin
                         </label>
                         <select name="gender" required
-                                class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                             <option value="">Pilih Jenis Kelamin</option>
                             <option value="L">Laki-laki</option>
                             <option value="P">Perempuan</option>
@@ -1010,7 +1049,7 @@
                             Agama
                         </label>
                         <select name="religion" required
-                                class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                             <option value="">Pilih Agama</option>
                             <option value="islam">Islam</option>
                             <option value="kristen">Kristen</option>
@@ -1029,7 +1068,7 @@
                             Tempat Lahir
                         </label>
                         <input type="text" name="birth_place" required
-                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                     </div>
 
                     <!-- Tanggal Lahir -->
@@ -1038,7 +1077,7 @@
                             Tanggal Lahir
                         </label>
                         <input type="date" name="birth_date" required
-                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300" max="{{ date('Y-m-d', strtotime('-1 day')) }}">
                     </div>
                 </div>
 
@@ -1049,16 +1088,16 @@
                             Tinggi Badan (cm)
                         </label>
                         <input type="number" name="height" required min="1"
-                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                     </div>
 
                     <!-- Berat Badan -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">
-                            Berat Badan (gram)
+                            Berat Badan (kg)
                         </label>
                         <input type="number" name="weight" required min="1"
-                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                     </div>
                 </div>
 
@@ -1069,7 +1108,7 @@
                             Alamat
                         </label>
                         <textarea name="address" required rows="3"
-                                  class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300"></textarea>
+                                  class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300"></textarea>
                     </div>
                 </div>
 
@@ -1080,7 +1119,7 @@
                             Anak ke-
                         </label>
                         <input type="number" name="child_order" required min="1"
-                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                     </div>
 
                     <!-- Nomor Telepon Anak (opsional) -->
@@ -1089,7 +1128,7 @@
                             Nomor Telepon Anak (opsional)
                         </label>
                         <input type="number" name="child_phone"
-                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                     </div>
                 </div>
             </div>
@@ -1105,7 +1144,7 @@
                             Nama Ayah
                         </label>
                         <input type="text" name="father_name" required
-                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                     </div>
 
                     <!-- Usia Ayah -->
@@ -1114,7 +1153,7 @@
                             Usia Ayah
                         </label>
                         <input type="number" name="father_age" required min="1"
-                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                     </div>
                 </div>
 
@@ -1125,7 +1164,7 @@
                             Pendidikan Ayah
                         </label>
                         <input type="text" name="father_education" required
-                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                     </div>
 
                     <!-- Pekerjaan Ayah -->
@@ -1134,7 +1173,7 @@
                             Pekerjaan Ayah
                         </label>
                         <input type="text" name="father_occupation" required
-                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                     </div>
                 </div>
 
@@ -1147,7 +1186,7 @@
                             Nama Ibu
                         </label>
                         <input type="text" name="mother_name" required
-                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                     </div>
 
                     <!-- Usia Ibu -->
@@ -1156,7 +1195,7 @@
                             Usia Ibu
                         </label>
                         <input type="number" name="mother_age" required min="1"
-                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                     </div>
                 </div>
 
@@ -1167,7 +1206,7 @@
                             Pendidikan Ibu
                         </label>
                         <input type="text" name="mother_education" required
-                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                     </div>
 
                     <!-- Pekerjaan Ibu -->
@@ -1176,7 +1215,7 @@
                             Pekerjaan Ibu
                         </label>
                         <input type="text" name="mother_occupation" required
-                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                               class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                     </div>
                 </div>
             </div>
@@ -1190,14 +1229,14 @@
                         <label class="block text-sm font-medium text-gray-700 mb-2">
                             Foto Anak
                         </label>
-                        <div class="bg-gray-100 rounded-lg overflow-hidden mb-3 aspect-[3/4]">
+                        <div class="bg-gray-100 rounded-xl overflow-hidden mb-3 aspect-[3/4]">
                             <div id="daycare-photo-preview" class="w-full h-full flex items-center justify-center">
                                 <svg class="w-20 h-20 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                 </svg>
                             </div>
                         </div>
-                        <label for="student_photo" class="w-full py-3 px-4 bg-green-500 hover:bg-green-600 text-white rounded-lg flex items-center justify-center cursor-pointer transition-colors">
+                        <label for="student_photo" class="w-full py-3 px-4 bg-green-500 hover:bg-green-600 text-white rounded-xl flex items-center justify-center cursor-pointer transition-colors">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                             </svg>
@@ -1232,14 +1271,14 @@
                         <label class="block text-sm font-medium text-gray-700 mb-2">
                             Bukti Pembayaran
                         </label>
-                        <div class="bg-gray-100 rounded-lg overflow-hidden mb-3 aspect-[3/4]">
+                        <div class="bg-gray-100 rounded-xl overflow-hidden mb-3 aspect-[3/4]">
                             <div id="daycare-payment-proof-preview" class="w-full h-full flex items-center justify-center">
                                 <svg class="w-20 h-20 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                 </svg>
                             </div>
                         </div>
-                        <label for="payment_proof" class="w-full py-3 px-4 bg-green-500 hover:bg-green-600 text-white rounded-lg flex items-center justify-center cursor-pointer transition-colors">
+                        <label for="payment_proof" class="w-full py-3 px-4 bg-green-500 hover:bg-green-600 text-white rounded-xl flex items-center justify-center cursor-pointer transition-colors">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                             </svg>
@@ -1282,12 +1321,14 @@
                                 let eventOptions = '<option value="">Pilih Event</option>';
 
                                 events.forEach(event => {
-                                    const eventDate = new Date(event.event_date).toLocaleDateString('id-ID', {
-                                        day: 'numeric',
-                                        month: 'long',
-                                        year: 'numeric'
-                                    });
-                                    eventOptions += `<option value="${event.id}">${event.name} - ${eventDate}</option>`;
+                                    const eventDate = new Date(event.event_date)
+                                        .toLocaleDateString('id-ID', {
+                                            day: 'numeric',
+                                            month: 'long',
+                                            year: 'numeric'
+                                        });
+                                    eventOptions +=
+                                        `<option value="${event.id}">${event.name} - ${eventDate}</option>`;
                                 });
 
                                 serviceFields.innerHTML = `
@@ -1296,7 +1337,7 @@
 
                                         <!-- Informasi Operasional -->
                                         <div class="mb-4">
-                                            <div class="p-4 bg-blue-50 rounded-lg">
+                                            <div class="p-4 bg-blue-50 rounded-xl">
                                                 <p class="text-blue-800">
                                                     <strong>Informasi Layanan:</strong> Pendaftaran event spesial
                                                 </p>
@@ -1309,7 +1350,7 @@
                                                 Pilih Event
                                             </label>
                                             <select name="event_id" required
-                                                    class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                                    class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                                                 ${eventOptions}
                                             </select>
                                         </div>
@@ -1323,7 +1364,7 @@
                                                         Nama Orang Tua
                                                     </label>
                                                     <input type="text" name="parent_name" required
-                                                           class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                                           class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                                                 </div>
 
                                                 <div>
@@ -1331,7 +1372,7 @@
                                                         Alamat
                                                     </label>
                                                     <textarea name="address" required rows="3"
-                                                              class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300"></textarea>
+                                                              class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300"></textarea>
                                                 </div>
 
                                                 <div>
@@ -1339,7 +1380,7 @@
                                                         Social Media
                                                     </label>
                                                     <input type="text" name="social_media" required
-                                                           class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300"
+                                                           class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300"
                                                            placeholder="Instagram/Facebook/TikTok">
                                                 </div>
                                             </div>
@@ -1351,7 +1392,7 @@
                                                 Dari mana Anda mengetahui event ini?
                                             </label>
                                             <select name="source_info" required
-                                                    class="w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
+                                                    class="w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-green-300 focus:border-transparent transition-all duration-300">
                                                 <option value="">Pilih Sumber Informasi</option>
                                                 <option value="instagram">Instagram</option>
                                                 <option value="facebook">Facebook</option>
@@ -1367,7 +1408,7 @@
                                                 Bukti Pembayaran
                                             </label>
                                             <div class="flex flex-col items-center">
-                                                <div class="w-full max-w-[300px] aspect-[4/3] bg-gray-100 rounded-lg overflow-hidden mb-4">
+                                                <div class="w-full max-w-3xl aspect-[5/3] bg-gray-100 rounded-xl overflow-hidden mb-4">
                                                     <div id="payment-proof-preview" class="w-full h-full flex items-center justify-center">
                                                         <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -1377,7 +1418,7 @@
                                                 </div>
                                                 <div class="w-full">
                                                     <label class="relative flex flex-col items-center gap-2 cursor-pointer">
-                                                        <div class="w-full px-4 py-3 text-sm text-center text-white bg-green-500 rounded-lg hover:bg-green-600 transition-colors duration-200">
+                                                        <div class="w-full px-4 py-3 text-sm text-center text-white bg-green-500 rounded-xl hover:bg-green-600 transition-colors duration-200">
                                                             <span class="flex items-center justify-center gap-2">
                                                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -1393,7 +1434,7 @@
                                                                onchange="window.previewPaymentProof(this)">
                                                     </label>
                                                     <p class="mt-2 text-sm text-gray-500 text-center">
-                                                        Format yang diterima: JPG, JPEG, PNG (Max. 2MB)
+                                                        Format yang diterima: JPG, JPEG, PNG, HEIC (Max. 10MB)
                                                     </p>
                                                 </div>
                                             </div>
@@ -1403,7 +1444,7 @@
                             } else {
                                 serviceFields.innerHTML = `
                                     <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                                        <div class="p-4 bg-red-50 rounded-lg">
+                                        <div class="p-4 bg-red-50 rounded-xl">
                                             <p class="text-red-800">
                                                 <strong>Error:</strong> Tidak dapat memuat data event. Silakan coba lagi nanti.
                                             </p>
@@ -1416,7 +1457,7 @@
                             console.error('Error fetching events:', error);
                             serviceFields.innerHTML = `
                                 <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                                    <div class="p-4 bg-red-50 rounded-lg">
+                                    <div class="p-4 bg-red-50 rounded-xl">
                                         <p class="text-red-800">
                                             <strong>Error:</strong> Tidak dapat memuat data event. Silakan coba lagi nanti.
                                         </p>
@@ -1426,12 +1467,13 @@
                         });
                 } else {
                     // Kode untuk layanan lain
-                    serviceFields.innerHTML = `<div class="p-4 bg-yellow-50 rounded-lg">Silakan isi data diri dan pilih layanan yang tersedia.</div>`;
+                    serviceFields.innerHTML =
+                        `<div class="p-4 bg-yellow-50 rounded-xl">Silakan isi data diri dan pilih layanan yang tersedia.</div>`;
                 }
             };
 
             // Definisikan fungsi-fungsi yang diperlukan di window scope
-            window.updateHariBermain = function() {
+            window.updateHariBermain = function () {
                 const dateInput = document.getElementById('bermain_date');
                 const dayInput = document.getElementById('bermain_day');
 
@@ -1445,7 +1487,7 @@
                 }
             };
 
-            window.updateStartDateTime = function() {
+            window.updateStartDateTime = function () {
                 const dateInput = document.getElementById('bermain_date');
                 const timeInput = document.getElementById('bermain_time');
                 const startDatetimeInput = document.getElementById('start_datetime');
@@ -1456,11 +1498,11 @@
                 }
             };
 
-            window.previewPaymentProof = function(event) {
+            window.previewPaymentProof = function (event) {
                 const file = event.target.files[0];
                 if (file) {
                     const reader = new FileReader();
-                    reader.onload = function(e) {
+                    reader.onload = function (e) {
                         const preview = document.getElementById('payment-proof-preview');
                         preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
                     }
@@ -1468,11 +1510,11 @@
                 }
             };
 
-            window.previewBimbelPaymentProof = function(event) {
+            window.previewBimbelPaymentProof = function (event) {
                 const file = event.target.files[0];
                 if (file) {
                     const reader = new FileReader();
-                    reader.onload = function(e) {
+                    reader.onload = function (e) {
                         const preview = document.getElementById('bimbel-payment-proof-preview');
                         preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
                     }
@@ -1480,14 +1522,14 @@
                 }
             };
 
-            window.closeSuccessModal = function() {
+            window.closeSuccessModal = function () {
                 const modal = document.getElementById('successModal');
                 if (modal) {
                     modal.classList.add('hidden');
                 }
             };
 
-            window.showSuccessModal = function() {
+            window.showSuccessModal = function () {
                 const modal = document.getElementById('successModal');
                 if (modal) {
                     modal.classList.remove('hidden');
@@ -1495,11 +1537,11 @@
             };
 
             // Tambahkan fungsi untuk preview foto peserta
-            window.previewStudentPhoto = function(event) {
+            window.previewStudentPhoto = function (event) {
                 const file = event.target.files[0];
                 if (file) {
                     const reader = new FileReader();
-                    reader.onload = function(e) {
+                    reader.onload = function (e) {
                         const preview = document.getElementById('student-photo-preview');
                         preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
                     }
@@ -1508,7 +1550,7 @@
             };
 
             // Tambahkan fungsi untuk toggle nama sekolah
-            window.toggleSchoolName = function(value) {
+            window.toggleSchoolName = function (value) {
                 const schoolNameContainer = document.getElementById('school_name_container');
                 const schoolNameInput = document.querySelector('input[name="school_name"]');
 
@@ -1523,7 +1565,7 @@
             };
 
             // Fungsi untuk mengupdate hari berdasarkan tanggal
-            window.updateBimbelDay = function(dateString) {
+            window.updateBimbelDay = function (dateString) {
                 const date = new Date(dateString);
                 const dayNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
                 const dayIndex = date.getDay();
@@ -1544,7 +1586,7 @@
             // Ubah form menjadi AJAX
             const form = document.querySelector('form');
             if (form) {
-                form.addEventListener('submit', function(e) {
+                form.addEventListener('submit', function (e) {
                     e.preventDefault();
 
                     // Pastikan start_datetime terisi jika layanan bermain
@@ -1569,45 +1611,45 @@
                     `;
 
                     fetch('/daftar-public', {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            'X-Requested-With': 'XMLHttpRequest'
-                        }
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        // Kembalikan tombol submit ke normal
-                        submitBtn.disabled = false;
-                        submitBtn.innerHTML = originalText;
-
-                        if (data.success) {
-                            // Tampilkan modal sukses
-                            window.showSuccessModal();
-                            // Reset form
-                            form.reset();
-                            // Reset field dinamis
-                            const serviceFields = document.getElementById('serviceFields');
-                            if (serviceFields) {
-                                serviceFields.innerHTML = '';
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest'
                             }
-                            // Sembunyikan field dinamis
-                            const dynamicFields = document.getElementById('dynamic-fields');
-                            if (dynamicFields) {
-                                dynamicFields.classList.add('hidden');
-                            }
-                        } else {
-                            alert('Error: ' + data.message);
-                        }
-                    })
-                    .catch(error => {
-                        // Kembalikan tombol submit ke normal
-                        submitBtn.disabled = false;
-                        submitBtn.innerHTML = originalText;
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            // Kembalikan tombol submit ke normal
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = originalText;
 
-                        console.error('Error:', error);
-                        alert('Terjadi kesalahan saat mengirim data');
-                    });
+                            if (data.success) {
+                                // Tampilkan modal sukses
+                                window.showSuccessModal();
+                                // Reset form
+                                form.reset();
+                                // Reset field dinamis
+                                const serviceFields = document.getElementById('serviceFields');
+                                if (serviceFields) {
+                                    serviceFields.innerHTML = '';
+                                }
+                                // Sembunyikan field dinamis
+                                const dynamicFields = document.getElementById('dynamic-fields');
+                                if (dynamicFields) {
+                                    dynamicFields.classList.add('hidden');
+                                }
+                            } else {
+                                alert('Error: ' + data.message);
+                            }
+                        })
+                        .catch(error => {
+                            // Kembalikan tombol submit ke normal
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = originalText;
+
+                            console.error('Error:', error);
+                            alert('Terjadi kesalahan saat mengirim data');
+                        });
                 });
             }
 
@@ -1642,11 +1684,11 @@
                 });
 
             // Tambahkan fungsi previewPaymentProof yang benar
-            window.previewPaymentProof = function(input) {
+            window.previewPaymentProof = function (input) {
                 if (input && input.files && input.files[0]) {
                     var reader = new FileReader();
 
-                    reader.onload = function(e) {
+                    reader.onload = function (e) {
                         const previewContainer = document.getElementById('payment-proof-preview');
                         if (previewContainer) {
                             // Hapus konten sebelumnya
@@ -1671,21 +1713,21 @@
             };
 
             // Pastikan elemen input file untuk bukti pembayaran memiliki event listener yang benar
-            document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('DOMContentLoaded', function () {
                 const paymentProofInput = document.getElementById('payment_proof');
                 if (paymentProofInput) {
-                    paymentProofInput.addEventListener('change', function() {
+                    paymentProofInput.addEventListener('change', function () {
                         previewPaymentProof(this);
                     });
                 }
             });
 
             // Fungsi untuk preview foto peserta bimbel
-            window.previewStudentPhoto = function(input) {
+            window.previewStudentPhoto = function (input) {
                 if (input && input.files && input.files[0]) {
                     var reader = new FileReader();
 
-                    reader.onload = function(e) {
+                    reader.onload = function (e) {
                         const previewContainer = document.getElementById('student-photo-preview');
                         if (previewContainer) {
                             // Hapus konten sebelumnya
@@ -1707,12 +1749,13 @@
             };
 
             // Fungsi untuk preview bukti pembayaran bimbel
-            window.previewBimbelPaymentProof = function(input) {
+            window.previewBimbelPaymentProof = function (input) {
                 if (input && input.files && input.files[0]) {
                     var reader = new FileReader();
 
-                    reader.onload = function(e) {
-                        const previewContainer = document.getElementById('bimbel-payment-proof-preview');
+                    reader.onload = function (e) {
+                        const previewContainer = document.getElementById(
+                            'bimbel-payment-proof-preview');
                         if (previewContainer) {
                             // Hapus konten sebelumnya
                             previewContainer.innerHTML = '';
@@ -1733,11 +1776,11 @@
             };
 
             // Pastikan elemen input file memiliki event listener yang benar
-            document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('DOMContentLoaded', function () {
                 // Inisialisasi event listener untuk input file foto peserta
                 const studentPhotoInput = document.querySelector('input[name="student_photo"]');
                 if (studentPhotoInput) {
-                    studentPhotoInput.addEventListener('change', function() {
+                    studentPhotoInput.addEventListener('change', function () {
                         previewStudentPhoto(this);
                     });
                 }
@@ -1745,7 +1788,7 @@
                 // Inisialisasi event listener untuk input file bukti pembayaran bimbel
                 const bimbelPaymentProofInput = document.querySelector('input[name="payment_proof"]');
                 if (bimbelPaymentProofInput) {
-                    bimbelPaymentProofInput.addEventListener('change', function() {
+                    bimbelPaymentProofInput.addEventListener('change', function () {
                         previewBimbelPaymentProof(this);
                     });
                 }
@@ -1780,12 +1823,12 @@
             }
 
             // Fungsi untuk preview foto peserta stimulasi
-            window.previewStimulasiPhoto = function(input) {
+            window.previewStimulasiPhoto = function (input) {
                 console.log("previewStimulasiPhoto called", input);
                 if (input && input.files && input.files[0]) {
                     var reader = new FileReader();
 
-                    reader.onload = function(e) {
+                    reader.onload = function (e) {
                         const previewContainer = document.getElementById('stimulasi-photo-preview');
                         if (previewContainer) {
                             // Hapus konten sebelumnya
@@ -1817,13 +1860,14 @@
             };
 
             // Fungsi untuk preview bukti pembayaran stimulasi
-            window.previewStimulasiPaymentProof = function(input) {
+            window.previewStimulasiPaymentProof = function (input) {
                 console.log("previewStimulasiPaymentProof called", input);
                 if (input && input.files && input.files[0]) {
                     var reader = new FileReader();
 
-                    reader.onload = function(e) {
-                        const previewContainer = document.getElementById('stimulasi-payment-proof-preview');
+                    reader.onload = function (e) {
+                        const previewContainer = document.getElementById(
+                            'stimulasi-payment-proof-preview');
                         if (previewContainer) {
                             // Hapus konten sebelumnya
                             previewContainer.innerHTML = '';
@@ -1854,14 +1898,14 @@
             };
 
             // Pastikan elemen input file memiliki event listener yang benar
-            document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('DOMContentLoaded', function () {
                 console.log("DOM fully loaded");
 
                 // Inisialisasi event listener untuk input file foto peserta stimulasi
                 const stimulasiPhotoInput = document.querySelector('input[name="student_photo"]');
                 if (stimulasiPhotoInput) {
                     console.log("Found stimulasi photo input");
-                    stimulasiPhotoInput.addEventListener('change', function() {
+                    stimulasiPhotoInput.addEventListener('change', function () {
                         console.log("Stimulasi photo changed");
                         previewStimulasiPhoto(this);
                     });
@@ -1870,10 +1914,11 @@
                 }
 
                 // Inisialisasi event listener untuk input file bukti pembayaran stimulasi
-                const stimulasiPaymentProofInput = document.querySelector('input[name="payment_proof"]');
+                const stimulasiPaymentProofInput = document.querySelector(
+                    'input[name="payment_proof"]');
                 if (stimulasiPaymentProofInput) {
                     console.log("Found stimulasi payment proof input");
-                    stimulasiPaymentProofInput.addEventListener('change', function() {
+                    stimulasiPaymentProofInput.addEventListener('change', function () {
                         console.log("Stimulasi payment proof changed");
                         previewStimulasiPaymentProof(this);
                     });
@@ -1887,7 +1932,7 @@
                 if (input && input.files && input.files[0]) {
                     var reader = new FileReader();
 
-                    reader.onload = function(e) {
+                    reader.onload = function (e) {
                         const previewContainer = document.getElementById(previewId);
                         if (previewContainer) {
                             // Hapus konten sebelumnya
@@ -1913,7 +1958,7 @@
                 if (input && input.files && input.files[0]) {
                     var reader = new FileReader();
 
-                    reader.onload = function(e) {
+                    reader.onload = function (e) {
                         const previewContainer = document.getElementById(previewId);
                         if (previewContainer) {
                             // Hapus konten sebelumnya
@@ -1937,14 +1982,14 @@
             // Event listener untuk bimbel
             const bimbelPhotoInput = document.querySelector('input[name="student_photo"]');
             if (bimbelPhotoInput) {
-                bimbelPhotoInput.addEventListener('change', function() {
+                bimbelPhotoInput.addEventListener('change', function () {
                     previewPhoto(this, 'student-photo-preview');
                 });
             }
 
             const bimbelPaymentInput = document.querySelector('input[name="payment_proof"]');
             if (bimbelPaymentInput) {
-                bimbelPaymentInput.addEventListener('change', function() {
+                bimbelPaymentInput.addEventListener('change', function () {
                     previewPayment(this, 'bimbel-payment-proof-preview');
                 });
             }
@@ -1952,18 +1997,19 @@
             // Event listener untuk stimulasi (menggunakan fungsi yang sama)
             const stimulasiPhotoInput = document.querySelector('input[name="student_photo"]');
             if (stimulasiPhotoInput) {
-                stimulasiPhotoInput.addEventListener('change', function() {
+                stimulasiPhotoInput.addEventListener('change', function () {
                     previewPhoto(this, 'stimulasi-photo-preview');
                 });
             }
 
             const stimulasiPaymentInput = document.querySelector('input[name="payment_proof"]');
             if (stimulasiPaymentInput) {
-                stimulasiPaymentInput.addEventListener('change', function() {
+                stimulasiPaymentInput.addEventListener('change', function () {
                     previewPayment(this, 'stimulasi-payment-proof-preview');
                 });
             }
         });
+
     </script>
 
     <style>
@@ -1976,8 +2022,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .aspect-[3/4] {
@@ -2000,7 +2053,7 @@
         }
 
         .preview-container {
-            @apply relative w-full max-w-[300px] rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl;
+            @apply relative w-full max-w-3xl rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover: shadow-xl;
         }
 
         .preview-container.student-photo {
@@ -2029,11 +2082,11 @@
         }
 
         .upload-button {
-            @apply relative overflow-hidden inline-flex items-center justify-center px-6 py-3 rounded-xl bg-success-300 text-white font-medium hover:bg-success-400 transition-all duration-300 focus:ring-4 focus:ring-success-300/50;
+            @apply relative overflow-hidden inline-flex items-center justify-center px-6 py-3 rounded-xl bg-success-300 text-white font-medium hover: bg-success-400 transition-all duration-300 focus:ring-4 focus:ring-success-300/50;
         }
 
         .input-field {
-            @apply w-full bg-gray-50 border-2 border-gray-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-success-300 focus:border-transparent transition-all duration-300;
+            @apply w-full bg-gray-50 border-2 border-gray-200 rounded-xl px-4 py-2.5 focus: ring-2 focus:ring-success-300 focus:border-transparent transition-all duration-300;
         }
 
         .animate-modal-pop {
@@ -2041,10 +2094,23 @@
         }
 
         @keyframes modalPop {
-            0% { opacity: 0; transform: scale(0.9); }
-            70% { opacity: 1; transform: scale(1.05); }
-            100% { opacity: 1; transform: scale(1); }
+            0% {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            70% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
+
     </style>
 </body>
+
 </html>

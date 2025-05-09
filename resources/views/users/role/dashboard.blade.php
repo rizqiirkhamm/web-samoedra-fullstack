@@ -7,7 +7,7 @@
 <div class="2xl:flex 2xl:space-x-[48px]">
     <section class="mb-6 2xl:mb-0 2xl:flex-1">
 
-        <div class="w-full rounded-lg bg-white px-[24px] py-[20px] dark:bg-darkblack-600">
+        <div class="w-full rounded-lg bg-white px-[24px] py-[20px] dark:bg-darkblack-600 shadow-md border border-gray-100 dark:border-darkblack-400 hover:shadow-lg transition-all duration-200">
             @if (!empty($PermissionAdd))
                 <a href="{{ route('role.add') }}"> <button
                     class="h-12 w-full rounded-md border border-success-300 text-base font-medium text-success-300 transition duration-300 ease-in-out hover:bg-success-300 hover:text-white">

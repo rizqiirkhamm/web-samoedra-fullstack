@@ -404,6 +404,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // If someone tries to set dark mode, immediately switch back to light
             if (e.detail.isDark) {
                 document.documentElement.classList.remove('dark');
+                localStorage.setItem('darkMode', 'false');
             }
         });
     }

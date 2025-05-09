@@ -1,47 +1,40 @@
-<aside
-    class="sidebar-wrapper fixed top-0 z-30 block h-full w-[308px] bg-white dark:bg-darkblack-600 sm:hidden xl:block">
-    <div
-        class="sidebar-header relative z-30 flex h-[108px] w-full items-center border-b border-r border-b-[#F7F7F7] border-r-[#F7F7F7] pl-[50px] dark:border-darkblack-400">
+<aside class="sidebar-wrapper fixed top-0 z-40 h-full w-[308px] bg-white shadow-xl dark:bg-darkblack-600 transition-transform duration-300 ease-in-out xl:block">
+    <div class="sidebar-header relative z-30 flex h-[108px] w-full items-center border-b border-r border-b-[#F7F7F7] border-r-[#F7F7F7] pl-[50px] dark:border-darkblack-400">
         <a href="/">
-            <img src="{{ asset('images/assets/logo-lengkap.png') }}"
-                 class="h-10 w-auto object-contain"
-                 alt="Samoedra Logo" />
+            <img src="{{ asset('images/assets/logo-lengkap.png') }}" class="h-8 w-auto object-contain" alt="Samoedra Logo" />
         </a>
-        <button type="button" class="drawer-btn absolute right-0 top-auto" title="Ctrl+b">
+        <button type="button" class="drawer-btn sidebar-toggle-btn absolute right-0 top-auto">
             <span>
                 <svg width="16" height="40" viewBox="0 0 16 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M0 10C0 4.47715 4.47715 0 10 0H16V40H10C4.47715 40 0 35.5228 0 30V10Z" fill="#22C55E" />
-                    <path d="M10 15L6 20.0049L10 25.0098" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"
-                        stroke-linejoin="round" />
+                    <path d="M10 15L6 20.0049L10 25.0098" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
             </span>
         </button>
     </div>
-    <div
-        class="sidebar-body overflow-style-none relative z-30 h-[calc(100vh-108px)] w-full overflow-y-scroll pb-[200px] pl-[48px] pt-[14px]">
+    <div class="sidebar-body overflow-style-none relative z-30 h-[calc(100vh-108px)] w-full overflow-y-scroll pb-[50px] pl-[48px] pt-[14px]">
         <div class="nav-wrapper mb-[36px] pr-[50px]">
             @php
-                $PermissionUser = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'User');
-                $PermissionRole = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Role');
-                $PermissionBermain = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Bermain');
-                $PermissionBimbel = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Bimbel');
-                $PermissionLayanan = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Layanan');
-                $PermissionJournal = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Journal');
-                $PermissionEvent = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Event');
-                $PermissionDaycare = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Daycare');
-                $PermissionDaycareEdit = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Edit Daycare');
-                $PermissionStimulasi = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Stimulasi');
-                $PermissionStimulasiEdit = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Edit Stimulasi');
-                $PermissionArticle = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Article');
-                $PermissionGallery = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Gallery');
-                $PermissionTentang = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Edit Content');
-                $PermissionBermainEdit = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Edit Bermain');
-                $PermissionBimbelEdit = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Edit Bimbel');
-                $PermissionEventEdit = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Edit Event');
-                $PermissionFaq = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'FAQ');
-                $PermissionTestimoni = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Testimoni');
-                $PermissionStatistik = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Statistik');
-                $PermissionHomeContent = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Edit Home Content');
+            $PermissionUser = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'User');
+            $PermissionRole = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Role');
+            $PermissionBermain = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Bermain');
+            $PermissionBimbel = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Bimbel');
+            $PermissionJournal = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Journal');
+            $PermissionEvent = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Event');
+            $PermissionDaycare = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Daycare');
+            $PermissionDaycareEdit = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Edit Daycare');
+            $PermissionStimulasi = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Stimulasi');
+            $PermissionStimulasiEdit = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Edit Stimulasi');
+            $PermissionArticle = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Article');
+            $PermissionGallery = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Gallery');
+            $PermissionTentang = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Edit Content');
+            $PermissionBermainEdit = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Edit Bermain');
+            $PermissionBimbelEdit = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Edit Bimbel');
+            $PermissionEventEdit = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Edit Event');
+            $PermissionFaq = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'FAQ');
+            $PermissionTestimoni = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Testimoni');
+            $PermissionStatistik = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Statistik');
+            $PermissionHomeContent = App\Models\PermissionRoleModel::getPermission(Auth::user()->role_id, 'Edit Home Content');
             @endphp
 
             <!-- Dashboard -->
@@ -51,13 +44,12 @@
                 </h4>
                 <ul class="mt-2.5">
                     <li class="item py-[11px] text-bgray-900 dark:text-white">
-                        <a href="{{ url('/dashboard') }}"
-                           class="flex items-center justify-between {{ Request::is('dashboard*') ? 'active' : '' }}">
+                        <a href="{{ url('/dashboard') }}" class="flex items-center justify-between {{ Request::is('dashboard*') ? 'active' : '' }}">
                             <div class="flex items-center space-x-2.5">
                                 <span class="item-ico">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M3.33333 8.33333V16.6667H7.5V12.5C7.5 11.5795 8.24619 10.8333 9.16667 10.8333H10.8333C11.7538 10.8333 12.5 11.5795 12.5 12.5V16.6667H16.6667V8.33333L10 3.33333L3.33333 8.33333Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M1.66667 10L10 3.33333L18.3333 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M3.33333 8.33333V16.6667H7.5V12.5C7.5 11.5795 8.24619 10.8333 9.16667 10.8333H10.8333C11.7538 10.8333 12.5 11.5795 12.5 12.5V16.6667H16.6667V8.33333L10 3.33333L3.33333 8.33333Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M1.66667 10L10 3.33333L18.3333 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </span>
                                 <span class="item-text text-lg font-medium leading-none">Dashboard</span>
@@ -68,7 +60,7 @@
             </div>
 
             <!-- Layanan Anak -->
-            @if(!empty($PermissionBermain) || !empty($PermissionBimbel) || !empty($PermissionDaycare) || !empty($PermissionStimulasi))
+            @if(!empty($PermissionBermain) || !empty($PermissionBimbel) || !empty($PermissionDaycare) || !empty($PermissionStimulasi) || !empty($PermissionEvent))
             <div class="item-wrapper mb-5">
                 <h4 class="border-b border-bgray-200 text-sm font-medium leading-7 text-bgray-700 dark:border-darkblack-400 dark:text-bgray-50">
                     Layanan Anak
@@ -76,15 +68,14 @@
                 <ul class="mt-2.5">
                     @if(!empty($PermissionBermain))
                     <li class="item py-[11px] text-bgray-900 dark:text-white">
-                        <a href="{{ route('bermain.index') }}"
-                           class="flex items-center justify-between {{ Request::is('bermain*') ? 'active' : '' }}">
+                        <a href="{{ route('bermain.index') }}" class="flex items-center justify-between {{ Request::is('bermain*') ? 'active' : '' }}">
                             <div class="flex items-center space-x-2.5">
                                 <span class="item-ico">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M10 3.33333C7.5 3.33333 5 4.16667 5 6.66667C5 7.5 5.83333 8.33333 5.83333 8.33333C5.83333 8.33333 5 9.16667 5 10C5 10.8333 5.83333 11.6667 5.83333 11.6667C5.83333 11.6667 5 12.5 5 13.3333C5 15.8333 7.5 16.6667 10 16.6667C12.5 16.6667 15 15.8333 15 13.3333C15 12.5 14.1667 11.6667 14.1667 11.6667C14.1667 11.6667 15 10.8333 15 10C15 9.16667 14.1667 8.33333 14.1667 8.33333C14.1667 8.33333 15 7.5 15 6.66667C15 4.16667 12.5 3.33333 10 3.33333Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M7.5 6.66667H12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M7.5 10H12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M7.5 13.3333H12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M10 3.33333C7.5 3.33333 5 4.16667 5 6.66667C5 7.5 5.83333 8.33333 5.83333 8.33333C5.83333 8.33333 5 9.16667 5 10C5 10.8333 5.83333 11.6667 5.83333 11.6667C5.83333 11.6667 5 12.5 5 13.3333C5 15.8333 7.5 16.6667 10 16.6667C12.5 16.6667 15 15.8333 15 13.3333C15 12.5 14.1667 11.6667 14.1667 11.6667C14.1667 11.6667 15 10.8333 15 10C15 9.16667 14.1667 8.33333 14.1667 8.33333C14.1667 8.33333 15 7.5 15 6.66667C15 4.16667 12.5 3.33333 10 3.33333Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M7.5 6.66667H12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M7.5 10H12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M7.5 13.3333H12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </span>
                                 <span class="item-text text-lg font-medium leading-none">Bermain</span>
@@ -95,15 +86,14 @@
 
                     @if(!empty($PermissionBimbel))
                     <li class="item py-[11px] text-bgray-900 dark:text-white">
-                        <a href="{{ route('bimbel.index') }}"
-                           class="flex items-center justify-between {{ Request::is('bimbel*') ? 'active' : '' }}">
+                        <a href="{{ route('bimbel.index') }}" class="flex items-center justify-between {{ Request::is('bimbel*') ? 'active' : '' }}">
                             <div class="flex items-center space-x-2.5">
                                 <span class="item-ico">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M6.66667 15.8333C6.66667 14.9128 7.01786 14.0295 7.64298 13.4044C8.2681 12.7793 9.15145 12.4281 10.0719 12.4281H16.6667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M14.9997 14.1666L16.6663 15.8333L14.9997 17.4999" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M3.33301 7.49992C3.33301 6.57944 3.68421 5.69609 4.30933 5.07097C4.93445 4.44585 5.8178 4.09465 6.73828 4.09465H13.333" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M11.6663 5.83325L13.333 4.16659L11.6663 2.49992" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M6.66667 15.8333C6.66667 14.9128 7.01786 14.0295 7.64298 13.4044C8.2681 12.7793 9.15145 12.4281 10.0719 12.4281H16.6667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M14.9997 14.1666L16.6663 15.8333L14.9997 17.4999" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M3.33301 7.49992C3.33301 6.57944 3.68421 5.69609 4.30933 5.07097C4.93445 4.44585 5.8178 4.09465 6.73828 4.09465H13.333" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M11.6663 5.83325L13.333 4.16659L11.6663 2.49992" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </span>
                                 <span class="item-text text-lg font-medium leading-none">Bimbel</span>
@@ -114,17 +104,16 @@
 
                     @if(!empty($PermissionDaycare))
                     <li class="item py-[11px] text-bgray-900 dark:text-white">
-                        <a href="{{ route('daycare.index') }}"
-                            class="flex items-center justify-between {{ Request::is('daycare*') && !Request::is('daycare/edit*') ? 'active' : '' }}">
+                        <a href="{{ route('daycare.index') }}" class="flex items-center justify-between {{ Request::is('daycare*') && !Request::is('daycare/edit*') ? 'active' : '' }}">
                             <div class="flex items-center space-x-2.5">
                                 <span class="item-ico">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M10 10.8333C11.3807 10.8333 12.5 9.71396 12.5 8.33325C12.5 6.95254 11.3807 5.83325 10 5.83325C8.61929 5.83325 7.5 6.95254 7.5 8.33325C7.5 9.71396 8.61929 10.8333 10 10.8333Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M14.1663 16.6667C14.1663 13.9053 12.3444 11.6667 9.99967 11.6667C7.65496 11.6667 5.83301 13.9053 5.83301 16.6667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M15.8333 3.3335H4.16667C3.24619 3.3335 2.5 4.07969 2.5 5.00016V15.0002C2.5 15.9206 3.24619 16.6668 4.16667 16.6668H15.8333C16.7538 16.6668 17.5 15.9206 17.5 15.0002V5.00016C17.5 4.07969 16.7538 3.3335 15.8333 3.3335Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M10 10.8333C11.3807 10.8333 12.5 9.71396 12.5 8.33325C12.5 6.95254 11.3807 5.83325 10 5.83325C8.61929 5.83325 7.5 6.95254 7.5 8.33325C7.5 9.71396 8.61929 10.8333 10 10.8333Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M14.1663 16.6667C14.1663 13.9053 12.3444 11.6667 9.99967 11.6667C7.65496 11.6667 5.83301 13.9053 5.83301 16.6667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M15.8333 3.3335H4.16667C3.24619 3.3335 2.5 4.07969 2.5 5.00016V15.0002C2.5 15.9206 3.24619 16.6668 4.16667 16.6668H15.8333C16.7538 16.6668 17.5 15.9206 17.5 15.0002V5.00016C17.5 4.07969 16.7538 3.3335 15.8333 3.3335Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </span>
-                            <span class="item-text text-lg font-medium leading-none">Daycare</span>
+                                <span class="item-text text-lg font-medium leading-none">Daycare</span>
                             </div>
                         </a>
                     </li>
@@ -132,16 +121,55 @@
 
                     @if(!empty($PermissionStimulasi))
                     <li class="item py-[11px] text-bgray-900 dark:text-white">
-                        <a href="{{ route('stimulasi.index') }}"
-                            class="flex items-center justify-between {{ Request::is('stimulasi*') && !Request::is('stimulasi/edit*') ? 'active' : '' }}">
+                        <a href="{{ route('stimulasi.index') }}" class="flex items-center justify-between {{ Request::is('stimulasi*') && !Request::is('stimulasi/edit*') ? 'active' : '' }}">
                             <div class="flex items-center space-x-2.5">
                                 <span class="item-ico">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M8.33301 13.3332L11.6663 9.99984L8.33301 6.6665" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M3.33333 16.6668H16.6667C17.1087 16.6668 17.5326 16.4912 17.8452 16.1786C18.1577 15.8661 18.3333 15.4421 18.3333 15.0002V5.00016C18.3333 4.55814 18.1577 4.13421 17.8452 3.82165C17.5326 3.50909 17.1087 3.3335 16.6667 3.3335H3.33333C2.89131 3.3335 2.46738 3.50909 2.15482 3.82165C1.84226 4.13421 1.66667 4.55814 1.66667 5.00016V15.0002C1.66667 15.4421 1.84226 15.8661 2.15482 16.1786C2.46738 16.4912 2.89131 16.6668 3.33333 16.6668Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M8.33301 13.3332L11.6663 9.99984L8.33301 6.6665" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M3.33333 16.6668H16.6667C17.1087 16.6668 17.5326 16.4912 17.8452 16.1786C18.1577 15.8661 18.3333 15.4421 18.3333 15.0002V5.00016C18.3333 4.55814 18.1577 4.13421 17.8452 3.82165C17.5326 3.50909 17.1087 3.3335 16.6667 3.3335H3.33333C2.89131 3.3335 2.46738 3.50909 2.15482 3.82165C1.84226 4.13421 1.66667 4.55814 1.66667 5.00016V15.0002C1.66667 15.4421 1.84226 15.8661 2.15482 16.1786C2.46738 16.4912 2.89131 16.6668 3.33333 16.6668Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </span>
-                            <span class="item-text text-lg font-medium leading-none">Stimulasi</span>
+                                <span class="item-text text-lg font-medium leading-none">Stimulasi</span>
+                            </div>
+                        </a>
+                    </li>
+                    @endif
+
+                    @if(!empty($PermissionEvent))
+                    <li class="item py-[11px] text-bgray-900 dark:text-white">
+                        <a href="{{ route('event.index') }}" class="flex items-center justify-between {{ Request::is('event') ? 'active' : '' }}">
+                            <div class="flex items-center space-x-2.5">
+                                <span class="item-ico">
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M13.3333 2.5V5.83333" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M6.66699 2.5V5.83333" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M2.5 9.16667H17.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M16.6667 7.5V15.8333C16.6667 16.75 15.9167 17.5 15 17.5H5C4.08333 17.5 3.33333 16.75 3.33333 15.8333V7.5C3.33333 6.58333 4.08333 5.83333 5 5.83333H15C15.9167 5.83333 16.6667 6.58333 16.6667 7.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M9.99609 12.0835H10.0036" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M7.07031 12.0835H7.07782" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M7.07031 14.1665H7.07782" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                                <span class="item-text text-lg font-medium leading-none">Event</span>
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="item py-[11px] text-bgray-900 dark:text-white">
+                        <a href="{{ route('event.master') }}" class="flex items-center justify-between {{ Request::is('event/master*') ? 'active' : '' }}">
+                            <div class="flex items-center space-x-2.5">
+                                <span class="item-ico">
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10 12.5C11.3807 12.5 12.5 11.3807 12.5 10C12.5 8.61929 11.3807 7.5 10 7.5C8.61929 7.5 7.5 8.61929 7.5 10C7.5 11.3807 8.61929 12.5 10 12.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M1.66675 10.0002H4.16675" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M15.8333 10.0002H18.3333" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M3.75 15.4167L5.58333 13.5833" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M14.4167 6.41667L16.25 4.58334" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M3.75 4.58334L5.58333 6.41667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M14.4167 13.5833L16.25 15.4167" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                                <span class="item-text text-lg font-medium leading-none">Master Event</span>
                             </div>
                         </a>
                     </li>
@@ -159,15 +187,14 @@
                 <ul class="mt-2.5">
                     @if(!empty($PermissionGallery))
                     <li class="item py-[11px] text-bgray-900 dark:text-white">
-                        <a href="{{ route('gallery.index') }}"
-                           class="flex items-center justify-between {{ Request::is('gallery*') ? 'active' : '' }}">
+                        <a href="{{ route('gallery.index') }}" class="flex items-center justify-between {{ Request::is('gallery*') ? 'active' : '' }}">
                             <div class="flex items-center space-x-2.5">
                                 <span class="item-ico">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M16.6667 3.3335H3.33333C2.41286 3.3335 1.66667 4.07969 1.66667 5.00016V15.0002C1.66667 15.9206 2.41286 16.6668 3.33333 16.6668H16.6667C17.5871 16.6668 18.3333 15.9206 18.3333 15.0002V5.00016C18.3333 4.07969 17.5871 3.3335 16.6667 3.3335Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M1.66667 11.6665L5.83333 7.49984C6.06944 7.28318 6.3731 7.1665 6.6875 7.1665C7.0019 7.1665 7.30556 7.28318 7.54167 7.49984L12.5 12.4998" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M12.5 9.1665L13.75 7.9165C13.9861 7.69984 14.2898 7.58317 14.6042 7.58317C14.9186 7.58317 15.2222 7.69984 15.4583 7.9165L18.3333 10.8332" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M13.3333 13.3335C13.3333 13.7755 12.9753 14.1668 12.5 14.1668C12.0247 14.1668 11.6667 13.7755 11.6667 13.3335C11.6667 12.8915 12.0247 12.5002 12.5 12.5002C12.9753 12.5002 13.3333 12.8915 13.3333 13.3335Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M16.6667 3.3335H3.33333C2.41286 3.3335 1.66667 4.07969 1.66667 5.00016V15.0002C1.66667 15.9206 2.41286 16.6668 3.33333 16.6668H16.6667C17.5871 16.6668 18.3333 15.9206 18.3333 15.0002V5.00016C18.3333 4.07969 17.5871 3.3335 16.6667 3.3335Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M1.66667 11.6665L5.83333 7.49984C6.06944 7.28318 6.3731 7.1665 6.6875 7.1665C7.0019 7.1665 7.30556 7.28318 7.54167 7.49984L12.5 12.4998" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M12.5 9.1665L13.75 7.9165C13.9861 7.69984 14.2898 7.58317 14.6042 7.58317C14.9186 7.58317 15.2222 7.69984 15.4583 7.9165L18.3333 10.8332" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M13.3333 13.3335C13.3333 13.7755 12.9753 14.1668 12.5 14.1668C12.0247 14.1668 11.6667 13.7755 11.6667 13.3335C11.6667 12.8915 12.0247 12.5002 12.5 12.5002C12.9753 12.5002 13.3333 12.8915 13.3333 13.3335Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </span>
                                 <span class="item-text text-lg font-medium leading-none">Galeri</span>
@@ -177,15 +204,14 @@
                     @endif
                     @if(!empty($PermissionArticle))
                     <li class="item py-[11px] text-bgray-900 dark:text-white">
-                        <a href="{{ route('article.master') }}"
-                           class="flex items-center justify-between {{ Request::is('article*') ? 'active' : '' }}">
+                        <a href="{{ route('article.master') }}" class="flex items-center justify-between {{ Request::is('article*') ? 'active' : '' }}">
                             <div class="flex items-center space-x-2.5">
                                 <span class="item-ico">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M16.6667 16.6668H3.33333C2.89131 16.6668 2.46738 16.4912 2.15482 16.1786C1.84226 15.8661 1.66667 15.4421 1.66667 15.0002V5.00016C1.66667 4.55814 1.84226 4.13421 2.15482 3.82165C2.46738 3.50909 2.89131 3.3335 3.33333 3.3335H16.6667C17.1087 3.3335 17.5326 3.50909 17.8452 3.82165C18.1577 4.13421 18.3333 4.55814 18.3333 5.00016V15.0002C18.3333 15.4421 18.1577 15.8661 17.8452 16.1786C17.5326 16.4912 17.1087 16.6668 16.6667 16.6668Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M5 7.5H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M5 10.8335H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M5 14.1665H10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M16.6667 16.6668H3.33333C2.89131 16.6668 2.46738 16.4912 2.15482 16.1786C1.84226 15.8661 1.66667 15.4421 1.66667 15.0002V5.00016C1.66667 4.55814 1.84226 4.13421 2.15482 3.82165C2.46738 3.50909 2.89131 3.3335 3.33333 3.3335H16.6667C17.1087 3.3335 17.5326 3.50909 17.8452 3.82165C18.1577 4.13421 18.3333 4.55814 18.3333 5.00016V15.0002C18.3333 15.4421 18.1577 15.8661 17.8452 16.1786C17.5326 16.4912 17.1087 16.6668 16.6667 16.6668Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M5 7.5H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M5 10.8335H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M5 14.1665H10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </span>
                                 <span class="item-text text-lg font-medium leading-none">Artikel</span>
@@ -194,60 +220,17 @@
                     </li>
                     @endif
 
-                    @if(!empty($PermissionEvent))
-                    <li class="item py-[11px] text-bgray-900 dark:text-white">
-                        <a href="{{ route('event.index') }}"
-                           class="flex items-center justify-between {{ Request::is('event') ? 'active' : '' }}">
-                            <div class="flex items-center space-x-2.5">
-                                <span class="item-ico">
-                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M13.3333 2.5V5.83333" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M6.66699 2.5V5.83333" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M2.5 9.16667H17.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M16.6667 7.5V15.8333C16.6667 16.75 15.9167 17.5 15 17.5H5C4.08333 17.5 3.33333 16.75 3.33333 15.8333V7.5C3.33333 6.58333 4.08333 5.83333 5 5.83333H15C15.9167 5.83333 16.6667 6.58333 16.6667 7.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M9.99609 12.0835H10.0036" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M7.07031 12.0835H7.07782" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M7.07031 14.1665H7.07782" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </span>
-                                <span class="item-text text-lg font-medium leading-none">Event</span>
-                            </div>
-                        </a>
-                    </li>
-
-                    <li class="item py-[11px] text-bgray-900 dark:text-white">
-                        <a href="{{ route('event.master') }}"
-                           class="flex items-center justify-between {{ Request::is('event/master*') ? 'active' : '' }}">
-                            <div class="flex items-center space-x-2.5">
-                                <span class="item-ico">
-                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M10 12.5C11.3807 12.5 12.5 11.3807 12.5 10C12.5 8.61929 11.3807 7.5 10 7.5C8.61929 7.5 7.5 8.61929 7.5 10C7.5 11.3807 8.61929 12.5 10 12.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M1.66675 10.0002H4.16675" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M15.8333 10.0002H18.3333" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M3.75 15.4167L5.58333 13.5833" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M14.4167 6.41667L16.25 4.58334" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M3.75 4.58334L5.58333 6.41667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M14.4167 13.5833L16.25 15.4167" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </span>
-                                <span class="item-text text-lg font-medium leading-none">Master Event</span>
-                            </div>
-                        </a>
-                    </li>
-                    @endif
-
                     @if(!empty($PermissionJournal))
                     <li class="item py-[11px] text-bgray-900 dark:text-white">
-                        <a href="{{ route('journal.index') }}"
-                           class="flex items-center justify-between {{ Request::is('journal*') ? 'active' : '' }}">
+                        <a href="{{ route('journal.index') }}" class="flex items-center justify-between {{ Request::is('journal*') ? 'active' : '' }}">
                             <div class="flex items-center space-x-2.5">
                                 <span class="item-ico">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M10.8333 1.66667H5.83333C5.39131 1.66667 4.96738 1.84226 4.65482 2.15482C4.34226 2.46738 4.16667 2.89131 4.16667 3.33333V16.6667C4.16667 17.1087 4.34226 17.5326 4.65482 17.8452C4.96738 18.1577 5.39131 18.3333 5.83333 18.3333H14.1667C14.6087 18.3333 15.0326 18.1577 15.3452 17.8452C15.6577 17.5326 15.8333 17.1087 15.8333 16.6667V6.66667L10.8333 1.66667Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M10.8335 1.66667V6.66667H15.8335" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M12.5002 10.8333H7.5835" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M12.5002 14.1667H7.5835" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M9.16667 7.5H8.33333H7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M10.8333 1.66667H5.83333C5.39131 1.66667 4.96738 1.84226 4.65482 2.15482C4.34226 2.46738 4.16667 2.89131 4.16667 3.33333V16.6667C4.16667 17.1087 4.34226 17.5326 4.65482 17.8452C4.96738 18.1577 5.39131 18.3333 5.83333 18.3333H14.1667C14.6087 18.3333 15.0326 18.1577 15.3452 17.8452C15.6577 17.5326 15.8333 17.1087 15.8333 16.6667V6.66667L10.8333 1.66667Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M10.8335 1.66667V6.66667H15.8335" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M12.5002 10.8333H7.5835" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M12.5002 14.1667H7.5835" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M9.16667 7.5H8.33333H7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </span>
                                 <span class="item-text text-lg font-medium leading-none">Journal</span>
@@ -258,14 +241,13 @@
 
                     @if(!empty($PermissionFaq))
                     <li class="item py-[11px] text-bgray-900 dark:text-white">
-                        <a href="{{ route('faq.admin.index') }}"
-                           class="flex items-center justify-between {{ Request::is('faq*') || Request::is('admin/faq*') ? 'active' : '' }}">
+                        <a href="{{ route('faq.admin.index') }}" class="flex items-center justify-between {{ Request::is('faq*') || Request::is('admin/faq*') ? 'active' : '' }}">
                             <div class="flex items-center space-x-2.5">
                                 <span class="item-ico">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M10 15.8333C13.6819 15.8333 16.6667 12.8486 16.6667 9.16667C16.6667 5.48477 13.6819 2.5 10 2.5C6.31811 2.5 3.33334 5.48477 3.33334 9.16667C3.33334 12.8486 6.31811 15.8333 10 15.8333Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M10 6.66667V9.16667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M10 11.6667H10.0083" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M10 15.8333C13.6819 15.8333 16.6667 12.8486 16.6667 9.16667C16.6667 5.48477 13.6819 2.5 10 2.5C6.31811 2.5 3.33334 5.48477 3.33334 9.16667C3.33334 12.8486 6.31811 15.8333 10 15.8333Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M10 6.66667V9.16667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M10 11.6667H10.0083" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </span>
                                 <span class="item-text text-lg font-medium leading-none">FAQ</span>
@@ -276,13 +258,12 @@
 
                     @if(!empty($PermissionTestimoni))
                     <li class="item py-[11px] text-bgray-900 dark:text-white">
-                        <a href="{{ route('testimoni.index') }}"
-                           class="flex items-center justify-between {{ Request::is('testimoni*') ? 'active' : '' }}">
+                        <a href="{{ route('testimoni.index') }}" class="flex items-center justify-between {{ Request::is('testimoni*') ? 'active' : '' }}">
                             <div class="flex items-center space-x-2.5">
                                 <span class="item-ico">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M10 12.5C12.7614 12.5 15 10.2614 15 7.5C15 4.73858 12.7614 2.5 10 2.5C7.23858 2.5 5 4.73858 5 7.5C5 10.2614 7.23858 12.5 10 12.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M2.5 17.5C2.5 13.9025 5.9025 11 10 11C14.0975 11 17.5 13.9025 17.5 17.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M10 12.5C12.7614 12.5 15 10.2614 15 7.5C15 4.73858 12.7614 2.5 10 2.5C7.23858 2.5 5 4.73858 5 7.5C5 10.2614 7.23858 12.5 10 12.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M2.5 17.5C2.5 13.9025 5.9025 11 10 11C14.0975 11 17.5 13.9025 17.5 17.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </span>
                                 <span class="item-text text-lg font-medium leading-none">Testimoni</span>
@@ -293,13 +274,12 @@
 
                     @if(!empty($PermissionStatistik))
                     <li class="item py-[11px] text-bgray-900 dark:text-white">
-                        <a href="{{ route('statistik.index') }}"
-                           class="flex items-center justify-between {{ Request::is('statistik*') ? 'active' : '' }}">
+                        <a href="{{ route('statistik.index') }}" class="flex items-center justify-between {{ Request::is('statistik*') ? 'active' : '' }}">
                             <div class="flex items-center space-x-2.5">
                                 <span class="item-ico">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M3.33333 16.6667H16.6667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M5.83333 8.33333L8.33333 11.6667L11.6667 6.66667L14.1667 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M3.33333 16.6667H16.6667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M5.83333 8.33333L8.33333 11.6667L11.6667 6.66667L14.1667 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </span>
                                 <span class="item-text text-lg font-medium leading-none">Statistik</span>
@@ -320,20 +300,19 @@
                 <ul class="mt-2.5">
                     @if(!empty($PermissionTentang))
                     <li class="item py-[11px] text-bgray-900 dark:text-white">
-                        <a href="{{ route('tentang.edit') }}"
-                           class="flex items-center justify-between {{ Request::is('tentang/edit*') ? 'active' : '' }}">
+                        <a href="{{ route('tentang.edit') }}" class="flex items-center justify-between {{ Request::is('tentang/edit*') ? 'active' : '' }}">
                             <div class="flex items-center space-x-2.5">
                                 <span class="item-ico">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M9.99935 13.3332C12.3007 13.3332 14.166 11.4678 14.166 9.1665C14.166 6.86517 12.3007 4.99984 9.99935 4.99984C7.69802 4.99984 5.83268 6.86517 5.83268 9.1665C5.83268 11.4678 7.69802 13.3332 9.99935 13.3332Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M10 1.6665V2.49984" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M15 3.33301L14.375 3.95801" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M18.3327 8.33301H17.4993" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M15 13.333L14.375 12.708" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M10 16.6665V15.8332" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M5 13.333L5.625 12.708" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M1.66602 8.33301H2.49935" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M5 3.33301L5.625 3.95801" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M9.99935 13.3332C12.3007 13.3332 14.166 11.4678 14.166 9.1665C14.166 6.86517 12.3007 4.99984 9.99935 4.99984C7.69802 4.99984 5.83268 6.86517 5.83268 9.1665C5.83268 11.4678 7.69802 13.3332 9.99935 13.3332Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M10 1.6665V2.49984" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M15 3.33301L14.375 3.95801" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M18.3327 8.33301H17.4993" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M15 13.333L14.375 12.708" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M10 16.6665V15.8332" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M5 13.333L5.625 12.708" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M1.66602 8.33301H2.49935" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M5 3.33301L5.625 3.95801" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </span>
                                 <span class="item-text text-lg font-medium leading-none">Tentang Kami</span>
@@ -344,12 +323,11 @@
 
                     @if(!empty($PermissionDaycareEdit))
                     <li class="item py-[11px] text-bgray-900 dark:text-white">
-                        <a href="{{ route('daycare.edit') }}"
-                           class="flex items-center justify-between {{ Request::is('daycare/edit*') ? 'active' : '' }}">
+                        <a href="{{ route('daycare.edit') }}" class="flex items-center justify-between {{ Request::is('daycare/edit*') ? 'active' : '' }}">
                             <div class="flex items-center space-x-2.5">
                                 <span class="item-ico">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M14.166 2.5009C14.3849 2.28203 14.6447 2.10842 14.9307 1.98996C15.2167 1.87151 15.5232 1.81055 15.8327 1.81055C16.1422 1.81055 16.4487 1.87151 16.7347 1.98996C17.0207 2.10842 17.2805 2.28203 17.4993 2.5009C17.7182 2.71977 17.8918 2.97961 18.0103 3.26559C18.1287 3.55157 18.1897 3.85814 18.1897 4.16757C18.1897 4.47699 18.1287 4.78356 18.0103 5.06954C17.8918 5.35552 17.7182 5.61536 17.4993 5.83424L6.24935 17.0842L1.66602 18.3342L2.91602 13.7509L14.166 2.5009Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M14.166 2.5009C14.3849 2.28203 14.6447 2.10842 14.9307 1.98996C15.2167 1.87151 15.5232 1.81055 15.8327 1.81055C16.1422 1.81055 16.4487 1.87151 16.7347 1.98996C17.0207 2.10842 17.2805 2.28203 17.4993 2.5009C17.7182 2.71977 17.8918 2.97961 18.0103 3.26559C18.1287 3.55157 18.1897 3.85814 18.1897 4.16757C18.1897 4.47699 18.1287 4.78356 18.0103 5.06954C17.8918 5.35552 17.7182 5.61536 17.4993 5.83424L6.24935 17.0842L1.66602 18.3342L2.91602 13.7509L14.166 2.5009Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </span>
                                 <span class="item-text text-lg font-medium leading-none">Edit Daycare</span>
@@ -360,12 +338,11 @@
 
                     @if(!empty($PermissionBermainEdit))
                     <li class="item py-[11px] text-bgray-900 dark:text-white">
-                        <a href="{{ route('bermain.edit') }}"
-                           class="flex items-center justify-between {{ Request::is('bermain/edit*') ? 'active' : '' }}">
+                        <a href="{{ route('bermain.edit') }}" class="flex items-center justify-between {{ Request::is('bermain/edit*') ? 'active' : '' }}">
                             <div class="flex items-center space-x-2.5">
                                 <span class="item-ico">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M14.166 2.5009C14.3849 2.28203 14.6447 2.10842 14.9307 1.98996C15.2167 1.87151 15.5232 1.81055 15.8327 1.81055C16.1422 1.81055 16.4487 1.87151 16.7347 1.98996C17.0207 2.10842 17.2805 2.28203 17.4993 2.5009C17.7182 2.71977 17.8918 2.97961 18.0103 3.26559C18.1287 3.55157 18.1897 3.85814 18.1897 4.16757C18.1897 4.47699 18.1287 4.78356 18.0103 5.06954C17.8918 5.35552 17.7182 5.61536 17.4993 5.83424L6.24935 17.0842L1.66602 18.3342L2.91602 13.7509L14.166 2.5009Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M14.166 2.5009C14.3849 2.28203 14.6447 2.10842 14.9307 1.98996C15.2167 1.87151 15.5232 1.81055 15.8327 1.81055C16.1422 1.81055 16.4487 1.87151 16.7347 1.98996C17.0207 2.10842 17.2805 2.28203 17.4993 2.5009C17.7182 2.71977 17.8918 2.97961 18.0103 3.26559C18.1287 3.55157 18.1897 3.85814 18.1897 4.16757C18.1897 4.47699 18.1287 4.78356 18.0103 5.06954C17.8918 5.35552 17.7182 5.61536 17.4993 5.83424L6.24935 17.0842L1.66602 18.3342L2.91602 13.7509L14.166 2.5009Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </span>
                                 <span class="item-text text-lg font-medium leading-none">Edit Area Bermain</span>
@@ -376,12 +353,11 @@
 
                     @if(!empty($PermissionBimbelEdit))
                     <li class="item py-[11px] text-bgray-900 dark:text-white">
-                        <a href="{{ route('bimbel.edit') }}"
-                           class="flex items-center justify-between {{ Request::is('bimbel/edit*') ? 'active' : '' }}">
+                        <a href="{{ route('bimbel.edit') }}" class="flex items-center justify-between {{ Request::is('bimbel/edit*') ? 'active' : '' }}">
                             <div class="flex items-center space-x-2.5">
                                 <span class="item-ico">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M14.166 2.5009C14.3849 2.28203 14.6447 2.10842 14.9307 1.98996C15.2167 1.87151 15.5232 1.81055 15.8327 1.81055C16.1422 1.81055 16.4487 1.87151 16.7347 1.98996C17.0207 2.10842 17.2805 2.28203 17.4993 2.5009C17.7182 2.71977 17.8918 2.97961 18.0103 3.26559C18.1287 3.55157 18.1897 3.85814 18.1897 4.16757C18.1897 4.47699 18.1287 4.78356 18.0103 5.06954C17.8918 5.35552 17.7182 5.61536 17.4993 5.83424L6.24935 17.0842L1.66602 18.3342L2.91602 13.7509L14.166 2.5009Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M14.166 2.5009C14.3849 2.28203 14.6447 2.10842 14.9307 1.98996C15.2167 1.87151 15.5232 1.81055 15.8327 1.81055C16.1422 1.81055 16.4487 1.87151 16.7347 1.98996C17.0207 2.10842 17.2805 2.28203 17.4993 2.5009C17.7182 2.71977 17.8918 2.97961 18.0103 3.26559C18.1287 3.55157 18.1897 3.85814 18.1897 4.16757C18.1897 4.47699 18.1287 4.78356 18.0103 5.06954C17.8918 5.35552 17.7182 5.61536 17.4993 5.83424L6.24935 17.0842L1.66602 18.3342L2.91602 13.7509L14.166 2.5009Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </span>
                                 <span class="item-text text-lg font-medium leading-none">Edit Bimbel</span>
@@ -392,12 +368,11 @@
 
                     @if(!empty($PermissionStimulasiEdit))
                     <li class="item py-[11px] text-bgray-900 dark:text-white">
-                        <a href="{{ route('stimulasi.edit') }}"
-                           class="flex items-center justify-between {{ Request::is('stimulasi/edit*') ? 'active' : '' }}">
+                        <a href="{{ route('stimulasi.edit') }}" class="flex items-center justify-between {{ Request::is('stimulasi/edit*') ? 'active' : '' }}">
                             <div class="flex items-center space-x-2.5">
                                 <span class="item-ico">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M14.166 2.5009C14.3849 2.28203 14.6447 2.10842 14.9307 1.98996C15.2167 1.87151 15.5232 1.81055 15.8327 1.81055C16.1422 1.81055 16.4487 1.87151 16.7347 1.98996C17.0207 2.10842 17.2805 2.28203 17.4993 2.5009C17.7182 2.71977 17.8918 2.97961 18.0103 3.26559C18.1287 3.55157 18.1897 3.85814 18.1897 4.16757C18.1897 4.47699 18.1287 4.78356 18.0103 5.06954C17.8918 5.35552 17.7182 5.61536 17.4993 5.83424L6.24935 17.0842L1.66602 18.3342L2.91602 13.7509L14.166 2.5009Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M14.166 2.5009C14.3849 2.28203 14.6447 2.10842 14.9307 1.98996C15.2167 1.87151 15.5232 1.81055 15.8327 1.81055C16.1422 1.81055 16.4487 1.87151 16.7347 1.98996C17.0207 2.10842 17.2805 2.28203 17.4993 2.5009C17.7182 2.71977 17.8918 2.97961 18.0103 3.26559C18.1287 3.55157 18.1897 3.85814 18.1897 4.16757C18.1897 4.47699 18.1287 4.78356 18.0103 5.06954C17.8918 5.35552 17.7182 5.61536 17.4993 5.83424L6.24935 17.0842L1.66602 18.3342L2.91602 13.7509L14.166 2.5009Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </span>
                                 <span class="item-text text-lg font-medium leading-none">Edit Stimulasi</span>
@@ -408,12 +383,11 @@
 
                     @if(!empty($PermissionEventEdit))
                     <li class="item py-[11px] text-bgray-900 dark:text-white">
-                        <a href="{{ route('event.edit') }}"
-                           class="flex items-center justify-between {{ Request::is('event/edit*') ? 'active' : '' }}">
+                        <a href="{{ route('event.edit') }}" class="flex items-center justify-between {{ Request::is('event/edit*') ? 'active' : '' }}">
                             <div class="flex items-center space-x-2.5">
                                 <span class="item-ico">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M14.166 2.5009C14.3849 2.28203 14.6447 2.10842 14.9307 1.98996C15.2167 1.87151 15.5232 1.81055 15.8327 1.81055C16.1422 1.81055 16.4487 1.87151 16.7347 1.98996C17.0207 2.10842 17.2805 2.28203 17.4993 2.5009C17.7182 2.71977 17.8918 2.97961 18.0103 3.26559C18.1287 3.55157 18.1897 3.85814 18.1897 4.16757C18.1897 4.47699 18.1287 4.78356 18.0103 5.06954C17.8918 5.35552 17.7182 5.61536 17.4993 5.83424L6.24935 17.0842L1.66602 18.3342L2.91602 13.7509L14.166 2.5009Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M14.166 2.5009C14.3849 2.28203 14.6447 2.10842 14.9307 1.98996C15.2167 1.87151 15.5232 1.81055 15.8327 1.81055C16.1422 1.81055 16.4487 1.87151 16.7347 1.98996C17.0207 2.10842 17.2805 2.28203 17.4993 2.5009C17.7182 2.71977 17.8918 2.97961 18.0103 3.26559C18.1287 3.55157 18.1897 3.85814 18.1897 4.16757C18.1897 4.47699 18.1287 4.78356 18.0103 5.06954C17.8918 5.35552 17.7182 5.61536 17.4993 5.83424L6.24935 17.0842L1.66602 18.3342L2.91602 13.7509L14.166 2.5009Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </span>
                                 <span class="item-text text-lg font-medium leading-none">Edit Event</span>
@@ -428,8 +402,8 @@
                             <div class="flex items-center space-x-2.5">
                                 <span class="item-ico">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2002000/svg">
-                                        <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M9 22V12H15V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M9 22V12H15V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </span>
                                 <span class="item-text text-lg font-medium leading-none">Home Content</span>
@@ -442,7 +416,7 @@
             @endif
 
             <!-- Pengaturan -->
-            @if(!empty($PermissionUser) || !empty($PermissionRole) || !empty($PermissionLayanan))
+            @if(!empty($PermissionUser) || !empty($PermissionRole))
             <div class="item-wrapper mb-5">
                 <h4 class="border-b border-bgray-200 text-sm font-medium leading-7 text-bgray-700 dark:border-darkblack-400 dark:text-bgray-50">
                     Pengaturan
@@ -450,13 +424,12 @@
                 <ul class="mt-2.5">
                     @if(!empty($PermissionUser))
                     <li class="item py-[11px] text-bgray-900 dark:text-white">
-                        <a href="{{ route('user.list') }}"
-                           class="flex items-center justify-between {{ Request::is('user*') ? 'active' : '' }}">
+                        <a href="{{ route('user.list') }}" class="flex items-center justify-between {{ Request::is('user*') ? 'active' : '' }}">
                             <div class="flex items-center space-x-2.5">
                                 <span class="item-ico">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M10 12.5C12.7614 12.5 15 10.2614 15 7.5C15 4.73858 12.7614 2.5 10 2.5C7.23858 2.5 5 4.73858 5 7.5C5 10.2614 7.23858 12.5 10 12.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M2.5 17.5C2.5 13.9025 5.9025 11 10 11C14.0975 11 17.5 13.9025 17.5 17.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M10 12.5C12.7614 12.5 15 10.2614 15 7.5C15 4.73858 12.7614 2.5 10 2.5C7.23858 2.5 5 4.73858 5 7.5C5 10.2614 7.23858 12.5 10 12.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M2.5 17.5C2.5 13.9025 5.9025 11 10 11C14.0975 11 17.5 13.9025 17.5 17.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </span>
                                 <span class="item-text text-lg font-medium leading-none">User</span>
@@ -467,33 +440,15 @@
 
                     @if(!empty($PermissionRole))
                     <li class="item py-[11px] text-bgray-900 dark:text-white">
-                        <a href="{{ route('role.list') }}"
-                           class="flex items-center justify-between {{ Request::is('role*') ? 'active' : '' }}">
+                        <a href="{{ route('role.list') }}" class="flex items-center justify-between {{ Request::is('role*') ? 'active' : '' }}">
                             <div class="flex items-center space-x-2.5">
                                 <span class="item-ico">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M10 13.3333C13.6819 13.3333 16.6667 10.3486 16.6667 6.66667C16.6667 2.98477 13.6819 0 10 0C6.31811 0 3.33334 2.98477 3.33334 6.66667C3.33334 10.3486 6.31811 13.3333 10 13.3333Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M6.84166 12.3583L5.83333 20L10 17.5L14.1667 20L13.1583 12.35" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M10 13.3333C13.6819 13.3333 16.6667 10.3486 16.6667 6.66667C16.6667 2.98477 13.6819 0 10 0C6.31811 0 3.33334 2.98477 3.33334 6.66667C3.33334 10.3486 6.31811 13.3333 10 13.3333Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M6.84166 12.3583L5.83333 20L10 17.5L14.1667 20L13.1583 12.35" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </span>
                                 <span class="item-text text-lg font-medium leading-none">Role</span>
-                            </div>
-                        </a>
-                    </li>
-                    @endif
-
-                    @if(!empty($PermissionLayanan))
-                    <li class="item py-[11px] text-bgray-900 dark:text-white">
-                        <a href="{{ route('layanan') }}"
-                           class="flex items-center justify-between {{ Request::is('layanan*') ? 'active' : '' }}">
-                            <div class="flex items-center space-x-2.5">
-                                <span class="item-ico">
-                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M3.33333 3.33334H16.6667C17.5833 3.33334 18.3333 4.08334 18.3333 5.00001V15C18.3333 15.9206 17.5833 16.6667 16.6667 16.6667H3.33333C2.41666 16.6667 1.66666 15.9167 1.66666 15V5.00001C1.66666 4.07969 2.41666 3.33334 3.33333 3.33334Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M18.3333 5L10 10.8333L1.66666 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </span>
-                                <span class="item-text text-lg font-medium leading-none">Layanan</span>
                             </div>
                         </a>
                     </li>
@@ -502,19 +457,98 @@
             </div>
             @endif
         </div>
+         <!-- Menu Akun (hanya muncul di mobile) -->
+         <div class="item-wrapper mb-5 xl:hidden">
+            <h4 class="border-b border-bgray-200 text-sm font-medium leading-7 text-bgray-700 dark:border-darkblack-400 dark:text-bgray-50">
+                Akun
+            </h4>
+            <ul class="mt-2.5">
+                <li class="item py-[11px] text-bgray-900 dark:text-white">
+                    <a href="{{ route('profile.edit') }}" class="flex items-center justify-between {{ Request::is('profile*') ? 'active' : '' }}">
+                        <div class="flex items-center space-x-2.5">
+                            <span class="item-ico">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M10 12.5C12.7614 12.5 15 10.2614 15 7.5C15 4.73858 12.7614 2.5 10 2.5C7.23858 2.5 5 4.73858 5 7.5C5 10.2614 7.23858 12.5 10 12.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M2.5 17.5C2.5 13.9025 5.9025 11 10 11C14.0975 11 17.5 13.9025 17.5 17.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </span>
+                            <span class="item-text text-lg font-medium leading-none">Edit Profil</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="item py-[11px] text-bgray-900 dark:text-white">
+                    <a href="{{ route('password.change') }}" class="flex items-center justify-between {{ Request::is('profile/password*') ? 'active' : '' }}">
+                        <div class="flex items-center space-x-2.5">
+                            <span class="item-ico">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M15.8333 9.16667H4.16667C3.72464 9.16667 3.30072 9.34226 2.98816 9.65482C2.67559 9.96738 2.5 10.3913 2.5 10.8333V16.6667C2.5 17.5871 3.24619 18.3333 4.16667 18.3333H15.8333C16.7538 18.3333 17.5 17.5871 17.5 16.6667V10.8333C17.5 9.91286 16.7538 9.16667 15.8333 9.16667Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M5.83301 9.16667V5.83334C5.83301 4.72827 6.27199 3.66846 7.05338 2.88706C7.83478 2.10566 8.89459 1.66667 9.99967 1.66667C11.1048 1.66667 12.1646 2.10566 12.946 2.88706C13.7274 3.66846 14.1663 4.72827 14.1663 5.83334V9.16667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </span>
+                            <span class="item-text text-lg font-medium leading-none">Ubah Password</span>
+                        </div>
+                    </a>
+                </li>
+
+                <!-- Tombol theme toggle untuk mobile -->
+                <li class="item py-[11px] text-bgray-900 dark:text-white">
+                    <button type="button" id="mobile-theme-toggle" class="flex items-center justify-between w-full">
+                        <div class="flex items-center space-x-2.5">
+                            <span class="item-ico">
+                                <!-- Icon light mode (tampil saat dark mode aktif) -->
+                                <span class="hidden dark:block">
+                                    <svg class="stroke-bgray-50" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="12" cy="12" r="5" stroke-width="1.5" />
+                                        <path d="M12 2V4" stroke-width="1.5" stroke-linecap="round" />
+                                        <path d="M12 20V22" stroke-width="1.5" stroke-linecap="round" />
+                                        <path d="M20.6602 7L18.9281 8" stroke-width="1.5" stroke-linecap="round" />
+                                        <path d="M5.07178 16L3.33973 17" stroke-width="1.5" stroke-linecap="round" />
+                                        <path d="M3.33984 7L5.07189 8" stroke-width="1.5" stroke-linecap="round" />
+                                        <path d="M18.9282 16L20.6603 17" stroke-width="1.5" stroke-linecap="round" />
+                                    </svg>
+                                </span>
+                                <!-- Icon dark mode (tampil saat light mode aktif) -->
+                                <span class="block dark:hidden">
+                                    <svg class="stroke-bgray-900" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M18.3284 14.8687C13.249 14.8687 9.13135 10.751 9.13135 5.67163C9.13135 4.74246 9.26914 3.84548 9.5254 3C5.74897 4.14461 3 7.65276 3 11.803C3 16.8824 7.11765 21 12.197 21C16.3472 21 19.8554 18.251 21 14.4746C20.1545 14.7309 19.2575 14.8687 18.3284 14.8687Z" stroke-width="1.5" stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                            </span>
+                            <span class="item-text text-lg font-medium leading-none dark:hidden">Mode Gelap</span>
+                            <span class="item-text text-lg font-medium leading-none hidden dark:block">Mode Terang</span>
+                        </div>
+                    </button>
+                </li>
+
+                <li class="item py-[11px] text-bgray-900 dark:text-white">
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();" class="flex items-center justify-between">
+                            <div class="flex items-center space-x-2.5">
+                                <span class="item-ico">
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7.5 17.5H4.16667C3.72464 17.5 3.30072 17.3244 2.98816 17.0118C2.67559 16.6993 2.5 16.2754 2.5 15.8333V4.16667C2.5 3.72464 2.67559 3.30072 2.98816 2.98816C3.30072 2.67559 3.72464 2.5 4.16667 2.5H7.5" stroke="#FF5757" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M13.3333 14.1667L17.5 10L13.3333 5.83334" stroke="#FF5757" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M17.5 10H7.5" stroke="#FF5757" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                                <span class="item-text text-lg font-medium leading-none text-red-500">Keluar</span>
+                            </div>
+                        </a>
+                    </form>
+                </li>
+            </ul>
+        </div>
     </div>
 </aside>
 
-<div style="z-index: 25" class="aside-overlay fixed left-0 top-0 block h-full w-full bg-black bg-opacity-30 sm:hidden">
-</div>
+<div class="aside-overlay fixed left-0 top-0 h-full w-full bg-black bg-opacity-30 hidden z-30"></div>
 
-<aside class="relative hidden w-[96px] bg-white dark:bg-black sm:block">
+<aside class="relative hidden w-[96px] bg-white dark:bg-darkblack-600 sm:block">
     <div class="sidebar-wrapper-collapse relative top-0 z-30 w-full">
         <div class="sidebar-header sticky top-0 z-20 flex h-[108px] w-full items-center justify-center border-b border-r border-b-[#F7F7F7] border-r-[#F7F7F7] bg-white dark:border-darkblack-500 dark:bg-darkblack-600">
             <a href="/">
-                <img src="{{ asset('images/assets/logo-doang.png') }}"
-                     class="h-8 w-8 object-contain"
-                     alt="Little Star Kids Icon" />
+                <img src="{{ asset('images/assets/logo-doang.png') }}" class="h-8 w-8 object-contain" alt="Little Star Kids Icon" />
             </a>
         </div>
         <div class="sidebar-body w-full pt-[14px]">
@@ -529,19 +563,19 @@
         width: 308px;
         position: fixed;
         height: 100vh;
-        transition: all 0.3s ease;
+        transition: transform 0.3s ease-in-out;
     }
 
     .sidebar-wrapper-collapse {
         width: 96px;
         position: fixed;
         height: 100vh;
-        transition: all 0.3s ease;
+        transition: transform 0.3s ease-in-out;
     }
 
     /* Logo */
     .sidebar-header img {
-        height: 60px;
+        height: 40px;
         width: auto;
         object-fit: contain;
     }
@@ -615,26 +649,57 @@
     #frontend-edit-dropdown.active {
         display: block;
     }
+
+    /* Ensure drawer button is clickable */
+    .drawer-btn {
+        z-index: 50;
+        cursor: pointer;
+    }
 </style>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         // Frontend Edit Menu dropdown toggle
         const frontendEditMenu = document.querySelector('.frontend-edit-menu');
         const frontendEditDropdown = document.getElementById('frontend-edit-dropdown');
 
-        if(frontendEditMenu && frontendEditDropdown) {
-            frontendEditMenu.addEventListener('click', function(e) {
+        if (frontendEditMenu && frontendEditDropdown) {
+            frontendEditMenu.addEventListener('click', function (e) {
                 e.preventDefault();
                 frontendEditDropdown.classList.toggle('hidden');
             });
 
             // Close dropdown when clicking outside
-            document.addEventListener('click', function(e) {
+            document.addEventListener('click', function (e) {
                 if (!frontendEditMenu.contains(e.target) && !frontendEditDropdown.contains(e.target)) {
                     frontendEditDropdown.classList.add('hidden');
                 }
             });
+        }
+
+        // Tombol toggle tema pada mobile
+        const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+        if (mobileThemeToggle) {
+            mobileThemeToggle.addEventListener('click', function() {
+                // Toggle class dark pada html element
+                const isDark = document.documentElement.classList.toggle('dark');
+
+                // Simpan preferensi ke localStorage
+                localStorage.setItem('darkMode', isDark);
+
+                // Custom event untuk memberitahu komponen lain tentang perubahan tema
+                document.dispatchEvent(new CustomEvent('themeChanged', {
+                    detail: { isDark }
+                }));
+            });
+        }
+
+        // Inisialisasi tema sesuai dengan preferensi yang disimpan
+        const isDarkMode = localStorage.getItem('darkMode') === 'true';
+        if (isDarkMode) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
         }
     });
 </script>

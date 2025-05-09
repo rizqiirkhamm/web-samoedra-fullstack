@@ -18,7 +18,7 @@
 <div class="w-full px-6 py-6 mx-auto">
     <div class="flex flex-wrap -mx-3">
         <div class="w-full max-w-full px-3 flex-0">
-            <div class="relative flex flex-col min-w-0 break-words bg-white border-0 shadow-xl dark:bg-slate-900 dark:border dark:border-white dark:shadow-dark-xl rounded-2xl bg-clip-border">
+            <div class="relative flex flex-col min-w-0 break-words bg-white dark:bg-darkblack-600 border-0 shadow-xl dark:border dark:border-darkblack-400 dark:shadow-dark-xl rounded-2xl bg-clip-border">
                 <div class="p-6 pb-0 mb-0 border-b-0">
                     <div class="flex items-center justify-between">
                         <h6 class="dark:text-white">Edit Halaman Daycare</h6>
@@ -53,42 +53,42 @@
                             <h2 class="text-lg font-semibold mb-4 border-b pb-2 dark:text-white">Banner Utama</h2>
 
                             <div class="mb-4">
-                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih Jenis Banner</label>
+                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Pilih Jenis Banner</label>
                                 <div class="flex space-x-4">
                                     <div class="flex items-center">
                                         <input type="radio" name="banner_type" id="banner_type_image" value="image" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" {{ $daycareData['banner_type'] == 'image' ? 'checked' : '' }}>
-                                        <label for="banner_type_image" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Gambar</label>
+                                        <label for="banner_type_image" class="ms-2 text-sm font-medium text-gray-900 dark:text-bgray-300">Gambar</label>
                                     </div>
                                     <div class="flex items-center">
                                         <input type="radio" name="banner_type" id="banner_type_video" value="video" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" {{ $daycareData['banner_type'] == 'video' ? 'checked' : '' }}>
-                                        <label for="banner_type_video" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Video YouTube</label>
+                                        <label for="banner_type_video" class="ms-2 text-sm font-medium text-gray-900 dark:text-bgray-300">Video YouTube</label>
                                     </div>
                                 </div>
                             </div>
 
-                            <div id="banner_image_container" class="mb-4 {{ $daycareData['banner_type'] == 'image' ? '' : 'hidden' }}">
-                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gambar Banner</label>
-                                <div class="flex items-center space-x-4">
-                                    @if(isset($daycareData['banner_image']))
-                                    <img src="{{ asset($daycareData['banner_image']) }}" alt="Banner Preview" class="image-preview mb-2">
+                            <div id="banner-image-section" class="mb-4">
+                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Gambar Banner</label>
+                                <input type="file" name="banner_image" class="w-full p-2 border rounded dark:bg-darkblack-500 dark:border-darkblack-400 dark:text-white">
+                                @if($daycareData['banner_type'] == 'image' && $daycareData['banner_image'])
+                                    <div class="mt-2">
+                                        <img src="{{ Storage::disk('public')->exists($daycareData['banner_image']) ? asset('storage/' . $daycareData['banner_image']) : asset($daycareData['banner_image']) }}"
+                                             alt="Current Banner"
+                                             class="w-64 h-32 object-cover">
+                                    </div>
                                     @endif
-                                    <input type="file" name="banner_image" id="banner_image" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" accept="image/*">
-                                </div>
-                                <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">Ukuran yang direkomendasikan: 1200 x 400 pixel</p>
                             </div>
 
-                            <div id="banner_video_container" class="mb-4 {{ $daycareData['banner_type'] == 'video' ? '' : 'hidden' }}">
-                                <label for="banner_video" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Link Video YouTube</label>
-                                <input type="text" name="banner_video" id="banner_video" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="https://www.youtube.com/watch?v=..." value="{{ $daycareData['banner_video'] ?? '' }}">
-                                <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">Contoh: https://www.youtube.com/watch?v=XXXXXXXXXXX</p>
+                            <div id="banner-video-section" class="mb-4" style="display: none;">
+                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Link Video</label>
+                                <input type="text" name="banner_video" value="{{ $daycareData['banner_video'] }}" class="w-full p-2 border rounded dark:bg-darkblack-500 dark:border-darkblack-400 dark:text-white">
                             </div>
                         </div>
 
                         <div class="mb-8">
                             <h2 class="text-lg font-semibold mb-4 border-b pb-2 dark:text-white">Kelebihan Daycare</h2>
                             <div class="mb-4">
-                                <label for="kelebihan_daycare" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi Kelebihan</label>
-                                <textarea name="kelebihan_daycare" id="kelebihan_daycare" rows="6" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">{{ $daycareData['kelebihan_daycare'] }}</textarea>
+                                <label for="kelebihan_daycare" class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Deskripsi Kelebihan</label>
+                                <textarea name="kelebihan_daycare" id="kelebihan_daycare" rows="6" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">{{ $daycareData['kelebihan_daycare'] }}</textarea>
                             </div>
                         </div>
 
@@ -97,19 +97,19 @@
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div class="mb-4">
-                                    <label for="usia" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Usia</label>
-                                    <input type="text" name="usia" id="usia" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ $daycareData['about_daycare']['details']['usia'] }}">
+                                    <label for="usia" class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Usia</label>
+                                    <input type="text" name="usia" id="usia" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ $daycareData['about_daycare']['details']['usia'] }}">
                                 </div>
 
                                 <div class="mb-4">
-                                    <label for="jam_operasional" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jam Operasional</label>
-                                    <input type="text" name="jam_operasional" id="jam_operasional" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ $daycareData['about_daycare']['details']['jam_operasional'] }}">
+                                    <label for="jam_operasional" class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Jam Operasional</label>
+                                    <input type="text" name="jam_operasional" id="jam_operasional" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ $daycareData['about_daycare']['details']['jam_operasional'] }}">
                                 </div>
                             </div>
 
                                 <div class="mb-4">
-                                <label for="hari" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hari</label>
-                                <input type="text" name="hari" id="hari" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ $daycareData['about_daycare']['details']['hari'] ?? 'Senin-Sabtu' }}">
+                                <label for="hari" class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Hari</label>
+                                <input type="text" name="hari" id="hari" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ $daycareData['about_daycare']['details']['hari'] ?? 'Senin-Sabtu' }}">
                             </div>
                         </div>
 
@@ -118,15 +118,15 @@
                             <div id="caregiver_container">
                                 @if(isset($daycareData['about_caregiver']['caregivers']))
                                     @foreach($daycareData['about_caregiver']['caregivers'] as $index => $caregiver)
-                                    <div class="caregiver-item border-b pb-3 mb-3">
+                                    <div class="caregiver-item border-b pb-3 mb-3 dark:border-darkblack-400">
                                         <div class="flex flex-wrap gap-4">
                                             <div class="flex-1 min-w-[200px]">
-                                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Usia</label>
-                                                <input type="text" name="caregiver_items[{{ $index }}][usia]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ $caregiver['usia'] }}">
+                                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Usia</label>
+                                                <input type="text" name="caregiver_items[{{ $index }}][usia]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ $caregiver['usia'] }}">
                                             </div>
                                             <div class="flex-1 min-w-[200px]">
-                                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Rasio</label>
-                                                <input type="text" name="caregiver_items[{{ $index }}][rasio]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ $caregiver['rasio'] }}">
+                                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Rasio</label>
+                                                <input type="text" name="caregiver_items[{{ $index }}][rasio]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ $caregiver['rasio'] }}">
                                             </div>
                                             <div class="flex items-end pb-2">
                                                 <button type="button" class="remove-caregiver text-red-600 hover:text-red-800 dark:text-red-500 dark:hover:text-red-400">
@@ -139,53 +139,15 @@
                                     </div>
                                     @endforeach
                                 @else
-                                    <div class="caregiver-item border-b pb-3 mb-3">
+                                    <div class="caregiver-item border-b pb-3 mb-3 dark:border-darkblack-400">
                                         <div class="flex flex-wrap gap-4">
                                             <div class="flex-1 min-w-[200px]">
-                                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Usia</label>
-                                                <input type="text" name="caregiver_items[0][usia]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="Usia 0 - 1">
+                                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Usia</label>
+                                                <input type="text" name="caregiver_items[0][usia]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="Usia 0 - 1">
                                             </div>
                                             <div class="flex-1 min-w-[200px]">
-                                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Rasio</label>
-                                                <input type="text" name="caregiver_items[0][rasio]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="1 Anak 1 Care Giver">
-                                            </div>
-                                            <div class="flex items-end pb-2">
-                                                <button type="button" class="remove-caregiver text-red-600 hover:text-red-800 dark:text-red-500 dark:hover:text-red-400">
-                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="caregiver-item border-b pb-3 mb-3">
-                                        <div class="flex flex-wrap gap-4">
-                                            <div class="flex-1 min-w-[200px]">
-                                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Usia</label>
-                                                <input type="text" name="caregiver_items[1][usia]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="Usia 1 - 3">
-                                            </div>
-                                            <div class="flex-1 min-w-[200px]">
-                                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Rasio</label>
-                                                <input type="text" name="caregiver_items[1][rasio]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="2 Anak 1 Care Giver">
-                                            </div>
-                                            <div class="flex items-end pb-2">
-                                                <button type="button" class="remove-caregiver text-red-600 hover:text-red-800 dark:text-red-500 dark:hover:text-red-400">
-                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="caregiver-item border-b pb-3 mb-3">
-                                        <div class="flex flex-wrap gap-4">
-                                            <div class="flex-1 min-w-[200px]">
-                                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Usia</label>
-                                                <input type="text" name="caregiver_items[2][usia]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="Usia 3 - 12">
-                                            </div>
-                                            <div class="flex-1 min-w-[200px]">
-                                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Rasio</label>
-                                                <input type="text" name="caregiver_items[2][rasio]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="4 Anak 1 Care Giver">
+                                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Rasio</label>
+                                                <input type="text" name="caregiver_items[0][rasio]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="1 Anak 1 Care Giver">
                                             </div>
                                             <div class="flex items-end pb-2">
                                                 <button type="button" class="remove-caregiver text-red-600 hover:text-red-800 dark:text-red-500 dark:hover:text-red-400">
@@ -206,16 +168,28 @@
                         <div class="mb-8">
                             <h2 class="text-lg font-semibold mb-4 border-b pb-2 dark:text-white">Program</h2>
                             <div class="mb-4">
-                                <label for="program_description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi Program</label>
-                                <textarea name="program_description" id="program_description" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">{{ $daycareData['program']['description'] }}</textarea>
+                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Deskripsi Program</label>
+                                <textarea name="program_description" class="w-full p-2 border rounded dark:bg-darkblack-500 dark:border-darkblack-400 dark:text-white" rows="3">{{ $daycareData['program']['description'] }}</textarea>
                             </div>
 
                             <div class="mb-4">
-                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Program Points</label>
+                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Gambar Program</label>
+                                <input type="file" name="program_image" class="w-full p-2 border rounded dark:bg-darkblack-500 dark:border-darkblack-400 dark:text-white">
+                                @if($daycareData['program']['image'])
+                                    <div class="mt-2">
+                                        <img src="{{ Storage::disk('public')->exists($daycareData['program']['image']) ? asset('storage/' . $daycareData['program']['image']) : asset($daycareData['program']['image']) }}"
+                                             alt="Current Program Image"
+                                             class="w-64 h-32 object-cover">
+                                    </div>
+                                @endif
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Program Points</label>
                                 <div id="program_points_container">
                                     @foreach($daycareData['program']['points'] as $index => $point)
                                     <div class="program-point-item flex items-center gap-2 mb-2">
-                                        <input type="text" name="program_points[]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ $point }}">
+                                        <input type="text" name="program_points[]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ $point }}">
                                         <button type="button" class="remove-program-point text-red-600 hover:text-red-800 dark:text-red-500 dark:hover:text-red-400">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
@@ -228,81 +202,66 @@
                                     Tambah Point
                                 </button>
                             </div>
-
-                            <div class="mb-4">
-                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gambar Program</label>
-                                <div class="flex items-center space-x-4">
-                                    @if(isset($daycareData['program']['image']))
-                                    <img src="{{ asset($daycareData['program']['image']) }}" alt="Program Preview" class="image-preview mb-2">
-                                    @endif
-                                    <input type="file" name="program_image" id="program_image" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" accept="image/*">
-                                </div>
-                            </div>
                         </div>
 
                         <div class="mb-8">
                             <h2 class="text-lg font-semibold mb-4 border-b pb-2 dark:text-white">Fasilitas</h2>
-                            <div id="facility_container">
-                                @foreach($daycareData['facilities'] as $index => $facility)
-                                <div class="facility-item border-b pb-4 mb-4">
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div>
-                                            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Fasilitas</label>
-                                        <input type="text" name="facility_items[{{ $index }}][title]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ $facility['title'] }}">
-                                    </div>
-                                        <div>
-                                            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi</label>
-                                            <input type="text" name="facility_items[{{ $index }}][description]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ $facility['description'] }}">
+                            <div id="facilities">
+                                @if(isset($daycareData['facilities']) && is_array($daycareData['facilities']))
+                                    @foreach($daycareData['facilities'] as $index => $facility)
+                                        <div class="border p-4 mb-4 dark:border-darkblack-400">
+                                            <div class="mb-4">
+                                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Judul</label>
+                                                <input type="text" name="facility_items[{{ $index }}][title]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ $facility['title'] ?? '' }}">
+                                            </div>
+                                            <div class="mb-4">
+                                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Deskripsi</label>
+                                                <textarea name="facility_items[{{ $index }}][description]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">{{ $facility['description'] ?? '' }}</textarea>
+                                            </div>
+                                            <div class="mb-4">
+                                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Gambar</label>
+                                                <input type="file" name="facility_items[{{ $index }}][image]" class="w-full p-2 border rounded dark:bg-darkblack-500 dark:border-darkblack-400 dark:text-white">
+                                                @if(isset($facility['image']) && $facility['image'])
+                                                    <div class="mt-2">
+                                                        <img src="{{ Storage::disk('public')->exists($facility['image']) ? asset('storage/' . $facility['image']) : asset($facility['image']) }}"
+                                                             alt="Current Facility Image"
+                                                             class="w-64 h-32 object-cover">
+                                                    </div>
+                                                @endif
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="mt-4">
-                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gambar Fasilitas</label>
-                                        <div class="flex items-center space-x-4">
-                                            @if(isset($facility['image']))
-                                            <img src="{{ asset($facility['image']) }}" alt="Facility Preview" class="image-preview mb-2">
-                                            @endif
-                                            <input type="file" name="facility_items[{{ $index }}][image]" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" accept="image/*">
-                                        </div>
-                                    </div>
-                                    <div class="mt-4">
-                                        <button type="button" class="remove-facility text-red-600 hover:text-red-800 dark:text-red-500 dark:hover:text-red-400">
-                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                            </svg>
-                                    </button>
-                                    </div>
-                                </div>
-                                @endforeach
+                                    @endforeach
+                                @endif
                             </div>
-                            <button type="button" id="add-facility" class="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                            <button type="button" id="add_facility" class="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                                 Tambah Fasilitas
                             </button>
                         </div>
 
                         <div class="mb-8">
-                            <h2 class="text-lg font-semibold mb-4 border-b pb-2">Pricelist Daycare</h2>
+                            <h2 class="text-lg font-semibold mb-4 border-b pb-2 dark:text-white">Pricelist Daycare</h2>
 
                             <div id="pricelist_container">
                                 @foreach($daycareData['pricelist'] as $index => $pricelist)
-                                <div class="pricelist-item border rounded-lg p-4 mb-4">
+                                <div class="pricelist-item border rounded-lg p-4 mb-4 dark:border-darkblack-400">
                                     <div class="mb-3">
-                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Judul Paket</label>
-                                        <input type="text" name="pricelist_items[{{ $index }}][title]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ $pricelist['title'] }}">
+                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Judul Paket</label>
+                                        <input type="text" name="pricelist_items[{{ $index }}][title]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ $pricelist['title'] }}">
                                     </div>
 
                                     <div class="mb-3">
-                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga</label>
-                                        <input type="text" name="pricelist_items[{{ $index }}][price]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ str_replace('Rp ', '', $pricelist['price']) }}" placeholder="500.000 (Rp akan ditambahkan otomatis)">
+                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Harga</label>
+                                        <input type="text" name="pricelist_items[{{ $index }}][price]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ str_replace('Rp ', '', $pricelist['price']) }}" placeholder="500.000 (Rp akan ditambahkan otomatis)">
                                     </div>
 
                                     <div class="mb-3">
-                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Promo Pendaftaran</label>
-                                        <input type="number" name="pricelist_items[{{ $index }}][description]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ str_replace(['Rp', '.', ' ', 'promo'], '', $pricelist['description']) }}" placeholder="Masukkan nilai tanpa 'Rp' contoh: 100000">
+                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Promo Pendaftaran</label>
+                                        <input type="number" name="pricelist_items[{{ $index }}][description]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ str_replace(['Rp', '.', ' ', 'promo'], '', $pricelist['description']) }}" placeholder="Masukkan nilai tanpa 'Rp' contoh: 100000">
                                     </div>
 
                                     <div class="mb-3">
-                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Biaya Makan</label>
-                                        <input type="text" name="pricelist_items[{{ $index }}][food_cost]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ $pricelist['food_cost'] ?? '12.5k / Porsi, 5k Snack' }}" placeholder="Contoh: 12.5k / Porsi, 5k Snack">
+                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Biaya Makan</label>
+                                        <input type="text" name="pricelist_items[{{ $index }}][food_cost]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ $pricelist['food_cost'] ?? '12.5k / Porsi, 5k Snack' }}" placeholder="Contoh: 12.5k / Porsi, 5k Snack">
                                     </div>
 
                                     <button type="button" class="remove-pricelist text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">
@@ -318,24 +277,24 @@
                         </div>
 
                         <div class="mb-8">
-                            <h2 class="text-lg font-semibold mb-4 border-b pb-2">Kegiatan Daycare</h2>
+                            <h2 class="text-lg font-semibold mb-4 border-b pb-2 dark:text-white">Kegiatan Daycare</h2>
 
                             <div id="activity_container">
                                 @foreach($daycareData['activities'] as $index => $activity)
-                                <div class="activity-item border rounded-lg p-4 mb-4">
+                                <div class="activity-item border rounded-lg p-4 mb-4 dark:border-darkblack-400">
                                     <div class="mb-3">
-                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Kegiatan</label>
-                                        <input type="text" name="activity_items[{{ $index }}][title]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ $activity['title'] }}">
+                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Nama Kegiatan</label>
+                                        <input type="text" name="activity_items[{{ $index }}][title]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ $activity['title'] }}">
                                     </div>
 
                                     <div class="mb-3">
-                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Waktu</label>
-                                        <input type="text" name="activity_items[{{ $index }}][time]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ $activity['time'] }}">
+                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Waktu</label>
+                                        <input type="text" name="activity_items[{{ $index }}][time]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ $activity['time'] }}">
                                     </div>
 
                                     <div class="mb-3">
-                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi</label>
-                                        <textarea name="activity_items[{{ $index }}][description]" rows="2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">{{ $activity['description'] }}</textarea>
+                                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Deskripsi</label>
+                                        <textarea name="activity_items[{{ $index }}][description]" rows="2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">{{ $activity['description'] }}</textarea>
                                     </div>
 
                                     <button type="button" class="remove-activity text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">
@@ -351,8 +310,8 @@
                         </div>
 
                         <div class="mb-8">
-                            <h2 class="text-lg font-semibold mb-4 border-b pb-2">Galeri Daycare</h2>
-                            <p class="mb-4 text-sm text-gray-500">Untuk mengelola galeri, silakan menggunakan halaman <a href="{{ route('gallery.index') }}" class="text-blue-600 hover:underline">manajemen galeri</a> dan pilih kategori "Daycare".</p>
+                            <h2 class="text-lg font-semibold mb-4 border-b pb-2 dark:text-white">Galeri Daycare</h2>
+                            <p class="mb-4 text-sm text-gray-500 dark:text-bgray-300">Untuk mengelola galeri, silakan menggunakan halaman <a href="{{ route('gallery.index') }}" class="text-blue-600 hover:underline dark:text-blue-400">manajemen galeri</a> dan pilih kategori "Daycare".</p>
                         </div>
 
                         <div class="mt-6">
@@ -373,21 +332,21 @@
         // Toggle untuk jenis banner
         const radioBannerImage = document.getElementById('banner_type_image');
         const radioBannerVideo = document.getElementById('banner_type_video');
-        const bannerImageContainer = document.getElementById('banner_image_container');
-        const bannerVideoContainer = document.getElementById('banner_video_container');
+        const bannerImageContainer = document.getElementById('banner-image-section');
+        const bannerVideoContainer = document.getElementById('banner-video-section');
 
         if (radioBannerImage && radioBannerVideo) {
             radioBannerImage.addEventListener('change', function() {
                 if (this.checked) {
-                    bannerImageContainer.classList.remove('hidden');
-                    bannerVideoContainer.classList.add('hidden');
+                    bannerImageContainer.style.display = 'block';
+                    bannerVideoContainer.style.display = 'none';
                 }
             });
 
             radioBannerVideo.addEventListener('change', function() {
                 if (this.checked) {
-                    bannerImageContainer.classList.add('hidden');
-                    bannerVideoContainer.classList.remove('hidden');
+                    bannerImageContainer.style.display = 'none';
+                    bannerVideoContainer.style.display = 'block';
                 }
             });
         }
@@ -401,8 +360,8 @@
                 const newItem = document.createElement('div');
                 newItem.className = 'mb-2 flex items-center program-point-item';
                 newItem.innerHTML = `
-                    <input type="text" name="program_points[]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Point Program">
-                    <button type="button" class="remove-program-point ms-2 text-red-600 hover:text-red-800">
+                    <input type="text" name="program_points[]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Point Program">
+                    <button type="button" class="remove-program-point ms-2 text-red-600 hover:text-red-800 dark:text-red-500 dark:hover:text-red-400">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                         </svg>
@@ -425,28 +384,28 @@
         }
 
         // Facilities
-        const addFacilityBtn = document.getElementById('add-facility');
-        const facilityContainer = document.getElementById('facility_container');
+        const addFacilityBtn = document.getElementById('add_facility');
+        const facilityContainer = document.getElementById('facilities');
         let facilityCounter = document.querySelectorAll('.facility-item').length;
 
         if (addFacilityBtn && facilityContainer) {
             addFacilityBtn.addEventListener('click', function() {
                 const newItem = document.createElement('div');
-                newItem.className = 'facility-item border rounded-lg p-4 mb-4';
+                newItem.className = 'facility-item border rounded-lg p-4 mb-4 dark:border-darkblack-400';
                 newItem.innerHTML = `
                     <div class="mb-3">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Judul Fasilitas</label>
-                        <input type="text" name="facility_items[${facilityCounter}][title]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Judul Fasilitas">
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Judul Fasilitas</label>
+                        <input type="text" name="facility_items[${facilityCounter}][title]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Judul Fasilitas">
                     </div>
 
                     <div class="mb-3">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi Fasilitas</label>
-                        <textarea name="facility_items[${facilityCounter}][description]" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Deskripsi fasilitas"></textarea>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Deskripsi Fasilitas</label>
+                        <textarea name="facility_items[${facilityCounter}][description]" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Deskripsi fasilitas"></textarea>
                     </div>
 
                     <div class="mb-3">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gambar Fasilitas</label>
-                        <input type="file" name="facility_items[${facilityCounter}][image]" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" accept="image/*">
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Gambar Fasilitas</label>
+                        <input type="file" name="facility_items[${facilityCounter}][image]" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-darkblack-500 dark:border-darkblack-400" accept="image/*">
                     </div>
 
                     <button type="button" class="remove-facility text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">
@@ -478,26 +437,26 @@
         if (addPricelistBtn && pricelistContainer) {
             addPricelistBtn.addEventListener('click', function() {
                 const newItem = document.createElement('div');
-                newItem.className = 'pricelist-item border rounded-lg p-4 mb-4';
+                newItem.className = 'pricelist-item border rounded-lg p-4 mb-4 dark:border-darkblack-400';
                 newItem.innerHTML = `
                     <div class="mb-3">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Judul Paket</label>
-                        <input type="text" name="pricelist_items[${pricelistCounter}][title]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Judul Paket">
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Judul Paket</label>
+                        <input type="text" name="pricelist_items[${pricelistCounter}][title]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Judul Paket">
                     </div>
 
                     <div class="mb-3">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga</label>
-                        <input type="text" name="pricelist_items[${pricelistCounter}][price]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="500.000/bulan (Rp akan ditambahkan otomatis)">
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Harga</label>
+                        <input type="text" name="pricelist_items[${pricelistCounter}][price]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="500.000/bulan (Rp akan ditambahkan otomatis)">
                     </div>
 
                     <div class="mb-3">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Promo Pendaftaran</label>
-                        <input type="number" name="pricelist_items[${pricelistCounter}][description]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Masukkan nilai tanpa 'Rp' contoh: 100000">
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Promo Pendaftaran</label>
+                        <input type="number" name="pricelist_items[${pricelistCounter}][description]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Masukkan nilai tanpa 'Rp' contoh: 100000">
                     </div>
 
                     <div class="mb-3">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Biaya Makan</label>
-                        <input type="text" name="pricelist_items[${pricelistCounter}][food_cost]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Contoh: 12.5k / Porsi, 5k Snack">
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Biaya Makan</label>
+                        <input type="text" name="pricelist_items[${pricelistCounter}][food_cost]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Contoh: 12.5k / Porsi, 5k Snack">
                     </div>
 
                     <button type="button" class="remove-pricelist text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">
@@ -529,21 +488,21 @@
         if (addActivityBtn && activityContainer) {
             addActivityBtn.addEventListener('click', function() {
                 const newItem = document.createElement('div');
-                newItem.className = 'activity-item border rounded-lg p-4 mb-4';
+                newItem.className = 'activity-item border rounded-lg p-4 mb-4 dark:border-darkblack-400';
                 newItem.innerHTML = `
                     <div class="mb-3">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Kegiatan</label>
-                        <input type="text" name="activity_items[${activityCounter}][title]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nama Kegiatan">
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Nama Kegiatan</label>
+                        <input type="text" name="activity_items[${activityCounter}][title]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nama Kegiatan">
                     </div>
 
                     <div class="mb-3">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Waktu</label>
-                        <input type="text" name="activity_items[${activityCounter}][time]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="08.00 - 10.00">
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Waktu</label>
+                        <input type="text" name="activity_items[${activityCounter}][time]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="08.00 - 10.00">
                     </div>
 
                     <div class="mb-3">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi</label>
-                        <textarea name="activity_items[${activityCounter}][description]" rows="2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Deskripsi kegiatan"></textarea>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Deskripsi</label>
+                        <textarea name="activity_items[${activityCounter}][description]" rows="2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Deskripsi kegiatan"></textarea>
                     </div>
 
                     <button type="button" class="remove-activity text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">
@@ -575,16 +534,16 @@
         if (addCaregiverBtn && caregiverContainer) {
             addCaregiverBtn.addEventListener('click', function() {
                 const newItem = document.createElement('div');
-                newItem.className = 'caregiver-item border-b pb-3 mb-3';
+                newItem.className = 'caregiver-item border-b pb-3 mb-3 dark:border-darkblack-400';
                 newItem.innerHTML = `
                     <div class="flex flex-wrap gap-4">
                         <div class="flex-1 min-w-[200px]">
-                            <label class="block mb-2 text-sm font-medium text-gray-900">Usia</label>
-                            <input type="text" name="caregiver_items[${caregiverCounter}][usia]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="contoh: Usia 0 - 1">
+                            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Usia</label>
+                            <input type="text" name="caregiver_items[${caregiverCounter}][usia]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="contoh: Usia 0 - 1">
                         </div>
                         <div class="flex-1 min-w-[200px]">
-                            <label class="block mb-2 text-sm font-medium text-gray-900">Rasio</label>
-                            <input type="text" name="caregiver_items[${caregiverCounter}][rasio]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="contoh: 1 Anak 1 Care Giver">
+                            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Rasio</label>
+                            <input type="text" name="caregiver_items[${caregiverCounter}][rasio]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-darkblack-500 dark:border-darkblack-400 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="contoh: 1 Anak 1 Care Giver">
                         </div>
                         <div class="flex items-end pb-2">
                             <button type="button" class="remove-caregiver text-red-600 hover:text-red-800 dark:text-red-500 dark:hover:text-red-400">

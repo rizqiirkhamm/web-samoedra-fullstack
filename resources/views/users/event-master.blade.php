@@ -3,8 +3,8 @@
 @section('title', 'Master Event')
 
 @section('content')
-<div class="w-full rounded-lg bg-white px-[24px] py-[20px] dark:bg-darkblack-600">
-    <div class="flex flex-wrap items-center justify-between gap-4 border-b border-bgray-200 pb-4">
+<div class="w-full rounded-lg bg-white px-[24px] py-[20px] dark:bg-darkblack-600 shadow-md border border-gray-100 dark:border-darkblack-400 hover:shadow-lg transition-all duration-200">
+    <div class="flex flex-wrap items-center justify-between gap-4 border-b dark:border-darkblack-300 pb-4">
         <div class="flex items-center gap-4">
             <h2 class="text-xl font-semibold text-bgray-800 dark:text-white">Master Data Event</h2>
             <button onclick="showAddModal()" class="flex items-center justify-center rounded-lg bg-success-300 px-4 py-2 text-sm font-medium text-white hover:bg-success-400 transition-all duration-300">
@@ -50,13 +50,22 @@
                     <td class="px-4 py-3 text-sm text-bgray-900 dark:text-white">{{ $event->description }}</td>
                     <td class="px-4 py-3 text-sm text-bgray-900 dark:text-white">{{ $event->event_date->format('d/m/Y') }}</td>
                     <td class="px-4 py-3">
-                        <button onclick="showDeleteModal('{{ $event->id }}')"
-                                class="flex items-center text-red-500 hover:text-red-700 transition-colors duration-200">
-                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                            </svg>
-                            Hapus
-                        </button>
+                        <div class="flex items-center gap-2">
+                            <button onclick="showEditModal('{{ $event->id }}', '{{ $event->name }}', '{{ $event->description }}', '{{ $event->event_date->format('Y-m-d') }}')"
+                                    class="flex items-center text-blue-500 hover:text-blue-700 transition-colors duration-200">
+                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                                </svg>
+                                Edit
+                            </button>
+                            <button onclick="showDeleteModal('{{ $event->id }}')"
+                                    class="flex items-center text-red-500 hover:text-red-700 transition-colors duration-200">
+                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                </svg>
+                                Hapus
+                            </button>
+                        </div>
                     </td>
                 </tr>
                 @endforeach
@@ -73,22 +82,22 @@
     <div id="addEventModal" class="fixed inset-0 z-50 hidden">
         <div class="fixed inset-0 bg-black/50 backdrop-blur-sm"></div>
         <div class="relative z-10 mx-auto mt-20 max-w-lg">
-            <div class="rounded-xl bg-white p-6 shadow-xl dark:bg-darkblack-600">
-                <h3 class="mb-4 text-lg font-semibold text-bgray-900 dark:text-white">Tambah Event Baru</h3>
+            <div class="rounded-xl bg-white dark:bg-darkblack-600 p-6 shadow-xl card border border-gray-300 dark:border-darkblack-400">
+                <h3 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Tambah Event Baru</h3>
                 <form action="{{ route('event.master.store') }}" method="POST">
                     @csrf
                     <div class="space-y-4">
                         <div>
-                            <label class="mb-2 block text-sm font-medium text-bgray-600 dark:text-bgray-50">Nama Event</label>
-                            <input type="text" name="name" class="w-full rounded-lg border border-bgray-300 p-2.5 focus:ring-2 focus:ring-success-300" required>
+                            <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">Nama Event</label>
+                            <input type="text" name="name" class="w-full rounded-lg bg-white dark:bg-darkblack-500 border border-gray-300 dark:border-darkblack-400 p-2.5 text-gray-900 dark:text-white focus:ring-2 focus:ring-success-300" required>
                         </div>
                         <div>
-                            <label class="mb-2 block text-sm font-medium text-bgray-600 dark:text-bgray-50">Deskripsi</label>
-                            <textarea name="description" class="w-full rounded-lg border border-bgray-300 p-2.5 focus:ring-2 focus:ring-success-300" rows="3" required></textarea>
+                            <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">Deskripsi</label>
+                            <textarea name="description" class="w-full rounded-lg bg-white dark:bg-darkblack-500 border border-gray-300 dark:border-darkblack-400 p-2.5 text-gray-900 dark:text-white focus:ring-2 focus:ring-success-300" rows="3" required></textarea>
                         </div>
                         <div>
-                            <label class="mb-2 block text-sm font-medium text-bgray-600 dark:text-bgray-50">Tanggal Event</label>
-                            <input type="date" name="event_date" class="w-full rounded-lg border border-bgray-300 p-2.5 focus:ring-2 focus:ring-success-300" required>
+                            <label class="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">Tanggal Event</label>
+                            <input type="date" name="event_date" class="w-full rounded-lg bg-white dark:bg-darkblack-500 border border-gray-300 dark:border-darkblack-400 p-2.5 text-gray-900 dark:text-white focus:ring-2 focus:ring-success-300" required>
                         </div>
                     </div>
                     <div class="mt-6 flex justify-end gap-4">
@@ -133,6 +142,7 @@
                     <form id="deleteEventForm" method="POST" class="w-full">
                         @csrf
                         @method('DELETE')
+                        <input type="hidden" name="id" id="deleteEventId">
                         <div class="flex justify-center gap-4">
                             <button type="button"
                                     onclick="hideDeleteModal()"
@@ -146,6 +156,45 @@
                         </div>
                     </form>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Event Modal -->
+    <div id="editEventModal" class="fixed inset-0 z-50 hidden">
+        <div class="fixed inset-0 bg-black/50 backdrop-blur-sm"></div>
+        <div class="relative z-10 mx-auto mt-20 max-w-lg">
+            <div class="rounded-xl bg-white p-6 shadow-xl dark:bg-darkblack-600">
+                <h3 class="mb-4 text-lg font-semibold text-bgray-900 dark:text-white">Edit Event</h3>
+                <form id="editEventForm" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="id" id="editEventId">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="mb-2 block text-sm font-medium text-bgray-600 dark:text-bgray-50">Nama Event</label>
+                            <input type="text" name="name" id="editEventName" class="w-full rounded-lg border border-bgray-300 p-2.5 focus:ring-2 focus:ring-success-300" required>
+                        </div>
+                        <div>
+                            <label class="mb-2 block text-sm font-medium text-bgray-600 dark:text-bgray-50">Deskripsi</label>
+                            <textarea name="description" id="editEventDescription" class="w-full rounded-lg border border-bgray-300 p-2.5 focus:ring-2 focus:ring-success-300" rows="3" required></textarea>
+                        </div>
+                        <div>
+                            <label class="mb-2 block text-sm font-medium text-bgray-600 dark:text-bgray-50">Tanggal Event</label>
+                            <input type="date" name="event_date" id="editEventDate" class="w-full rounded-lg border border-bgray-300 p-2.5 focus:ring-2 focus:ring-success-300" required>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex justify-end gap-4">
+                        <button type="button" onclick="hideEditModal()"
+                                class="rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-200 dark:bg-darkblack-500 dark:text-gray-300 dark:hover:bg-darkblack-400">
+                            Batal
+                        </button>
+                        <button type="submit"
+                                class="rounded-lg bg-success-300 px-4 py-2 text-sm font-medium text-white hover:bg-success-400">
+                            Simpan Perubahan
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -164,12 +213,28 @@ function hideAddModal() {
 function showDeleteModal(eventId) {
     const modal = document.getElementById('deleteEventModal');
     const form = document.getElementById('deleteEventForm');
-    form.action = `{{ route('event.master.destroy', '') }}/${eventId}`;
+    document.getElementById('deleteEventId').value = eventId;
+    form.action = `{{ url('event/master') }}/${eventId}`;
     modal.classList.remove('hidden');
 }
 
 function hideDeleteModal() {
     document.getElementById('deleteEventModal').classList.add('hidden');
+}
+
+function showEditModal(eventId, name, description, eventDate) {
+    const modal = document.getElementById('editEventModal');
+    const form = document.getElementById('editEventForm');
+    document.getElementById('editEventId').value = eventId;
+    document.getElementById('editEventName').value = name;
+    document.getElementById('editEventDescription').value = description;
+    document.getElementById('editEventDate').value = eventDate;
+    form.action = `{{ url('event/master') }}/${eventId}`;
+    modal.classList.remove('hidden');
+}
+
+function hideEditModal() {
+    document.getElementById('editEventModal').classList.add('hidden');
 }
 
 // Tambahkan animasi fade untuk modal
@@ -180,6 +245,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (e.target === modal) {
                 hideAddModal();
                 hideDeleteModal();
+                hideEditModal();
             }
         });
     });

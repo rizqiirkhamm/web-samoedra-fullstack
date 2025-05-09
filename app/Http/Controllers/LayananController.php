@@ -16,6 +16,8 @@ use App\Models\EventRegistrationModel;
 use App\Models\DaycareRegistrationModel;
 use App\Models\StimulasiModel;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
 
 class LayananController extends Controller
 {
@@ -53,34 +55,22 @@ class LayananController extends Controller
     private const BIMBEL_PRICE = 50000;
 
     // Konstanta untuk harga kaos kaki
-    private const SOCKS_PRICE = 15000;  // Rp 15.000
-
-    public function index()
-    {
-        // Check permission untuk akses Layanan
-        $PermissionRole = PermissionRoleModel::getPermission(Auth::user()->role_id, 'Layanan');
-        if(empty($PermissionRole)){
-            abort(404);
-        }
-
-        // Get active events
-        $events = EventModel::all();
-
-        // Get permissions untuk masing-masing layanan
-        $data['PermissionBermain'] = PermissionRoleModel::getPermission(Auth::user()->role_id, 'Bermain');
-        $data['PermissionBimbel'] = PermissionRoleModel::getPermission(Auth::user()->role_id, 'Bimbel');
-        $data['events'] = $events;
-
-        // Get list layanan yang tersedia
-        $data['getRecord'] = LayananModel::getRecord();
-
-        return view('users.layanan', $data);
-    }
+    private const SOCKS_PRICE = 5000;  // Rp 5.000
 
     public function submit(Request $request)
     {
         try {
             DB::beginTransaction();
+
+            // Proses file HEIC untuk payment_proof jika ada
+            if ($request->hasFile('payment_proof')) {
+                $request->files->set('payment_proof', $this->convertHeicToJpg($request->file('payment_proof')));
+            }
+
+            // Proses file HEIC untuk student_photo jika ada
+            if ($request->hasFile('student_photo')) {
+                $request->files->set('student_photo', $this->convertHeicToJpg($request->file('student_photo')));
+            }
 
             if ($request->main_service_type === 'bermain') {
                 // Tambahkan validasi untuk form bermain
@@ -91,7 +81,7 @@ class LayananController extends Controller
                     'duration' => 'required|integer|in:1,2,3,6',
                     'date' => 'required|date|after_or_equal:today',
                     'selected_time' => 'required',
-                    'payment_proof' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+                    'payment_proof' => 'required|image|mimes:jpeg,png,jpg,heic|max:10240'
                 ]);
 
                 // Handle file upload
@@ -169,7 +159,7 @@ class LayananController extends Controller
                     'service_type' => 'required|in:' . implode(',', array_keys(self::BIMBEL_MEETINGS)),
                     'gender' => 'required|in:L,P',
                     'birth_place' => 'required|string',
-                    'birth_date' => 'required|date',
+                    'birth_date' => 'required|date|before:today',
                     'has_school_history' => 'required|boolean',
                     'school_name' => 'nullable|required_if:has_school_history,1',
                     'religion' => 'required',
@@ -184,8 +174,8 @@ class LayananController extends Controller
                     'mother_age' => 'required|integer',
                     'mother_education' => 'required|string',
                     'mother_occupation' => 'required|string',
-                    'student_photo' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-                    'payment_proof' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+                    'student_photo' => 'required|image|mimes:jpeg,png,jpg,heic|max:10240',
+                    'payment_proof' => 'required|image|mimes:jpeg,png,jpg,heic|max:10240',
                     'start_date' => 'required|date',
                 ]);
 
@@ -274,7 +264,7 @@ class LayananController extends Controller
                     'parent_name' => 'required|string|max:255',
                     'address' => 'required|string',
                     'social_media' => 'required|string|max:255',
-                    'payment_proof' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+                    'payment_proof' => 'required|image|mimes:jpeg,png,jpg,heic|max:10240',
                     'source_info' => 'required|string|in:instagram,facebook,tiktok,teman,lainnya',
                 ]);
 
@@ -318,32 +308,40 @@ class LayananController extends Controller
                     ]
                 ]);
             } elseif ($request->main_service_type === 'stimulasi') {
-                $validator = Validator::make($request->all(), [
-                    // Field wajib yang sudah ada
-                    'name' => 'required|string',
-                    'age' => 'required|integer',
-                    'phone' => 'required|string',
-                    'need_socks' => 'nullable|boolean',
-                    'child_order' => 'required|integer|min:1',
-                    'gender' => 'required|in:L,P',
-                    'birth_place' => 'required|string',
-                    'birth_date' => 'required|date',
-                    'religion' => 'required|string',
-                    'address' => 'required|string',
-                    'child_phone' => 'nullable|string',
-                    'father_name' => 'required|string',
-                    'father_age' => 'required|integer',
-                    'father_education' => 'required|string',
-                    'father_occupation' => 'required|string',
-                    'mother_name' => 'required|string',
-                    'mother_age' => 'required|integer',
-                    'mother_education' => 'required|string',
-                    'mother_occupation' => 'required|string',
-                    'student_photo' => 'required|image|max:2048',
-                    'payment_proof' => 'required|image|max:2048',
-                    'height' => 'required|integer|min:1',
-                    'weight' => 'required|integer|min:1',
-                ]);
+                $validator = Validator::make(
+                    $request->all(),
+                    [
+                        // Field wajib yang sudah ada
+                        'name' => 'required|string',
+                        'age' => 'required|integer',
+                        'phone' => 'required|string',
+                        'need_socks' => 'nullable|boolean',
+                        'child_order' => 'required|integer|min:1',
+                        'gender' => 'required|in:L,P',
+                        'birth_place' => 'required|string',
+                        'birth_date' => 'required|date|before:today',
+                        'religion' => 'required|string',
+                        'address' => 'required|string',
+                        'child_phone' => 'nullable|string',
+                        'father_name' => 'required|string',
+                        'father_age' => 'required|integer',
+                        'father_education' => 'required|string',
+                        'father_occupation' => 'required|string',
+                        'mother_name' => 'required|string',
+                        'mother_age' => 'required|integer',
+                        'mother_education' => 'required|string',
+                        'mother_occupation' => 'required|string',
+                        'student_photo' => 'required|image|max:10240',
+                        'payment_proof' => 'required|image|max:10240',
+                        'height' => 'required|integer|min:1',
+                        'weight' => 'required|integer|min:1',
+                    ],
+                    [
+                        'birth_date.before' => 'Tanggal lahir harus sebelum hari ini.',
+                        'birth_date.required' => 'Tanggal lahir wajib diisi.',
+                        'birth_date.date' => 'Format tanggal lahir tidak valid.'
+                    ]
+                );
 
                 if ($validator->fails()) {
                     return response()->json([
@@ -409,7 +407,7 @@ class LayananController extends Controller
                     'daycare_type' => 'required|in:bulanan,harian',
                     'gender' => 'required|in:L,P',
                     'birth_place' => 'required|string',
-                    'birth_date' => 'required|date',
+                    'birth_date' => 'required|date|before:today',
                     'address' => 'required|string',
                     'child_phone' => 'nullable|string',
                     'child_order' => 'required|integer',
@@ -422,8 +420,8 @@ class LayananController extends Controller
                     'mother_age' => 'required|integer',
                     'mother_education' => 'required|string',
                     'mother_occupation' => 'required|string',
-                    'student_photo' => 'required|image|max:2048',
-                    'payment_proof' => 'required|image|max:2048',
+                    'student_photo' => 'required|image|mimes:jpeg,png,jpg,heic|max:10240',
+                    'payment_proof' => 'required|image|mimes:jpeg,png,jpg,heic|max:10240',
                 ]);
 
                 if ($validator->fails()) {
@@ -483,7 +481,6 @@ class LayananController extends Controller
             }
 
             DB::commit();
-
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Error in submit: ' . $e->getMessage());
@@ -548,6 +545,16 @@ class LayananController extends Controller
         try {
             DB::beginTransaction();
 
+            // Proses file HEIC untuk payment_proof jika ada
+            if ($request->hasFile('payment_proof')) {
+                $request->files->set('payment_proof', $this->convertHeicToJpg($request->file('payment_proof')));
+            }
+
+            // Proses file HEIC untuk student_photo jika ada
+            if ($request->hasFile('student_photo')) {
+                $request->files->set('student_photo', $this->convertHeicToJpg($request->file('student_photo')));
+            }
+
             // Validasi data umum yang sama untuk semua layanan
             $validator = Validator::make($request->all(), [
                 'main_service_type' => 'required|in:bermain,bimbel,stimulasi,daycare,event',
@@ -575,7 +582,7 @@ class LayananController extends Controller
                         'duration' => 'required|in:1,2,3,6',
                         'day' => 'required|string',
                         'need_socks' => 'nullable',
-                        'payment_proof' => 'required|image|max:2048',
+                        'payment_proof' => 'required|image|max:10240',
                         'date' => 'required|date',
                         'selected_time' => 'required',
                     ]);
@@ -625,7 +632,7 @@ class LayananController extends Controller
                         'start_date' => 'required|date',
                         'gender' => 'required|in:L,P',
                         'birth_place' => 'required|string',
-                        'birth_date' => 'required|date',
+                        'birth_date' => 'required|date|before:today',
                         'religion' => 'required|string',
                         'address' => 'required|string',
                         'child_order' => 'required|integer',
@@ -638,8 +645,8 @@ class LayananController extends Controller
                         'mother_age' => 'required|integer',
                         'mother_education' => 'required|string',
                         'mother_occupation' => 'required|string',
-                        'student_photo' => 'required|image|max:2048',
-                        'payment_proof' => 'required|image|max:2048',
+                        'student_photo' => 'required|image|max:10240',
+                        'payment_proof' => 'required|image|max:10240',
                         'has_school_history' => 'nullable|boolean',
                         'need_socks' => 'nullable',
                         'school_name' => 'nullable|string',
@@ -717,7 +724,7 @@ class LayananController extends Controller
                     $validator = Validator::make($request->all(), [
                         'gender' => 'required|in:L,P',
                         'birth_place' => 'required|string',
-                        'birth_date' => 'required|date',
+                        'birth_date' => 'required|date|before:today',
                         'religion' => 'required|string',
                         'address' => 'required|string',
                         'child_order' => 'required|integer|min:1',
@@ -732,8 +739,8 @@ class LayananController extends Controller
                         'mother_occupation' => 'required|string',
                         'height' => 'required|integer|min:1',
                         'weight' => 'required|integer|min:1',
-                        'student_photo' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-                        'payment_proof' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+                        'student_photo' => 'required|image|mimes:jpeg,png,jpg,heic|max:10240',
+                        'payment_proof' => 'required|image|mimes:jpeg,png,jpg,heic|max:10240',
                         'need_socks' => 'nullable',
                     ]);
 
@@ -786,7 +793,7 @@ class LayananController extends Controller
                         'daycare_type' => 'required|in:bulanan,harian',
                         'gender' => 'required|in:L,P',
                         'birth_place' => 'required|string',
-                        'birth_date' => 'required|date',
+                        'birth_date' => 'required|date|before:today',
                         'religion' => 'required|string',
                         'address' => 'required|string',
                         'child_order' => 'required|integer|min:1',
@@ -801,8 +808,8 @@ class LayananController extends Controller
                         'mother_occupation' => 'required|string',
                         'height' => 'required|integer|min:1',
                         'weight' => 'required|integer|min:1',
-                        'student_photo' => 'required|image|max:2048',
-                        'payment_proof' => 'required|image|max:2048',
+                        'student_photo' => 'required|image|mimes:jpeg,png,jpg,heic|max:10240',
+                        'payment_proof' => 'required|image|mimes:jpeg,png,jpg,heic|max:10240',
                         'need_socks' => 'nullable',
                     ]);
 
@@ -861,7 +868,7 @@ class LayananController extends Controller
                         'parent_name' => 'required|string|max:255',
                         'address' => 'required|string',
                         'social_media' => 'required|string|max:255',
-                        'payment_proof' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+                        'payment_proof' => 'required|image|mimes:jpeg,png,jpg,heic|max:10240',
                         'source_info' => 'required|string|in:instagram,facebook,tiktok,teman,lainnya',
                     ]);
 
@@ -905,7 +912,6 @@ class LayananController extends Controller
                 DB::rollBack();
                 return response()->json(['success' => false, 'message' => 'Gagal menyimpan data']);
             }
-
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Error in submitPublic: ' . $e->getMessage());
@@ -913,7 +919,8 @@ class LayananController extends Controller
         }
     }
 
-    private function generateInvoiceData($mainServiceType, $data, $needSocks = false) {
+    private function generateInvoiceData($mainServiceType, $data, $needSocks = false)
+    {
         try {
             $invoiceData = [
                 'service_info' => [
@@ -923,7 +930,7 @@ class LayananController extends Controller
                 ],
                 'service_name' => '',
                 'service_fee' => 0,
-                'socks_fee' => $needSocks ? 15000 : 0, // Harga kaos kaki
+                'socks_fee' => $needSocks ? 5000 : 0, // Harga kaos kaki
                 'total' => 0,
                 'duration_info' => ''
             ];
@@ -1012,7 +1019,6 @@ class LayananController extends Controller
                 'data' => $invoiceData,
                 'type' => $type
             ]);
-
         } catch (\Exception $e) {
             Log::error('Error generating invoice: ' . $e->getMessage());
             return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
@@ -1050,6 +1056,72 @@ class LayananController extends Controller
                 'success' => false,
                 'message' => 'Terjadi kesalahan saat mengambil data event: ' . $e->getMessage()
             ], 500);
+        }
+    }
+
+    // Fungsi untuk konversi file HEIC ke JPG
+    private function convertHeicToJpg($file)
+    {
+        try {
+            // Cek apakah extension file adalah HEIC
+            $extension = strtolower($file->getClientOriginalExtension());
+
+            if ($extension === 'heic') {
+                // Buat nama file temporary untuk proses konversi
+                $tempPath = storage_path('app/temp');
+                if (!File::exists($tempPath)) {
+                    File::makeDirectory($tempPath, 0755, true);
+                }
+
+                $tempHeicFile = $tempPath . '/' . uniqid() . '.heic';
+                $tempJpgFile = $tempPath . '/' . uniqid() . '.jpg';
+
+                // Simpan file HEIC ke temporary path
+                file_put_contents($tempHeicFile, file_get_contents($file->getRealPath()));
+
+                // Gunakan imagick jika tersedia
+                if (extension_loaded('imagick')) {
+                    $imagick = new \Imagick();
+                    $imagick->readImage($tempHeicFile);
+                    $imagick->setImageFormat('jpg');
+                    $imagick->writeImage($tempJpgFile);
+                    $imagick->clear();
+                    $imagick->destroy();
+                } else {
+                    // Fallback ke metode lain jika imagick tidak tersedia
+                    // Coba gunakan perintah sips (khusus macOS)
+                    if (PHP_OS === 'Darwin') {
+                        exec("sips -s format jpeg '$tempHeicFile' --out '$tempJpgFile'", $output, $returnCode);
+                        if ($returnCode !== 0) {
+                            throw new \Exception("Konversi gagal: " . implode(' ', $output));
+                        }
+                    } else {
+                        // Untuk sistem operasi lain, gunakan metode lain atau berikan error
+                        throw new \Exception("Konversi HEIC ke JPG tidak didukung di sistem ini tanpa ekstensi imagick");
+                    }
+                }
+
+                // Buat UploadedFile baru dari file JPG yang telah dikonversi
+                $fileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . '.jpg';
+                $jpgFile = new \Illuminate\Http\UploadedFile(
+                    $tempJpgFile,
+                    $fileName,
+                    'image/jpeg',
+                    null,
+                    true
+                );
+
+                // Hapus file temporary
+                File::delete($tempHeicFile);
+
+                return $jpgFile;
+            }
+
+            // Jika bukan HEIC, kembalikan file asli
+            return $file;
+        } catch (\Exception $e) {
+            \Log::error('Error konversi HEIC ke JPG: ' . $e->getMessage());
+            return $file; // Kembalikan file asli jika ada error
         }
     }
 }

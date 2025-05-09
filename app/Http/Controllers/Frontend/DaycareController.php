@@ -22,7 +22,7 @@ class DaycareController extends Controller
         // Default data jika tidak ada file JSON
         $defaultData = [
             'banner_type' => 'image',
-            'banner_image' => 'images/daycare/img.png',
+            'banner_image' => 'storage/daycare/img.png',
             'banner_video' => '',
             'kelebihan_daycare' => 'Fokus pada pertumbuhan dan perkembangan anak secara holistik',
             'about_daycare' => [
@@ -41,7 +41,7 @@ class DaycareController extends Controller
             ],
             'program' => [
                 'description' => 'Program daycare kami dirancang untuk memberikan pengalaman belajar yang menyenangkan dan stimulatif bagi anak-anak',
-                'image' => 'images/daycare/img.png',
+                'image' => 'storage/daycare/img.png',
                 'points' => [
                     'Daily Activity',
                     'Pengecekan Tumbuh Kembang Rutin',
@@ -55,27 +55,27 @@ class DaycareController extends Controller
                 [
                     'title' => 'Full AC',
                     'description' => 'Ruangan ber-AC untuk kenyamanan anak',
-                    'image' => 'images/daycare/facility-ac.jpg'
+                    'image' => 'storage/daycare/facility-ac.jpg'
                 ],
                 [
                     'title' => 'Purifier',
                     'description' => 'Air purifier untuk udara yang bersih dan sehat',
-                    'image' => 'images/daycare/facility-purifier.jpg'
+                    'image' => 'storage/daycare/facility-purifier.jpg'
                 ],
                 [
                     'title' => '3 Kamar',
                     'description' => 'Kamar terpisah untuk berbagai kegiatan dan usia',
-                    'image' => 'images/daycare/facility-rooms.jpg'
+                    'image' => 'storage/daycare/facility-rooms.jpg'
                 ],
                 [
                     'title' => 'Baby Bed',
                     'description' => 'Tempat tidur khusus bayi yang nyaman dan aman',
-                    'image' => 'images/daycare/facility-bed.jpg'
+                    'image' => 'storage/daycare/facility-bed.jpg'
                 ],
                 [
                     'title' => 'Outdoor Area',
                     'description' => 'Area bermain luar ruangan yang aman',
-                    'image' => 'images/daycare/facility-outdoor.jpg'
+                    'image' => 'storage/daycare/facility-outdoor.jpg'
                 ]
             ],
             'pricelist' => [

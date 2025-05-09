@@ -50,7 +50,7 @@ class ProgramController extends Controller
     {
         $data = [
             'banner_type' => 'image',
-            'banner_image' => 'images/assets/img1.png',
+            'banner_image' => 'storage/images/stimulasi/banner.png',
             'hours' => '08.00 - 15.00',
             'days' => 'Senin - Jumat',
             'description' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias facere dolorem nesciunt ratione assumenda natus vitae nemo, dolores voluptatibus ipsum, numquam modi totam unde quas quaerat, rerum quasi voluptates deleniti.'

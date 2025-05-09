@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rumah Samoedra</title>
   <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+
+  <link rel="icon" href="{{ asset('images/assets/logo-doang.png') }}" type="image/png">
+
   <link rel="stylesheet" href="{{ asset('style.css') }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,7 +33,7 @@
       </p>
     </div>
   </div>
-  <div class="overflow-hidden md:w-3/4 w-full px-8 md:px-0 mx-auto duration-300 md:flex py-20">
+  <div id="sambutan" class="overflow-hidden md:w-3/4 w-full px-8 md:px-0 mx-auto duration-300 md:flex py-20">
     <div class="w-full duration-300 lg:w-1/2 flex items-center justify-start relative">
       <img class="absolute w-full items-center justify-center z-[-10] -left-30 -top-20" src="{{ asset('images/assets/line1.png') }}" alt="">
 
@@ -70,7 +73,7 @@
 
     </div>
   </div>
-  <section
+  <section id="sejarah"
     class="md:w-3/4 md:px-0 px-8 w-full mx-auto py-3 grid grid-cols-1 duration-300 md:grid-cols-2 gap-10 items-center">
     <div class="flex flex-col items-start justify-start">
       <p class="text-[#E8A26A] text-xl" style="font-family: 'Fuzzy Bubbles';">Tentang Kami</p>
@@ -165,7 +168,7 @@
       class="duration-300 absolute w-28 h-28 md:w-40 bottom-150 -right-7 rotate-2 scale-x-[1] transform -translate-y-1/2 animate-float">
 
     <!-- Konten utama -->
-    <div class="md:w-3/4 md:px-0 px-8 w-full mx-auto p-8 mt-16 text-center">
+    <div id="organisasi" class="md:w-3/4 md:px-0 px-8 w-full mx-auto p-8 mt-16 text-center">
       <p class="text-[#E8A26A] text-xl" style="font-family: 'Fuzzy Bubbles';">Organisasi Lembaga</p>
       <h1 class="text-[#3E5467] font-semibold text-4xl xl:text-5xl" style="font-family: 'Fredoka';">Struktur
         Organisasi</h1>

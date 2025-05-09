@@ -64,7 +64,9 @@
             d="M16.9788 8C17.6127 8 18.1685 8.32063 18.4785 8.80269L12.8701 12.3858L7.26172 8.80269C7.40892 8.57365 7.61113 8.38166 7.85148 8.24271C8.09182 8.10377 8.36335 8.0219 8.64341 8.00394L8.76139 8H16.9788Z"
             fill="#CFE1E4" />
         </svg>
-        <p class="text-[#3E5467] font-medium text-sm">maindisamoedra@gmail.com</p>
+        <a href="mailto:maindisamoedra@gmail.com">
+            <p class="text-[#3E5467] font-medium text-sm">maindisamoedra@gmail.com</p>
+        </a>
       </div>
       <div class="hidden items-center space-x-2 xl:flex">
         <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -73,9 +75,11 @@
             d="M12.5 12.175C12.0738 12.175 11.665 12.0038 11.3636 11.699C11.0622 11.3943 10.8929 10.981 10.8929 10.55C10.8929 10.119 11.0622 9.7057 11.3636 9.40095C11.665 9.0962 12.0738 8.925 12.5 8.925C12.9262 8.925 13.335 9.0962 13.6364 9.40095C13.9378 9.7057 14.1071 10.119 14.1071 10.55C14.1071 10.7634 14.0656 10.9747 13.9848 11.1719C13.904 11.369 13.7857 11.5482 13.6364 11.699C13.4872 11.8499 13.31 11.9696 13.115 12.0513C12.92 12.133 12.7111 12.175 12.5 12.175ZM12.5 6C11.3065 6 10.1619 6.47937 9.31802 7.33266C8.47411 8.18595 8 9.34326 8 10.55C8 13.9625 12.5 19 12.5 19C12.5 19 17 13.9625 17 10.55C17 9.34326 16.5259 8.18595 15.682 7.33266C14.8381 6.47937 13.6935 6 12.5 6Z"
             fill="#CFE1E4" />
         </svg>
-        <p class="text-[#3E5467] font-medium text-sm">Jalan Mutiara No. C80, Perumahan Pondok Kencana Permai,
+        <a href=https://www.google.com/maps/place/Rumah+Bermain+%26+Belajar+Samoedra/@-6.5967086,106.7603164,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69c5937248d419:0xfa06b49ec8b55a82!8m2!3d-6.5967086!4d106.7628913!16s%2Fg%2F11v_4b7vh1?entry=tts&g_ep=EgoyMDI1MDQwOS4wIPu8ASoASAFQAw%3D%3D&skid=22311244-9e77-49b9-8080-49b71f886bd6">
+            <p class="text-[#3E5467] font-medium text-sm">Jalan Mutiara No. C80, Perumahan Pondok Kencana Permai,
           Ciomas,
           Bogor 16610</p>
+        </a>
       </div>
       <div class="hidden items-center space-x-2 lg:flex ">
         <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -84,7 +88,8 @@
             d="M13.7269 6.11839L13.3368 6.06387C12.1643 5.89529 10.9679 6.06207 9.88707 6.54476C8.80619 7.02745 7.88536 7.80617 7.23192 8.79013C6.53668 9.73068 6.12222 10.8476 6.03626 12.0124C5.95029 13.1771 6.19631 14.3424 6.746 15.3741C6.80225 15.4775 6.83728 15.591 6.84903 15.708C6.86078 15.825 6.84902 15.9432 6.81444 16.0556C6.53383 17.0166 6.27376 17.9845 6 19L6.3422 18.8978C7.26614 18.6524 8.19008 18.407 9.11402 18.1821C9.30903 18.1417 9.51173 18.1607 9.69576 18.2366C10.5247 18.6395 11.4306 18.8612 12.3526 18.8867C13.2747 18.9123 14.1915 18.7411 15.0417 18.3847C15.8918 18.0283 16.6556 17.495 17.2817 16.8204C17.9078 16.1459 18.3818 15.3458 18.6719 14.4738C18.962 13.6018 19.0614 12.6782 18.9635 11.7648C18.8656 10.8514 18.5726 9.96941 18.1042 9.17805C17.6359 8.3867 17.003 7.70426 16.248 7.17654C15.493 6.64883 14.6334 6.28804 13.7269 6.11839ZM15.4516 15.0605C15.2028 15.2823 14.8995 15.4345 14.5725 15.5015C14.2455 15.5686 13.9065 15.5481 13.59 15.4422C12.1561 15.0395 10.9121 14.1436 10.079 12.9136C9.76089 12.4785 9.50521 12.0014 9.31934 11.496C9.21863 11.2027 9.20047 10.8876 9.26683 10.5849C9.33318 10.2821 9.48152 10.0032 9.69576 9.77841C9.80005 9.64585 9.94201 9.54765 10.1031 9.49659C10.2643 9.44553 10.4371 9.44398 10.5992 9.49215C10.736 9.52623 10.8319 9.72388 10.9551 9.87383C11.0554 10.1555 11.1718 10.4304 11.3041 10.6985C11.4043 10.8352 11.4462 11.0058 11.4205 11.1731C11.3949 11.3403 11.3038 11.4907 11.1672 11.5914C10.8592 11.864 10.9071 12.0889 11.1262 12.3956C11.6101 13.0905 12.2782 13.6379 13.0562 13.9769C13.2752 14.0723 13.4394 14.0927 13.5831 13.8678C13.6447 13.7792 13.7269 13.7042 13.7953 13.6224C14.1923 13.1249 14.0691 13.1317 14.6987 13.4043C14.8995 13.4884 15.0934 13.5861 15.2805 13.6974C15.4652 13.8065 15.7458 13.9223 15.7869 14.0859C15.8264 14.2634 15.816 14.4482 15.7569 14.6202C15.6977 14.7921 15.592 14.9445 15.4516 15.0605Z"
             fill="#CFE1E4" />
         </svg>
-        <p class="text-[#3E5467] font-medium text-sm">+62 896 111 111 53</p>
+        <a  href="https://wa.me/6289611111153" target="_blank"  class="text-[#3E5467] font-medium text-sm">
+       +62 896 111 111 53 </a>
       </div>
     </div>
   </div>
@@ -130,30 +135,24 @@
                 </a>
             </li>
             <li class="relative group">
-                <a href="#"
+                <button id="desktop-dropdown-trigger"
                    class="{{ request()->routeIs('artikel', 'galeri') ? 'text-[#3E5467]' : 'text-[#BDBDCB]' }} gap-2 group-hover:text-[#3E5467] transition-all duration-300 font-medium flex items-center">
                    Informasi
-                   <svg width="8" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                   <svg id="desktop-dropdown-arrow" width="8" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                        <path d="M0.999999 1L7 7L13 1"
                              stroke="{{ request()->routeIs('artikel', 'galeri') ? '#3E5467' : '#A2A2BD' }}"
                              class="group-hover:stroke-[#3E5467] transition-all duration-300"
                              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                    </svg>
-                </a>
-                <div class="invisible opacity-0 group-hover:visible group-hover:opacity-100 absolute left-0 mt-2 w-48 bg-white border border-slate-200 rounded-xl transition-all duration-300 ease-in-out z-50">
-                    <a href="{{ route('artikel') }}">
-                        <div class="p-2">
-                            <p class="block px-3 py-1 text-[#3E5467] hover:bg-[#CFE1E4] transition-all duration-300 rounded-xl">
-                                Artikel
-                            </p>
-                        </div>
+                </button>
+                <div id="desktop-dropdown-content" class="invisible opacity-0 group-hover:visible group-hover:opacity-100 absolute -left-6 mt-2 w-fit px-3 py-3 bg-white  border  border-slate-200 rounded-xl transition-all duration-300 ease-in-out z-50">
+                    <a href="{{ route('artikel') }}"
+                       class="block px-5 py-1 text-[#3E5467] hover:bg-[#CFE1E4] transition-all duration-300 rounded-xl {{ request()->routeIs('artikel') ? 'font-medium' : '' }}  ">
+                       Artikel
                     </a>
-                    <a href="{{ route('galeri') }}">
-                        <div class="p-2 -mt-3">
-                            <p class="block px-3 py-1 text-[#3E5467] hover:bg-[#CFE1E4] transition-all duration-300 rounded-xl">
-                                Galeri
-                            </p>
-                        </div>
+                    <a href="{{ route('galeri') }}"
+                       class="block px-5 py-1 text-[#3E5467] hover:bg-[#CFE1E4] transition-all duration-300 rounded-xl {{ request()->routeIs('galeri') ? 'font-medium' : '' }}  mt-3">
+                       Galeri
                     </a>
                 </div>
             </li>
@@ -228,3 +227,77 @@
         </li>
     </ul>
 </div>
+
+<script>
+
+const mobileMenuTrigger = document.getElementById('mobile-menu-trigger');
+const menuButton = document.getElementById('menu-button');
+const mobileMenu = document.getElementById('mobile-menu');
+const hamburgerIcon = document.getElementById('hamburger-icon');
+const closeIcon = document.getElementById('close-icon');
+
+// Trigger untuk membuka menu
+mobileMenuTrigger.addEventListener('click', () => {
+    mobileMenu.classList.remove('-translate-x-full');
+    hamburgerIcon.classList.add('hidden');
+    closeIcon.classList.remove('hidden');
+});
+
+// Trigger untuk menutup menu
+menuButton.addEventListener('click', () => {
+    mobileMenu.classList.add('-translate-x-full');
+    hamburgerIcon.classList.remove('hidden');
+    closeIcon.classList.add('hidden');
+});
+
+// Menutup menu saat link diklik
+mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+        mobileMenu.classList.add('-translate-x-full');
+        hamburgerIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+    });
+});
+
+// Mobile dropdown functionality
+const mobileDropdownTrigger = document.getElementById('mobile-dropdown-trigger');
+const mobileDropdownContent = document.getElementById('mobile-dropdown-content');
+const dropdownArrow = mobileDropdownTrigger.querySelector('svg');
+
+mobileDropdownTrigger.addEventListener('click', () => {
+    mobileDropdownContent.classList.toggle('hidden');
+    dropdownArrow.classList.toggle('rotate-180');
+});
+
+// Menutup dropdown saat link di dalamnya diklik
+mobileDropdownContent.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+        mobileDropdownContent.classList.add('hidden');
+        dropdownArrow.classList.remove('rotate-180');
+        // Menutup mobile menu juga
+        mobileMenu.classList.add('-translate-x-full');
+        hamburgerIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+    });
+});
+
+// Desktop dropdown functionality
+const desktopDropdownTrigger = document.getElementById('desktop-dropdown-trigger');
+const desktopDropdownContent = document.getElementById('desktop-dropdown-content');
+const desktopDropdownArrow = document.getElementById('desktop-dropdown-arrow');
+
+desktopDropdownTrigger.addEventListener('click', () => {
+    desktopDropdownContent.classList.toggle('invisible');
+    desktopDropdownContent.classList.toggle('opacity-0');
+    desktopDropdownArrow.classList.toggle('rotate-180');
+});
+
+// Menutup dropdown saat klik di luar
+document.addEventListener('click', (e) => {
+    if (!desktopDropdownTrigger.contains(e.target) && !desktopDropdownContent.contains(e.target)) {
+        desktopDropdownContent.classList.add('invisible', 'opacity-0');
+        desktopDropdownArrow.classList.remove('rotate-180');
+    }
+});
+
+</script>

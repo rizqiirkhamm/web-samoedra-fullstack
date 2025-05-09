@@ -8,7 +8,7 @@
         <!-- total widget-->
         <div class="mb-[24px] w-full">
             <div class="grid grid-cols-1 gap-[24px] lg:grid-cols-3">
-                <div class="rounded-lg bg-white p-5 dark:bg-darkblack-600">
+                <div class="rounded-lg bg-white p-5 dark:bg-darkblack-600 shadow-md border border-gray-100 dark:border-darkblack-400 hover:shadow-lg transition-all duration-200">
                     <div class="mb-5 flex items-center justify-between">
                         <div class="flex items-center space-x-[7px]">
                             <div class="icon">
@@ -28,7 +28,7 @@
                     </div>
                 </div>
 
-                <div class="rounded-lg bg-white p-5 dark:bg-darkblack-600">
+                <div class="rounded-lg bg-white p-5 dark:bg-darkblack-600 shadow-md border border-gray-100 dark:border-darkblack-400 hover:shadow-lg transition-all duration-200">
                     <div class="mb-5 flex items-center justify-between">
                         <div class="flex items-center space-x-[7px]">
                             <div class="icon">
@@ -48,7 +48,7 @@
                     </div>
                 </div>
 
-                <div class="rounded-lg bg-white p-5 dark:bg-darkblack-600">
+                <div class="rounded-lg bg-white p-5 dark:bg-darkblack-600 shadow-md border border-gray-100 dark:border-darkblack-400 hover:shadow-lg transition-all duration-200">
                     <div class="mb-5 flex items-center justify-between">
                         <div class="flex items-center space-x-[7px]">
                             <div class="icon">
@@ -106,7 +106,7 @@
         </div>
 
         <!-- Table -->
-        <div class="w-full rounded-lg bg-white px-[24px] py-[20px] dark:bg-darkblack-600">
+        <div class="w-full rounded-lg bg-white px-[24px] py-[20px] dark:bg-darkblack-600 shadow-md border border-gray-100 dark:border-darkblack-400 hover:shadow-lg transition-all duration-200">
             <div class="flex flex-col space-y-5">
                 <div id="tableContainer" class="table-content w-full overflow-x-auto">
                     <table class="w-full">
@@ -122,7 +122,7 @@
                                     <span class="text-base font-medium text-bgray-600 dark:text-white">Tinggi (cm)</span>
                                 </th>
                                 <th class="px-6 py-5 text-left">
-                                    <span class="text-base font-medium text-bgray-600 dark:text-white">Berat (gr)</span>
+                                    <span class="text-base font-medium text-bgray-600 dark:text-white">Berat (kg)</span>
                                 </th>
                                 <th class="px-6 py-5 text-left">
                                     <span class="text-base font-medium text-bgray-600 dark:text-white">Status</span>

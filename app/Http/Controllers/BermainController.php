@@ -560,4 +560,51 @@ class BermainController extends Controller
                 ->with('error', 'Terjadi kesalahan saat mengekspor data. ' . $e->getMessage());
         }
     }
+
+    public function pollTimers()
+    {
+        try {
+            $now = Carbon::now();
+            $activeTimers = BermainModel::whereIn('status', ['waiting', 'playing'])->get();
+            $updates = [];
+
+            foreach ($activeTimers as $bermain) {
+                $startDateTime = Carbon::parse($bermain->start_datetime);
+                $endDateTime = Carbon::parse($bermain->end_datetime);
+
+                if ($bermain->status === 'waiting' && $now->gte($startDateTime)) {
+                    $bermain->status = 'playing';
+                    $bermain->remaining_time = (int) $now->diffInSeconds($endDateTime);
+                    $bermain->save();
+                }
+
+                if ($bermain->status === 'playing') {
+                    if ($now->gte($endDateTime)) {
+                        $bermain->status = 'finished';
+                        $bermain->remaining_time = 0;
+                        $bermain->save();
+                    } else {
+                        $bermain->remaining_time = (int) $now->diffInSeconds($endDateTime);
+                        $bermain->save();
+                    }
+                }
+
+                $updates[] = [
+                    'id' => $bermain->id,
+                    'status' => $bermain->status,
+                    'remaining_time' => $bermain->remaining_time
+                ];
+            }
+
+            return response()->json([
+                'success' => true,
+                'updates' => $updates,
+                'timestamp' => $now->timestamp
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('Error polling timers: ' . $e->getMessage());
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
 }

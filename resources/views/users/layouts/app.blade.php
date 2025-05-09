@@ -10,6 +10,8 @@
     <!-- jQuery harus dimuat pertama -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <link rel="icon" href="{{ asset('images/assets/logo-doang.png') }}" type="image/png">
+
     <!-- Flowbite -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
 
@@ -85,23 +87,6 @@
 
         .dark .btn-secondary {
             @apply bg-darkblack-400 text-white hover:bg-darkblack-300;
-        }
-
-        /* Status badges */
-        .dark .status-badge {
-            @apply bg-opacity-20;
-        }
-
-        .dark .status-badge.waiting {
-            @apply bg-yellow-900 text-yellow-100;
-        }
-
-        .dark .status-badge.playing {
-            @apply bg-green-900 text-green-100;
-        }
-
-        .dark .status-badge.finished {
-            @apply bg-gray-900 text-gray-100;
         }
 
         /* Modal styles */
@@ -212,6 +197,74 @@
         .note-modal-backdrop {
             display: none !important;
         }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .sidebar-wrapper {
+                position: fixed;
+                left: -100%;
+                top: 0;
+                height: 100vh;
+                width: 308px;
+                transition: left 0.3s ease-in-out;
+                z-index: 40;
+                will-change: left;
+            }
+
+            .sidebar-wrapper.active {
+                left: 0;
+            }
+
+            .aside-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 30;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s ease-in-out;
+                will-change: opacity;
+            }
+
+            .aside-overlay.active {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .content-wrapper {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .header-wrapper {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .drawer-btn {
+                display: block;
+                cursor: pointer;
+                z-index: 50;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .sidebar-wrapper {
+                transform: none;
+                position: relative;
+            }
+
+            .aside-overlay {
+                display: none !important;
+            }
+
+            .content-wrapper {
+                margin-left: 308px;
+            }
+        }
     </style>
 
     <!-- Menggunakan asset() Laravel untuk memanggil file CSS di public/css/ -->
@@ -222,7 +275,7 @@
 </head>
 
 <body class="dark:bg-darkblack-500">
-    <div class="layout-wrapper active">
+    <div class="layout-wrapper">
         <div class="flex min-h-screen w-full">
             @include('users.partials.sidebar')
             <div class="body-wrapper flex-1 overflow-x-hidden bg-white dark:bg-darkblack-500">
@@ -230,7 +283,7 @@
                     @include('users.partials.header')
 
                     <main class="w-full h-full">
-                        <div class="p-4 md:p-6 2xl:p-10 w-full mt-[80px]">
+                        <div class="p-4 md:p-6 2xl:p-10 w-full mt-[80px] md:mt-[108px]">
                             @yield('content')
                         </div>
                     </main>
@@ -246,6 +299,7 @@
       AOS.init();
     </script>
     <script src="{{ asset('js/quill.min.js') }}"></script>
+    <script src="{{ asset('js/sidebar.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     <script src="{{ asset('js/chart.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>

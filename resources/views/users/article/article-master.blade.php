@@ -214,7 +214,7 @@
 @endpush
 
 @section('content')
-<div class="w-full rounded-lg bg-white px-[24px] py-[20px]">
+<div class="w-full rounded-xl bg-white px-[24px] py-[20px] shadow-md">
     <div class="flex flex-wrap items-center justify-between gap-4 border-b border-bgray-200 pb-4">
         <div class="flex items-center gap-4">
             <h2 class="text-xl font-semibold text-bgray-800">Master Data Artikel</h2>
@@ -478,18 +478,23 @@ document.addEventListener('DOMContentLoaded', function() {
         // Override the dark mode toggle functionality for this page
         const darkModeToggle = document.getElementById('theme-toggle');
         if (darkModeToggle) {
-            const originalClickHandler = darkModeToggle.onclick;
             darkModeToggle.addEventListener('click', function(e) {
-                // Prevent the toggle from changing to dark mode on this page
                 e.preventDefault();
                 e.stopPropagation();
-
-                // Notify user that this page is always in light mode
-                console.log('Halaman artikel selalu dalam mode terang untuk keterbacaan');
-
-                // Prevent default handler
+                alert('Halaman artikel selalu dalam mode terang untuk keterbacaan');
                 return false;
-            }, true); // Use capture to intercept before regular event handler
+            }, true);
+        }
+
+        // Tambahkan juga untuk tombol toggle theme di sidebar mobile
+        const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+        if (mobileThemeToggle) {
+            mobileThemeToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                alert('Halaman artikel selalu dalam mode terang untuk keterbacaan');
+                return false;
+            }, true);
         }
 
         // Also listen for theme changes from other components
@@ -497,6 +502,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // If someone tries to set dark mode, immediately switch back to light
             if (e.detail.isDark) {
                 document.documentElement.classList.remove('dark');
+                localStorage.setItem('darkMode', 'false');
             }
         });
     }

@@ -40,7 +40,7 @@
             </div>
         </div>
 
-        <div class="w-full rounded-lg bg-white px-[24px] py-[20px] dark:bg-darkblack-600">
+        <div class="w-full rounded-lg bg-white px-[24px] py-[20px] dark:bg-darkblack-600 shadow-md border border-gray-100 dark:border-darkblack-400 hover:shadow-lg transition-all duration-200">
             <div class="flex flex-col space-y-5">
                 <div class="table-content w-full overflow-x-auto">
                     <table class="w-full">
@@ -230,7 +230,7 @@
 <!-- Modal Add Journal -->
 <div id="addModal" class="fixed inset-0 z-50 hidden overflow-y-auto">
     <div class="flex items-center justify-center min-h-screen p-4">
-        <div class="bg-white dark:bg-darkblack-600 rounded-lg shadow-lg max-w-2xl w-full">
+        <div class="bg-white dark:bg-darkblack-600 rounded-lg border dark:border-darkblack-400 shadow-lg max-w-2xl w-full">
             <div class="flex justify-between items-center p-6 border-b border-bgray-200 dark:border-darkblack-400">
                 <h3 class="text-xl font-semibold text-bgray-900 dark:text-white">Tambah Journal</h3>
                 <button onclick="closeAddModal()" class="text-bgray-500 hover:text-red-500 dark:text-white">

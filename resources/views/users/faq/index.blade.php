@@ -4,7 +4,7 @@
 <div class="container mx-auto px-4 py-8">
     <div class="max-w-7xl mx-auto">
         <div class="flex justify-between items-center mb-8">
-            <h1 class="text-2xl font-bold text-[#3E5467]">Manajemen FAQ</h1>
+            <h1 class="text-2xl font-bold text-bgray-900 dark:text-bgray-50">Manajemen FAQ</h1>
             <a href="{{ route('faq.create') }}"
                class="px-4 py-2 bg-[#22C55E] text-white rounded-lg hover:bg-[#16A34A] transition-all duration-300 flex items-center space-x-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -17,7 +17,7 @@
         <!-- Preview Gambar dan Tombol Edit -->
         <div class="mb-8 bg-white dark:bg-darkblack-600 rounded-lg shadow p-6">
             <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-semibold text-[#3E5467]">Preview Gambar FAQ</h2>
+                <h2 class="text-xl font-semibold text-bgray-900 dark:text-bgray-50">Preview Gambar FAQ</h2>
                 <button type="button" 
                         class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300 flex items-center space-x-2"
                         onclick="openImageModal()">

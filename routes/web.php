@@ -25,10 +25,10 @@ use App\Http\Controllers\Frontend\ProgramController;
 use App\Http\Controllers\Frontend\TentangController;
 use App\Http\Controllers\StimulasiController;
 use App\Http\Controllers\GalleryController;
-use App\Http\Controllers\HomeContentController;
 use App\Http\Controllers\StatistikController;
 use App\Http\Controllers\TentangController as AdminTentangController;
 use App\Http\Controllers\TestimoniController;
+use App\Http\Controllers\HomeContentController;
 
 // routes/web.php
 Route::get('', [HomeController::class, 'index'])->name('home'); // Ganti 'welcome' menjadi 'home'
@@ -55,8 +55,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/gallery/{gallery}', [GalleryController::class, 'destroy'])->name('gallery.destroy');
 });
 
-Route::group(['middleware' => 'useradmin'], function() {
-    Route::get('/dashboard' , [DashboardController::class, 'index'])->name('dashboard');
+Route::group(['middleware' => 'useradmin'], function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::prefix('role')->name('role.')->group(function () {
         Route::get('/', [RoleController::class, 'list'])->name('list');
@@ -83,6 +83,7 @@ Route::group(['middleware' => 'useradmin'], function() {
         Route::delete('/{id}', [BermainController::class, 'destroy'])->name('destroy');
         Route::get('/search', [BermainController::class, 'search'])->name('search');
         Route::get('/export', [BermainController::class, 'export'])->name('export');
+        Route::get('/poll-timers', [BermainController::class, 'pollTimers'])->name('poll-timers');
     });
 
     Route::prefix('bimbel')->name('bimbel.')->group(function () {
@@ -94,8 +95,6 @@ Route::group(['middleware' => 'useradmin'], function() {
         Route::get('/export', [BimbelController::class, 'export'])->name('export');
     });
 
-    Route::get('/program', [LayananController::class, 'index'])->name('layanan');
-    Route::post('/program', [LayananController::class, 'submit'])->name('layanan.submit');
 
     Route::prefix('journal')->group(function () {
         Route::get('/', [JournalController::class, 'index'])->name('journal.index');
@@ -110,6 +109,7 @@ Route::group(['middleware' => 'useradmin'], function() {
         Route::get('/', [EventController::class, 'index'])->name('event.index');
         Route::get('/master', [EventController::class, 'master'])->name('event.master');
         Route::post('/master', [EventController::class, 'storeMaster'])->name('event.master.store');
+        Route::put('/master/{id}', [EventController::class, 'updateMaster'])->name('event.master.update');
         Route::delete('/master/{id}', [EventController::class, 'destroyMaster'])->name('event.master.destroy');
         Route::post('/register', [EventController::class, 'register'])->name('event.register');
         Route::get('/export', [EventController::class, 'export'])->name('event.export');
@@ -167,7 +167,6 @@ Route::group(['middleware' => 'useradmin'], function() {
         Route::get('/home-content/edit', [HomeContentController::class, 'edit'])->name('home-content.edit');
         Route::put('/home-content/update', [HomeContentController::class, 'update'])->name('home-content.update');
     });
-
 });
 
 // Tambahkan route untuk generate invoice
@@ -177,7 +176,7 @@ Route::get('/invoice/{type}/{id}', [LayananController::class, 'generateInvoice']
 Route::get('/api/events', [LayananController::class, 'getEvents']);
 
 // Route untuk debugging
-Route::get('/debug/events', function() {
+Route::get('/debug/events', function () {
     try {
         $events = \App\Models\EventModel::all();
         return response()->json([
@@ -242,7 +241,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/event/update', [App\Http\Controllers\Frontend\EventEditController::class, 'update'])->name('event.update');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 // Public FAQ Routes
 Route::get('/faq', [\App\Http\Controllers\Frontend\FaqController::class, 'index'])->name('faq.public');
@@ -264,4 +263,3 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::post('/faq/update-image', [FaqController::class, 'updateImage'])->name('faq.update-image');
-

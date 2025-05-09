@@ -95,6 +95,26 @@ class EventController extends Controller
         return redirect()->route('event.master')->with('success', 'Event berhasil dihapus');
     }
 
+    public function updateMaster(Request $request, $id)
+    {
+        // Check Event_master permission
+        $PermissionEventMaster = PermissionRoleModel::getPermission(Auth::user()->role_id, 'Event_master');
+        if(empty($PermissionEventMaster)){
+            abort(404);
+        }
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'event_date' => 'required|date'
+        ]);
+
+        $event = EventModel::findOrFail($id);
+        $event->update($validated);
+
+        return redirect()->route('event.master')->with('success', 'Event berhasil diperbarui');
+    }
+
     public function register(Request $request)
     {
         // Check Event permission

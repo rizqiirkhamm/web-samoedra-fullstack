@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Layanan Bimbel</title>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link rel="icon" href="{{ asset('images/assets/logo-doang.png') }}" type="image/png">
+
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,17 +31,11 @@
                     Selamat Datang <br> Di Layanan Bimbel
                 </h1>
                 <div class="flex gap-5 mt-10">
-                    <a href="{{route('welcome')}}">
-                        <button
-                            class="bg-[#3E5467] rounded-full flex items-center gap-2 text-white px-6 py-2 transition-all duration-300 hover:bg-[#BDBDCB]">Daftar<svg
-                                width="21" height="10" viewBox="0 0 21 10" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path d="M15.75 1.25L19.5 5M19.5 5L15.75 8.75M19.5 5H1.5" stroke="white"
-                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </button>
+                    <a href="{{ route('program') }}" class="border-[1.5px]  rounded-full bg-[#3E5467] hover:bg-[#BDBDCB] flex items-center gap-2 text-white px-4 py-3 transition-all duration-300 ">
+                        <svg fill="#ffff" height="25px" width="25px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 219.151 219.151" xml:space="preserve" stroke="#3E5467"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M109.576,219.151c60.419,0,109.573-49.156,109.573-109.576C219.149,49.156,169.995,0,109.576,0S0.002,49.156,0.002,109.575 C0.002,169.995,49.157,219.151,109.576,219.151z M109.576,15c52.148,0,94.573,42.426,94.574,94.575 c0,52.149-42.425,94.575-94.574,94.576c-52.148-0.001-94.573-42.427-94.573-94.577C15.003,57.427,57.428,15,109.576,15z"></path> <path d="M94.861,156.507c2.929,2.928,7.678,2.927,10.606,0c2.93-2.93,2.93-7.678-0.001-10.608l-28.82-28.819l83.457-0.008 c4.142-0.001,7.499-3.358,7.499-7.502c-0.001-4.142-3.358-7.498-7.5-7.498l-83.46,0.008l28.827-28.825 c2.929-2.929,2.929-7.679,0-10.607c-1.465-1.464-3.384-2.197-5.304-2.197c-1.919,0-3.838,0.733-5.303,2.196l-41.629,41.628 c-1.407,1.406-2.197,3.313-2.197,5.303c0.001,1.99,0.791,3.896,2.198,5.305L94.861,156.507z"></path> </g> </g></svg>
+                        Kembali
                     </a>
-                    <a href="#" class="flex space-x-2 items-center">
+                    <a href="https://wa.me/6289611111153" class="flex space-x-2 items-center">
                         <svg width="28" height="28" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <mask id="mask0_68_61" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0"
                                 width="32" height="33">
@@ -48,7 +44,7 @@
                             <g mask="url(#mask0_68_61)">
                                 <path
                                     d="M19.0147 0.735802L18.0547 0.601065C15.1696 0.184488 12.2254 0.59661 9.56553 1.78939C6.90564 2.98216 4.6396 4.90645 3.03158 7.33791C1.32068 9.66208 0.300775 12.4221 0.0892282 15.3003C-0.122319 18.1786 0.483092 21.058 1.83579 23.6074C1.97423 23.8629 2.06042 24.1434 2.08933 24.4326C2.11825 24.7217 2.08931 25.0137 2.00421 25.2916C1.31368 27.6663 0.673684 30.0579 0 32.5674L0.842105 32.3147C3.11579 31.7084 5.38947 31.1021 7.66316 30.5463C8.14306 30.4466 8.64188 30.4935 9.09474 30.6811C11.1346 31.6766 13.3639 32.2244 15.6329 32.2875C17.9019 32.3506 20.1582 31.9276 22.2503 31.0469C24.3424 30.1663 26.2219 28.8483 27.7627 27.1815C29.3035 25.5146 30.4699 23.5375 31.1837 21.3828C31.8975 19.228 32.1422 16.9456 31.9013 14.6885C31.6603 12.4314 30.9394 10.252 29.7868 8.29648C28.6343 6.34097 27.0768 4.65461 25.2189 3.35058C23.3609 2.04655 21.2456 1.15501 19.0147 0.735802ZM23.2589 22.8326C22.6468 23.3807 21.9004 23.7567 21.0957 23.9224C20.291 24.088 19.4567 24.0375 18.6779 23.7758C15.1494 22.7807 12.088 20.5667 10.0379 17.5274C9.25503 16.4522 8.62582 15.2731 8.16842 14.0242C7.92059 13.2996 7.8759 12.521 8.0392 11.7728C8.20249 11.0246 8.56754 10.3355 9.09474 9.78001C9.35139 9.45246 9.70074 9.20979 10.0973 9.08362C10.4938 8.95745 10.9192 8.95362 11.3179 9.07264C11.6547 9.15685 11.8905 9.64527 12.1937 10.0158C12.4407 10.7119 12.727 11.3912 13.0526 12.0537C13.2992 12.3914 13.4022 12.8129 13.3391 13.2263C13.276 13.6397 13.0519 14.0113 12.7158 14.26C11.9579 14.9337 12.0758 15.4895 12.6147 16.2474C13.8056 17.9645 15.4498 19.3172 17.3642 20.1547C17.9032 20.3905 18.3074 20.4411 18.6611 19.8853C18.8126 19.6663 19.0147 19.4811 19.1832 19.279C20.16 18.0495 19.8568 18.0663 21.4063 18.74C21.9004 18.9477 22.3775 19.1891 22.8379 19.4642C23.2926 19.7337 23.9832 20.02 24.0842 20.4242C24.1814 20.8627 24.1558 21.3196 24.0103 21.7445C23.8647 22.1694 23.6047 22.5459 23.2589 22.8326Z"
-                                    fill="#A2A2BD" />
+                                    fill="#23da57" />
                             </g>
                         </svg>
                         <h1 class="text-[#A2A2BD]">+62 896 111 111 53</h1>
@@ -68,9 +64,9 @@
                                     </iframe>
                                 </div>
                             @else
-                                <img src="{{ asset($bimbel['banner_image']) }}"
+                                <img src="{{ Storage::disk('public')->exists($bimbel['banner_image']) ? asset('storage/' . $bimbel['banner_image']) : asset('images/assets/img.png') }}"
                                     alt="Samoedra Bimbel"
-                                class="rounded-3xl h-96 w-full object-cover">
+                                    class="rounded-3xl h-96 w-full object-cover">
                             @endif
                             <!-- Kelebihan Bimbel -->
                             <h1 class="font-semibold text-[#3E5467] text-3xl xl:text-4xl mt-8"
@@ -132,9 +128,9 @@
                         </div>
                     </div>
                 </div>
-                <section id="informasi">
-                    <div class="w-full flex flex-col md:flex-row mt-24">
-                        <div class="w-full lg:w-1/2 flex flex-col justify-center">
+                <section id="informasi " class="w-full">
+                    <div class="w-full  flex flex-col md:flex-row mt-24">
+                        <div class="w-full lg:w-1/2 flex flex-col ">
                             <div class="space-y-3">
                                 <p class="text-[#E8A26A] text-xl" style="font-family: Fuzzy Bubbles;">Program Bimbel
                                 </p>
@@ -166,7 +162,7 @@
                         <div class="w-full lg:w-1/2 relative flex justify-center items-center">
                             <div class="w-full max-w-[500px] h-[500px] p-3 xl:p-5 bg-[#EFF5F6] mask-faq relative z-10">
                                 <div class="mask-faq h-full">
-                                    <img src="{{ asset($bimbel['program_image']) }}"
+                                    <img src="{{ Storage::disk('public')->exists($bimbel['program_image']) ? asset('storage/' . $bimbel['program_image']) : asset('images/assets/img_detail_layanan.png') }}"
                                         class="w-full h-full object-cover object-center rounded-3xl"
                                         alt="Program Bimbel">
                                 </div>
@@ -214,15 +210,12 @@
                             @endphp
 
                             @foreach($facilities as $facility)
-                            <div class="w-80 h-[300px] rounded-4xl bg-white p-6 flex flex-col relative">
-                                <img src="{{ asset($facility['image']) }}"
+                            <div class="w-80 h-64 rounded-4xl bg-white p-6 flex flex-col relative">
+                                <img src="{{ Storage::disk('public')->exists($facility['image']) ? asset('storage/' . $facility['image']) : asset('images/assets/img_layanan.png') }}"
                                     alt="{{ $facility['title'] }}"
                                     class="w-full h-44 rounded-3xl object-cover">
-                                <div class="mt-4">
-                                    <h1 class="text-2xl text-[#3E5467] font-semibold text-center"
-                                        style="font-family: 'Fredoka';">{{ $facility['title'] }}</h1>
-                                    <p class="text-[#A2A2BD] text-center mt-2" style="font-family: 'Onest';">{{ $facility['description'] }}</p>
-                            </div>
+                                <h1 class="text-3xl text-[#3E5467] font-semibold text-center mt-3"
+                                    style="font-family: 'Fredoka';">{{ $facility['title'] }}</h1>
                             </div>
                             @endforeach
                         </div>
@@ -293,16 +286,17 @@
                         Bimbel
                     </h1>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+                        <!-- Debug info: {{ count($galleries) }} galleries found -->
                         @forelse($galleries as $gallery)
-                        <div class="w-full rounded-3xl overflow-hidden">
-                            <img src="{{ asset('storage/' . $gallery->image) }}" alt="{{ $gallery->title }}" class="w-full h-64 object-cover">
-                            <div class="mt-2 p-3">
-                                <p class="text-[#E8A26A]">{{ $gallery->category }}</p>
-                                <h3 class="text-lg font-semibold text-[#3E5467]">{{ $gallery->title }}</h3>
-                        </div>
+                        <div class="w-full overflow-hidden">
+                            <img src="{{ asset('storage/' . $gallery->image) }}" alt="{{ $gallery->title }}" class="w-80 h-52 object-cover rounded-3xl">
+                            <div class="mt-4">
+                                <p class="text-[#E8A26A]" style="font-family: 'Onest';">{{ $gallery->category }}</p>
+                                <h3 class="text-2xl font-semibold text-[#3E5467]" style="font-family: 'Fredoka';" >{{ $gallery->title }}</h3>
+                            </div>
                         </div>
                         @empty
-                        <div class="col-span-3 flex flex-col items-center justify-center py-12">
+                        <div class="col-span-full flex flex-col items-center justify-center py-12">
                             <img src="{{ asset('images/assets/ikan2.svg') }}" alt="No Galleries" class="w-32 h-32 mb-4 animate-float">
                             <h3 class="text-lg font-semibold text-[#3E5467]">Belum Ada Galeri</h3>
                             <p class="text-[#A2A2BD]">Silakan kembali lagi nanti</p>
@@ -310,6 +304,33 @@
                         @endforelse
                     </div>
                 </div>
+            </div>
+            <div class="flex justify-center mb-16">
+                <a href="{{ route('program') }}"
+                    class="border-[1.5px] border-[#3E5467] rounded-full flex items-center gap-2 text-[#3E5467] px-4 py-3 transition-all duration-300 ">
+                    <svg fill="#3E5467" height="25px" width="25px" version="1.1" id="Capa_1"
+                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                        viewBox="0 0 219.151 219.151" xml:space="preserve" stroke="#3E5467">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <g>
+                                <path
+                                    d="M109.576,219.151c60.419,0,109.573-49.156,109.573-109.576C219.149,49.156,169.995,0,109.576,0S0.002,49.156,0.002,109.575 C0.002,169.995,49.157,219.151,109.576,219.151z M109.576,15c52.148,0,94.573,42.426,94.574,94.575 c0,52.149-42.425,94.575-94.574,94.576c-52.148-0.001-94.573-42.427-94.573-94.577C15.003,57.427,57.428,15,109.576,15z">
+                                </path>
+                                <path
+                                    d="M94.861,156.507c2.929,2.928,7.678,2.927,10.606,0c2.93-2.93,2.93-7.678-0.001-10.608l-28.82-28.819l83.457-0.008 c4.142-0.001,7.499-3.358,7.499-7.502c-0.001-4.142-3.358-7.498-7.5-7.498l-83.46,0.008l28.827-28.825 c2.929-2.929,2.929-7.679,0-10.607c-1.465-1.464-3.384-2.197-5.304-2.197c-1.919,0-3.838,0.733-5.303,2.196l-41.629,41.628 c-1.407,1.406-2.197,3.313-2.197,5.303c0.001,1.99,0.791,3.896,2.198,5.305L94.861,156.507z">
+                                </path>
+                            </g>
+                        </g>
+                    </svg>
+                    Kembali
+                </a>
+                <a href="{{ route('welcome') }}"
+                    class="bg-[#3E5467] ml-3 rounded-full flex items-center gap-2 text-white px-6 py-3 transition-all duration-300 hover:bg-[#576B81]">
+
+                    Daftar
+                </a>
             </div>
             @include('components.footer-fe')
         </section>

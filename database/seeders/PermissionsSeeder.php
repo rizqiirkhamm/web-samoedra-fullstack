@@ -134,14 +134,6 @@ class PermissionsSeeder extends Seeder
                 'updated_at' => now()
             ],
             [
-                'id' => 16,
-                'name' => 'Layanan',
-                'slug' => 'Layanan',
-                'groupby' => 6,
-                'created_at' => now(),
-                'updated_at' => now()
-            ],
-            [
                 'id' => 17,
                 'name' => 'Delete Bermain',
                 'slug' => 'Delete Bermain',

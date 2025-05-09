@@ -71,18 +71,11 @@ class DaycareEditController extends Controller
         $daycareData['banner_type'] = $request->banner_type;
         if ($request->banner_type == 'image' && $request->hasFile('banner_image')) {
             // Delete old image if exists
-            if (isset($daycareData['banner_image']) && file_exists(public_path($daycareData['banner_image']))) {
-                unlink(public_path($daycareData['banner_image']));
+            if (isset($daycareData['banner_image']) && Storage::disk('public')->exists($daycareData['banner_image'])) {
+                Storage::disk('public')->delete($daycareData['banner_image']);
             }
 
-            // Ensure the directory exists
-            $dirPath = public_path('images/daycare');
-            if (!file_exists($dirPath)) {
-                mkdir($dirPath, 0777, true);
-            }
-
-            $daycareData['banner_image'] = 'images/daycare/' . $request->file('banner_image')->getClientOriginalName();
-            $request->file('banner_image')->move($dirPath, $request->file('banner_image')->getClientOriginalName());
+            $daycareData['banner_image'] = 'storage/' . $request->file('banner_image')->store('daycare', 'public');
             $daycareData['banner_video'] = null;
         } elseif ($request->banner_type == 'video') {
             $daycareData['banner_video'] = $request->banner_video;
@@ -118,36 +111,8 @@ class DaycareEditController extends Controller
             }
         }
 
-        // Update program section
-        $daycareData['program'] = [
-            'description' => $request->program_description,
-            'points' => $request->program_points
-        ];
-
-        // Tambahkan kondisi untuk mempertahankan gambar program yang sudah ada jika tidak ada upload baru
-        if (isset($daycareData['program']['image'])) {
-            $daycareData['program']['image'] = $daycareData['program']['image'];
-        } else {
-            $daycareData['program']['image'] = 'images/daycare/img.png'; // Default image jika tidak ada
-        }
-
-        if ($request->hasFile('program_image')) {
-            // Delete old image if exists
-            if (isset($daycareData['program']['image']) && file_exists(public_path($daycareData['program']['image'])) && $daycareData['program']['image'] != 'images/daycare/img.png') {
-                unlink(public_path($daycareData['program']['image']));
-            }
-
-            // Ensure the directory exists
-            $dirPath = public_path('images/daycare/program');
-            if (!file_exists($dirPath)) {
-                mkdir($dirPath, 0777, true);
-            }
-
-            $daycareData['program']['image'] = 'images/daycare/program/' . $request->file('program_image')->getClientOriginalName();
-            $request->file('program_image')->move($dirPath, $request->file('program_image')->getClientOriginalName());
-        }
-
         // Update facilities
+        $oldData = $this->getDaycareData();
         $daycareData['facilities'] = [];
         foreach ($request->facility_items as $index => $facility) {
             $facilityItem = [
@@ -155,26 +120,28 @@ class DaycareEditController extends Controller
                 'description' => $facility['description']
             ];
 
-            // Check if this is an existing facility with an image
-            if (isset($daycareData['facilities'][$index]['image'])) {
-                $facilityItem['image'] = $daycareData['facilities'][$index]['image'];
-            }
-
             // Handle new image upload
             if (isset($facility['image']) && $facility['image'] instanceof \Illuminate\Http\UploadedFile) {
-                // Delete old image if exists
-                if (isset($facilityItem['image']) && file_exists(public_path($facilityItem['image']))) {
-                    unlink(public_path($facilityItem['image']));
+                // Delete old image if exists and it's not a default image
+                if (
+                    isset($oldData['facilities'][$index]['image']) &&
+                    !str_contains($oldData['facilities'][$index]['image'], 'images/daycare/default') &&
+                    Storage::disk('public')->exists(str_replace('storage/', '', $oldData['facilities'][$index]['image']))
+                ) {
+                    Storage::disk('public')->delete(str_replace('storage/', '', $oldData['facilities'][$index]['image']));
                 }
 
-                // Ensure the directory exists
-                $dirPath = public_path('images/daycare/facilities');
-                if (!file_exists($dirPath)) {
-                    mkdir($dirPath, 0777, true);
+                $path = $facility['image']->store('daycare', 'public');
+                $facilityItem['image'] = 'storage/' . $path;
+            } elseif (isset($oldData['facilities'][$index]['image'])) {
+                // Keep existing image if no new upload
+                $facilityItem['image'] = $oldData['facilities'][$index]['image'];
+                // Pastikan path dimulai dengan storage/ untuk konsistensi
+                if (strpos($facilityItem['image'], 'storage/') !== 0 && strpos($facilityItem['image'], 'images/') !== 0) {
+                    $facilityItem['image'] = 'storage/' . $facilityItem['image'];
                 }
-
-                $facilityItem['image'] = 'images/daycare/facilities/' . $facility['image']->getClientOriginalName();
-                $facility['image']->move($dirPath, $facility['image']->getClientOriginalName());
+            } else {
+                $facilityItem['image'] = 'images/daycare/default-facility.jpg';
             }
 
             $daycareData['facilities'][] = $facilityItem;
@@ -207,13 +174,36 @@ class DaycareEditController extends Controller
             ];
         }
 
-        // Save data to JSON file
-        $jsonDir = storage_path('app/public/daycare');
-        if (!file_exists($jsonDir)) {
-            mkdir($jsonDir, 0777, true);
+        // Update program section
+        $daycareData['program'] = [
+            'description' => $request->program_description,
+            'points' => $request->program_points
+        ];
+
+        if ($request->hasFile('program_image')) {
+            // Delete old image if exists and it's not a default image
+            if (
+                isset($oldData['program']['image']) &&
+                !str_contains($oldData['program']['image'], 'images/daycare/default') &&
+                Storage::disk('public')->exists(str_replace('storage/', '', $oldData['program']['image']))
+            ) {
+                Storage::disk('public')->delete(str_replace('storage/', '', $oldData['program']['image']));
+            }
+
+            $daycareData['program']['image'] = 'storage/' . $request->file('program_image')->store('daycare', 'public');
+        } elseif (isset($oldData['program']['image'])) {
+            // Keep existing image
+            $daycareData['program']['image'] = $oldData['program']['image'];
+            // Pastikan path gambar program konsisten
+            if (strpos($daycareData['program']['image'], 'storage/') !== 0 && strpos($daycareData['program']['image'], 'images/') !== 0) {
+                $daycareData['program']['image'] = 'storage/' . $daycareData['program']['image'];
+            }
+        } else {
+            $daycareData['program']['image'] = 'images/daycare/default-program.jpg';
         }
 
-        $jsonPath = $jsonDir . '/data.json';
+        // Save data to JSON file
+        $jsonPath = storage_path('app/public/daycare/data.json');
         file_put_contents($jsonPath, json_encode($daycareData, JSON_PRETTY_PRINT));
 
         return redirect()->route('daycare.edit')->with('success', 'Data daycare berhasil diperbarui.');

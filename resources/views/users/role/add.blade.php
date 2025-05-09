@@ -23,8 +23,8 @@
                     <label for="fn"
                         class="block text-basse dark:text-bgray-50 font-medium text-bgray-600 mb-2">Permission</label>
                     @foreach ($getPermission as $value)
-                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center p-3 border-b">
-                        <div class="text-bgray-700 dark:text-bgray-200 font-medium w-full md:w-1/3">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center p-3 border-b dark:border-darkblack-300">
+                        <div class="text-bgray-900 dark:text-bgray-50 font-medium w-full md:w-1/3">
                             {{ $value['name'] }}
                         </div>
                         <div class="w-full md:w-2/3 space-x-8 text-sm text-bgray-500 dark:text-bgray-400">

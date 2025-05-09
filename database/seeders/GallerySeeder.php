@@ -37,12 +37,12 @@ class GallerySeeder extends Seeder
             [
                 'title' => 'Waktu Istirahat di Daycare',
                 'category' => 'Daycare', // Exact match is important
-                'image' => 'galleries/daycare2.jpg'
+                'image' => 'galleries/daycare1.jpg'
             ],
             [
                 'title' => 'Kegiatan Belajar di Daycare',
                 'category' => 'Daycare', // Exact match is important
-                'image' => 'galleries/daycare3.jpg'
+                'image' => 'galleries/daycare1.jpg'
             ],
             [
                 'title' => 'Area Bermain Outdoor',

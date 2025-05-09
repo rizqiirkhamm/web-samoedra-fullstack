@@ -20,7 +20,7 @@ class DaycareController extends Controller
     {
         // Check permission untuk akses Daycare
         $PermissionDaycare = PermissionRoleModel::getPermission(Auth::user()->role_id, 'Daycare');
-        if(empty($PermissionDaycare)){
+        if (empty($PermissionDaycare)) {
             abort(404);
         }
 
@@ -33,10 +33,10 @@ class DaycareController extends Controller
         // Handle search
         if ($request->has('search') && !empty($request->search)) {
             $searchQuery = $request->search;
-            $query->where(function($q) use ($searchQuery) {
+            $query->where(function ($q) use ($searchQuery) {
                 $q->where('name', 'like', "%{$searchQuery}%")
-                  ->orWhere('father_name', 'like', "%{$searchQuery}%")
-                  ->orWhere('mother_name', 'like', "%{$searchQuery}%");
+                    ->orWhere('father_name', 'like', "%{$searchQuery}%")
+                    ->orWhere('mother_name', 'like', "%{$searchQuery}%");
             });
         }
 
@@ -125,7 +125,7 @@ class DaycareController extends Controller
             }
 
             // Hitung total harga (termasuk kaus kaki jika diperlukan)
-            $socksPrice = $daycare->need_socks ? 15000 : 0;
+            $socksPrice = $daycare->need_socks ? 5000 : 0;
             $totalPrice = $basePrice + $socksPrice;
 
             // Tambahkan informasi harga ke data
@@ -274,19 +274,61 @@ class DaycareController extends Controller
             // Set header kolom dan ukuran kolom
             $headerRow = 5;
             $columns = [
-                'No', 'Nama', 'Usia', 'No. Telepon', 'Jenis Daycare', 'Tinggi (cm)', 'Berat (gr)',
-                'Jenis Kelamin', 'Tempat Lahir', 'Tanggal Lahir', 'Agama', 'Alamat',
-                'Urutan Anak', 'No. HP Anak', 'Nama Ayah', 'Usia Ayah', 'Pendidikan Ayah',
-                'Pekerjaan Ayah', 'Nama Ibu', 'Usia Ibu', 'Pendidikan Ibu', 'Pekerjaan Ibu',
-                'Status', 'Tanggal Mulai', 'Bukti Pembayaran', 'Foto Anak'
+                'No',
+                'Nama',
+                'Usia',
+                'No. Telepon',
+                'Jenis Daycare',
+                'Tinggi (cm)',
+                'Berat (gr)',
+                'Jenis Kelamin',
+                'Tempat Lahir',
+                'Tanggal Lahir',
+                'Agama',
+                'Alamat',
+                'Urutan Anak',
+                'No. HP Anak',
+                'Nama Ayah',
+                'Usia Ayah',
+                'Pendidikan Ayah',
+                'Pekerjaan Ayah',
+                'Nama Ibu',
+                'Usia Ibu',
+                'Pendidikan Ibu',
+                'Pekerjaan Ibu',
+                'Status',
+                'Tanggal Mulai',
+                'Bukti Pembayaran',
+                'Foto Anak'
             ];
 
             $columnWidths = [
-                5, 30, 10, 15, 20, 15, 15,
-                15, 20, 20, 15, 40,
-                15, 15, 30, 15, 20,
-                20, 30, 15, 20, 20,
-                15, 20, 40, 40
+                5,
+                30,
+                10,
+                15,
+                20,
+                15,
+                15,
+                15,
+                20,
+                20,
+                15,
+                40,
+                15,
+                15,
+                30,
+                15,
+                20,
+                20,
+                30,
+                15,
+                20,
+                20,
+                15,
+                20,
+                40,
+                40
             ];
 
             foreach ($columns as $key => $column) {
@@ -424,7 +466,6 @@ class DaycareController extends Controller
             $writer = new Xlsx($spreadsheet);
             $writer->save('php://output');
             exit;
-
         } catch (\Exception $e) {
             return redirect()->route('daycare.index')
                 ->with('error', 'Terjadi kesalahan saat mengekspor data: ' . $e->getMessage());

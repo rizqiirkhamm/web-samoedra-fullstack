@@ -95,6 +95,27 @@ class TentangController extends Controller
             abort(404);
         }
 
+        // Validasi ukuran file foto
+        if ($request->has('manajemen')) {
+            foreach ($request->manajemen as $index => $manager) {
+                if ($request->hasFile("manajemen.{$index}.foto")) {
+                    $request->validate([
+                        "manajemen.{$index}.foto" => 'image|mimes:jpeg,png,jpg,gif|max:10240'
+                    ]);
+                }
+            }
+        }
+
+        if ($request->has('guru')) {
+            foreach ($request->guru as $index => $guru) {
+                if ($request->hasFile("guru.{$index}.foto")) {
+                    $request->validate([
+                        "guru.{$index}.foto" => 'image|mimes:jpeg,png,jpg,gif|max:10240'
+                    ]);
+                }
+            }
+        }
+
         // Struktur data organisasi
         $organisasiData = [
             'manajemen' => [],

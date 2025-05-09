@@ -13,7 +13,7 @@
             <div class="mb-[24px] w-full">
                 <div class="grid grid-cols-1 gap-[24px] lg:grid-cols-3">
                     <!-- Card Total Active -->
-                    <div class="rounded-lg bg-white p-5 dark:bg-darkblack-600">
+                    <div class="rounded-lg bg-white p-5 dark:bg-darkblack-600 shadow-md border border-gray-100 dark:border-darkblack-400 hover:shadow-lg transition-all duration-200">
                         <div class="mb-5 flex items-center justify-between">
                             <div class="flex items-center space-x-[7px]">
                                 <div class="icon">
@@ -32,7 +32,7 @@
                     </div>
 
                     <!-- Card Total Today -->
-                    <div class="rounded-lg bg-white p-5 dark:bg-darkblack-600">
+                    <div class="rounded-lg bg-white p-5 dark:bg-darkblack-600 shadow-md border border-gray-100 dark:border-darkblack-400 hover:shadow-lg transition-all duration-200">
                         <div class="mb-5 flex items-center justify-between">
                             <div class="flex items-center space-x-[7px]">
                                 <div class="icon">
@@ -51,7 +51,7 @@
                     </div>
 
                     <!-- Card Total All -->
-                    <div class="rounded-lg bg-white p-5 dark:bg-darkblack-600">
+                    <div class="rounded-lg bg-white p-5 dark:bg-darkblack-600 shadow-md border border-gray-100 dark:border-darkblack-400 hover:shadow-lg transition-all duration-200">
                         <div class="mb-5 flex items-center justify-between">
                             <div class="flex items-center space-x-[7px]">
                                 <div class="icon">
@@ -72,7 +72,7 @@
             </div>
 
             <!-- Search and Filter Section -->
-            <div class="w-full rounded-lg bg-white dark:bg-darkblack-600 px-[24px] py-[20px] mb-4">
+            <div class="w-full rounded-lg bg-white px-[24px] py-[20px] dark:bg-darkblack-600">
                 <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
                     <!-- Search Bar -->
                     <div class="w-full md:w-1/3">
@@ -109,7 +109,7 @@
             </div>
 
             <!-- Table -->
-            <div class="w-full rounded-lg bg-white dark:bg-darkblack-600 px-[24px] py-[20px]">
+            <div class="w-full rounded-lg bg-white dark:bg-darkblack-600 px-[24px] py-[20px] shadow-md border border-gray-100 dark:border-darkblack-400 hover:shadow-lg transition-all duration-200">
                 <div class="flex justify-between mb-4">
                     <!-- Tombol Export Excel -->
                     <div>
@@ -122,9 +122,9 @@
                     </div>
 
                     <!-- Real Time Clock -->
-                    <div class="bg-white dark:bg-darkblack-600 rounded-lg px-4 py-2 shadow">
+                    <div class="flex items-center gap-2">
                         <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Waktu Sekarang:</span>
-                        <span id="realTimeClock" class="ml-2 text-lg font-bold text-gray-800 dark:text-white">00:00:00</span>
+                        <span id="realTimeClock" class="text-lg font-bold text-gray-800 dark:text-white">00:00:00</span>
                     </div>
                 </div>
                 <div class="flex flex-col space-y-5">
@@ -260,7 +260,8 @@
                                         </p>
                                     </td>
                                     <td class="px-6 py-5 xl:px-0">
-                                        <span class="text-base font-medium {{ $item->status }} dark:text-white">
+                                        <span class="status-badge text-base font-medium"
+                                            style="background: {{ $item->status === 'waiting' ? '#fef3c7' : ($item->status === 'playing' ? '#e0f2fe' : '#dcfce7') }}; color: {{ $item->status === 'waiting' ? '#b45309' : ($item->status === 'playing' ? '#0369a1' : '#15803d') }}; padding: 2px 12px; border-radius: 999px; font-size: 0.95em;">
                                             @if($item->status === 'waiting')
                                                 Menunggu
                                             @elseif($item->status === 'playing')
@@ -374,18 +375,7 @@
 
 @push('styles')
 <style>
-.status-badge {
-    @apply px-3 py-1 text-sm font-medium rounded-full transition-colors duration-300;
-}
-.status-badge.waiting {
-    @apply bg-yellow-100 text-yellow-800 dark:bg-yellow-500 dark:bg-opacity-20 dark:text-yellow-100;
-}
-.status-badge.playing {
-    @apply bg-green-100 text-green-800 dark:bg-green-500 dark:bg-opacity-20 dark:text-green-100;
-}
-.status-badge.finished {
-    @apply bg-gray-100 text-gray-800 dark:bg-gray-500 dark:bg-opacity-20 dark:text-gray-100;
-}
+
 
 @media print {
     body * {
@@ -400,23 +390,6 @@
         top: 0;
         width: 100%;
     }
-}
-
-/* Dark mode improvements */
-.dark .status-badge {
-    @apply shadow-none;
-}
-
-.dark .status-badge.waiting {
-    @apply from-yellow-600 to-yellow-700;
-}
-
-.dark .status-badge.playing {
-    @apply from-green-600 to-green-700;
-}
-
-.dark .status-badge.finished {
-    @apply from-gray-600 to-gray-700;
 }
 
 /* Modal backdrop for dark mode */
@@ -457,16 +430,6 @@
 
 .dark td {
     @apply text-gray-300;
-}
-
-/* Status badge enhancements */
-.status-badge {
-    @apply px-3 py-1.5 text-sm font-medium rounded-full transition-all duration-300;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.status-badge:hover {
-    transform: translateY(-1px);
 }
 
 /* Button hover effects */
@@ -520,19 +483,6 @@ button:active {
 /* Search input in dark mode */
 .dark #searchInput {
     @apply bg-darkblack-500 border-darkblack-400 text-white placeholder-gray-400;
-}
-
-/* Status badges in dark mode */
-.dark .status-badge.waiting {
-    @apply bg-yellow-900 bg-opacity-20 text-yellow-100;
-}
-
-.dark .status-badge.playing {
-    @apply bg-green-900 bg-opacity-20 text-green-100;
-}
-
-.dark .status-badge.finished {
-    @apply bg-gray-900 bg-opacity-20 text-gray-100;
 }
 
 /* Pagination in dark mode */
@@ -645,37 +595,27 @@ function getTimerState(id) {
 }
 
 function initializeTimer(id, remainingTime, status, selectedDateTime) {
-    if (timers[id]) {
-        clearInterval(timers[id]);
-    }
+    // Hapus interval lama jika ada
+    if (timers[id]) clearInterval(timers[id]);
 
     const row = document.querySelector(`tr[data-id="${id}"]`);
     if (!row) return;
-
     const timerElement = row.querySelector('.timer');
-    const statusElement = row.querySelector('.status-badge');
+    if (!timerElement) return;
 
-    if (!timerElement || !statusElement) return;
-
-    // Pastikan remainingTime adalah integer
-    remainingTime = Math.floor(parseInt(remainingTime));
+    // Set data attribute agar polling bisa update jika status berubah
+    timerElement.dataset.remaining = remainingTime;
 
     function updateDisplay() {
-        const now = new Date();
-        const startTime = selectedDateTime ? new Date(selectedDateTime) : null;
-
-        if (status === 'waiting' && startTime && now >= startTime) {
-            updateServerTimer(id);
-            return;
-        }
-
         if (status === 'playing') {
             if (remainingTime <= 0) {
-                updateServerTimer(id);
+                timerElement.textContent = 'Selesai';
+                clearInterval(timers[id]);
                 return;
             }
             timerElement.textContent = formatTime(remainingTime);
             remainingTime--;
+            timerElement.dataset.remaining = remainingTime;
         } else if (status === 'waiting') {
             timerElement.textContent = 'Belum Mulai';
         } else {
@@ -684,7 +624,27 @@ function initializeTimer(id, remainingTime, status, selectedDateTime) {
     }
 
     updateDisplay();
+    if (status === 'playing') {
     timers[id] = setInterval(updateDisplay, 1000);
+    }
+}
+
+// Tambahkan fungsi untuk update timer secara real-time
+function updateTimer(id) {
+    const row = document.querySelector(`tr[data-id="${id}"]`);
+    if (!row) return;
+
+    const timerElement = row.querySelector('.timer');
+    const statusElement = row.querySelector('.status-badge');
+
+    if (!timerElement || !statusElement) return;
+
+    const remainingTime = parseInt(timerElement.dataset.remaining);
+    const status = statusElement.classList.contains('playing') ? 'playing' :
+                  statusElement.classList.contains('waiting') ? 'waiting' : 'finished';
+    const selectedDateTime = timerElement.dataset.selectedDateTime;
+
+    initializeTimer(id, remainingTime, status, selectedDateTime);
 }
 
 // Tambahkan variable untuk status
@@ -869,30 +829,11 @@ function updateTable(query = '') {
             tbody.insertAdjacentHTML('beforeend', createTableRow(item));
         });
 
-        // Reinisialisasi timer
+        // Setelah data dimuat, inisialisasi timer untuk setiap baris
         setTimeout(() => {
             document.querySelectorAll('tr[data-id]').forEach(row => {
                 const id = row.dataset.id;
-                const statusBadge = row.querySelector('.status-badge');
-                const timerElement = row.querySelector('.timer');
-
-                if (!statusBadge || !timerElement) return;
-
-                let status;
-                if (statusBadge.classList.contains('playing')) status = 'playing';
-                else if (statusBadge.classList.contains('waiting')) status = 'waiting';
-                else status = 'finished';
-
-                let remainingTime = parseInt(timerElement.dataset.remaining || 0);
-                const selectedDateTime = timerElement.dataset.selectedDateTime;
-
-                // Gunakan state yang tersimpan jika ada
-                if (timerStates[id] && status === 'playing') {
-                    const elapsed = Math.floor((Date.now() - timerStates[id].startTime) / 1000);
-                    remainingTime = Math.max(0, timerStates[id].remaining - elapsed);
-                }
-
-                initializeTimer(id, remainingTime, status, selectedDateTime);
+                updateTimer(id);
             });
         }, 100);
 
@@ -915,7 +856,7 @@ function updateTable(query = '') {
     });
 }
 
-// Update fungsi updateServerTimer
+// Update fungsi updateServerTimer untuk menginisialisasi ulang timer setelah update
 function updateServerTimer(id) {
     const token = document.querySelector('meta[name="csrf-token"]')?.content;
     if (!token) {
@@ -938,22 +879,25 @@ function updateServerTimer(id) {
 
         if (data.status === 'playing') {
             statusElement.textContent = 'Bermain';
-            statusElement.className = 'status-badge playing dark:bg-opacity-10';
-
-            // Reinitialize timer dengan status baru
-            if (timers[id]) {
-                clearInterval(timers[id]);
-            }
-            initializeTimer(id, data.remaining_time, 'playing', null);
-
+            statusElement.style.background = '#e0f2fe';
+            statusElement.style.color = '#0369a1';
+            statusElement.className = 'status-badge playing';
+            timerElement.dataset.remaining = data.remaining_time;
+            updateTimer(id);
         } else if (data.status === 'finished') {
             statusElement.textContent = 'Selesai';
-            statusElement.className = 'status-badge finished dark:bg-opacity-10';
+            statusElement.style.background = '#dcfce7';
+            statusElement.style.color = '#15803d';
+            statusElement.className = 'status-badge finished';
             timerElement.textContent = 'Selesai';
-
             if (timers[id]) {
                 clearInterval(timers[id]);
             }
+        } else if (data.status === 'waiting') {
+            statusElement.textContent = 'Menunggu';
+            statusElement.style.background = '#fef3c7';
+            statusElement.style.color = '#b45309';
+            statusElement.className = 'status-badge waiting';
         }
     })
     .catch(error => {
@@ -1100,18 +1044,28 @@ function createTableRow(item) {
 
     // Status dan timer text
     let statusText = '';
+    let statusBg = '';
+    let statusColor = '';
     switch(item.status) {
         case 'waiting':
             statusText = 'Menunggu';
+            statusBg = '#fef3c7';
+            statusColor = '#b45309';
             break;
         case 'playing':
             statusText = 'Bermain';
+            statusBg = '#e0f2fe';
+            statusColor = '#0369a1';
             break;
         case 'finished':
             statusText = 'Selesai';
+            statusBg = '#dcfce7';
+            statusColor = '#15803d';
             break;
         default:
             statusText = '-';
+            statusBg = '#e5e7eb';
+            statusColor = '#6b7280';
     }
 
     let timerText = '';
@@ -1144,7 +1098,9 @@ function createTableRow(item) {
                 <p class="text-base font-medium text-bgray-900 dark:text-white">${duration} Jam</p>
             </td>
             <td class="px-6 py-5 xl:px-0">
-                <span class="text-base font-medium text-bgray-900 ${item.status} dark:text-white">${statusText}</span>
+                <span class="status-badge text-base font-medium" style="background: ${statusBg}; color: ${statusColor}; padding: 2px 12px; border-radius: 999px; font-size: 0.95em;">
+                    ${statusText}
+                </span>
             </td>
             <td class="px-6 py-5 xl:px-0">
                 <span class="timer text-base font-medium text-bgray-900 dark:text-white"
@@ -1223,22 +1179,37 @@ function updateServerTimer(id) {
 
         if (data.status === 'playing') {
             statusElement.textContent = 'Bermain';
-            statusElement.className = 'status-badge playing dark:bg-opacity-10';
-
-            // Reinitialize timer dengan status baru
-            if (timers[id]) {
-                clearInterval(timers[id]);
-            }
-            initializeTimer(id, data.remaining_time, 'playing', null);
-
+            statusElement.style.background = '#e0f2fe';
+            statusElement.style.color = '#0369a1';
+            statusElement.style.padding = '2px 12px';
+            statusElement.style.borderRadius = '999px';
+            statusElement.style.fontWeight = '600';
+            statusElement.style.fontSize = '0.95em';
+            statusElement.className = 'status-badge playing';
+            timerElement.dataset.remaining = data.remaining_time;
+            updateTimer(id);
         } else if (data.status === 'finished') {
             statusElement.textContent = 'Selesai';
-            statusElement.className = 'status-badge finished dark:bg-opacity-10';
+            statusElement.style.background = '#dcfce7';
+            statusElement.style.color = '#15803d';
+            statusElement.style.padding = '2px 12px';
+            statusElement.style.borderRadius = '999px';
+            statusElement.style.fontWeight = '600';
+            statusElement.style.fontSize = '0.95em';
+            statusElement.className = 'status-badge finished';
             timerElement.textContent = 'Selesai';
-
             if (timers[id]) {
                 clearInterval(timers[id]);
             }
+        } else if (data.status === 'waiting') {
+            statusElement.textContent = 'Menunggu';
+            statusElement.style.background = '#fef3c7';
+            statusElement.style.color = '#b45309';
+            statusElement.style.padding = '2px 12px';
+            statusElement.style.borderRadius = '999px';
+            statusElement.style.fontWeight = '600';
+            statusElement.style.fontSize = '0.95em';
+            statusElement.className = 'status-badge waiting';
         }
     })
     .catch(error => {
@@ -1446,7 +1417,7 @@ function generateInvoicePDF(id, name, age, day, startDateTime, duration, needSoc
     // Kaos kaki jika ada
     if (needSocks) {
         doc.text('Kaos Kaki', 25, yPos);
-        doc.text('Rp 15.000', 180, yPos, { align: 'right' });
+        doc.text('Rp 5.000', 180, yPos, { align: 'right' });
         yPos += 15;
     }
 
@@ -1462,7 +1433,7 @@ function generateInvoicePDF(id, name, age, day, startDateTime, duration, needSoc
 
     // Total dengan style yang lebih bold
     let totalPrice = durPrice;
-    if (needSocks) totalPrice += 15000;
+    if (needSocks) totalPrice += 5000;
 
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(12);
@@ -1594,6 +1565,40 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Set URL awal
     updateExportUrl();
+});
+
+// Tambahkan fungsi polling timer
+function startTimerPolling() {
+    setInterval(() => {
+        fetch('{{ route("bermain.poll-timers") }}')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    data.updates.forEach(update => {
+                        const row = document.querySelector(`tr[data-id="${update.id}"]`);
+                        if (row) {
+                            const statusElement = row.querySelector('.status-badge');
+                            const timerElement = row.querySelector('.timer');
+                            // Jika status berubah, re-initialize timer
+                            if (statusElement && timerElement && statusElement.textContent.toLowerCase() !== update.status) {
+                                statusElement.textContent = update.status === 'playing' ? 'Bermain' : (update.status === 'finished' ? 'Selesai' : 'Menunggu');
+                                statusElement.className = `status-badge ${update.status}`;
+                                initializeTimer(update.id, update.remaining_time, update.status, null);
+                            }
+                        }
+                    });
+                }
+            })
+            .catch(error => console.error('Error polling timers:', error));
+    }, 1000);
+}
+
+// Panggil fungsi polling saat halaman dimuat
+document.addEventListener('DOMContentLoaded', function() {
+    startTimerPolling();
+    initializeAllTimers();
+    updatePaginationButtons();
+    updateRealTimeClock();
 });
 </script>
 @endpush

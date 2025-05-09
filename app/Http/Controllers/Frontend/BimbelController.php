@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Gallery;
+use Illuminate\Support\Facades\Storage;
 
 class BimbelController extends Controller
 {
@@ -18,17 +19,17 @@ class BimbelController extends Controller
 
             // Pastikan semua path gambar memiliki prefix yang benar
             if (isset($bimbel['banner_image']) && !str_starts_with($bimbel['banner_image'], 'storage/')) {
-                $bimbel['banner_image'] = str_replace('images/', 'storage/images/', $bimbel['banner_image']);
+                $bimbel['banner_image'] = 'bimbel/' . $bimbel['banner_image'];
             }
 
             if (isset($bimbel['program_image']) && !str_starts_with($bimbel['program_image'], 'storage/')) {
-                $bimbel['program_image'] = str_replace('images/', 'storage/images/', $bimbel['program_image']);
+                $bimbel['program_image'] = 'bimbel/' . $bimbel['program_image'];
             }
 
             if (isset($bimbel['facilities'])) {
                 foreach ($bimbel['facilities'] as &$facility) {
                     if (isset($facility['image']) && !str_starts_with($facility['image'], 'storage/')) {
-                        $facility['image'] = str_replace('images/', 'storage/images/', $facility['image']);
+                        $facility['image'] = 'bimbel/' . $facility['image'];
                     }
                 }
             }
@@ -36,18 +37,18 @@ class BimbelController extends Controller
             // Set default data jika file JSON tidak ditemukan
             $bimbel = [
                 'banner_type' => 'image',
-                'banner_image' => 'storage/images/assets/img.png',
+                'banner_image' => 'bimbel/default_banner.jpg',
                 'banner_video' => '',
                 'benefit_title' => 'Kelebihan Bimbel Kami',
                 'benefit_description' => 'Belum ada deskripsi',
                 'program_title' => 'Program Bimbel Rumah Samoedra',
                 'program_description' => 'Belum ada deskripsi program',
-                'program_image' => 'storage/images/assets/img_detail_layanan.png',
+                'program_image' => 'bimbel/default_program.jpg',
                 'facilities' => [
                     [
                         'title' => 'Fasilitas 1',
                         'description' => 'Deskripsi fasilitas 1',
-                        'image' => 'storage/images/assets/img_layanan.png'
+                        'image' => 'bimbel/default_facility.jpg'
                     ]
                 ]
             ];

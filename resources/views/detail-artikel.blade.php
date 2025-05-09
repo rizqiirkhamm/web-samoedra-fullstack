@@ -6,12 +6,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rumah Samoedra</title>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link rel="icon" href="{{ asset('images/assets/logo-doang.png') }}" type="image/png">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&family=Fredoka:wght@300..700&family=Fuzzy+Bubbles:wght@400;700&family=Onest:wght@100..900&display=swap"
         rel="stylesheet">
+    <style>
+        /* Style untuk video YouTube responsive */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            margin: 1rem 0;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Style untuk wrapping text */
+        .prose {
+            max-width: 100%;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            hyphens: auto;
+        }
+
+        .prose img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Style untuk konten artikel di mobile */
+        @media (max-width: 768px) {
+            .w-full.px-8 {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .text-4xl {
+                font-size: 1.875rem;
+                line-height: 2.25rem;
+            }
+
+            .text-5xl {
+                font-size: 2.25rem;
+                line-height: 2.5rem;
+            }
+
+            .text-lg {
+                font-size: 1rem;
+                line-height: 1.5rem;
+            }
+
+            .h-130 {
+                height: 200px;
+            }
+
+            .rounded-2xl {
+                border-radius: 1rem;
+            }
+
+            .my-10 {
+                margin-top: 2.5rem;
+                margin-bottom: 2.5rem;
+            }
+
+            .mb-20 {
+                margin-bottom: 5rem;
+            }
+
+            .px-6 {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+
+            .py-3 {
+                padding-top: 0.75rem;
+                padding-bottom: 0.75rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -65,6 +149,23 @@
   </a>
 
     <script src="script.js"></script>
+    <script>
+        // Script untuk membuat video YouTube responsive
+        document.addEventListener('DOMContentLoaded', function() {
+            // Temukan semua iframe YouTube
+            const iframes = document.querySelectorAll('iframe[src*="youtube.com"]');
+
+            iframes.forEach(iframe => {
+                // Buat container untuk iframe
+                const container = document.createElement('div');
+                container.className = 'video-container';
+
+                // Pindahkan iframe ke dalam container
+                iframe.parentNode.insertBefore(container, iframe);
+                container.appendChild(iframe);
+            });
+        });
+    </script>
 </body>
 
 </html>

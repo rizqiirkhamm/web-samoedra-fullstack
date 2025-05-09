@@ -12,7 +12,7 @@
         <!-- total widget-->
         <div class="mb-[24px] w-full">
             <div class="grid grid-cols-1 gap-[24px] lg:grid-cols-3">
-                <div class="rounded-lg bg-white p-5 dark:bg-darkblack-600">
+                <div class="rounded-lg bg-white p-5 dark:bg-darkblack-600 shadow-md border border-gray-100 dark:border-darkblack-400 hover:shadow-lg transition-all duration-200">
                     <div class="mb-5 flex items-center justify-between">
                         <div class="flex items-center space-x-[7px]">
                             <div class="icon">
@@ -32,7 +32,7 @@
                     </div>
                 </div>
 
-                <div class="rounded-lg bg-white p-5 dark:bg-darkblack-600">
+                <div class="rounded-lg bg-white p-5 dark:bg-darkblack-600 shadow-md border border-gray-100 dark:border-darkblack-400 hover:shadow-lg transition-all duration-200">
                     <div class="mb-5 flex items-center justify-between">
                         <div class="flex items-center space-x-[7px]">
                             <div class="icon">
@@ -52,7 +52,7 @@
                     </div>
                 </div>
 
-                <div class="rounded-lg bg-white p-5 dark:bg-darkblack-600">
+                <div class="rounded-lg bg-white p-5 dark:bg-darkblack-600 shadow-md border border-gray-100 dark:border-darkblack-400 hover:shadow-lg transition-all duration-200">
                     <div class="mb-5 flex items-center justify-between">
                         <div class="flex items-center space-x-[7px]">
                             <div class="icon">
@@ -110,7 +110,7 @@
         </div>
 
         <!-- Table -->
-        <div class="w-full rounded-lg bg-white px-[24px] py-[20px] dark:bg-darkblack-600">
+        <div class="w-full rounded-lg bg-white px-[24px] py-[20px] dark:bg-darkblack-600 shadow-md border border-gray-100 dark:border-darkblack-400 hover:shadow-lg transition-all duration-200">
             <div class="flex flex-col space-y-5">
                 <div id="tableContainer" class="table-content w-full overflow-x-auto">
                     <table class="w-full">
@@ -126,7 +126,7 @@
                                     <span class="text-base font-medium text-bgray-600 dark:text-white">Tinggi (cm)</span>
                                 </th>
                                 <th class="px-6 py-5 text-left">
-                                    <span class="text-base font-medium text-bgray-600 dark:text-white">Berat (gr)</span>
+                                    <span class="text-base font-medium text-bgray-600 dark:text-white">Berat (kg)</span>
                                 </th>
                                 <th class="px-6 py-5 text-left">
                                     <span class="text-base font-medium text-bgray-600 dark:text-white">Jenis Daycare</span>
@@ -385,7 +385,7 @@ function renderDetailModal(data) {
                                 </div>
                                 <div class="flex justify-between">
                                     <span class="text-sm font-medium text-bgray-600 dark:text-bgray-300">Berat Badan:</span>
-                                    <span class="text-sm text-bgray-900 dark:text-white">${data.weight || '-'} gr</span>
+                                    <span class="text-sm text-bgray-900 dark:text-white">${data.weight || '-'} kg</span>
                                 </div>
                                 <div class="flex justify-between">
                                     <span class="text-sm font-medium text-bgray-600 dark:text-bgray-300">Jenis Kelamin:</span>
@@ -790,7 +790,7 @@ const generateInvoice = async (id) => {
             doc.rect(15, yPos, 180, 8, 'F');
             doc.text('Kaos Kaki', 20, yPos + 5.5);
             doc.text('1', 130, yPos + 5.5);
-            doc.text(`Rp ${(data.socks_price || 15000).toLocaleString('id-ID')}`, 160, yPos + 5.5);
+            doc.text(`Rp ${(data.socks_price || 5000).toLocaleString('id-ID')}`, 160, yPos + 5.5);
             yPos += 8;
         }
 

@@ -23,12 +23,12 @@ class StimulasiController extends Controller
         $defaultData = [
             'title' => 'Kelas Stimulasi Little Explorer',
             'banner_type' => 'image',
-            'banner_image' => 'images/stimulasi/@img.png',
+            'banner_image' => 'images/stimulasi/banner.png',
             'banner_video' => '',
             'description' => 'Apa itu Kelas Stimulasi',
             'program_title' => 'Kelas Stimulasi Di Rumah Samoedra',
             'program_description' => 'Kelas Stimulasi Rumah Samoedra dirancang untuk mendukung tumbuh kembang anak melalui aktivitas bermain yang menyenangkan dan penuh makna. Kami percaya setiap anak itu unik, dan melalui kelas ini, mereka diajak belajar, bermain, dan tumbuh bersama dalam lingkungan yang aman dan penuh kasih. Yuk, kenalkan si kecil pada dunia belajar yang seru dan interaktif bersama Rumah Samoedra!',
-            'program_image' => 'images/assets/img_detail_layanan.png',
+            'program_image' => 'images/stimulasi/program.png',
             'kegiatan_title' => 'Kegiatan Kelas Stimulasi Rumah Samoedra',
             'kegiatan' => [
                 [
@@ -55,15 +55,15 @@ class StimulasiController extends Controller
             'fasilitas' => [
                 [
                     'name' => 'Full AC',
-                    'image' => 'images/assets/img_layanan.png'
+                    'image' => 'images/stimulasi/fasilitas/full-ac.png'
                 ],
                 [
                     'name' => 'Purifier',
-                    'image' => 'images/assets/img_layanan.png'
+                    'image' => 'images/stimulasi/fasilitas/purifier.png'
                 ],
                 [
                     'name' => 'Area Bermain Indoor',
-                    'image' => 'images/assets/img_layanan.png'
+                    'image' => 'images/stimulasi/fasilitas/area-bermain.png'
                 ]
             ],
             'age_range' => '6 bln - 12 y.o',

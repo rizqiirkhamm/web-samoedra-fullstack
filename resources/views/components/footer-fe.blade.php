@@ -69,11 +69,11 @@
             <div>
                 <h3 class="font-semibold text-2xl text-[#3E5467]" style="font-family: 'Fredoka';">Layanan</h3>
                 <ul class="space-y-2 mt-4 text-[#3E5467]">
-                    <li><a href="#">Daycare</a></li>
-                    <li><a href="#">Area Main</a></li>
-                    <li><a href="#">Bimbel</a></li>
-                    <li><a href="#">Stimulasi</a></li>
-                    <li><a href="#">Event</a></li>
+                         <li><a href="{{route('program.daycare')}}">Daycare</a></li>
+                    <li><a href="{{route('program.bermain')}}">Area Main</a></li>
+                    <li><a href="{{route('program.bimbel')}}">Bimbel</a></li>
+                    <li><a href="{{route('program.stimulasi')}}">Stimulasi</a></li>
+                    <li><a href="{{route('program.event')}}">Event</a></li>
                 </ul>
             </div>
             <!-- Tentang Kami -->
@@ -81,9 +81,9 @@
                 <h3 class="font-semibold text-2xl text-[#3E5467]" style="font-family: 'Fredoka';">Tentang Kami
                 </h3>
                 <ul class="space-y-2 mt-4 text-[#3E5467]">
-                    <li><a href="{{route('tentang')}}">Sambutan Lembaga</a></li>
-                    <li><a href="{{route('tentang')}}">Sejarah</a></li>
-                    <li><a href="{{route('tentang')}}">Struktur Organisasi</a></li>
+                    <li><a href="{{route('tentang')}}#sambutan">Sambutan Lembaga</a></li>
+                    <li><a href="{{route('tentang')}}#sejarah">Sejarah</a></li>
+                    <li><a href="{{route('tentang')}}#organisasi">Struktur Organisasi</a></li>
                 </ul>
             </div>
         </div>
@@ -104,8 +104,15 @@
             <!-- Contact -->
             <div>
                 <h3 class="font-semibold text-2xl text-[#3E5467]" style="font-family: 'Fredoka';">Contact</h3>
-                <p class="mt-4 text-[#3E5467]">+62 896 111 111 53</p>
-                <p class="text-[#3E5467]">maindisamoedra@gmail.com</p>
+
+                  <a href="https://api.whatsapp.com/send/?phone=6289611111153&text&type=phone_number&app_absent=0"><p class="mt-4 text-[#3E5467]">+62 896 111 111 53</p></a>
+
+                  <a href="mailto:maindisamoedra@gmail.com?subject=Halo&body=Isi%20email%20disini">
+                    <p class="text-[#3E5467]" style="font-family: 'Fredoka';">
+                        maindisamoedra@gmail.com
+                    </p>
+                </a>
+
             </div>
         </div>
     </div>

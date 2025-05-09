@@ -4,7 +4,7 @@
 <div class="container mx-auto px-4 py-8">
     <div class="max-w-4xl mx-auto">
         <div class="flex justify-between items-center mb-6">
-            <h1 class="text-2xl font-bold text-[#3E5467]">Statistik</h1>
+            <h1 class="text-2xl font-bold text-bgray-900 dark:text-bgray-50">Statistik</h1>
         </div>
 
         @if(session('success'))
@@ -20,7 +20,7 @@
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ $statistik->daycare_title }}</label>
-                                <p class="text-2xl font-bold text-[#3E5467]">{{ $statistik->daycare }}</p>
+                                <p class="text-2xl font-bold text-bgray-900 dark:text-bgray-50">{{ $statistik->daycare }}</p>
                             </div>
                             <a href="{{ route('statistik.edit', 'daycare') }}"
                                class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all duration-300 font-medium">
@@ -34,7 +34,7 @@
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ $statistik->bermain_title }}</label>
-                                <p class="text-2xl font-bold text-[#3E5467]">{{ $statistik->bermain }}</p>
+                                <p class="text-2xl font-bold text-bgray-900 dark:text-bgray-50">{{ $statistik->bermain }}</p>
                             </div>
                             <a href="{{ route('statistik.edit', 'bermain') }}"
                                class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all duration-300 font-medium">
@@ -48,7 +48,7 @@
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ $statistik->bimbel_title }}</label>
-                                <p class="text-2xl font-bold text-[#3E5467]">{{ $statistik->bimbel }}</p>
+                                <p class="text-2xl font-bold text-bgray-900 dark:text-bgray-50">{{ $statistik->bimbel }}</p>
                             </div>
                             <a href="{{ route('statistik.edit', 'bimbel') }}"
                                class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all duration-300 font-medium">
@@ -64,7 +64,7 @@
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ $statistik->stimulasi_title }}</label>
-                                <p class="text-2xl font-bold text-[#3E5467]">{{ $statistik->stimulasi }}</p>
+                                <p class="text-2xl font-bold text-bgray-900 dark:text-bgray-50">{{ $statistik->stimulasi }}</p>
                             </div>
                             <a href="{{ route('statistik.edit', 'stimulasi') }}"
                                class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all duration-300 font-medium">
@@ -78,7 +78,7 @@
                         <div class="flex justify-between items-start mb-2">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ $statistik->event_title }}</label>
-                                <p class="text-2xl font-bold text-[#3E5467]">{{ $statistik->event }}</p>
+                                <p class="text-2xl font-bold text-bgray-900 dark:text-bgray-50">{{ $statistik->event }}</p>
                             </div>
                             <a href="{{ route('statistik.edit', 'event') }}"
                                class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all duration-300 font-medium">

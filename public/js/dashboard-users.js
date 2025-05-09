@@ -636,7 +636,7 @@ $(".card-slider").slick({
     themeToggleSwitch.addEventListener("click", function () {
       if (
         document.documentElement.classList[0] === "dark" ||
-        localStorage.theme === "dark"
+        localStorage.getItem('darkMode') === 'true'
       ) {
         revenueFlow.data.datasets = dataSetsDark;
         revenueFlow.options.scales.y.ticks.color = "white";
@@ -657,7 +657,7 @@ $(".card-slider").slick({
 
   //initial load
   if (
-    localStorage.theme === "dark" ||
+    localStorage.getItem('darkMode') === 'true' ||
     window.matchMedia("(prefers-color-scheme: dark)").matches
   ) {
     revenueFlow.data.datasets = dataSetsDark;

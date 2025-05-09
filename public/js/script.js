@@ -1,53 +1,4 @@
-const mobileMenuTrigger = document.getElementById('mobile-menu-trigger');
-const menuButton = document.getElementById('menu-button');
-const mobileMenu = document.getElementById('mobile-menu');
-const hamburgerIcon = document.getElementById('hamburger-icon');
-const closeIcon = document.getElementById('close-icon');
 
-// Trigger untuk membuka menu
-mobileMenuTrigger.addEventListener('click', () => {
-    mobileMenu.classList.remove('-translate-x-full');
-    hamburgerIcon.classList.add('hidden');
-    closeIcon.classList.remove('hidden');
-});
-
-// Trigger untuk menutup menu
-menuButton.addEventListener('click', () => {
-    mobileMenu.classList.add('-translate-x-full');
-    hamburgerIcon.classList.remove('hidden');
-    closeIcon.classList.add('hidden');
-});
-
-// Menutup menu saat link diklik
-mobileMenu.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-        mobileMenu.classList.add('-translate-x-full');
-        hamburgerIcon.classList.remove('hidden');
-        closeIcon.classList.add('hidden');
-    });
-});
-
-// Mobile dropdown functionality
-const mobileDropdownTrigger = document.getElementById('mobile-dropdown-trigger');
-const mobileDropdownContent = document.getElementById('mobile-dropdown-content');
-const dropdownArrow = mobileDropdownTrigger.querySelector('svg');
-
-mobileDropdownTrigger.addEventListener('click', () => {
-    mobileDropdownContent.classList.toggle('hidden');
-    dropdownArrow.classList.toggle('rotate-180');
-});
-
-// Menutup dropdown saat link di dalamnya diklik
-mobileDropdownContent.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-        mobileDropdownContent.classList.add('hidden');
-        dropdownArrow.classList.remove('rotate-180');
-        // Menutup mobile menu juga
-        mobileMenu.classList.add('-translate-x-full');
-        hamburgerIcon.classList.remove('hidden');
-        closeIcon.classList.add('hidden');
-    });
-});
 
 function toggleFAQ(index) {
     const faqItems = document.querySelectorAll(".faq-item");
@@ -74,5 +25,20 @@ function toggleFAQ(index) {
             icon.classList.remove("rotate-180");
         }
     });
+}
+
+function toggleTestimoni(button) {
+    const card = button.closest('.testimoni-card');
+    const text = card.querySelector('.testimoni-text');
+
+    text.classList.toggle('expanded');
+
+    if (text.classList.contains('expanded')) {
+        button.textContent = 'Sembunyikan';
+        card.style.height = 'auto';
+    } else {
+        button.textContent = 'Lihat Selengkapnya';
+        card.style.height = '230px';
+    }
 }
 

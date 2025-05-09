@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rumah Samoedra</title>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link rel="icon" href="{{ asset('images/assets/logo-doang.png') }}" type="image/png">
+
     <link rel="stylesheet" href="{{ asset('css/public.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,7 +37,7 @@
     <div class="w-full px-8 md:w-3/4 md:px-0 mx-auto mt-14 flex flex-col justify-center items-center">
         <!-- Filter Categories -->
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:flex justify-center gap-3 md:gap-5 max-sm:w-full">
-            <div class="px-3 md:px-6 h-10 md:h-12 flex justify-center items-center bg-[#E8A26A] rounded-xl category-filter" data-category="all">
+            <div class="px-3 md:px-6 h-10 md:h-12 flex justify-center items-center outline-offset-1 outline-[#E8A26A] outline-2 bg-[#E8A26A] rounded-xl category-filter" data-category="all">
                 <p class="text-white text-base md:text-lg font-medium whitespace-nowrap" style="font-family: 'Onest';">
                     All</p>
             </div>
@@ -62,13 +64,17 @@
         </div>
 
         <!-- Gallery Grid -->
-        <div class="mt-14">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="mt-14 w-full">
+            <div class="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-8">
                 @forelse($galleries as $gallery)
                 <div class="w-full gallery-item" data-category="{{ $gallery->category }}">
-                    <img src="{{ asset('storage/' . $gallery->image) }}" alt="{{ $gallery->title }}" class="w-full h-64 object-cover rounded-2xl">
+                    <div class=" w-full h-64 relative overflow-hidden rounded-3xl bg-gray-100">
+                        <img src="{{ asset('storage/' . $gallery->image) }}"
+                             alt="{{ $gallery->title }}"
+                             class="absolute inset-0 w-full h-full object-cover hover:scale-110 transition-transform duration-300">
+                    </div>
                     <p class="text-[#E8A26A] mt-4" style="font-family: 'Onest';">{{ $gallery->category }}</p>
-                    <p class="text-2xl font-semibold text-[#3E5467]" style="font-family: 'Fredoka';">{{ $gallery->title }}</p>
+                    <p class="text-2xl font-semibold text-[#3E5467] line-clamp-1" style="font-family: 'Fredoka';">{{ $gallery->title }}</p>
                 </div>
                 @empty
                 <div class="col-span-full flex flex-col items-center justify-center py-12">
@@ -100,8 +106,11 @@
     </div>
     @include('components.footer-fe')
 
-    <script src="{{ asset('script.js') }}"></script>
+
     <script>
+
+
+        //------
         document.addEventListener('DOMContentLoaded', function() {
             const filters = document.querySelectorAll('.category-filter');
             const items = document.querySelectorAll('.gallery-item');

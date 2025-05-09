@@ -3,7 +3,7 @@
 @section('content')
 <div class="container mx-auto px-4 py-8">
     <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold text-[#3E5467]">Daftar Testimoni</h1>
+        <h1 class="text-2xl font-bold text-bgray-900 dark:text-bgray-50">Daftar Testimoni</h1>
         <a href="{{ route('testimoni.create') }}" class="px-6 py-2.5 bg-[#4CAF50] text-white rounded-lg hover:bg-[#45a049] transition-all duration-300">
             Tambah Testimoni
         </a>

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rumah Samoedra</title>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link rel="icon" href="{{ asset('images/assets/logo-doang.png') }}" type="image/png">
     <link rel="stylesheet" href="{{ asset('css/public.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,6 +14,26 @@
         href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&family=Fredoka:wght@300..700&family=Fuzzy+Bubbles:wght@400;700&family=Onest:wght@100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Style untuk memotong teks deskripsi */
+        .truncate-description {
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* Jumlah baris yang ditampilkan */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.5;
+            max-height: 4.5em; /* 3 baris * 1.5 line-height */
+        }
+
+        /* Style untuk mobile */
+        @media (max-width: 768px) {
+            .truncate-description {
+                -webkit-line-clamp: 2; /* Kurangi jumlah baris di mobile */
+                max-height: 3em;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -20,7 +41,7 @@
 
 
     <!-- Banner -->
-    <div class="w-full">
+    <div class="w-full ">
         <!-- Overlay & Text -->
         <div class="w-full h-110 flex flex-col items-center justify-center text-white text-center"
             style="background-image: url('images/assets/banner.png'); background-repeat: no-repeat; background-position: center;">
@@ -35,7 +56,7 @@
     </div>
     <div class="w-full relative">
         <!-- Container untuk card dan hewan laut -->
-        <div class="w-full px-8 md:w-3/4 md:px-0 mx-auto relative overflow-x-hidden md:overflow-x-visible">
+        <div class="w-full px-8 md:w-3/4 md:px-0 mx-auto relative overflow-y-hidden md:overflow-y-visible overflow-x-hidden md:overflow-x-visible">
             <!-- Hewan laut dengan posisi relatif terhadap container -->
             <img src="images/assets/kura2.svg" alt="Kura-kura"
                 class="absolute w-28 md:w-36 top-16 block md:hidden -left-16 transform animate-float">
@@ -58,7 +79,7 @@
             @if($articles->count() > 0)
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                 @foreach($articles as $article)
-                <div class="w-full h-165 border-3 border-[#E8A26A] border-dashed rounded-3xl p-5 md:p-7 flex flex-col">
+                <div class="w-full rounded-lg bg-white px-[24px] py-[20px] dark:bg-darkblack-600 shadow-md border border-gray-100 dark:border-darkblack-400 hover:shadow-lg transition-all duration-200">
                     <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->title }}" class="w-full h-96 object-cover rounded-3xl">
                     <div class="px-3 mt-5">
                         <div class="flex items-center gap-2">
@@ -68,7 +89,7 @@
                             <p class="text-[#E8A26A] font-medium text-lg">{{ $article->created_at->format('d F Y') }}</p>
                         </div>
                         <h1 class="text-[#3E5467] font-semibold text-2xl mt-2" style="font-family: 'Fredoka';">{{ $article->title }}</h1>
-                        <p class="text-[#A2A2BD] mt-2">{{ Str::limit(strip_tags($article->content), 150) }}</p>
+                        <p class="text-[#A2A2BD] mt-2 truncate-description">{{ Str::limit(strip_tags($article->content), 150) }}</p>
                         <a href="{{ route('artikel.detail', ['slug' => $article->slug]) }}">
                             <div class="flex items-center group gap-2 mt-5">
                                 <p class="text-[#E8A26A] group-hover:text-[#EACDB5] text-lg font-semibold" style="font-family: 'Onest';">Lihat Artikel</p>
@@ -108,7 +129,7 @@
     </div>
     @include('components.footer-fe')
 
-    <script src="{{ asset('script.js') }}"></script>
+     <script src="{{ asset('js/script.js') }}"></script>
     </div>
 </body>
 

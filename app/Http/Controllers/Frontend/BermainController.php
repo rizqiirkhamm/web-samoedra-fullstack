@@ -4,13 +4,15 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Gallery;
 
 class BermainController extends Controller
 {
     public function index()
     {
         $bermain = $this->getBermainData();
-        return view('program.bermain', compact('bermain'));
+        $galleries = Gallery::where('category', 'Area Main')->get();
+        return view('program.bermain', compact('bermain', 'galleries'));
     }
 
     private function getBermainData()

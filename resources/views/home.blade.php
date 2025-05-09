@@ -7,6 +7,8 @@
     <title>Rumah Samoedra</title>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 
+    <link rel="icon" href="{{ asset('images/assets/logo-doang.png') }}" type="image/png">
+
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,6 +16,44 @@
         href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&family=Fredoka:wght@300..700&family=Fuzzy+Bubbles:wght@400;700&family=Onest:wght@100..900&display=swap"
         rel="stylesheet">
     <link href="{{ asset('css/public.css') }}" rel="stylesheet">
+
+    <script>
+        // Mendefinisikan fungsi toggleFAQ di awal untuk menghindari error "not defined"
+        function toggleFAQ(index) {
+            const faqItems = document.querySelectorAll(".faq-item");
+
+            faqItems.forEach((item, i) => {
+                const desc = document.getElementById(`desc-${i + 1}`);
+                const icon = document.getElementById(`icon-${i + 1}`);
+
+                if (i + 1 === index) {
+                    const isHidden = desc.classList.contains("hidden");
+
+                    if (isHidden) {
+                        desc.classList.remove("hidden");
+                        desc.style.maxHeight = desc.scrollHeight + "px";
+                    } else {
+                        desc.style.maxHeight = "0px";
+                        setTimeout(() => desc.classList.add("hidden"), 300);
+                    }
+
+                    icon.classList.toggle("rotate-180", isHidden);
+                } else {
+                    desc.style.maxHeight = "0px";
+                    setTimeout(() => desc.classList.add("hidden"), 300);
+                    icon.classList.remove("rotate-180");
+                }
+            });
+        }
+
+        // Fungsi untuk toggle testimoni
+        function toggleTestimoni(button) {
+            const card = button.closest('.testimoni-card');
+            const text = card.querySelector('.testimoni-text');
+            text.classList.toggle('expanded');
+            button.textContent = text.classList.contains('expanded') ? 'Sembunyikan' : 'Lihat Selengkapnya';
+        }
+    </script>
 </head>
 
 <body class="font-[Onest]">
@@ -116,44 +156,47 @@
                 <div
                     class="md:w-3/4 w-full px-8 md:px-0 overflow-x-auto no-scrollbar mx-auto flex flex-col items-start">
 
-                    <div class="flex flex-row gap-7 py-10 overflow-x-auto scroll-smooth" id="cards-container">
+                    <div class="flex flex-row gap-5 py-10 overflow-x-auto scroll-smooth" id="cards-container">
                         <!-- Card Template -->
-                        <div class="card-item w-80 h-96 rounded-4xl bg-white p-6 flex flex-col relative">
-                            @if($daycareData && $daycareData['banner_image'])
-                                <img src="{{ asset($daycareData['banner_image']) }}" alt="Daycare"
-                                    class="w-full h-44 rounded-3xl object-cover">
-                            @else
-                                <img src="{{ asset('images/assets/img_layanan.png') }}" alt="Daycare"
-                                    class="w-full h-44 rounded-3xl object-cover">
-                            @endif
-                            <div class="flex justify-between my-5">
-                                <h1 class="text-3xl text-[#3E5467] font-semibold" style="font-family: 'Fredoka';">Daycare</h1>
-                                <div class="px-3 py-1 rounded-xl bg-[#7BA5B0] flex items-center">
-                                    <p class="text-white" style="font-family: 'Onest';">{{ $daycareData['about_daycare']['details']['jam_operasional'] ?? '08.00 - 15.00' }}</p>
-                                </div>
-                            </div>
-                            <p class="text-[#A2A2BD] flex-grow">
-                                @if($daycareData && $daycareData['kelebihan_daycare'])
-                                    {{ \Str::limit($daycareData['kelebihan_daycare'], 100, '...') }}
+                        <a href="{{route('program.daycare')}}">
+                            <div class="card-item w-[360px] h-96 rounded-4xl bg-white p-6 flex flex-col relative">
+                                @if($daycareData && $daycareData['banner_image'])
+                                    <img src="{{ asset($daycareData['banner_image']) }}" alt="Daycare"
+                                        class="w-full h-44 rounded-3xl object-cover">
                                 @else
-                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic assumenda ut illo.
+                                    <img src="{{ asset('images/assets/img_layanan.png') }}" alt="Daycare"
+                                        class="w-full h-44 rounded-3xl object-cover">
                                 @endif
-                            </p>
-
-                            <!-- Button Next -->
-                            <a href="{{ route('program.daycare') }}">
-                                <div
-                                    class="absolute left-1/2 -translate-x-1/2 -bottom-7 p-4 w-14 h-14 hover:bg-[#F3EEE6] transition-all duration-300 bg-[#E8A26A] rounded-2xl flex items-center justify-center">
-                                    <svg width="25" height="21" viewBox="0 0 26 22" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M14.8333 2L24 11M24 11L14.8333 20M24 11H2" stroke="white" stroke-width="3"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
+                                <div class="flex justify-between my-5">
+                                    <h1 class="text-3xl text-[#3E5467] font-semibold" style="font-family: 'Fredoka';">Daycare</h1>
+                                    <div class="px-3 py-1 rounded-xl bg-[#7BA5B0] flex items-center">
+                                        <p class="text-white" style="font-family: 'Onest';">{{ $daycareData['about_daycare']['details']['jam_operasional'] ?? '08.00 - 15.00' }}</p>
+                                    </div>
                                 </div>
-                            </a>
-                        </div>
+                                <p class="text-[#A2A2BD] flex-grow">
+                                    @if($daycareData && $daycareData['kelebihan_daycare'])
+                                        {{ \Str::limit($daycareData['kelebihan_daycare'], 100, '...') }}
+                                    @else
+                                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic assumenda ut illo.
+                                    @endif
+                                </p>
 
-                        <div class="card-item w-80 h-96 rounded-4xl bg-white p-6 flex flex-col relative">
+                                <!-- Button Next -->
+                                <a href="{{ route('program.daycare') }}">
+                                    <div
+                                        class="absolute left-1/2 -translate-x-1/2 -bottom-7 p-4 w-14 h-14 hover:bg-[#F3EEE6] transition-all duration-300 bg-[#E8A26A] rounded-2xl flex items-center justify-center">
+                                        <svg width="25" height="21" viewBox="0 0 26 22" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M14.8333 2L24 11M24 11L14.8333 20M24 11H2" stroke="white" stroke-width="3"
+                                                stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </div>
+                                </a>
+                            </div>
+                        </a>
+
+                       <a href="{{route('program.bermain')}}">
+                        <div class="card-item w-[360px] h-96 rounded-4xl bg-white p-6 flex flex-col relative">
                             @if($bermainData && $bermainData['banner_image'])
                                 <img src="{{ asset('storage/' . $bermainData['banner_image']) }}" alt="Area Main"
                                     class="w-full h-44 rounded-3xl object-cover">
@@ -188,8 +231,10 @@
                                 </div>
                             </a>
                         </div>
+                       </a>
 
-                        <div class="card-item w-80 h-96 rounded-4xl bg-white p-6 flex flex-col relative">
+                     <a href="{{route('program.bimbel')}}">
+                        <div class="card-item w-[360px] h-96 rounded-4xl bg-white p-6 flex flex-col relative">
                             @if($bimbelData && $bimbelData['banner_image'])
                                 <img src="{{ asset($bimbelData['banner_image']) }}" alt="Bimbel"
                                     class="w-full h-44 rounded-3xl object-cover">
@@ -223,17 +268,19 @@
                                 </div>
                             </a>
                         </div>
+                     </a>
 
-                        <div class="card-item w-80 h-96 rounded-4xl bg-white p-6 flex flex-col relative">
+                    <a href="{{route('program.stimulasi')}}">
+                        <div class="card-item w-[360px] h-96 rounded-4xl bg-white p-6 flex flex-col relative">
                             @if($stimulasiData && $stimulasiData['banner_image'])
-                                <img src="{{ asset($stimulasiData['banner_image']) }}" alt="Stimulasi"
+                                <img src="{{ asset(Str::startsWith($stimulasiData['banner_image'], 'images/') ? $stimulasiData['banner_image'] : 'storage/' . $stimulasiData['banner_image']) }}" alt="Stimulasi"
                                     class="w-full h-44 rounded-3xl object-cover">
                             @else
                                 <img src="{{ asset('images/assets/img_layanan.png') }}" alt="Stimulasi"
                                     class="w-full h-44 rounded-3xl object-cover">
                             @endif
                             <div class="flex justify-between my-5">
-                                <h1 class="text-3xl text-[#3E5467] font-semibold" style="font-family: 'Fredoka';">Stimulasi</h1>
+                                <h1 class="text-3xl text-[#3E5467] font-semibold" style="font-family: 'Fredoka';"> Kls Stimulasi</h1>
                                 <div class="px-3 py-1 rounded-xl bg-[#7BA5B0] flex items-center">
                                     <p class="text-white" style="font-family: 'Onest';">{{ $stimulasiData['about_stimulasi']['details']['jam_operasional'] ?? '08.00 - 15.00' }}</p>
                                 </div>
@@ -258,8 +305,10 @@
                                 </div>
                             </a>
                         </div>
+                    </a>
 
-                        <div class="card-item w-80 h-96 rounded-4xl bg-white p-6 flex flex-col relative">
+                    <a href="{{route('program.event')}}">
+                        <div class="card-item w-[360px] h-96 rounded-4xl bg-white p-6 flex flex-col relative">
                             @if($eventData && isset($eventData['events']) && count($eventData['events']) > 0)
                                 @php
                                     $latestEvent = $eventData['events'][0];
@@ -316,6 +365,7 @@
                                 </div>
                             </a>
                         </div>
+                    </a>
                     </div>
                     <div class="w-full items-start justify-start flex ">
                         <p class="text-left text-[#A2A2BD] mt-1.5" style="font-family: 'Fuzzy Bubbles';">Tips : Scroll
@@ -325,7 +375,10 @@
             </div>
         </div>
         <!-- Stats Section -->
-        <div class="w-full xl:w-3/4 min-h-screen px-4 mx-auto flex items-center justify-center py-20 lg:py-0">
+        <div class="w-full xl:w-3/4 min-h-screen px-4 mx-auto flex-col flex items-center justify-center py-20 lg:py-0">
+            <p class="text-[#E8A26A] text-xl" style="font-family: 'Fuzzy Bubbles', cursive;">Jumlah Anak</p>
+            <h1 class="text-[#3E5467] text-2xl md:text-4xl text-center font-semibold pb-20" style="font-family: 'Fredoka';">
+                Para Petualang Samoedra</h1>
             <div class="relative w-full  px-8 ">
                 <!-- Background Vector -->
                 <div class="absolute top-0 left-0 w-full h-full  -z-10">
@@ -372,57 +425,57 @@
                         <div class="relative z-30 flex flex-col gap-6 text-center ">
                             <div class="flex flex-col md:flex-row justify-center items-center mb-6 gap-6">
                                 <div class="flex flex-col items-center justify-center gap-3">
-                                    <p class="text-5xl sm:text-6xl xl:text-7xl font-bold text-[#7BA5B0]"
+                                    <p class="text-5xl md:text-6xl xl:text-7xl font-bold text-[#7BA5B0]"
                                         style="font-family: 'Fredericka the Great';">{{ $total_daycare  }}</p>
-                                    <p class="font-semibold text-[#3E5467] text-xl sm:text-2xl"
+                                    <p class="font-semibold text-[#3E5467] text-xl md:text-2xl"
                                         style="font-family: 'Fredoka';">
                                         {{ $statistik->daycare_title ?? 'Anak Di Daycare' }}</p>
-                                    <p class="text-[#A2A2BD] max-w-60 sm:max-w-72 sm:text-base">
+                                    <p class="text-[#A2A2BD] max-w-60 md:max-w-72 md:text-base">
                                         {{ $statistik->daycare_description ?? 'Deskripsi daycare belum tersedia' }}</p>
                                 </div>
                                 <div class="hidden md:block w-1 h-44 border-dashed border-r-2 border-[#C0C0CE]"></div>
 
                                 <div class="flex flex-col items-center justify-center gap-3">
-                                    <p class="text-5xl sm:text-6xl xl:text-7xl font-bold text-[#7BA5B0]"
+                                    <p class="text-5xl md:text-6xl xl:text-7xl font-bold text-[#7BA5B0]"
                                         style="font-family: 'Fredericka the Great';">{{ $total_bermain  }}</p>
-                                    <p class="font-semibold text-[#3E5467] text-xl sm:text-2xl"
+                                    <p class="font-semibold text-[#3E5467] text-xl md:text-2xl"
                                         style="font-family: 'Fredoka';">
                                         {{ $statistik->bermain_title ?? 'Anak Bermain' }}</p>
-                                    <p class="text-[#A2A2BD] max-w-60 sm:max-w-72 sm:text-base">
+                                    <p class="text-[#A2A2BD] max-w-60 md:max-w-72 md:text-base">
                                         {{ $statistik->bermain_description ?? 'Deskripsi bermain belum tersedia' }}</p>
                                 </div>
                                 <div class="hidden md:block w-1 h-44 border-dashed border-r-2 border-[#C0C0CE]"></div>
 
                                 <div class="flex flex-col items-center justify-center gap-3">
-                                    <p class="text-5xl sm:text-6xl xl:text-7xl font-bold text-[#7BA5B0]"
+                                    <p class="text-5xl md:text-6xl xl:text-7xl font-bold text-[#7BA5B0]"
                                         style="font-family: 'Fredericka the Great';">{{ $total_bimbel  }}</p>
-                                    <p class="font-semibold text-[#3E5467] text-xl sm:text-2xl"
+                                    <p class="font-semibold text-[#3E5467] text-xl md:text-2xl"
                                         style="font-family: 'Fredoka';">
                                         {{ $statistik->bimbel_title ?? 'Peserta Bimbel' }}</p>
-                                    <p class="text-[#A2A2BD] max-w-60 sm:max-w-72 sm:text-base">
+                                    <p class="text-[#A2A2BD] max-w-60 md:max-w-72 md:text-base">
                                         {{ $statistik->bimbel_description ?? 'Deskripsi bimbel belum tersedia' }}</p>
                                 </div>
                             </div>
 
                             <div class="flex flex-col md:flex-row justify-center items-center gap-6">
                                 <div class="flex flex-col items-center justify-center gap-3">
-                                    <p class="text-5xl sm:text-6xl xl:text-7xl font-bold text-[#7BA5B0]"
+                                    <p class="text-5xl md:text-6xl xl:text-7xl font-bold text-[#7BA5B0]"
                                         style="font-family: 'Fredericka the Great';">{{ $total_stimulasi  }}</p>
-                                    <p class="font-semibold text-[#3E5467] text-xl sm:text-2xl"
+                                    <p class="font-semibold text-[#3E5467] text-xl md:text-2xl"
                                         style="font-family: 'Fredoka';">
                                         {{ $statistik->stimulasi_title ?? 'Peserta Kelas Stimulasi' }}</p>
-                                    <p class="text-[#A2A2BD] max-w-60 sm:max-w-72 sm:text-base">
+                                    <p class="text-[#A2A2BD] max-w-60 md:max-w-72 md:text-base">
                                         {{ $statistik->stimulasi_description ?? 'Deskripsi stimulasi belum tersedia' }}
                                     </p>
                                 </div>
                                 <div class="hidden md:block w-1 h-44 border-dashed border-r-2 border-[#C0C0CE]"></div>
 
                                 <div class="flex flex-col items-center justify-center gap-3">
-                                    <p class="text-5xl sm:text-6xl xl:text-7xl font-bold text-[#7BA5B0]"
+                                    <p class="text-5xl md:text-6xl xl:text-7xl font-bold text-[#7BA5B0]"
                                         style="font-family: 'Fredericka the Great';">{{ $total_event  }}</p>
-                                    <p class="font-semibold text-[#3E5467] text-xl sm:text-2xl"
+                                    <p class="font-semibold text-[#3E5467] text-xl md:text-2xl"
                                         style="font-family: 'Fredoka';">{{ $statistik->event_title ?? 'Event' }}</p>
-                                    <p class="text-[#A2A2BD] max-w-60 sm:max-w-72 sm:text-base">
+                                    <p class="text-[#A2A2BD] max-w-60 md:max-w-72 md:text-base">
                                         {{ $statistik->event_description ?? 'Deskripsi event belum tersedia' }}</p>
                                 </div>
                             </div>
@@ -433,12 +486,11 @@
         </div>
 
         <!-- Testimonial Section -->
-        <div class="w-full px-8 md:w-3/4 md:px-0 mx-auto">
+        <div class="w-full px-8 md:w-3/4 md:px-0 mx-auto mt-24">
             <div class="text-center">
                 <p class="text-[#E8A26A] text-xl" style="font-family: 'Fuzzy Bubbles', cursive;">Testimonial</p>
-                <h1 class="text-[#3E5467] text-3xl md:text-4xl font-semibold" style="font-family: 'Fredoka';">Cerita
-                    Mereka Main
-                    Di Samoedra</h1>
+                <h1 class="text-[#3E5467] text-2xl md:text-4xl font-semibold" style="font-family: 'Fredoka';">
+                    Cerita Mereka Tentang Samoedra</h1>
             </div>
 
             <div class="mt-10 overflow-x-auto flex space-x-6 no-scrollbar">
@@ -479,7 +531,7 @@
                                     {{ $testimoni->testimoni }}
                                 </p>
                             </div>
-                            @if(strlen($testimoni->testimoni) > 80)
+                            @if(strlen($testimoni->testimoni) > 70)
                             <button class="text-[#E8A26A] font-semibold mt-2 testimoni-toggle"
                                 onclick="toggleTestimoni(this)">
                                 Lihat Selengkapnya
@@ -571,46 +623,75 @@
     </section>
 
 
-    <script src="{{ asset('js/script.js') }}"></script>
-
-    <style>
-        .testimoni-card {
-            transition: height 0.3s ease-in-out;
-        }
-
-        .testimoni-text {
-            display: -webkit-box;
-            -webkit-line-clamp: 4;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .testimoni-text.expanded {
-            -webkit-line-clamp: unset;
-            display: block;
-        }
-
-    </style>
-
-    @push('scripts')
     <script>
-        function toggleTestimoni(button) {
-            const card = button.closest('.testimoni-card');
-            const text = card.querySelector('.testimoni-text');
+        const mobileMenuTrigger = document.getElementById('mobile-menu-trigger');
+        const menuButton = document.getElementById('menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const hamburgerIcon = document.getElementById('hamburger-icon');
+        const closeIcon = document.getElementById('close-icon');
 
-            text.classList.toggle('expanded');
+        // Trigger untuk membuka menu
+        mobileMenuTrigger.addEventListener('click', () => {
+            mobileMenu.classList.remove('-translate-x-full');
+            hamburgerIcon.classList.add('hidden');
+            closeIcon.classList.remove('hidden');
+        });
 
-            if (text.classList.contains('expanded')) {
-                button.textContent = 'Sembunyikan';
-            } else {
-                button.textContent = 'Lihat Selengkapnya';
-            }
-        }
+        // Trigger untuk menutup menu
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.add('-translate-x-full');
+            hamburgerIcon.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
+        });
 
+        // Menutup menu saat link diklik
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('-translate-x-full');
+                hamburgerIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            });
+        });
+
+        // Mobile dropdown functionality
+        const mobileDropdownTrigger = document.getElementById('mobile-dropdown-trigger');
+        const mobileDropdownContent = document.getElementById('mobile-dropdown-content');
+        const dropdownArrow = mobileDropdownTrigger.querySelector('svg');
+
+        mobileDropdownTrigger.addEventListener('click', () => {
+            mobileDropdownContent.classList.toggle('hidden');
+            dropdownArrow.classList.toggle('rotate-180');
+        });
+
+        // Menutup dropdown saat link di dalamnya diklik
+        mobileDropdownContent.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileDropdownContent.classList.add('hidden');
+                dropdownArrow.classList.remove('rotate-180');
+                // Menutup mobile menu juga
+                mobileMenu.classList.add('-translate-x-full');
+                hamburgerIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            });
+        });
+
+        // Fungsi toggleFAQ telah dipindahkan ke tag head untuk memastikan tersedia di semua tempat
     </script>
-    @endpush
 
+<style>
+    .testimoni-text {
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .testimoni-text.expanded {
+        -webkit-line-clamp: unset;
+        display: block;
+    }
+</style>
 </body>
 
 </html>

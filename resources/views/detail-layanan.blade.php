@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Layanan Daycare</title>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link rel="icon" href="{{ asset('images/assets/logo-doang.png') }}" type="image/png">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
