@@ -79,7 +79,7 @@
             @if($articles->count() > 0)
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                 @foreach($articles as $article)
-                <div class="w-full rounded-lg bg-white px-[24px] py-[20px] dark:bg-darkblack-600 shadow-md border border-gray-100 dark:border-darkblack-400 hover:shadow-lg transition-all duration-200">
+                <div class="w-full rounded-3xl bg-white px-[24px] py-[20px] dark:bg-darkblack-600 border-3 border-[#E8A26A] border-dashed hover:shadow-lg transition-all duration-200">
                     <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->title }}" class="w-full h-96 object-cover rounded-3xl">
                     <div class="px-3 mt-5">
                         <div class="flex items-center gap-2">
