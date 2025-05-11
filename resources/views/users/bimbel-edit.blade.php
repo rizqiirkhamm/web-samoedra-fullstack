@@ -171,7 +171,7 @@
                                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Gambar Banner</label>
                                 <div class="flex items-center space-x-4">
                                     @if(isset($bimbel['banner_image']))
-                                        <img src="{{ asset('storage/' . $bimbel['banner_image']) }}" alt="Banner Preview" class="image-preview mb-2">
+                                        <img src="{{ asset($bimbel['banner_image']) }}" alt="Banner Preview" class="image-preview mb-2">
                                     @endif
                                     <input type="file" name="banner_image" id="banner_image" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-bgray-300 focus:outline-none dark:bg-darkblack-500 dark:border-darkblack-400" accept="image/*">
                                 </div>

@@ -187,14 +187,13 @@ class BimbelEditController extends Controller
             }
 
             return redirect()->route('bimbel.edit')->with('success', 'Data bimbel berhasil diperbarui');
-
         } catch (\Exception $e) {
 
             return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui data')->withInput();
         }
     }
 
-    private function getBimbelData()
+    public function getBimbelData()
     {
         $jsonPath = storage_path('app/public/bimbel/data.json');
 
@@ -202,18 +201,18 @@ class BimbelEditController extends Controller
             $data = json_decode(file_get_contents($jsonPath), true);
 
             // Pastikan semua path gambar memiliki prefix yang benar
-            if (isset($data['banner_image']) && !str_starts_with($data['banner_image'], 'storage/')) {
-                $data['banner_image'] = str_replace('images/', 'storage/images/', $data['banner_image']);
+            if (isset($data['banner_image'])) {
+                $data['banner_image'] = str_replace('storage/storage/', 'storage/', $data['banner_image']);
             }
 
-            if (isset($data['program_image']) && !str_starts_with($data['program_image'], 'storage/')) {
-                $data['program_image'] = str_replace('images/', 'storage/images/', $data['program_image']);
+            if (isset($data['program_image'])) {
+                $data['program_image'] = str_replace('storage/storage/', 'storage/', $data['program_image']);
             }
 
             if (isset($data['facilities'])) {
                 foreach ($data['facilities'] as &$facility) {
-                    if (isset($facility['image']) && !str_starts_with($facility['image'], 'storage/')) {
-                        $facility['image'] = str_replace('images/', 'storage/images/', $facility['image']);
+                    if (isset($facility['image'])) {
+                        $facility['image'] = str_replace('storage/storage/', 'storage/', $facility['image']);
                     }
                 }
             }
