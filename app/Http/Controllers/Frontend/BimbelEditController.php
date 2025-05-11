@@ -150,7 +150,7 @@ class BimbelEditController extends Controller
                     } else {
                         // Gunakan gambar yang sudah ada jika tersedia
                         $facilityData['image'] = isset($oldData['facilities'][$index]['image'])
-                            ? $oldData['facilities'][$index]['image']
+                            ? str_replace('storage/storage/', 'storage/', $oldData['facilities'][$index]['image'])
                             : 'images/assets/img_layanan.png';
                     }
 
@@ -200,19 +200,23 @@ class BimbelEditController extends Controller
         if (file_exists($jsonPath)) {
             $data = json_decode(file_get_contents($jsonPath), true);
 
-            // Pastikan semua path gambar memiliki prefix yang benar
+            // Bersihkan semua path gambar dari duplikasi storage
+            $cleanPath = function ($path) {
+                return str_replace('storage/storage/', 'storage/', $path);
+            };
+
             if (isset($data['banner_image'])) {
-                $data['banner_image'] = str_replace('storage/storage/', 'storage/', $data['banner_image']);
+                $data['banner_image'] = $cleanPath($data['banner_image']);
             }
 
             if (isset($data['program_image'])) {
-                $data['program_image'] = str_replace('storage/storage/', 'storage/', $data['program_image']);
+                $data['program_image'] = $cleanPath($data['program_image']);
             }
 
             if (isset($data['facilities'])) {
                 foreach ($data['facilities'] as &$facility) {
                     if (isset($facility['image'])) {
-                        $facility['image'] = str_replace('storage/storage/', 'storage/', $facility['image']);
+                        $facility['image'] = $cleanPath($facility['image']);
                     }
                 }
             }

@@ -327,7 +327,7 @@
                                             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-bgray-50">Gambar Fasilitas</label>
                                             @if(isset($facility['image']))
                                             <div class="mb-2">
-                                                <img src="{{ asset('storage/' . $facility['image']) }}" alt="{{ $facility['title'] }}" class="image-preview">
+                                                <img src="{{ asset($facility['image']) }}" alt="{{ $facility['title'] }}" class="image-preview">
                                             </div>
                                             @endif
                                             <input type="file" name="facility_items[{{ $index }}][image]" class="facility-image-input block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-bgray-300 focus:outline-none dark:bg-darkblack-500 dark:border-darkblack-400" accept="image/*" onchange="previewImage(this)">
